@@ -1,0 +1,9 @@
+schema_version: 1
+name: unsupported-area-field
+model: ospf_spf_v1
+area: 0
+routers: [{id: a, router_id: 0.0.0.1}]
+links: []
+prefixes: [{prefix: 10.0.0.0/24, origin: a, stub_cost: 1}]
+events: []
+assertions: []

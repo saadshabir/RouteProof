@@ -1,0 +1,22 @@
+schema_version: 1
+name: canonical-equivalence
+model: ospf_spf_v1
+routers:
+  - {id: c, router_id: 0.0.0.3, initial_state: up}
+  - {id: b, router_id: 0.0.0.2, initial_state: up}
+  - {id: a, router_id: 0.0.0.1, initial_state: up}
+links:
+  - {id: bc, a: c, b: b, cost_ab: 4, cost_ba: 2, initial_state: up}
+  - {id: ab-2, a: b, b: a, cost_ab: 13, cost_ba: 11, initial_state: down}
+  - {id: ab-1, a: b, b: a, cost_ab: 9, cost_ba: 7, initial_state: up}
+prefixes:
+  - {prefix: 10.9.0.3/32, origin: b, stub_cost: 7}
+  - {prefix: 10.7.0.0/24, origin: a, stub_cost: 5}
+  - {prefix: 10.8.0.0/24, origin: c, stub_cost: 3}
+events:
+  - {id: take-c-down, seq: 2, at_ns: 20, type: router_down, router: c}
+  - {id: take-ab-2-up, seq: 1, at_ns: 10, type: link_up, link: ab-2}
+assertions:
+  - {id: c-to-a, type: must_reach, source: c, destination: 10.7.0.42, quantifier: all, scope: every_snapshot}
+  - {id: a-to-b, type: must_reach, source: a, destination: 10.9.0.3, quantifier: all, scope: every_snapshot}
+  - {id: a-to-c, type: must_reach, source: a, destination: 10.8.0.5, quantifier: all, scope: every_snapshot}

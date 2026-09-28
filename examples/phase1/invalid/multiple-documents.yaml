@@ -1,0 +1,17 @@
+schema_version: 1
+name: first-document
+model: ospf_spf_v1
+routers: [{id: a, router_id: 0.0.0.1}]
+links: []
+prefixes: [{prefix: 10.0.0.0/24, origin: a, stub_cost: 1}]
+events: []
+assertions: []
+---
+schema_version: 1
+name: second-document
+model: ospf_spf_v1
+routers: [{id: a, router_id: 0.0.0.1}]
+links: []
+prefixes: [{prefix: 10.1.0.0/24, origin: a, stub_cost: 1}]
+events: []
+assertions: []

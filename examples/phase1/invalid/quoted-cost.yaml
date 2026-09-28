@@ -1,0 +1,10 @@
+schema_version: 1
+name: quoted-cost-is-a-string
+model: ospf_spf_v1
+routers:
+  - {id: a, router_id: 0.0.0.1}
+  - {id: b, router_id: 0.0.0.2}
+links: [{id: ab, a: a, b: b, cost_ab: "1", cost_ba: 1}]
+prefixes: [{prefix: 10.0.0.0/24, origin: b, stub_cost: 1}]
+events: []
+assertions: []

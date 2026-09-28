@@ -1,0 +1,8 @@
+schema_version: 1
+name: unresolved-endpoint
+model: ospf_spf_v1
+routers: [{id: a, router_id: 0.0.0.1}]
+links: [{id: ax, a: a, b: missing, cost_ab: 1, cost_ba: 1}]
+prefixes: [{prefix: 10.0.0.0/24, origin: a, stub_cost: 1}]
+events: []
+assertions: []

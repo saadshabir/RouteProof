@@ -1,0 +1,276 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:routeproof:result:1",
+  "title": "RouteProof canonical result schema v1",
+  "description": "Stable, host-independent simulation output. Timing and host provenance belong in run.json.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "model",
+    "scenario_name",
+    "scenario_sha256",
+    "canonical_sha256",
+    "status",
+    "events",
+    "snapshots",
+    "assertions"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "model": { "const": "ospf_spf_v1" },
+    "scenario_name": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "scenario_sha256": { "$ref": "#/$defs/sha256" },
+    "canonical_sha256": { "$ref": "#/$defs/sha256" },
+    "status": { "enum": ["pass", "fail", "incomplete"] },
+    "events": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/event_result" }
+    },
+    "snapshots": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/snapshot" }
+    },
+    "assertions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/assertion_result" }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "ipv4_prefix": {
+      "type": "string",
+      "maxLength": 18,
+      "pattern": "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}/(?:[1-9]|[12][0-9]|3[0-2])$"
+    },
+    "next_hop": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["neighbor", "link", "interface"],
+      "properties": {
+        "neighbor": { "$ref": "#/$defs/id" },
+        "link": { "$ref": "#/$defs/id" },
+        "interface": { "type": "string", "minLength": 1, "maxLength": 129 }
+      }
+    },
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["router", "prefix", "origin", "kind", "metric", "next_hops"],
+      "properties": {
+        "router": { "$ref": "#/$defs/id" },
+        "prefix": { "$ref": "#/$defs/ipv4_prefix" },
+        "origin": { "$ref": "#/$defs/id" },
+        "kind": { "enum": ["connected", "ospf"] },
+        "metric": { "type": "integer", "minimum": 0, "maximum": 16777214 },
+        "next_hops": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/next_hop" }
+        }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "kind": { "const": "connected" },
+            "metric": { "const": 0 },
+            "next_hops": { "maxItems": 0 }
+          }
+        },
+        {
+          "properties": {
+            "kind": { "const": "ospf" },
+            "metric": { "minimum": 1 },
+            "next_hops": { "minItems": 1 }
+          }
+        }
+      ]
+    },
+    "event_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "sequence", "type", "disposition", "snapshot_sha256"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "sequence": { "type": "integer", "minimum": 1, "maximum": 9223372036854775807 },
+        "type": { "enum": ["link_down", "link_up", "router_down", "router_up"] },
+        "disposition": { "enum": ["applied", "noop"] },
+        "snapshot_sha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "sequence",
+        "event_id",
+        "sha256",
+        "available_routers",
+        "administratively_up_links",
+        "routes"
+      ],
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "sequence": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "integer", "minimum": 1, "maximum": 9223372036854775807 }
+          ]
+        },
+        "event_id": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/id" }
+          ]
+        },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "available_routers": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "administratively_up_links": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "routes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/route" }
+        }
+      }
+    },
+    "path_step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["router", "next_hop"],
+      "properties": {
+        "router": { "$ref": "#/$defs/id" },
+        "next_hop": {
+          "oneOf": [
+            { "$ref": "#/$defs/next_hop" },
+            { "type": "object", "additionalProperties": false, "required": ["action"], "properties": { "action": { "enum": ["deliver", "source_down", "destination_down", "no_route", "link_down", "next_hop_down", "loop", "incomplete"] } } }
+          ]
+        }
+      }
+    },
+    "frontier_evidence": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "link", "state"],
+          "properties": {
+            "kind": { "const": "link" },
+            "link": { "$ref": "#/$defs/id" },
+            "state": { "enum": ["administratively_down", "endpoint_unavailable"] }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "router", "state"],
+          "properties": {
+            "kind": { "const": "router" },
+            "router": { "$ref": "#/$defs/id" },
+            "state": { "const": "unavailable" }
+          }
+        }
+      ]
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assertion_id",
+        "kind",
+        "source",
+        "destination",
+        "destination_prefix",
+        "ecmp_quantifier",
+        "event_id",
+        "sequence",
+        "scenario_sha256",
+        "result_sha256",
+        "snapshot_sha256",
+        "path",
+        "message",
+        "terminal_reason",
+        "reproduction_argv"
+      ],
+      "properties": {
+        "assertion_id": { "$ref": "#/$defs/id" },
+        "kind": { "enum": ["source_down", "destination_down", "no_route", "link_down", "next_hop_down", "loop", "incomplete"] },
+        "source": { "$ref": "#/$defs/id" },
+        "destination": { "type": "string", "format": "ipv4" },
+        "destination_prefix": { "$ref": "#/$defs/ipv4_prefix" },
+        "ecmp_quantifier": { "const": "all" },
+        "message": { "type": "string", "minLength": 1, "maxLength": 1024 },
+        "event_id": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/id" }
+          ]
+        },
+        "sequence": {
+          "oneOf": [
+            { "type": "null" },
+            { "type": "integer", "minimum": 1, "maximum": 9223372036854775807 }
+          ]
+        },
+        "scenario_sha256": { "$ref": "#/$defs/sha256" },
+        "result_sha256": { "$ref": "#/$defs/sha256" },
+        "snapshot_sha256": { "$ref": "#/$defs/sha256" },
+        "path": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/path_step" }
+        },
+        "terminal_reason": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "unreachable_origin": { "$ref": "#/$defs/id" },
+        "reachable_component": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/id" }
+        },
+        "frontier": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/frontier_evidence" }
+        },
+        "reproduction_argv": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "assertion_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["assertion_id", "snapshot_id", "snapshot_sha256", "status", "findings"],
+      "properties": {
+        "assertion_id": { "$ref": "#/$defs/id" },
+        "snapshot_id": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "snapshot_sha256": { "$ref": "#/$defs/sha256" },
+        "status": { "enum": ["pass", "fail", "incomplete"] },
+        "findings": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/finding" }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "pass" } }, "required": ["status"] },
+          "then": { "properties": { "findings": { "maxItems": 0 } } },
+          "else": { "properties": { "findings": { "minItems": 1 } } }
+        }
+      ]
+    }
+  }
+}

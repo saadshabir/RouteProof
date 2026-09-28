@@ -1,0 +1,12 @@
+!!map
+schema_version: !!int 1
+name: !!str on
+model: !!str ospf_spf_v1
+routers: !!seq
+  - !!map {id: !!str 123, router_id: !!str 0.0.0.1}
+links: !!seq []
+prefixes: !!seq
+  - !!map {prefix: !!str 0.0.0.0/1, origin: !!str 123, stub_cost: !!int 1}
+events: !!seq []
+assertions: !!seq
+  - !!map {id: reach, type: must_reach, source: !!str 123, destination: 10.0.0.1, quantifier: all, scope: every_snapshot}

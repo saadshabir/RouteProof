@@ -1,0 +1,8 @@
+schema_version: 1
+name: mapping-tagged-as-sequence
+model: ospf_spf_v1
+routers: [!!seq {id: a, router_id: 0.0.0.1}]
+links: []
+prefixes: [{prefix: 10.0.0.0/24, origin: a, stub_cost: 1}]
+events: []
+assertions: []

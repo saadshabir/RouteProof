@@ -1,0 +1,12 @@
+schema_version: 1
+name: event-order
+model: ospf_spf_v1
+routers:
+  - {id: a, router_id: 0.0.0.1}
+  - {id: b, router_id: 0.0.0.2}
+links: [{id: ab, a: a, b: b, cost_ab: 1, cost_ba: 1}]
+prefixes: [{prefix: 10.0.0.0/24, origin: a, stub_cost: 1}]
+events:
+  - {id: second, seq: 2, at_ns: 10, type: link_up, link: ab}
+  - {id: first, seq: 1, at_ns: 20, type: link_down, link: ab}
+assertions: []

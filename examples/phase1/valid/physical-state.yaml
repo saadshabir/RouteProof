@@ -1,0 +1,14 @@
+schema_version: 1
+name: asymmetric-parallel-physical-state
+model: ospf_spf_v1
+routers:
+  - {id: left, router_id: 192.0.2.1, initial_state: up}
+  - {id: right, router_id: 192.0.2.2, initial_state: down}
+links:
+  - {id: p2p-1, a: left, b: right, cost_ab: 5, cost_ba: 17, initial_state: up}
+  - {id: p2p-2, a: right, b: left, cost_ab: 23, cost_ba: 7, initial_state: down}
+prefixes:
+  - {prefix: 198.51.100.0/24, origin: right, stub_cost: 9}
+  - {prefix: 203.0.113.7/32, origin: left, stub_cost: 3}
+events: []
+assertions: []

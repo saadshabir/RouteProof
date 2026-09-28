@@ -1,0 +1,97 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 25,
+    "patch": 2
+  },
+  "configurePresets": [
+    {
+      "name": "gcc-debug",
+      "displayName": "Debug with GNU GCC",
+      "description": "Set ROUTEPROOF_GCC_CXX to the GNU C++ compiler path.",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/gcc-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_COMPILER": "$env{ROUTEPROOF_GCC_CXX}",
+        "ROUTEPROOF_EXPECTED_COMPILER_ID": "GNU"
+      }
+    },
+    {
+      "name": "clang-debug",
+      "displayName": "Debug with upstream Clang",
+      "description": "Set ROUTEPROOF_CLANG_CXX to the upstream Clang C++ compiler path.",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/clang-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_COMPILER": "$env{ROUTEPROOF_CLANG_CXX}",
+        "ROUTEPROOF_EXPECTED_COMPILER_ID": "Clang"
+      }
+    },
+    {
+      "name": "host-debug",
+      "displayName": "Debug with the host C++ compiler",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/host-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "linux-gcc-debug",
+      "displayName": "Linux Debug with GCC",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/linux-gcc-debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_COMPILER": "g++",
+        "ROUTEPROOF_EXPECTED_COMPILER_ID": "GNU"
+      }
+    },
+    {
+      "name": "linux-clang-debug",
+      "displayName": "Linux Debug with Clang",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/linux-clang-debug",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_COMPILER": "clang++",
+        "ROUTEPROOF_EXPECTED_COMPILER_ID": "Clang"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "gcc-debug",
+      "configurePreset": "gcc-debug"
+    },
+    {
+      "name": "clang-debug",
+      "configurePreset": "clang-debug"
+    },
+    {
+      "name": "host-debug",
+      "configurePreset": "host-debug"
+    },
+    {
+      "name": "linux-gcc-debug",
+      "configurePreset": "linux-gcc-debug"
+    },
+    {
+      "name": "linux-clang-debug",
+      "configurePreset": "linux-clang-debug"
+    }
+  ]
+}

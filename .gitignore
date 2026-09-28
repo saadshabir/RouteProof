@@ -1,0 +1,4 @@
+/build/
+/results/
+/CMakeUserPresets.json
+.DS_Store

@@ -1,0 +1,1 @@
+PASS constructed topology: directional parallel arcs, endpoint interfaces, independent router/link state, and prefix ownership
