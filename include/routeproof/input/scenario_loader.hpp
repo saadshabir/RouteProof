@@ -2,12 +2,21 @@
 
 #include "routeproof/model/topology.hpp"
 
+#include <cstddef>
 #include <filesystem>
 #include <stdexcept>
 #include <string>
 #include <string_view>
 
 namespace routeproof::input {
+
+struct InputLimits {
+    std::size_t max_bytes{16U * 1024U * 1024U};
+    std::size_t max_nodes{1'000'000U};
+    std::size_t max_collection_entries{100'000U};
+    std::size_t max_scalar_bytes{64U * 1024U};
+    std::size_t max_nesting{128U};
+};
 
 class InputError final : public std::runtime_error {
 public:
@@ -31,8 +40,10 @@ struct LoadedScenario {
     std::string scenario_sha256;
 };
 
-[[nodiscard]] LoadedScenario load_scenario(const std::filesystem::path& path);
+[[nodiscard]] LoadedScenario load_scenario(const std::filesystem::path& path,
+                                          const InputLimits& limits = {});
 [[nodiscard]] LoadedScenario parse_scenario(std::string_view text,
-                                            std::string source = "<input>");
+                                            std::string source = "<input>",
+                                            const InputLimits& limits = {});
 
 }  // namespace routeproof::input

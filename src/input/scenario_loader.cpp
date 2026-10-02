@@ -1,15 +1,15 @@
 #include "routeproof/input/scenario_loader.hpp"
+#include "document.hpp"
 
-#include <yaml-cpp/yaml.h>
 #include <nlohmann/json.hpp>
 #include <picosha2.h>
 
 #include <algorithm>
+#include <array>
 #include <charconv>
-#include <cctype>
 #include <cstdint>
-#include <cstdlib>
 #include <fstream>
+#include <iterator>
 #include <limits>
 #include <map>
 #include <set>
@@ -24,13 +24,14 @@ namespace routeproof::input {
 namespace {
 
 using Json = nlohmann::json;
-using Node = YAML::Node;
+using Node = detail::Node;
+using detail::scalar_string;
+using detail::is_decimal_integer_text;
 using namespace routeproof::model;
 
 constexpr std::uint64_t kOspfInfinity = 0x00ffffffU;
 constexpr std::uint64_t kMaximumInputInteger =
     static_cast<std::uint64_t>(std::numeric_limits<std::int64_t>::max());
-constexpr std::size_t kMaximumNesting = 128;
 
 std::string location_message(const std::string& source, const std::size_t line,
                              const std::size_t column,
@@ -57,112 +58,6 @@ std::string location_message(const std::string& source, const std::size_t line,
 [[noreturn]] void fail(const std::string& source, const Node& node,
                        const std::string& message) {
     fail(source, node.Mark(), message);
-}
-
-void validate_yaml_tag(const Node& node, const std::string& source) {
-    const std::string tag = node.Tag();
-    if (tag.empty() || tag == "?" || tag == "!") {
-        return;
-    }
-    bool matches_kind = false;
-    if (tag == "tag:yaml.org,2002:map") {
-        matches_kind = node.IsMap();
-    } else if (tag == "tag:yaml.org,2002:seq") {
-        matches_kind = node.IsSequence();
-    } else if (tag == "tag:yaml.org,2002:null") {
-        matches_kind = node.IsNull();
-    } else if (tag == "tag:yaml.org,2002:str" ||
-               tag == "tag:yaml.org,2002:int" ||
-               tag == "tag:yaml.org,2002:bool" ||
-               tag == "tag:yaml.org,2002:float") {
-        matches_kind = node.IsScalar();
-    } else {
-        fail(source, node, "unsupported YAML tag '" + tag + "'");
-    }
-    if (!matches_kind) {
-        fail(source, node, "YAML tag '" + tag + "' does not match the node type");
-    }
-}
-
-std::string scalar_string(const Node& node, const std::string& source,
-                          const std::string& field);
-
-void validate_yaml_tree(const Node& node, const std::string& source,
-                        std::vector<Node>& ancestors,
-                        std::vector<Node>& visited, const std::size_t depth) {
-    if (!node.IsDefined()) {
-        return;
-    }
-    if (depth > kMaximumNesting) {
-        fail(source, node, "YAML nesting exceeds the supported depth of " +
-                               std::to_string(kMaximumNesting));
-    }
-    validate_yaml_tag(node, source);
-    if (!node.IsMap() && !node.IsSequence()) {
-        return;
-    }
-    for (const Node& ancestor : ancestors) {
-        if (node.is(ancestor)) {
-            fail(source, node, "recursive YAML aliases are unsupported");
-        }
-    }
-    for (const Node& prior : visited) {
-        if (node.is(prior)) {
-            return;
-        }
-    }
-    visited.push_back(node);
-    ancestors.push_back(node);
-
-    if (node.IsMap()) {
-        std::set<std::string> keys;
-        for (const auto& entry : node) {
-            const Node key = entry.first;
-            if (!key.IsScalar()) {
-                fail(source, key, "mapping keys must be scalar strings");
-            }
-            const std::string key_text = scalar_string(key, source, "mapping key");
-            if (!keys.insert(key_text).second) {
-                fail(source, key, "duplicate YAML key '" + key_text + "'");
-            }
-            validate_yaml_tree(key, source, ancestors, visited, depth + 1U);
-            validate_yaml_tree(entry.second, source, ancestors, visited, depth + 1U);
-        }
-    } else {
-        for (const Node& item : node) {
-            validate_yaml_tree(item, source, ancestors, visited, depth + 1U);
-        }
-    }
-    ancestors.pop_back();
-}
-
-bool ascii_iequals(const std::string_view left, const std::string_view right) {
-    if (left.size() != right.size()) {
-        return false;
-    }
-    for (std::size_t index = 0; index < left.size(); ++index) {
-        if (std::tolower(static_cast<unsigned char>(left[index])) !=
-            std::tolower(static_cast<unsigned char>(right[index]))) {
-            return false;
-        }
-    }
-    return true;
-}
-
-bool is_decimal_integer_text(const std::string_view text) {
-    if (text.empty()) {
-        return false;
-    }
-    std::size_t index = text.front() == '-' || text.front() == '+' ? 1U : 0U;
-    if (index == text.size()) {
-        return false;
-    }
-    for (; index < text.size(); ++index) {
-        if (text[index] < '0' || text[index] > '9') {
-            return false;
-        }
-    }
-    return true;
 }
 
 bool utf8_codepoint_count(const std::string_view text, std::size_t& count) {
@@ -205,50 +100,6 @@ bool utf8_codepoint_count(const std::string_view text, std::size_t& count) {
     return true;
 }
 
-bool looks_like_implicit_yaml_non_string(const std::string_view text) {
-    if (text == "~" || ascii_iequals(text, "null") ||
-        ascii_iequals(text, "true") || ascii_iequals(text, "false") ||
-        ascii_iequals(text, "yes") || ascii_iequals(text, "no") ||
-        ascii_iequals(text, "on") || ascii_iequals(text, "off")) {
-        return true;
-    }
-    if (is_decimal_integer_text(text)) {
-        return true;
-    }
-    if (text.size() > 2U && text[0] == '0' &&
-        (text[1] == 'x' || text[1] == 'X' || text[1] == 'o' || text[1] == 'O' ||
-         text[1] == 'b' || text[1] == 'B')) {
-        return true;
-    }
-    if (text.find('/') == std::string_view::npos) {
-        std::string value{text};
-        char* parsed_end = nullptr;
-        (void)std::strtod(value.c_str(), &parsed_end);
-        if (parsed_end == value.c_str() + value.size() && parsed_end != value.c_str() &&
-            text.find_first_of(".eE") != std::string_view::npos) {
-            return true;
-        }
-    }
-    return false;
-}
-
-std::string scalar_string(const Node& node, const std::string& source,
-                          const std::string& field) {
-    if (!node.IsScalar()) {
-        fail(source, node, field + " must be a string scalar");
-    }
-    const std::string tag = node.Tag();
-    constexpr std::string_view string_tag = "tag:yaml.org,2002:str";
-    if (tag.rfind("tag:yaml.org,2002:", 0U) == 0U && tag != string_tag) {
-        fail(source, node, field + " must be a string, not a tagged YAML value");
-    }
-    const std::string value = node.Scalar();
-    if (tag == "?" && looks_like_implicit_yaml_non_string(value)) {
-        fail(source, node, field + " must be quoted when its value looks numeric or boolean");
-    }
-    return value;
-}
-
 void require_map(const Node& node, const std::string& source,
                  const std::string& field) {
     if (!node.IsMap()) {
@@ -268,7 +119,7 @@ void check_fields(const Node& node, const std::string& source,
                   const std::vector<std::string_view>& allowed,
                   const std::vector<std::string_view>& required) {
     require_map(node, source, path);
-    for (const auto& entry : node) {
+    for (const auto& entry : node.members()) {
         const std::string key = entry.first.Scalar();
         const bool known = std::find(allowed.begin(), allowed.end(), key) != allowed.end();
         if (!known) {
@@ -768,19 +619,18 @@ Scenario parse_document(const Node& root, const std::string& source) {
         const IPv4Address destination = parse_ipv4(
             scalar_string(destination_node, source, path + ".destination"), destination_node,
             source, path + ".destination");
-        PrefixIndex destination_prefix = scenario.prefixes.size();
-        std::size_t matches = 0U;
-        for (PrefixIndex prefix_index = 0U; prefix_index < scenario.prefixes.size();
-             ++prefix_index) {
-            if (scenario.prefixes[prefix_index].network.contains(destination)) {
-                destination_prefix = prefix_index;
-                ++matches;
-            }
-        }
-        if (matches != 1U) {
+        const auto next_prefix = std::upper_bound(
+            scenario.prefixes.begin(), scenario.prefixes.end(), destination.value,
+            [](const std::uint32_t address, const Prefix& prefix) {
+                return address < prefix.network.network.value;
+            });
+        if (next_prefix == scenario.prefixes.begin() ||
+            !std::prev(next_prefix)->network.contains(destination)) {
             fail(source, destination_node,
                  path + ".destination must belong to exactly one declared prefix");
         }
+        const PrefixIndex destination_prefix = static_cast<PrefixIndex>(
+            std::distance(scenario.prefixes.begin(), std::prev(next_prefix)));
         const Node quantifier_node = field(item, "quantifier");
         if (scalar_string(quantifier_node, source, path + ".quantifier") != "all") {
             fail(source, quantifier_node, "only quantifier 'all' is supported");
@@ -843,43 +693,46 @@ InputError::InputError(std::string message)
     : std::runtime_error(location_message("<input>", 0U, 0U, message)),
       source_("<input>") {}
 
-LoadedScenario load_scenario(const std::filesystem::path& path) {
+LoadedScenario load_scenario(const std::filesystem::path& path, const InputLimits& limits) {
     std::ifstream input(path, std::ios::binary);
     if (!input) {
         throw InputError(path.string(), 0U, 0U, "could not open scenario file");
     }
-    std::ostringstream contents;
-    contents << input.rdbuf();
-    if (input.bad()) {
-        throw InputError(path.string(), 0U, 0U, "failed while reading scenario file");
+    const std::size_t maximum_bytes = std::min(
+        limits.max_bytes, static_cast<std::size_t>(std::numeric_limits<int>::max()));
+    std::string contents;
+    std::array<char, 8192U> buffer{};
+    while (true) {
+        const std::size_t remaining = maximum_bytes - contents.size();
+        const std::size_t request = remaining < buffer.size() ? remaining + 1U : buffer.size();
+        input.read(buffer.data(), static_cast<std::streamsize>(request));
+        const std::size_t count = static_cast<std::size_t>(input.gcount());
+        if (count > remaining) {
+            throw InputError(path.string(), 0U, 0U,
+                             "input exceeds the byte limit of " + std::to_string(maximum_bytes));
+        }
+        contents.append(buffer.data(), count);
+        if (input.bad() || (!input && !input.eof())) {
+            throw InputError(path.string(), 0U, 0U, "failed while reading scenario file");
+        }
+        if (input.eof()) break;
     }
-    return parse_scenario(contents.str(), path.string());
+    return parse_scenario(contents, path.string(), limits);
 }
 
-LoadedScenario parse_scenario(const std::string_view text, std::string source) {
-    std::vector<Node> documents;
-    try {
-        documents = YAML::LoadAll(std::string(text));
-    } catch (const YAML::Exception& error) {
-        const std::size_t line = error.mark.is_null() ? 0U : error.mark.line + 1U;
-        const std::size_t column = error.mark.is_null() ? 0U : error.mark.column + 1U;
-        throw InputError(std::move(source), line, column,
-                         "invalid YAML: " + std::string(error.what()));
+LoadedScenario parse_scenario(const std::string_view text, std::string source,
+                              const InputLimits& limits) {
+    const std::size_t maximum_bytes = std::min(
+        limits.max_bytes, static_cast<std::size_t>(std::numeric_limits<int>::max()));
+    if (text.size() > maximum_bytes) {
+        throw InputError(source, 0U, 0U,
+                         "input exceeds the byte limit of " + std::to_string(maximum_bytes));
     }
-    if (documents.empty() || !documents.front().IsDefined() || documents.front().IsNull()) {
-        throw InputError(std::move(source), 0U, 0U, "scenario document is empty");
+    const detail::Document document = detail::read_document(text, source, limits);
+    if (!document.root.IsDefined() || document.root.IsNull()) {
+        throw InputError(source, 0U, 0U, "scenario document is empty");
     }
-    if (documents.size() != 1U) {
-        const YAML::Mark mark = documents[1].Mark();
-        throw InputError(std::move(source), mark.is_null() ? 0U : mark.line + 1U,
-                         mark.is_null() ? 0U : mark.column + 1U,
-                         "exactly one YAML document is supported");
-    }
-    std::vector<Node> ancestors;
-    std::vector<Node> visited;
-    validate_yaml_tree(documents.front(), source, ancestors, visited, 0U);
-
-    Scenario scenario = parse_document(documents.front(), source);
+    Scenario scenario = parse_document(document.root, source);
     const Json normalized = normalized_representation(scenario);
     const std::string normalized_json = normalized.dump(-1, ' ', false);
     const std::string hash = picosha2::hash256_hex_string(normalized_json);

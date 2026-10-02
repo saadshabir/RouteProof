@@ -27,8 +27,13 @@ build/host-debug/routeproof validate examples/phase1/valid/equivalent-b.yaml --n
 python3 tools/phase1/validate_fixtures.py
 ```
 
-CTest runs both the CLI fixtures and `routeproof_topology_check`, which loads the
+CTest runs the CLI fixtures and `routeproof_topology_check`, which loads the
 physical-state fixture and inspects actual adjacency arcs, endpoint interfaces,
 independent router/link state, and prefix ownership. The Python runner checks
 normalized input data and hashes. Each file in `invalid/` must exit 2 with a source
 location. These checks cover Phase 1; routing and reachability belong to later phases.
+
+`routeproof_input_limits_check` checks exact parser-budget boundaries and source
+marks. `tools/phase1/validate_regressions.py` generates temporary JSON/YAML inputs
+to cover Unicode escapes, safe CLI output, duplicate decoded keys, strict JSON,
+nonrecursive aliases, prefix boundaries, bounded reads, and larger event lists.

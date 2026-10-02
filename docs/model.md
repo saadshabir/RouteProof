@@ -40,7 +40,13 @@ With strictly positive link costs, every selected forwarding edge must strictly 
 
 ## Input validation and unsupported constructs
 
-Reject duplicate YAML keys, multiple YAML documents, custom YAML tags, unknown fields, duplicate IDs, duplicate router IDs, unresolved endpoints/origins/event targets, self-links, noncanonical or invalid addresses, default routes, overlapping prefixes, and event-order violations. Recognized explicit YAML tags are `map`, `seq`, `str`, `int`, `bool`, `float`, and `null` in the standard YAML namespace; their node kinds and the expected field types must agree. Mapping keys must be strings. Diagnostics identify the field or source location, offending value, and expected rule. No accepted input may silently discard a field that could affect routing.
+Reject duplicate YAML/JSON keys, multiple YAML documents, custom YAML tags, unknown fields, duplicate IDs, duplicate router IDs, unresolved endpoints/origins/event targets, self-links, noncanonical or invalid addresses, default routes, overlapping prefixes, and event-order violations. Recognized explicit YAML tags are `map`, `seq`, `str`, `int`, `bool`, `float`, and `null` in the standard YAML namespace; their node kinds and the expected field types must agree. Mapping keys must be strings. Diagnostics identify the field or source location, offending value, and expected rule. No accepted input may silently discard a field that could affect routing.
+
+Files ending in `.json` (case insensitive) use strict JSON syntax. JSON object/array input is also recognized by content when the source has another name; flow-style YAML remains supported. JSON Unicode escapes, including valid surrogate pairs, decode to the same UTF-8 values as literal text. Duplicate keys are checked after escape decoding, before normalization. YAML aliases may refer to completed nodes; aliases to an active ancestor are rejected as recursive.
+
+Input parsing has operational budgets: 16 MiB of source bytes, 1,000,000 node/alias occurrences (including mapping keys), 100,000 entries per mapping or sequence, 64 KiB per decoded scalar, and syntactic nesting depth 128 (root depth 0). File reads stop at the byte budget; the remaining budgets are enforced while parsing, before topology construction. Exceeding a budget is an input error (CLI exit 2). Library callers can supply `InputLimits` to `load_scenario` or `parse_scenario`. These limits bound processing resources without changing normalized scenario semantics.
+
+CLI summaries and diagnostics escape terminal controls and malformed UTF-8 bytes. Normalized JSON retains the original validated string values and hashes.
 
 | Supported in v0.1 | Explicitly unsupported in v0.1 |
 | --- | --- |

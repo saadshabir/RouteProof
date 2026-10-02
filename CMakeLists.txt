@@ -54,6 +54,7 @@ else()
 endif()
 
 add_library(routeproof_core STATIC
+    src/input/document.cpp
     src/input/scenario_loader.cpp
     src/model/topology.cpp
 )
@@ -89,6 +90,17 @@ if(BUILD_TESTING)
         COMMAND "${Python3_EXECUTABLE}"
                 "${CMAKE_CURRENT_SOURCE_DIR}/tools/phase1/validate_fixtures.py"
                 "$<TARGET_FILE:routeproof>")
+    add_executable(routeproof_input_limits_check tests/integration/input_limits.cpp)
+    set_target_properties(routeproof_input_limits_check PROPERTIES CXX_EXTENSIONS OFF)
+    target_link_libraries(routeproof_input_limits_check PRIVATE routeproof_core)
+    add_test(NAME phase1.input_limits
+        COMMAND routeproof_input_limits_check
+                "${CMAKE_CURRENT_SOURCE_DIR}/examples/phase1/valid/diamond.yaml")
+    add_test(NAME phase1.input_regressions
+        COMMAND "${Python3_EXECUTABLE}"
+                "${CMAKE_CURRENT_SOURCE_DIR}/tools/phase1/validate_regressions.py"
+                "$<TARGET_FILE:routeproof>")
+    set_tests_properties(phase1.input_regressions PROPERTIES TIMEOUT 60)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")
@@ -97,6 +109,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")
     endforeach()
     if(BUILD_TESTING)
         target_compile_options(routeproof_topology_check PRIVATE -Wall -Wextra -Wpedantic)
+        target_compile_options(routeproof_input_limits_check PRIVATE -Wall -Wextra -Wpedantic)
     endif()
 endif()
 

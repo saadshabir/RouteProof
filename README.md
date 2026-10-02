@@ -44,6 +44,8 @@ build/host-debug/routeproof validate examples/phase1/valid/diamond.yaml --normal
 python3 tools/phase1/validate_fixtures.py
 ```
 
-The validator rejects unsupported fields and semantic errors with source locations. `--normalized` prints canonical JSON; the summary form includes its SHA-256. CTest runs the CLI fixtures and a separate integration check of the constructed physical graph, interfaces, state, and prefix ownership.
+The validator rejects unsupported fields and semantic errors with source locations. It supports strict `.json` files, including escaped Unicode, and YAML with nonrecursive aliases. Input budgets cap source bytes, nodes, collection entries, scalar bytes, and nesting; defaults and library overrides are documented in the [model contract](docs/model.md#input-validation-and-unsupported-constructs). Text summaries and diagnostics escape terminal controls. `--normalized` prints canonical JSON; the summary form includes its SHA-256.
+
+CTest runs the CLI fixtures, constructed physical-topology integration check, parser-limit boundaries, and regressions for JSON interoperability, safe output, aliases, prefix ownership, and larger input. The [input security fixes](evidence/phase1/security-fixes.md) record their validation.
 
 Read the [model contract](docs/model.md), [v0.1 acceptance checklist](docs/acceptance.md), and [detailed implementation plan](docs/implementation-plan.md) for semantics, phase gates, validation strategy, and release scope. The simulator commands in the plan are planned interfaces.
