@@ -1,0 +1,17 @@
+UpdateCTestConfiguration  from :<repo>/build/phase2-sanitizers/DartConfiguration.tcl
+Parse Config file:<repo>/build/phase2-sanitizers/DartConfiguration.tcl
+Test project <repo>/build/phase2-sanitizers
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: phase1.physical_topology
+
+1: Test command: <repo>/build/phase2-sanitizers/routeproof_topology_check "<repo>/examples/phase1/valid/physical-state.yaml"
+1: Working Directory: <repo>/build/phase2-sanitizers
+1: Test timeout computed to be: 1500
+
+Infrastructure failure: upstream Clang 18.1.8 ASan/UBSan executables stalled during startup, including routeproof --version. Reproduced outside the sandbox. Stopped the owned processes after approximately two minutes; no sanitizer test pass claimed for this runtime. Retrying with host Apple Clang 21.

@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "model": "ospf_spf_v1",
+  "name": "merged-ecmp",
+  "routers": [
+    {
+      "id": "r0",
+      "router_id": "0.0.0.1",
+      "initial_state": "up"
+    },
+    {
+      "id": "r1",
+      "router_id": "0.0.0.2",
+      "initial_state": "up"
+    },
+    {
+      "id": "r2",
+      "router_id": "0.0.0.3",
+      "initial_state": "up"
+    },
+    {
+      "id": "r3",
+      "router_id": "0.0.0.4",
+      "initial_state": "up"
+    },
+    {
+      "id": "r4",
+      "router_id": "0.0.0.5",
+      "initial_state": "up"
+    },
+    {
+      "id": "r5",
+      "router_id": "0.0.0.6",
+      "initial_state": "up"
+    }
+  ],
+  "links": [
+    {
+      "id": "l0",
+      "a": "r0",
+      "b": "r1",
+      "cost_ab": 1,
+      "cost_ba": 1,
+      "initial_state": "up"
+    },
+    {
+      "id": "l1",
+      "a": "r0",
+      "b": "r2",
+      "cost_ab": 1,
+      "cost_ba": 1,
+      "initial_state": "up"
+    },
+    {
+      "id": "l2",
+      "a": "r1",
+      "b": "r3",
+      "cost_ab": 1,
+      "cost_ba": 1,
+      "initial_state": "up"
+    },
+    {
+      "id": "l3",
+      "a": "r2",
+      "b": "r3",
+      "cost_ab": 1,
+      "cost_ba": 1,
+      "initial_state": "up"
+    },
+    {
+      "id": "l4",
+      "a": "r3",
+      "b": "r4",
+      "cost_ab": 1,
+      "cost_ba": 1,
+      "initial_state": "up"
+    },
+    {
+      "id": "l5",
+      "a": "r4",
+      "b": "r5",
+      "cost_ab": 1,
+      "cost_ba": 1,
+      "initial_state": "up"
+    }
+  ],
+  "prefixes": [
+    {
+      "prefix": "10.0.0.0/24",
+      "origin": "r0",
+      "stub_cost": 1
+    },
+    {
+      "prefix": "10.0.1.0/24",
+      "origin": "r1",
+      "stub_cost": 2
+    },
+    {
+      "prefix": "10.0.2.0/24",
+      "origin": "r2",
+      "stub_cost": 3
+    },
+    {
+      "prefix": "10.0.3.0/24",
+      "origin": "r3",
+      "stub_cost": 4
+    },
+    {
+      "prefix": "10.0.4.0/24",
+      "origin": "r4",
+      "stub_cost": 5
+    },
+    {
+      "prefix": "10.0.5.0/24",
+      "origin": "r5",
+      "stub_cost": 6
+    },
+    {
+      "prefix": "192.0.2.0/24",
+      "origin": "r5",
+      "stub_cost": 17
+    }
+  ],
+  "events": [],
+  "assertions": []
+}

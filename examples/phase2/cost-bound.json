@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "model": "ospf_spf_v1",
+  "name": "cost-bound",
+  "routers": [
+    {
+      "id": "r0",
+      "router_id": "0.0.0.1",
+      "initial_state": "up"
+    },
+    {
+      "id": "r1",
+      "router_id": "0.0.0.2",
+      "initial_state": "up"
+    },
+    {
+      "id": "r2",
+      "router_id": "0.0.0.3",
+      "initial_state": "up"
+    }
+  ],
+  "links": [
+    {
+      "id": "l0",
+      "a": "r0",
+      "b": "r1",
+      "cost_ab": 65535,
+      "cost_ba": 65534,
+      "initial_state": "up"
+    },
+    {
+      "id": "l1",
+      "a": "r1",
+      "b": "r2",
+      "cost_ab": 65535,
+      "cost_ba": 65533,
+      "initial_state": "up"
+    }
+  ],
+  "prefixes": [
+    {
+      "prefix": "10.0.0.0/24",
+      "origin": "r0",
+      "stub_cost": 1
+    },
+    {
+      "prefix": "10.0.1.0/24",
+      "origin": "r1",
+      "stub_cost": 2
+    },
+    {
+      "prefix": "10.0.2.0/24",
+      "origin": "r2",
+      "stub_cost": 3
+    }
+  ],
+  "events": [],
+  "assertions": []
+}

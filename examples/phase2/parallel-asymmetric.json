@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "model": "ospf_spf_v1",
+  "name": "parallel-asymmetric",
+  "routers": [
+    {
+      "id": "r0",
+      "router_id": "0.0.0.1",
+      "initial_state": "up"
+    },
+    {
+      "id": "r1",
+      "router_id": "0.0.0.2",
+      "initial_state": "up"
+    },
+    {
+      "id": "r2",
+      "router_id": "0.0.0.3",
+      "initial_state": "up"
+    }
+  ],
+  "links": [
+    {
+      "id": "l0",
+      "a": "r0",
+      "b": "r1",
+      "cost_ab": 2,
+      "cost_ba": 7,
+      "initial_state": "up"
+    },
+    {
+      "id": "l1",
+      "a": "r0",
+      "b": "r1",
+      "cost_ab": 2,
+      "cost_ba": 3,
+      "initial_state": "up"
+    },
+    {
+      "id": "l2",
+      "a": "r1",
+      "b": "r2",
+      "cost_ab": 4,
+      "cost_ba": 1,
+      "initial_state": "up"
+    },
+    {
+      "id": "l3",
+      "a": "r0",
+      "b": "r2",
+      "cost_ab": 9,
+      "cost_ba": 9,
+      "initial_state": "up"
+    }
+  ],
+  "prefixes": [
+    {
+      "prefix": "10.0.0.0/24",
+      "origin": "r0",
+      "stub_cost": 1
+    },
+    {
+      "prefix": "10.0.1.0/24",
+      "origin": "r1",
+      "stub_cost": 2
+    },
+    {
+      "prefix": "10.0.2.0/24",
+      "origin": "r2",
+      "stub_cost": 3
+    }
+  ],
+  "events": [],
+  "assertions": []
+}

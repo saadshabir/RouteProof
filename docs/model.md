@@ -6,7 +6,7 @@
 
 **Result schema:** `schemas/result-v1.schema.json` (version 1)
 
-**Status:** frozen contract for v0.1. Phase 1 input validation and physical-topology construction are implemented; SPF, forwarding, replay, and reachability behavior remain future phases.
+**Status:** frozen contract for v0.1. Phases 1–2 implement input validation, physical topology, SPF, and baseline forwarding tables. Replay and reachability behavior remain future phases.
 
 This document defines the behavior the engine must implement. The JSON Schemas define the structural data contract for YAML or JSON inputs and canonical JSON results. Semantic checks below remain mandatory even when a document passes schema validation.
 
@@ -37,6 +37,16 @@ For the FRR-compatible profile, validate this conservative bound before calculat
 Check integer arithmetic before multiplication and addition. This keeps all allowed simple-path costs below OSPF infinity. Router IDs, IDs, timestamps, event sequence numbers, route counts, and intermediate route costs also require explicit range and overflow checks.
 
 With strictly positive link costs, every selected forwarding edge must strictly reduce distance to the route origin. Treat this as a runtime invariant. Full recomputation is the initial algorithm; do not retain all-pairs path lists or add incremental SPF before profiling shows a need.
+
+## Baseline routing interface
+
+`routeproof routes FILE [--timing]` computes the declared initial state only. Its diagnostic JSON format is [baseline-v1.schema.json](../schemas/baseline-v1.schema.json), separate from the future simulation result. It does not apply events or evaluate assertions. Route rows are ordered lexically by `(router, prefix)`; first-hop sets by `(neighbor, link, interface)`. A remote route records `distance_to_origin`, `metric = distance + stub_cost`, and equal `protocol_cost`. Connected delivery has distance and metric 0, protocol cost equal to stub cost, and an empty next-hop set. Prefix lookup uses the validated disjoint attachment domain.
+
+The library accepts a `spf::PhysicalState` separately from immutable topology, and recomputes all tables. State dimensions are checked before routing; unavailable sources retain empty tables and are skipped before SPF, sharing-cache allocation, and prefix scanning. Per-source scratch storage is reused; prefixes sharing a source/origin share immutable next-hop sets. Runtime validation checks every selected interface's availability, shortest-path equality, and strictly decreasing distance to its origin. It stores no all-pairs trees or complete paths.
+
+`forwarding::RoutingLimits` defaults to 1,000,000 materialized route entries, 4,000,000 logical next-hop references (including references from prefixes sharing a set), and 4,000,000 per-source scratch next hops. Counters are checked before insertion. Limit exhaustion raises `spf::ResourceLimit`; the CLI exits 3 with a diagnostic and emits no partial route output. Library callers may override these operational limits. State dimensions must match the topology. The routing library requires the validated positive-cost model from the input module.
+
+`--timing` writes separate stderr JSON with a monotonic `baseline_compute_ns` sample. It includes SPF, ECMP propagation, table construction, and runtime invariant validation; it excludes input parsing, state initialization, and output serialization. No canonical JSON field varies with this measurement. This is a timing hook, not published performance evidence.
 
 ## Input validation and unsupported constructs
 

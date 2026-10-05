@@ -1,6 +1,6 @@
 # RouteProof: focused MVP implementation plan
 
-**Status:** execution in progress; Phases 0 and 1 are complete. No routing engine or benchmark results exist yet.
+**Status:** execution in progress; Phases 0–2 are complete. Baseline SPF/prefix/ECMP routing is implemented and checked against an independent oracle. Failure replay, reachability, FRR comparisons, and benchmark results remain open.
 
 **Scope:** the five deliverables specified below.
 
@@ -487,6 +487,8 @@ Deliverables: full-recomputation Dijkstra, DAG first-hop propagation, converged 
 
 Exit gate: distances and full next-hop interface sets match the independent oracle for named/generated tiny graphs; merged ECMP, asymmetry, parallel links, and route absence are covered.
 
+**Status:** complete. Baseline route tables, independent named/generated tiny-graph checks, toolchain determinism, and sanitizer evidence are recorded in [phase2/routing-validation.md](../evidence/phase2/routing-validation.md). `routeproof routes FILE [--timing]` computes initial-state routes only.
+
 ### Phase 3 — Failure replay and all-branch explanations (4–6 days)
 
 **Depends on:** phase 2.
@@ -556,7 +558,7 @@ Every item requires a command, result, or evidence pointer.
 
 - [ ] Both declared compilers build a clean checkout.
 - [ ] Strict parsing and unsupported-feature errors match the model contract.
-- [ ] Single-area SPF, prefix costs, connected delivery, and complete ECMP interface sets match the independent oracle.
+- [x] Single-area SPF, prefix costs, connected delivery, and complete ECMP interface sets match the independent oracle ([Phase 2 evidence](../evidence/phase2/routing-validation.md)).
 - [ ] Link/router down/up and administrative restoration semantics match the declared scenarios.
 - [ ] Replay and witness selection produce identical canonical results.
 - [ ] Reachability examines every modeled ECMP branch.

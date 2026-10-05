@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "model": "ospf_spf_v1",
+  "name": "single-router",
+  "routers": [
+    {
+      "id": "r0",
+      "router_id": "0.0.0.1",
+      "initial_state": "up"
+    }
+  ],
+  "links": [],
+  "prefixes": [
+    {
+      "prefix": "10.0.0.0/24",
+      "origin": "r0",
+      "stub_cost": 1
+    }
+  ],
+  "events": [],
+  "assertions": []
+}

@@ -4,7 +4,7 @@ The release stays incomplete until every deliverable has reproducible evidence. 
 
 | Release deliverable | Required acceptance evidence | Status |
 | --- | --- | --- |
-| C++20 routing engine: validated single-area model, prefixes, shortest paths, complete ECMP | Independent tiny-graph oracle agrees on costs and all first-hop interfaces, including asymmetry and parallel links | Not implemented |
+| C++20 routing engine: validated single-area model, prefixes, shortest paths, complete ECMP | Independent tiny-graph oracle agrees on costs and all first-hop interfaces, including asymmetry and parallel links | Complete for baseline routing; [Phase 2 evidence](../evidence/phase2/routing-validation.md) |
 | Link/router failure scenarios with deterministic replay | Baseline plus each ordered event yields canonical snapshots; repeat runs/toolchains agree; router restoration preserves link administrative state | Not implemented |
 | All-branch reachability and useful explanations | Every ECMP branch is checked; each emitted witness/frontier certificate validates against its snapshot; resource exhaustion is `incomplete` | Not implemented |
 | FRRouting comparison | Fresh supported labs agree on converged route costs and full next-hop sets for every declared snapshot, including missing routes | Not implemented |
@@ -27,4 +27,13 @@ The clean-checkout build evidence and exact tested toolchain versions are record
 - [x] Reordered router/link/event declarations and multiple prefixes/assertions, endpoint reversal with corresponding cost reversal, and omitted default `up` state normalize to identical JSON and hashes.
 - [x] CTest passes both the physical-topology integration check and named valid/invalid CLI fixtures; commands and results are in [input-validation.md](../evidence/phase1/input-validation.md).
 
-The CLI validates scenarios only. Route calculation, failure replay, and reachability acceptance remain open for later phases.
+## Phase 2 exit gate
+
+- [x] Full-recomputation Dijkstra and DAG propagation retain every equal-cost first-hop interface, including merged and unequal-hop-count alternatives.
+- [x] Prefix tables represent connected delivery, remote stub costs, absent routes, and unavailable origins; shared immutable next-hop sets and lookup are checked.
+- [x] An independent Floyd–Warshall oracle agrees on every route row and next-hop tuple for seven named and 80 seeded generated tiny graphs, including asymmetry, parallel links, disconnected graphs, and initial physical state.
+- [x] Declaration/endpoint order and repeat/timing variations produce identical baseline bytes across GCC, Clang, and Apple Clang.
+- [x] Resource boundaries, distance overflow, and the runtime rank invariant are checked; separate ASan/UBSan tests pass.
+- [x] A monotonic baseline timing hook excludes parsing/output and keeps measurements outside canonical semantics.
+
+Commands, compiler details, coverage, and logs are recorded in [routing-validation.md](../evidence/phase2/routing-validation.md). Failure replay and all-branch reachability acceptance remain open for Phase 3.

@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:routeproof:baseline:1",
+  "title": "RouteProof baseline routes v1",
+  "description": "Diagnostic routes for initial state only. No event replay or assertion evaluation. Timing is separate stderr JSON.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "model",
+    "kind",
+    "scenario_sha256",
+    "available_routers",
+    "administratively_up_links",
+    "routes",
+    "route_entries",
+    "next_hop_references"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "model": {
+      "const": "ospf_spf_v1"
+    },
+    "kind": {
+      "const": "baseline_routes"
+    },
+    "scenario_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "available_routers": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/id"
+      }
+    },
+    "administratively_up_links": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/id"
+      }
+    },
+    "routes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/route"
+      }
+    },
+    "route_entries": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "next_hop_references": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.-]*$"
+    },
+    "ipv4_prefix": {
+      "type": "string",
+      "maxLength": 18,
+      "pattern": "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}/(?:[1-9]|[12][0-9]|3[0-2])$"
+    },
+    "next_hop": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "neighbor",
+        "link",
+        "interface"
+      ],
+      "properties": {
+        "neighbor": {
+          "$ref": "#/$defs/id"
+        },
+        "link": {
+          "$ref": "#/$defs/id"
+        },
+        "interface": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 129
+        }
+      }
+    },
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "router",
+        "prefix",
+        "origin",
+        "kind",
+        "metric",
+        "next_hops",
+        "distance_to_origin",
+        "protocol_cost"
+      ],
+      "properties": {
+        "router": {
+          "$ref": "#/$defs/id"
+        },
+        "prefix": {
+          "$ref": "#/$defs/ipv4_prefix"
+        },
+        "origin": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "enum": [
+            "connected",
+            "ospf"
+          ]
+        },
+        "metric": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 16777214
+        },
+        "next_hops": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/next_hop"
+          }
+        },
+        "distance_to_origin": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 16777214
+        },
+        "protocol_cost": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16777214
+        }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "kind": {
+              "const": "connected"
+            },
+            "metric": {
+              "const": 0
+            },
+            "next_hops": {
+              "maxItems": 0
+            }
+          }
+        },
+        {
+          "properties": {
+            "kind": {
+              "const": "ospf"
+            },
+            "metric": {
+              "minimum": 1
+            },
+            "next_hops": {
+              "minItems": 1
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -57,6 +57,9 @@ add_library(routeproof_core STATIC
     src/input/document.cpp
     src/input/scenario_loader.cpp
     src/model/topology.cpp
+    src/spf/shortest_paths.cpp
+    src/forwarding/table.cpp
+    src/output/baseline.cpp
 )
 
 target_compile_features(routeproof_core PUBLIC cxx_std_20)
@@ -101,6 +104,14 @@ if(BUILD_TESTING)
                 "${CMAKE_CURRENT_SOURCE_DIR}/tools/phase1/validate_regressions.py"
                 "$<TARGET_FILE:routeproof>")
     set_tests_properties(phase1.input_regressions PROPERTIES TIMEOUT 60)
+    add_executable(routeproof_routing_check tests/integration/routing.cpp)
+    set_target_properties(routeproof_routing_check PROPERTIES CXX_EXTENSIONS OFF)
+    target_link_libraries(routeproof_routing_check PRIVATE routeproof_core)
+    add_test(NAME phase2.routing_contract COMMAND routeproof_routing_check
+        "${CMAKE_CURRENT_SOURCE_DIR}/examples/phase2/merged-ecmp.json")
+    add_test(NAME phase2.independent_oracle COMMAND "${Python3_EXECUTABLE}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/reference/check_routing.py" "$<TARGET_FILE:routeproof>")
+    set_tests_properties(phase2.routing_contract phase2.independent_oracle PROPERTIES TIMEOUT 60)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")
@@ -109,6 +120,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")
     endforeach()
     if(BUILD_TESTING)
         target_compile_options(routeproof_topology_check PRIVATE -Wall -Wextra -Wpedantic)
+        target_compile_options(routeproof_routing_check PRIVATE -Wall -Wextra -Wpedantic)
         target_compile_options(routeproof_input_limits_check PRIVATE -Wall -Wextra -Wpedantic)
     endif()
 endif()

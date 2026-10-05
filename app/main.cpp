@@ -1,5 +1,7 @@
 #include "routeproof/input/scenario_loader.hpp"
 #include "routeproof/version.hpp"
+#include "routeproof/output/baseline.hpp"
+#include <chrono>
 
 #include <iostream>
 #include <string>
@@ -61,10 +63,11 @@ std::string escape_output(const std::string_view text) {
 
 void print_help(std::ostream& output) {
     output << "RouteProof " << routeproof::version << "\n"
-           << "Usage: routeproof --help | --version | validate <scenario.yaml> [--normalized]\n\n"
+           << "Usage: routeproof --help | --version | validate <scenario.yaml> [--normalized] | routes <scenario.yaml> [--timing]\n\n"
            << "Commands:\n"
            << "  validate FILE              Validate and summarize a scenario\n"
-           << "  validate FILE --normalized Print canonical normalized scenario JSON\n";
+           << "  validate FILE --normalized Print canonical normalized scenario JSON\n"
+           << "  routes FILE [--timing]      Print baseline routes; optional timing JSON on stderr\n";
 }
 
 void print_version(std::ostream& output) {
@@ -90,6 +93,33 @@ int main(int argc, char* argv[]) {
     if (argc == 1) {
         print_help(std::cerr);
         return 2;
+    }
+
+    if (std::string_view{argv[1]} == "routes") {
+        if ((argc != 3 && argc != 4) ||
+            (argc == 4 && std::string_view{argv[3]} != "--timing")) {
+            print_help(std::cerr);
+            return 2;
+        }
+        try {
+            const auto loaded = routeproof::input::load_scenario(argv[2]);
+            const auto state = routeproof::spf::initial_state(loaded.topology);
+            const auto start = std::chrono::steady_clock::now();
+            const auto tables = routeproof::forwarding::compute(loaded.topology, state);
+            const auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(
+                std::chrono::steady_clock::now() - start).count();
+            std::cout << routeproof::output::baseline_json(loaded, state, tables) << '\n';
+            if (argc == 4) {
+                std::cerr << "{\"baseline_compute_ns\":" << elapsed << "}\n";
+            }
+            return 0;
+        } catch (const routeproof::input::InputError& error) {
+            std::cerr << "routeproof: " << escape_output(error.what()) << '\n';
+            return 2;
+        } catch (const std::exception& error) {
+            std::cerr << "routeproof: baseline calculation incomplete: " << escape_output(error.what()) << '\n';
+            return 3;
+        }
     }
 
     if (std::string_view{argv[1]} == "validate") {
@@ -125,7 +155,7 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    std::cerr << "routeproof: command not implemented in Phase 1: " << escape_output(argv[1])
+    std::cerr << "routeproof: command not implemented: " << escape_output(argv[1])
               << "\n";
     return 3;
 }
