@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "model": "ospf_spf_v1",
+  "name": "initial-down-restoration",
+  "routers": [
+    {
+      "id": "r0",
+      "router_id": "0.0.0.1",
+      "initial_state": "down"
+    },
+    {
+      "id": "r1",
+      "router_id": "0.0.0.2",
+      "initial_state": "down"
+    }
+  ],
+  "links": [
+    {
+      "id": "l0",
+      "a": "r0",
+      "b": "r1",
+      "cost_ab": 1,
+      "cost_ba": 2,
+      "initial_state": "down"
+    }
+  ],
+  "prefixes": [
+    {
+      "prefix": "10.0.0.0/24",
+      "origin": "r0",
+      "stub_cost": 1
+    },
+    {
+      "prefix": "10.0.1.0/24",
+      "origin": "r1",
+      "stub_cost": 2
+    }
+  ],
+  "events": [
+    {
+      "id": "origin-up",
+      "seq": 1,
+      "at_ns": 0,
+      "type": "router_up",
+      "router": "r1"
+    },
+    {
+      "id": "source-up",
+      "seq": 2,
+      "at_ns": 0,
+      "type": "router_up",
+      "router": "r0"
+    },
+    {
+      "id": "link-up",
+      "seq": 3,
+      "at_ns": 0,
+      "type": "link_up",
+      "link": "l0"
+    },
+    {
+      "id": "source-down",
+      "seq": 4,
+      "at_ns": 0,
+      "type": "router_down",
+      "router": "r0"
+    },
+    {
+      "id": "source-noop",
+      "seq": 5,
+      "at_ns": 0,
+      "type": "router_down",
+      "router": "r0"
+    }
+  ],
+  "assertions": [
+    {
+      "id": "source-to-origin",
+      "type": "must_reach",
+      "source": "r0",
+      "destination": "10.0.1.1",
+      "quantifier": "all",
+      "scope": "every_snapshot"
+    },
+    {
+      "id": "local",
+      "type": "must_reach",
+      "source": "r1",
+      "destination": "10.0.1.1",
+      "quantifier": "all",
+      "scope": "every_snapshot"
+    }
+  ]
+}

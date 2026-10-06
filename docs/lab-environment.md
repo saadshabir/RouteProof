@@ -12,10 +12,10 @@ Containerlab requires a Linux server or VM and Docker; its installation guide li
 - Python 3.9 or newer is required for the default acceptance checks and is used for independent graph oracles, lab orchestration, and measurement summaries.
 - Docker Engine from Docker's official Ubuntu repository and Containerlab from its official release/package source.
 
-These minimum compiler/tool versions are the tested Phase 0 support floor. Clean-checkout evidence is recorded in [phase0-builds.md](../evidence/phase0/phase0-builds.md). The FRR lab host remains Linux-only.
+These minimum compiler/tool versions are the tested support floor. Clean-checkout evidence is recorded in [clean-builds.md](../evidence/build/clean-builds.md). The FRR lab host remains Linux-only.
 
 ## FRR lab pinning
 
-Use Containerlab to create fresh, isolated point-to-point topologies with explicit interface mapping and one FRR node per modeled router. The FRR image tag and OCI digest, Docker/Containerlab versions, kernel, architecture, and generated lab configuration must be recorded in each Phase 4 evidence bundle. Freeze the image digest after the first supported lab has been checked for OSPF behavior and route-output normalization. A mutable `latest` tag is not acceptable evidence.
+Use Containerlab to create fresh, isolated point-to-point topologies with explicit interface mapping and one FRR node per modeled router. The FRR image tag and OCI digest, Docker/Containerlab versions, kernel, architecture, and generated lab configuration must be recorded in each FRR comparison evidence bundle. Freeze the image digest after the first supported lab has been checked for OSPF behavior and route-output normalization. A mutable `latest` tag is not acceptable evidence.
 
 The selected lab host is the target environment, not a claim that FRR comparisons have run. A macOS checkout can satisfy the compiler build gate when both declared compilers are installed, but it cannot run the privileged Linux/containerlab labs.

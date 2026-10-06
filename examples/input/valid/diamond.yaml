@@ -1,0 +1,23 @@
+schema_version: 1
+name: diamond-failures
+model: ospf_spf_v1
+routers:
+  - {id: a, router_id: 0.0.0.1}
+  - {id: b, router_id: 0.0.0.2}
+  - {id: c, router_id: 0.0.0.3}
+  - {id: d, router_id: 0.0.0.4}
+links:
+  - {id: ab, a: a, b: b, cost_ab: 1, cost_ba: 1}
+  - {id: ac, a: a, b: c, cost_ab: 1, cost_ba: 1}
+  - {id: bd, a: b, b: d, cost_ab: 1, cost_ba: 1}
+  - {id: cd, a: c, b: d, cost_ab: 1, cost_ba: 1}
+prefixes:
+  - {prefix: 10.10.4.0/24, origin: d, stub_cost: 1}
+events:
+  - {id: fail-bd, seq: 1, at_ns: 1000000, type: link_down, link: bd}
+  - {id: fail-cd, seq: 2, at_ns: 2000000, type: link_down, link: cd}
+  - {id: restore-bd, seq: 3, at_ns: 3000000, type: link_up, link: bd}
+  - {id: fail-d, seq: 4, at_ns: 4000000, type: router_down, router: d}
+  - {id: restore-d, seq: 5, at_ns: 5000000, type: router_up, router: d}
+assertions:
+  - {id: a-to-d, type: must_reach, source: a, destination: 10.10.4.1, quantifier: all, scope: every_snapshot}

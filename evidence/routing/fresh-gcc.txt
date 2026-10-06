@@ -1,0 +1,174 @@
+Fresh source copy from current working files; no existing objects/build cache. Dependency source reused at pinned revisions.
+$ cmake -S <source> -B <build> -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=/opt/homebrew/bin/g++-12 -DFETCHCONTENT_SOURCE_DIR_YAML-CPP=<repo>/build/host-debug/_deps/yaml-cpp-src -DFETCHCONTENT_SOURCE_DIR_NLOHMANN_JSON=<repo>/build/host-debug/_deps/nlohmann_json-src -DFETCHCONTENT_SOURCE_DIR_PICOSHA2=<repo>/build/host-debug/_deps/picosha2-src
+-- The CXX compiler identification is GNU 12.5.0
+-- Checking whether CXX compiler has -isysroot
+-- Checking whether CXX compiler has -isysroot - yes
+-- Checking whether CXX compiler supports OSX deployment target flag
+-- Checking whether CXX compiler supports OSX deployment target flag - yes
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /opt/homebrew/bin/g++-12 - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Using the multi-header code from <repo>/build/host-debug/_deps/nlohmann_json-src/include/
+-- The C compiler identification is AppleClang 21.0.0.21000334
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Found Python3: /opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13 (found suitable version "3.13.16", minimum required is "3.9") found components: Interpreter
+-- RouteProof model: ospf_spf_v1
+-- RouteProof scenario schema: 1
+-- RouteProof result schema: 1
+-- RouteProof dependencies: yaml-cpp 0.9.0, nlohmann/json 3.12.0, PicoSHA2 1.0.1
+-- Configuring done (1.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: <build>
+
+exit: 0
+$ cmake --build <build>
+[0/2] Re-checking globbed directories...
+[1/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/directives.cpp.o
+[2/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/binary.cpp.o
+[3/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/depthguard.cpp.o
+[4/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/exceptions.cpp.o
+[5/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/contrib/graphbuilderadapter.cpp.o
+[6/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/contrib/graphbuilder.cpp.o
+[7/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/emit.cpp.o
+[8/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/emitfromevents.cpp.o
+[9/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/node.cpp.o
+[10/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/emitter.cpp.o
+[11/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/null.cpp.o
+[12/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/emitterutils.cpp.o
+[13/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/exp.cpp.o
+[14/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/emitterstate.cpp.o
+[15/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/convert.cpp.o
+[16/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/fptostring.cpp.o
+[17/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/memory.cpp.o
+[18/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/ostream_wrapper.cpp.o
+[19/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/regex_yaml.cpp.o
+[20/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/scanscalar.cpp.o
+[21/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/node_data.cpp.o
+[22/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/scantag.cpp.o
+[23/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/nodeevents.cpp.o
+[24/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/nodebuilder.cpp.o
+[25/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/parse.cpp.o
+[26/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/tag.cpp.o
+[27/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/parser.cpp.o
+[28/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/stream.cpp.o
+[29/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/simplekey.cpp.o
+[30/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/scanner.cpp.o
+[31/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/scantoken.cpp.o
+[32/49] Building CXX object _deps/yaml-cpp-build/CMakeFiles/yaml-cpp.dir/src/singledocparser.cpp.o
+[33/49] Linking CXX static library _deps/yaml-cpp-build/libyaml-cppd.a
+[34/49] Building CXX object CMakeFiles/routeproof_core.dir/src/forwarding/table.cpp.o
+[35/49] Building CXX object CMakeFiles/routeproof_core.dir/src/spf/shortest_paths.cpp.o
+[36/49] Building CXX object CMakeFiles/routeproof_core.dir/src/model/topology.cpp.o
+[37/49] Building CXX object CMakeFiles/routeproof.dir/app/main.cpp.o
+[38/49] Building CXX object CMakeFiles/routeproof_input_limits_check.dir/tests/integration/input_limits.cpp.o
+[39/49] Building CXX object CMakeFiles/routeproof_topology_check.dir/tests/integration/physical_topology.cpp.o
+[40/49] Building CXX object CMakeFiles/routeproof_routing_check.dir/tests/integration/routing.cpp.o
+[41/49] Building CXX object CMakeFiles/routeproof_core.dir/src/input/document.cpp.o
+[42/49] Building CXX object CMakeFiles/routeproof_core.dir/src/output/baseline.cpp.o
+[43/49] Building CXX object CMakeFiles/routeproof_core.dir/src/input/scenario_loader.cpp.o
+[44/49] Linking CXX static library librouteproof_core.a
+[45/49] Linking CXX executable routeproof_topology_check
+[46/49] Linking CXX executable routeproof_routing_check
+[47/49] Linking CXX executable routeproof
+[48/49] Linking CXX executable routeproof_input_limits_check
+
+exit: 0
+$ ctest --test-dir <build> --verbose
+UpdateCTestConfiguration  from :<build>/DartConfiguration.tcl
+Parse Config file:<build>/DartConfiguration.tcl
+Test project <build>
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: input.physical_topology
+
+1: Test command: <build>/routeproof_topology_check "<source>/examples/input/valid/physical-state.yaml"
+1: Working Directory: <build>
+1: Test timeout computed to be: 1500
+1: PASS constructed topology: directional parallel arcs, endpoint interfaces, independent router/link state, and prefix ownership
+1/6 Test #1: input.physical_topology .........   Passed    0.15 sec
+test 2
+    Start 2: input.input_fixtures
+
+2: Test command: /opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13 "<source>/tools/input/validate_fixtures.py" "<build>/routeproof"
+2: Working Directory: <build>
+2: Test timeout computed to be: 1500
+2: PASS valid examples/input/valid/diamond.yaml sha256=1865a5b65a7295132a1b1ec4920c22a28838067c07ad586aec8d565d05efe338
+2: PASS valid examples/input/valid/equivalent-a.yaml sha256=606c53d0e6f93134c0948bff06854d71d474926a6d7a968d69ccd1db89d3d199
+2: PASS valid examples/input/valid/equivalent-b.yaml sha256=606c53d0e6f93134c0948bff06854d71d474926a6d7a968d69ccd1db89d3d199
+2: PASS valid examples/input/valid/explicit-tags.yaml sha256=1a7fbcc502c5bbb88d670d95f498fdde56d694aef5b18fb219952672073203ff
+2: PASS valid examples/input/valid/physical-state.yaml sha256=0b5329bcbdb27fd5390b7612c03e0ed2f68cf100b649343a6d52a25be1b7f58f
+2: PASS equivalent declaration normalization
+2: PASS normalized directional parallel links and independent router/link state
+2: PASS invalid examples/input/invalid/default-route.yaml: routeproof: examples/input/invalid/default-route.yaml:6:21: prefixes[0].prefix default route '0.0.0.0/0' is unsupported in ospf_spf_v1
+2: PASS invalid examples/input/invalid/duplicate-key.yaml: routeproof: examples/input/invalid/duplicate-key.yaml:2:1: duplicate mapping key 'schema_version'
+2: PASS invalid examples/input/invalid/duplicate-router-id.yaml: routeproof: examples/input/invalid/duplicate-router-id.yaml:6:24: duplicate numeric OSPF router_id '0.0.0.1'
+2: PASS invalid examples/input/invalid/event-order.yaml: routeproof: examples/input/invalid/event-order.yaml:10:5: event at_ns values must be nondecreasing in sequence order
+2: PASS invalid examples/input/invalid/invalid-cost.yaml: routeproof: examples/input/invalid/invalid-cost.yaml:7:39: links[0].cost_ab must be in 1..65535
+2: PASS invalid examples/input/invalid/mapping-sequence-tag.yaml: routeproof: examples/input/invalid/mapping-sequence-tag.yaml:4:11: YAML tag 'tag:yaml.org,2002:seq' does not match the node type
+2: PASS invalid examples/input/invalid/multiple-documents.yaml: routeproof: examples/input/invalid/multiple-documents.yaml:9:1: exactly one YAML document is supported
+2: PASS invalid examples/input/invalid/non-string-key.yaml: routeproof: examples/input/invalid/non-string-key.yaml:1:1: mapping key must be a string, not a tagged YAML value
+2: PASS invalid examples/input/invalid/noncanonical-prefix.yaml: routeproof: examples/input/invalid/noncanonical-prefix.yaml:6:21: prefixes[0].prefix must name the canonical network address
+2: PASS invalid examples/input/invalid/overlapping-prefixes.yaml: routeproof: examples/input/invalid/overlapping-prefixes.yaml:7:3: prefixes must be disjoint; overlapping prefix '10.0.0.128/25'
+2: PASS invalid examples/input/invalid/quoted-cost.yaml: routeproof: examples/input/invalid/quoted-cost.yaml:7:39: links[0].cost_ab must be an integer
+2: PASS invalid examples/input/invalid/reserved-namespace-tag.yaml: routeproof: examples/input/invalid/reserved-namespace-tag.yaml:4:10: unsupported YAML tag 'tag:yaml.org,2002:routeproof-custom'
+2: PASS invalid examples/input/invalid/sequence-integer-tag.yaml: routeproof: examples/input/invalid/sequence-integer-tag.yaml:5:8: YAML tag 'tag:yaml.org,2002:int' does not match the node type
+2: PASS invalid examples/input/invalid/sequence-string-tag.yaml: routeproof: examples/input/invalid/sequence-string-tag.yaml:4:10: YAML tag 'tag:yaml.org,2002:str' does not match the node type
+2: PASS invalid examples/input/invalid/unknown-field.yaml: routeproof: examples/input/invalid/unknown-field.yaml:4:1: scenario contains unsupported field 'area'
+2: PASS invalid examples/input/invalid/unresolved-endpoint.yaml: routeproof: examples/input/invalid/unresolved-endpoint.yaml:5:27: links[0].b references unknown router 'missing'
+2: PASS invalid examples/input/invalid/unsupported-tag.yaml: routeproof: examples/input/invalid/unsupported-tag.yaml:5:24: unsupported YAML tag '!routing'
+2/6 Test #2: input.input_fixtures ............   Passed    0.65 sec
+test 3
+    Start 3: input.input_limits
+
+3: Test command: <build>/routeproof_input_limits_check "<source>/examples/input/valid/diamond.yaml"
+3: Working Directory: <build>
+3: Test timeout computed to be: 1500
+3: PASS input budgets, exact boundaries, alias cycles, and JSON source marks
+3/6 Test #3: input.input_limits ..............   Passed    0.11 sec
+test 4
+    Start 4: input.input_regressions
+
+4: Test command: /opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13 "<source>/tools/input/validate_regressions.py" "<build>/routeproof"
+4: Working Directory: <build>
+4: Test timeout computed to be: 60
+4: PASS JSON Unicode escapes, token cursor, BOM, automatic detection, canonical hashes
+4: PASS escaped summary and diagnostics, including untrusted source paths
+4: PASS strict JSON, duplicate decoded keys, numeric types, original source locations
+4: PASS nonrecursive aliases, flow YAML, alias-cycle rejection
+4: PASS sorted prefix lookup at network endpoints and address-space boundaries
+4: PASS large valid input and bounded file reads
+4/6 Test #4: input.input_regressions .........   Passed    1.52 sec
+test 5
+    Start 5: routing.routing_contract
+
+5: Test command: <build>/routeproof_routing_check "<source>/examples/routing/merged-ecmp.json"
+5: Working Directory: <build>
+5: Test timeout computed to be: 1500
+5: PASS routing contract: shared sets, lookup, connected cost, removal/restoration, resource boundaries, rank/overflow checks
+5/6 Test #5: routing.routing_contract ..........   Passed    0.10 sec
+test 6
+    Start 6: routing.independent_oracle
+
+6: Test command: /opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13 "<source>/tests/reference/check_routing.py" "<build>/routeproof"
+6: Working Directory: <build>
+6: Test timeout computed to be: 60
+6: PASS Floyd-Warshall oracle: 87 cases, 1044 route rows, 781 next-hop references
+6: PASS declaration/endpoint reversal, repeat/timing invariance; corpus sha256=9439e765869a1a636f240a55a4ddd01adf743795bef376587f883e8d56e3d505
+6/6 Test #6: routing.independent_oracle ........   Passed    4.37 sec
+
+100% tests passed out of 6
+
+Total Test time (real) =   6.91 sec
+
+exit: 0

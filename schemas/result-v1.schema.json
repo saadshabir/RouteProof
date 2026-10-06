@@ -10,6 +10,8 @@
     "model",
     "scenario_name",
     "scenario_sha256",
+    "events_sha256",
+    "assertions_sha256",
     "canonical_sha256",
     "status",
     "events",
@@ -21,15 +23,19 @@
     "model": { "const": "ospf_spf_v1" },
     "scenario_name": { "type": "string", "minLength": 1, "maxLength": 128 },
     "scenario_sha256": { "$ref": "#/$defs/sha256" },
+    "events_sha256": { "$ref": "#/$defs/sha256" },
+    "assertions_sha256": { "$ref": "#/$defs/sha256" },
     "canonical_sha256": { "$ref": "#/$defs/sha256" },
     "status": { "enum": ["pass", "fail", "incomplete"] },
+    "incomplete_reason": { "type": "string", "minLength": 1 },
+    "completed_snapshots": { "type": "integer", "minimum": 0 },
+    "requested_snapshots": { "type": "integer", "minimum": 1 },
     "events": {
       "type": "array",
       "items": { "$ref": "#/$defs/event_result" }
     },
     "snapshots": {
       "type": "array",
-      "minItems": 1,
       "items": { "$ref": "#/$defs/snapshot" }
     },
     "assertions": {
@@ -37,6 +43,11 @@
       "items": { "$ref": "#/$defs/assertion_result" }
     }
   },
+  "allOf": [{
+    "if": { "properties": { "status": { "const": "incomplete" } } },
+    "then": { "required": ["incomplete_reason", "completed_snapshots", "requested_snapshots"] },
+    "else": { "properties": { "snapshots": { "minItems": 1 } } }
+  }],
   "$defs": {
     "id": {
       "type": "string",
@@ -66,13 +77,15 @@
     "route": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["router", "prefix", "origin", "kind", "metric", "next_hops"],
+      "required": ["router", "prefix", "origin", "kind", "distance_to_origin", "metric", "protocol_cost", "next_hops"],
       "properties": {
         "router": { "$ref": "#/$defs/id" },
         "prefix": { "$ref": "#/$defs/ipv4_prefix" },
         "origin": { "$ref": "#/$defs/id" },
         "kind": { "enum": ["connected", "ospf"] },
         "metric": { "type": "integer", "minimum": 0, "maximum": 16777214 },
+        "distance_to_origin": { "type": "integer", "minimum": 0, "maximum": 16777214 },
+        "protocol_cost": { "type": "integer", "minimum": 0, "maximum": 16777214 },
         "next_hops": {
           "type": "array",
           "items": { "$ref": "#/$defs/next_hop" }
@@ -98,9 +111,12 @@
     "event_result": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "sequence", "type", "disposition", "snapshot_sha256"],
+      "required": ["id", "sequence", "at_ns", "type", "disposition", "snapshot_sha256", "route_entries", "next_hop_references"],
       "properties": {
         "id": { "$ref": "#/$defs/id" },
+        "at_ns": { "type": "integer", "minimum": 0, "maximum": 9223372036854775807 },
+        "route_entries": { "type": "integer", "minimum": 0 },
+        "next_hop_references": { "type": "integer", "minimum": 0 },
         "sequence": { "type": "integer", "minimum": 1, "maximum": 9223372036854775807 },
         "type": { "enum": ["link_down", "link_up", "router_down", "router_up"] },
         "disposition": { "enum": ["applied", "noop"] },
@@ -151,9 +167,16 @@
     "path_step": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["router", "next_hop"],
+      "required": ["router", "next_hop", "route_decision"],
       "properties": {
         "router": { "$ref": "#/$defs/id" },
+        "route_decision": {
+          "type": "object", "additionalProperties": false, "required": ["kind"],
+          "properties": {
+            "kind": { "enum": ["connected", "ospf", "absent"] },
+            "metric": { "type": "integer", "minimum": 0, "maximum": 16777214 }
+          }
+        },
         "next_hop": {
           "oneOf": [
             { "$ref": "#/$defs/next_hop" },
@@ -195,6 +218,7 @@
         "source",
         "destination",
         "destination_prefix",
+        "destination_origin",
         "ecmp_quantifier",
         "event_id",
         "sequence",
@@ -212,6 +236,7 @@
         "source": { "$ref": "#/$defs/id" },
         "destination": { "type": "string", "format": "ipv4" },
         "destination_prefix": { "$ref": "#/$defs/ipv4_prefix" },
+        "destination_origin": { "$ref": "#/$defs/id" },
         "ecmp_quantifier": { "const": "all" },
         "message": { "type": "string", "minLength": 1, "maxLength": 1024 },
         "event_id": {
@@ -234,6 +259,7 @@
           "items": { "$ref": "#/$defs/path_step" }
         },
         "terminal_reason": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "cycle_entry": { "type": "integer", "minimum": 0 },
         "unreachable_origin": { "$ref": "#/$defs/id" },
         "reachable_component": {
           "type": "array",

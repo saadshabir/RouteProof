@@ -1,0 +1,9 @@
+[0/2] Re-checking globbed directories...
+[1/9] Building CXX object CMakeFiles/routeproof_core.dir/src/analysis/reachability.cpp.o
+[2/9] Linking CXX static library librouteproof_core.a
+[3/9] Linking CXX executable routeproof_topology_check
+[4/9] Linking CXX executable routeproof_routing_check
+[5/9] Linking CXX executable routeproof_input_limits_check
+[6/9] Linking CXX executable routeproof
+[7/9] Building CXX object CMakeFiles/routeproof_replay_check.dir/tests/integration/replay_analysis.cpp.o
+[8/9] Linking CXX executable routeproof_replay_check

@@ -60,6 +60,9 @@ add_library(routeproof_core STATIC
     src/spf/shortest_paths.cpp
     src/forwarding/table.cpp
     src/output/baseline.cpp
+    src/engine/replay.cpp
+    src/analysis/reachability.cpp
+    src/output/simulation.cpp
 )
 
 target_compile_features(routeproof_core PUBLIC cxx_std_20)
@@ -86,32 +89,40 @@ if(BUILD_TESTING)
     add_executable(routeproof_topology_check tests/integration/physical_topology.cpp)
     set_target_properties(routeproof_topology_check PROPERTIES CXX_EXTENSIONS OFF)
     target_link_libraries(routeproof_topology_check PRIVATE routeproof_core)
-    add_test(NAME phase1.physical_topology
+    add_test(NAME input.physical_topology
         COMMAND routeproof_topology_check
-                "${CMAKE_CURRENT_SOURCE_DIR}/examples/phase1/valid/physical-state.yaml")
-    add_test(NAME phase1.input_fixtures
+                "${CMAKE_CURRENT_SOURCE_DIR}/examples/input/valid/physical-state.yaml")
+    add_test(NAME input.input_fixtures
         COMMAND "${Python3_EXECUTABLE}"
-                "${CMAKE_CURRENT_SOURCE_DIR}/tools/phase1/validate_fixtures.py"
+                "${CMAKE_CURRENT_SOURCE_DIR}/tools/input/validate_fixtures.py"
                 "$<TARGET_FILE:routeproof>")
     add_executable(routeproof_input_limits_check tests/integration/input_limits.cpp)
     set_target_properties(routeproof_input_limits_check PROPERTIES CXX_EXTENSIONS OFF)
     target_link_libraries(routeproof_input_limits_check PRIVATE routeproof_core)
-    add_test(NAME phase1.input_limits
+    add_test(NAME input.input_limits
         COMMAND routeproof_input_limits_check
-                "${CMAKE_CURRENT_SOURCE_DIR}/examples/phase1/valid/diamond.yaml")
-    add_test(NAME phase1.input_regressions
+                "${CMAKE_CURRENT_SOURCE_DIR}/examples/input/valid/diamond.yaml")
+    add_test(NAME input.input_regressions
         COMMAND "${Python3_EXECUTABLE}"
-                "${CMAKE_CURRENT_SOURCE_DIR}/tools/phase1/validate_regressions.py"
+                "${CMAKE_CURRENT_SOURCE_DIR}/tools/input/validate_regressions.py"
                 "$<TARGET_FILE:routeproof>")
-    set_tests_properties(phase1.input_regressions PROPERTIES TIMEOUT 60)
+    set_tests_properties(input.input_regressions PROPERTIES TIMEOUT 60)
     add_executable(routeproof_routing_check tests/integration/routing.cpp)
     set_target_properties(routeproof_routing_check PROPERTIES CXX_EXTENSIONS OFF)
     target_link_libraries(routeproof_routing_check PRIVATE routeproof_core)
-    add_test(NAME phase2.routing_contract COMMAND routeproof_routing_check
-        "${CMAKE_CURRENT_SOURCE_DIR}/examples/phase2/merged-ecmp.json")
-    add_test(NAME phase2.independent_oracle COMMAND "${Python3_EXECUTABLE}"
+    add_test(NAME routing.routing_contract COMMAND routeproof_routing_check
+        "${CMAKE_CURRENT_SOURCE_DIR}/examples/routing/merged-ecmp.json")
+    add_test(NAME routing.independent_oracle COMMAND "${Python3_EXECUTABLE}"
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/reference/check_routing.py" "$<TARGET_FILE:routeproof>")
-    set_tests_properties(phase2.routing_contract phase2.independent_oracle PROPERTIES TIMEOUT 60)
+    set_tests_properties(routing.routing_contract routing.independent_oracle PROPERTIES TIMEOUT 60)
+    add_executable(routeproof_replay_check tests/integration/replay_analysis.cpp)
+    set_target_properties(routeproof_replay_check PROPERTIES CXX_EXTENSIONS OFF)
+    target_link_libraries(routeproof_replay_check PRIVATE routeproof_core)
+    add_test(NAME replay.replay_checker COMMAND routeproof_replay_check
+        "${CMAKE_CURRENT_SOURCE_DIR}/examples/diamond-failures.yaml")
+    add_test(NAME replay.independent_replay COMMAND "${Python3_EXECUTABLE}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/reference/check_replay.py" "$<TARGET_FILE:routeproof>")
+    set_tests_properties(replay.replay_checker replay.independent_replay PROPERTIES TIMEOUT 60)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")
@@ -120,6 +131,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")
     endforeach()
     if(BUILD_TESTING)
         target_compile_options(routeproof_topology_check PRIVATE -Wall -Wextra -Wpedantic)
+        target_compile_options(routeproof_replay_check PRIVATE -Wall -Wextra -Wpedantic)
         target_compile_options(routeproof_routing_check PRIVATE -Wall -Wextra -Wpedantic)
         target_compile_options(routeproof_input_limits_check PRIVATE -Wall -Wextra -Wpedantic)
     endif()

@@ -90,7 +90,7 @@ class LCG:
 
 
 def cases():
-    for path in sorted((ROOT / 'examples/phase2').glob('*.json')):
+    for path in sorted((ROOT / 'examples/routing').glob('*.json')):
         yield json.loads(path.read_text())
     generator = LCG(0x52504632)
     for i in range(80):

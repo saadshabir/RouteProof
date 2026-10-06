@@ -1,0 +1,204 @@
+{
+  "schema_version": 1,
+  "model": "ospf_spf_v1",
+  "name": "parallel-restoration",
+  "routers": [
+    {
+      "id": "r0",
+      "router_id": "0.0.0.1",
+      "initial_state": "up"
+    },
+    {
+      "id": "r1",
+      "router_id": "0.0.0.2",
+      "initial_state": "up"
+    },
+    {
+      "id": "r2",
+      "router_id": "0.0.0.3",
+      "initial_state": "up"
+    }
+  ],
+  "links": [
+    {
+      "id": "l0",
+      "a": "r0",
+      "b": "r1",
+      "cost_ab": 1,
+      "cost_ba": 4,
+      "initial_state": "up"
+    },
+    {
+      "id": "l1",
+      "a": "r0",
+      "b": "r1",
+      "cost_ab": 1,
+      "cost_ba": 6,
+      "initial_state": "up"
+    },
+    {
+      "id": "l2",
+      "a": "r1",
+      "b": "r2",
+      "cost_ab": 2,
+      "cost_ba": 3,
+      "initial_state": "up"
+    }
+  ],
+  "prefixes": [
+    {
+      "prefix": "10.0.0.0/24",
+      "origin": "r0",
+      "stub_cost": 1
+    },
+    {
+      "prefix": "10.0.1.0/24",
+      "origin": "r1",
+      "stub_cost": 2
+    },
+    {
+      "prefix": "10.0.2.0/24",
+      "origin": "r2",
+      "stub_cost": 3
+    }
+  ],
+  "events": [
+    {
+      "id": "link-down",
+      "seq": 1,
+      "at_ns": 0,
+      "type": "link_down",
+      "link": "l0"
+    },
+    {
+      "id": "noop-down",
+      "seq": 2,
+      "at_ns": 0,
+      "type": "link_down",
+      "link": "l0"
+    },
+    {
+      "id": "router-down",
+      "seq": 3,
+      "at_ns": 0,
+      "type": "router_down",
+      "router": "r1"
+    },
+    {
+      "id": "link-up-disabled",
+      "seq": 4,
+      "at_ns": 0,
+      "type": "link_up",
+      "link": "l0"
+    },
+    {
+      "id": "link-down-disabled",
+      "seq": 5,
+      "at_ns": 0,
+      "type": "link_down",
+      "link": "l0"
+    },
+    {
+      "id": "router-up",
+      "seq": 6,
+      "at_ns": 0,
+      "type": "router_up",
+      "router": "r1"
+    },
+    {
+      "id": "noop-router-up",
+      "seq": 7,
+      "at_ns": 0,
+      "type": "router_up",
+      "router": "r1"
+    },
+    {
+      "id": "link-up",
+      "seq": 8,
+      "at_ns": 0,
+      "type": "link_up",
+      "link": "l0"
+    },
+    {
+      "id": "noop-link-up",
+      "seq": 9,
+      "at_ns": 0,
+      "type": "link_up",
+      "link": "l0"
+    }
+  ],
+  "assertions": [
+    {
+      "id": "r0-to-r0",
+      "type": "must_reach",
+      "source": "r0",
+      "destination": "10.0.0.1",
+      "quantifier": "all",
+      "scope": "every_snapshot"
+    },
+    {
+      "id": "r0-to-r1",
+      "type": "must_reach",
+      "source": "r0",
+      "destination": "10.0.1.1",
+      "quantifier": "all",
+      "scope": "every_snapshot"
+    },
+    {
+      "id": "r0-to-r2",
+      "type": "must_reach",
+      "source": "r0",
+      "destination": "10.0.2.1",
+      "quantifier": "all",
+      "scope": "every_snapshot"
+    },
+    {
+      "id": "r1-to-r0",
+      "type": "must_reach",
+      "source": "r1",
+      "destination": "10.0.0.1",
+      "quantifier": "all",
+      "scope": "every_snapshot"
+    },
+    {
+      "id": "r1-to-r1",
+      "type": "must_reach",
+      "source": "r1",
+      "destination": "10.0.1.1",
+      "quantifier": "all",
+      "scope": "every_snapshot"
+    },
+    {
+      "id": "r1-to-r2",
+      "type": "must_reach",
+      "source": "r1",
+      "destination": "10.0.2.1",
+      "quantifier": "all",
+      "scope": "every_snapshot"
+    },
+    {
+      "id": "r2-to-r0",
+      "type": "must_reach",
+      "source": "r2",
+      "destination": "10.0.0.1",
+      "quantifier": "all",
+      "scope": "every_snapshot"
+    },
+    {
+      "id": "r2-to-r1",
+      "type": "must_reach",
+      "source": "r2",
+      "destination": "10.0.1.1",
+      "quantifier": "all",
+      "scope": "every_snapshot"
+    },
+    {
+      "id": "r2-to-r2",
+      "type": "must_reach",
+      "source": "r2",
+      "destination": "10.0.2.1",
+      "quantifier": "all",
+      "scope": "every_snapshot"
+    }
+  ]
+}

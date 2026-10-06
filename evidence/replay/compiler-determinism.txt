@@ -1,0 +1,2 @@
+PASS independent replay: 42 traces, 373 snapshots, 4830 validated failures; full Floyd-Warshall route domain, physical components/frontiers
+PASS repeat/order/endpoint/compiler invariance (3 toolchains), CLI explain/errors; corpus sha256=54d3222c07f6a1bc7fc3671d256cca71262c1397ffe4d36d432ad9f5909fec0c

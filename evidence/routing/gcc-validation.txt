@@ -1,0 +1,90 @@
+UpdateCTestConfiguration  from :<repo>/build/gcc-debug/DartConfiguration.tcl
+Parse Config file:<repo>/build/gcc-debug/DartConfiguration.tcl
+Test project <repo>/build/gcc-debug
+Constructing a list of tests
+Done constructing a list of tests
+Updating test list for fixtures
+Added 0 tests to meet fixture requirements
+Checking test dependency graph...
+Checking test dependency graph end
+test 1
+    Start 1: input.physical_topology
+
+1: Test command: <repo>/build/gcc-debug/routeproof_topology_check "<repo>/examples/input/valid/physical-state.yaml"
+1: Working Directory: <repo>/build/gcc-debug
+1: Test timeout computed to be: 1500
+1: PASS constructed topology: directional parallel arcs, endpoint interfaces, independent router/link state, and prefix ownership
+1/6 Test #1: input.physical_topology .........   Passed    0.10 sec
+test 2
+    Start 2: input.input_fixtures
+
+2: Test command: /opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13 "<repo>/tools/input/validate_fixtures.py" "<repo>/build/gcc-debug/routeproof"
+2: Working Directory: <repo>/build/gcc-debug
+2: Test timeout computed to be: 1500
+2: PASS valid examples/input/valid/diamond.yaml sha256=1865a5b65a7295132a1b1ec4920c22a28838067c07ad586aec8d565d05efe338
+2: PASS valid examples/input/valid/equivalent-a.yaml sha256=606c53d0e6f93134c0948bff06854d71d474926a6d7a968d69ccd1db89d3d199
+2: PASS valid examples/input/valid/equivalent-b.yaml sha256=606c53d0e6f93134c0948bff06854d71d474926a6d7a968d69ccd1db89d3d199
+2: PASS valid examples/input/valid/explicit-tags.yaml sha256=1a7fbcc502c5bbb88d670d95f498fdde56d694aef5b18fb219952672073203ff
+2: PASS valid examples/input/valid/physical-state.yaml sha256=0b5329bcbdb27fd5390b7612c03e0ed2f68cf100b649343a6d52a25be1b7f58f
+2: PASS equivalent declaration normalization
+2: PASS normalized directional parallel links and independent router/link state
+2: PASS invalid examples/input/invalid/default-route.yaml: routeproof: examples/input/invalid/default-route.yaml:6:21: prefixes[0].prefix default route '0.0.0.0/0' is unsupported in ospf_spf_v1
+2: PASS invalid examples/input/invalid/duplicate-key.yaml: routeproof: examples/input/invalid/duplicate-key.yaml:2:1: duplicate mapping key 'schema_version'
+2: PASS invalid examples/input/invalid/duplicate-router-id.yaml: routeproof: examples/input/invalid/duplicate-router-id.yaml:6:24: duplicate numeric OSPF router_id '0.0.0.1'
+2: PASS invalid examples/input/invalid/event-order.yaml: routeproof: examples/input/invalid/event-order.yaml:10:5: event at_ns values must be nondecreasing in sequence order
+2: PASS invalid examples/input/invalid/invalid-cost.yaml: routeproof: examples/input/invalid/invalid-cost.yaml:7:39: links[0].cost_ab must be in 1..65535
+2: PASS invalid examples/input/invalid/mapping-sequence-tag.yaml: routeproof: examples/input/invalid/mapping-sequence-tag.yaml:4:11: YAML tag 'tag:yaml.org,2002:seq' does not match the node type
+2: PASS invalid examples/input/invalid/multiple-documents.yaml: routeproof: examples/input/invalid/multiple-documents.yaml:9:1: exactly one YAML document is supported
+2: PASS invalid examples/input/invalid/non-string-key.yaml: routeproof: examples/input/invalid/non-string-key.yaml:1:1: mapping key must be a string, not a tagged YAML value
+2: PASS invalid examples/input/invalid/noncanonical-prefix.yaml: routeproof: examples/input/invalid/noncanonical-prefix.yaml:6:21: prefixes[0].prefix must name the canonical network address
+2: PASS invalid examples/input/invalid/overlapping-prefixes.yaml: routeproof: examples/input/invalid/overlapping-prefixes.yaml:7:3: prefixes must be disjoint; overlapping prefix '10.0.0.128/25'
+2: PASS invalid examples/input/invalid/quoted-cost.yaml: routeproof: examples/input/invalid/quoted-cost.yaml:7:39: links[0].cost_ab must be an integer
+2: PASS invalid examples/input/invalid/reserved-namespace-tag.yaml: routeproof: examples/input/invalid/reserved-namespace-tag.yaml:4:10: unsupported YAML tag 'tag:yaml.org,2002:routeproof-custom'
+2: PASS invalid examples/input/invalid/sequence-integer-tag.yaml: routeproof: examples/input/invalid/sequence-integer-tag.yaml:5:8: YAML tag 'tag:yaml.org,2002:int' does not match the node type
+2: PASS invalid examples/input/invalid/sequence-string-tag.yaml: routeproof: examples/input/invalid/sequence-string-tag.yaml:4:10: YAML tag 'tag:yaml.org,2002:str' does not match the node type
+2: PASS invalid examples/input/invalid/unknown-field.yaml: routeproof: examples/input/invalid/unknown-field.yaml:4:1: scenario contains unsupported field 'area'
+2: PASS invalid examples/input/invalid/unresolved-endpoint.yaml: routeproof: examples/input/invalid/unresolved-endpoint.yaml:5:27: links[0].b references unknown router 'missing'
+2: PASS invalid examples/input/invalid/unsupported-tag.yaml: routeproof: examples/input/invalid/unsupported-tag.yaml:5:24: unsupported YAML tag '!routing'
+2/6 Test #2: input.input_fixtures ............   Passed    0.63 sec
+test 3
+    Start 3: input.input_limits
+
+3: Test command: <repo>/build/gcc-debug/routeproof_input_limits_check "<repo>/examples/input/valid/diamond.yaml"
+3: Working Directory: <repo>/build/gcc-debug
+3: Test timeout computed to be: 1500
+3: PASS input budgets, exact boundaries, alias cycles, and JSON source marks
+3/6 Test #3: input.input_limits ..............   Passed    0.10 sec
+test 4
+    Start 4: input.input_regressions
+
+4: Test command: /opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13 "<repo>/tools/input/validate_regressions.py" "<repo>/build/gcc-debug/routeproof"
+4: Working Directory: <repo>/build/gcc-debug
+4: Test timeout computed to be: 60
+4: PASS JSON Unicode escapes, token cursor, BOM, automatic detection, canonical hashes
+4: PASS escaped summary and diagnostics, including untrusted source paths
+4: PASS strict JSON, duplicate decoded keys, numeric types, original source locations
+4: PASS nonrecursive aliases, flow YAML, alias-cycle rejection
+4: PASS sorted prefix lookup at network endpoints and address-space boundaries
+4: PASS large valid input and bounded file reads
+4/6 Test #4: input.input_regressions .........   Passed    1.47 sec
+test 5
+    Start 5: routing.routing_contract
+
+5: Test command: <repo>/build/gcc-debug/routeproof_routing_check "<repo>/examples/routing/merged-ecmp.json"
+5: Working Directory: <repo>/build/gcc-debug
+5: Test timeout computed to be: 1500
+5: PASS routing contract: shared sets, lookup, connected cost, removal/restoration, resource boundaries, rank/overflow checks
+5/6 Test #5: routing.routing_contract ..........   Passed    0.10 sec
+test 6
+    Start 6: routing.independent_oracle
+
+6: Test command: /opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13 "<repo>/tests/reference/check_routing.py" "<repo>/build/gcc-debug/routeproof"
+6: Working Directory: <repo>/build/gcc-debug
+6: Test timeout computed to be: 60
+6: PASS Floyd-Warshall oracle: 87 cases, 1044 route rows, 781 next-hop references
+6: PASS declaration/endpoint reversal, repeat/timing invariance; corpus sha256=9439e765869a1a636f240a55a4ddd01adf743795bef376587f883e8d56e3d505
+6/6 Test #6: routing.independent_oracle ........   Passed    4.26 sec
+
+100% tests passed out of 6
+
+Total Test time (real) =   6.67 sec

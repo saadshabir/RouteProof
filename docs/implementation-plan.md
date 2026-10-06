@@ -1,6 +1,6 @@
 # RouteProof: focused MVP implementation plan
 
-**Status:** execution in progress; Phases 0–2 are complete. Baseline SPF/prefix/ECMP routing is implemented and checked against an independent oracle. Failure replay, reachability, FRR comparisons, and benchmark results remain open.
+**Status:** execution in progress; Phases 0–3 are complete. SPF/prefix/ECMP routing, deterministic failure replay, and all-branch reachability with validated witnesses are implemented and independently checked. FRR comparisons and benchmark results remain open.
 
 **Scope:** the five deliverables specified below.
 
@@ -192,7 +192,7 @@ Forbidden reachability, policy isolation, route leaks, and unexpected-transit as
 
 Initially keep topology, events, and assertions in one strict versioned YAML file. Split shared inputs through explicit references only when benchmark reuse warrants it.
 
-The following example and commands are planned interfaces.
+The example and `validate`, `simulate`, and `explain` commands are implemented. FRR and `bench` commands remain planned interfaces.
 
 ```yaml
 schema_version: 1
@@ -467,7 +467,7 @@ Deliverables: `docs/model.md`, scenario/result schema, supported/unsupported tab
 
 Exit gate: both declared compilers build a clean checkout; model/schema version is visible; the five release deliverables are represented in the acceptance checklist.
 
-**Status:** complete. Clean-checkout compiler evidence is recorded in [phase0/phase0-builds.md](../evidence/phase0/phase0-builds.md); the current Phase 1 implementation also passes the minimum-toolchain build and acceptance checks recorded below.
+**Status:** complete. Clean-checkout compiler evidence is recorded in [build/clean-builds.md](../evidence/build/clean-builds.md); the current Phase 1 implementation also passes the minimum-toolchain build and acceptance checks recorded below.
 
 ### Phase 1 — Canonical input and physical topology (3–4 days)
 
@@ -477,7 +477,7 @@ Deliverables: strict parser, semantic validation, interface-aware graph, prefix 
 
 Exit gate: equivalent topology declarations normalize identically; invalid/unsupported cases fail explicitly; directional/parallel links and router/link state remain distinguishable.
 
-**Status:** complete. Strict rejection, multiple-prefix/assertion normalization, constructed-topology integration, and minimum-toolchain build evidence are recorded in [phase1/input-validation.md](../evidence/phase1/input-validation.md).
+**Status:** complete. Strict rejection, multiple-prefix/assertion normalization, constructed-topology integration, and minimum-toolchain build evidence are recorded in [input/input-validation.md](../evidence/input/input-validation.md).
 
 ### Phase 2 — SPF, prefixes, and complete ECMP (4–6 days)
 
@@ -487,7 +487,7 @@ Deliverables: full-recomputation Dijkstra, DAG first-hop propagation, converged 
 
 Exit gate: distances and full next-hop interface sets match the independent oracle for named/generated tiny graphs; merged ECMP, asymmetry, parallel links, and route absence are covered.
 
-**Status:** complete. Baseline route tables, independent named/generated tiny-graph checks, toolchain determinism, and sanitizer evidence are recorded in [phase2/routing-validation.md](../evidence/phase2/routing-validation.md). `routeproof routes FILE [--timing]` computes initial-state routes only.
+**Status:** complete. Baseline route tables, independent named/generated tiny-graph checks, toolchain determinism, and sanitizer evidence are recorded in [routing/routing-validation.md](../evidence/routing/routing-validation.md). `routeproof routes FILE [--timing]` computes initial-state routes only.
 
 ### Phase 3 — Failure replay and all-branch explanations (4–6 days)
 
@@ -496,6 +496,8 @@ Exit gate: distances and full next-hop interface sets match the independent orac
 Deliverables: four event types, atomic snapshots, universal reachability checker, partition/drop/cycle explanations, witness validation, canonical results, and CLI explanation.
 
 Exit gate: the diamond trace produces the specified next hops/failures; source/origin failures and restoration behave correctly; malformed-FIB ECMP fixtures fail appropriately; results/witnesses are reproducible across runs and compilers.
+
+**Status:** complete. Replay, iterative SCC all-branch analysis, independently validated witnesses/frontiers, malformed-FIB checks, cross-toolchain determinism, and sanitizer results are recorded in [replay/replay-validation.md](../evidence/replay/replay-validation.md). `routeproof simulate FILE --out DIR` and `routeproof explain RESULT --assertion ID` are implemented.
 
 ### Phase 4 — Small FRRouting differential labs (4–6 days)
 
@@ -558,14 +560,14 @@ Every item requires a command, result, or evidence pointer.
 
 - [ ] Both declared compilers build a clean checkout.
 - [ ] Strict parsing and unsupported-feature errors match the model contract.
-- [x] Single-area SPF, prefix costs, connected delivery, and complete ECMP interface sets match the independent oracle ([Phase 2 evidence](../evidence/phase2/routing-validation.md)).
-- [ ] Link/router down/up and administrative restoration semantics match the declared scenarios.
-- [ ] Replay and witness selection produce identical canonical results.
-- [ ] Reachability examines every modeled ECMP branch.
-- [ ] Source/origin unavailability, no-route partitions, terminal drops, and malformed cycles receive useful explanations.
-- [ ] Every path/cycle/frontier certificate validates against its referenced snapshot.
-- [ ] The diamond trace reproduces its expected branch changes and failures.
-- [ ] Independent tiny-graph checks and sanitizer fixtures pass.
+- [x] Single-area SPF, prefix costs, connected delivery, and complete ECMP interface sets match the independent oracle ([Phase 2 evidence](../evidence/routing/routing-validation.md)).
+- [x] Link/router down/up and administrative restoration semantics match the declared scenarios ([Phase 3 evidence](../evidence/replay/replay-validation.md)).
+- [x] Replay and witness selection produce identical canonical results ([Phase 3 evidence](../evidence/replay/replay-validation.md)).
+- [x] Reachability examines every modeled ECMP branch ([Phase 3 evidence](../evidence/replay/replay-validation.md)).
+- [x] Source/origin unavailability, no-route partitions, terminal drops, and malformed cycles receive useful explanations ([Phase 3 evidence](../evidence/replay/replay-validation.md)).
+- [x] Every path/cycle/frontier certificate validates against its referenced snapshot ([Phase 3 evidence](../evidence/replay/replay-validation.md)).
+- [x] The diamond trace reproduces its expected branch changes and failures ([Phase 3 evidence](../evidence/replay/replay-validation.md)).
+- [x] Independent tiny-graph checks and sanitizer fixtures pass ([Phase 3 evidence](../evidence/replay/replay-validation.md)).
 - [ ] All five FRR lab profiles match converged costs and complete next-hop sets for their declared snapshots.
 - [ ] Raw comparisons, denominators, errors, and generated configurations are available.
 - [ ] Scenario time, memory, and scaling measurements include raw samples and workload dimensions.

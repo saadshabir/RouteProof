@@ -2,6 +2,9 @@
 #include "routeproof/version.hpp"
 #include "routeproof/output/baseline.hpp"
 #include <chrono>
+#include "routeproof/output/simulation.hpp"
+#include <filesystem>
+#include <fstream>
 
 #include <iostream>
 #include <string>
@@ -63,11 +66,13 @@ std::string escape_output(const std::string_view text) {
 
 void print_help(std::ostream& output) {
     output << "RouteProof " << routeproof::version << "\n"
-           << "Usage: routeproof --help | --version | validate <scenario.yaml> [--normalized] | routes <scenario.yaml> [--timing]\n\n"
+           << "Usage: routeproof --help | --version | validate <scenario.yaml> [--normalized] | routes <scenario.yaml> [--timing] | simulate FILE --out DIR | explain RESULT --assertion ID\n\n"
            << "Commands:\n"
            << "  validate FILE              Validate and summarize a scenario\n"
            << "  validate FILE --normalized Print canonical normalized scenario JSON\n"
-           << "  routes FILE [--timing]      Print baseline routes; optional timing JSON on stderr\n";
+           << "  routes FILE [--timing]      Print baseline routes; optional timing JSON on stderr\n"
+           << "  simulate FILE --out DIR    Replay events and check all ECMP branches\n"
+           << "  explain RESULT --assertion ID  Explain recorded failures\n";
 }
 
 void print_version(std::ostream& output) {
@@ -93,6 +98,47 @@ int main(int argc, char* argv[]) {
     if (argc == 1) {
         print_help(std::cerr);
         return 2;
+    }
+
+    if (std::string_view{argv[1]} == "simulate" || std::string_view{argv[1]} == "explain") {
+        const bool simulate = std::string_view{argv[1]} == "simulate";
+        if (argc != 5 || std::string_view{argv[3]} != (simulate ? "--out" : "--assertion")) {
+            print_help(std::cerr); return 2;
+        }
+        try {
+            if (!simulate) {
+                const auto explanation = routeproof::output::explain(argv[2], argv[4]);
+                std::cout << explanation.json;
+                return explanation.exit_code;
+            }
+            const auto loaded = routeproof::input::load_scenario(argv[2]);
+            const auto start = std::chrono::steady_clock::now();
+            const auto result = routeproof::output::simulate(loaded);
+            const auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(
+                std::chrono::steady_clock::now() - start).count();
+            const std::filesystem::path directory(argv[4]);
+            std::filesystem::create_directories(directory);
+            auto write = [&](const char* name, const std::string& content) {
+                // Refuse existing artifacts; a failed run must not leave an old
+                // success at the requested result path.
+                const auto path = directory / name;
+                if (std::filesystem::exists(path)) { throw std::runtime_error("output artifact already exists; use a fresh output directory"); }
+                std::ofstream file(path, std::ios::binary);
+                file << content << '\n'; file.close();
+                if (!file) { throw std::runtime_error("output artifact write failed"); }
+            };
+            if (std::filesystem::exists(directory / "result.json") || std::filesystem::exists(directory / "run.json")) {
+                throw std::runtime_error("output artifacts already exist; use a fresh output directory");
+            }
+            write("run.json", routeproof::output::run_manifest(loaded, result, argv[2], elapsed));
+            write("result.json", result.json);
+            std::cout << "result: " << escape_output((directory / "result.json").string()) << '\n';
+            return result.exit_code;
+        } catch (const routeproof::input::InputError& error) {
+            std::cerr << "routeproof: " << escape_output(error.what()) << '\n'; return 2;
+        } catch (const std::exception& error) {
+            std::cerr << "routeproof: operation incomplete: " << escape_output(error.what()) << '\n'; return 3;
+        }
     }
 
     if (std::string_view{argv[1]} == "routes") {

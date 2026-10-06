@@ -14,7 +14,7 @@ The first release has five deliverables:
 
 Each event produces a converged forwarding snapshot. Lean, transient convergence, BGP, Prometheus, and visualization are optional follow-up work.
 
-**Current status:** Phases 0–2 are complete. The tool validates and canonicalizes v1 scenarios and computes baseline prefix routes with directional costs, connected delivery, and complete ECMP interface sets. An independent tiny-graph oracle validates the routing engine. Failure replay, reachability analysis, FRR comparisons, and benchmark measurements remain future phases.
+**Current status:** The tool validates and canonicalizes v1 scenarios and computes baseline prefix routes with directional costs, connected delivery, and complete ECMP interface sets. It replays ordered link/router failures and restorations, checks every ECMP branch, and emits validated partition/drop/cycle witnesses. Independent tiny-graph and replay oracles validate routing and findings. FRR comparisons and published benchmark measurements remain open.
 
 ## Build
 
@@ -39,17 +39,21 @@ cmake --build --preset clang-debug
 On Linux, the convenience presets are `linux-gcc-debug` and `linux-clang-debug`. Validate and inspect a scenario with:
 
 ```sh
-build/host-debug/routeproof validate examples/phase1/valid/diamond.yaml
-build/host-debug/routeproof validate examples/phase1/valid/diamond.yaml --normalized
-python3 tools/phase1/validate_fixtures.py
-build/host-debug/routeproof routes examples/phase1/valid/diamond.yaml
-build/host-debug/routeproof routes examples/phase2/merged-ecmp.json --timing
+build/host-debug/routeproof validate examples/input/valid/diamond.yaml
+build/host-debug/routeproof validate examples/input/valid/diamond.yaml --normalized
+python3 tools/input/validate_fixtures.py
+build/host-debug/routeproof routes examples/input/valid/diamond.yaml
+build/host-debug/routeproof routes examples/routing/merged-ecmp.json --timing
+build/host-debug/routeproof simulate examples/diamond-failures.yaml --out results/diamond
+build/host-debug/routeproof explain results/diamond/result.json --assertion a-to-d
 ```
 
 The validator rejects unsupported fields and semantic errors with source locations. It supports strict `.json` files, including escaped Unicode, and YAML with nonrecursive aliases. Input budgets cap source bytes, nodes, collection entries, scalar bytes, and nesting; defaults and library overrides are documented in the [model contract](docs/model.md#input-validation-and-unsupported-constructs). Text summaries and diagnostics escape terminal controls. `--normalized` prints canonical JSON; the summary form includes its SHA-256.
 
 `routes` prints canonical baseline JSON described in [baseline-v1.schema.json](schemas/baseline-v1.schema.json). Events and assertions are validated but not executed by this command; exit 0 means baseline route calculation completed, not that reachability requirements passed. Unreachable prefixes have no route row, and unavailable routers have empty tables. Connected routes have metric 0 and empty next hops; `protocol_cost` preserves the stub advertisement calculation separately. Optional `--timing` writes `baseline_compute_ns` to stderr, covering only route computation and invariant validation after parsing/state initialization, before serialization. This diagnostic hook is not a scenario benchmark or network convergence measurement.
 
-CTest runs the CLI fixtures, constructed physical-topology integration check, parser-limit boundaries, and regressions for JSON interoperability, safe output, aliases, prefix ownership, and larger input. It also compares routing against an independent Python Floyd–Warshall oracle on named and generated tiny graphs, with input-order and repeat invariance checks. [Phase 2 evidence](evidence/phase2/routing-validation.md) records the routing coverage and toolchain checks. The [input security fixes](evidence/phase1/security-fixes.md) record their validation.
+`simulate FILE --out DIR` saves canonical `result.json` and separate `run.json` provenance. Use a fresh output directory; existing result/run artifacts are preserved and rejected. Assertions run on the baseline and after every event, including recorded no-ops and separate equal-time events. Exit codes are 0 for complete passing traces, 1 for complete traces with reachability failures, 2 for invalid input, and 3 for incomplete analysis or output failure. The diamond deliberately exits 1 because its partition and origin-down snapshots violate `a-to-d`; restoration still runs. `explain RESULT --assertion ID` prints the recorded status, paths, and frontier evidence, verifies result/snapshot digests, and returns the overall result status.
 
-Read the [model contract](docs/model.md), [v0.1 acceptance checklist](docs/acceptance.md), and [detailed implementation plan](docs/implementation-plan.md) for semantics, phase gates, validation strategy, and release scope. The simulator commands in the plan are planned interfaces.
+CTest runs the CLI fixtures, constructed physical-topology integration check, parser-limit boundaries, and regressions for JSON interoperability, safe output, aliases, prefix ownership, and larger input. It also compares routing against an independent Python Floyd–Warshall oracle on named and generated tiny graphs, with input-order and repeat invariance checks. [Routing evidence](evidence/routing/routing-validation.md) records the routing coverage and toolchain checks. The [input security fixes](evidence/input/security-fixes.md) record their validation.
+
+Read the [model contract](docs/model.md), [v0.1 acceptance checklist](docs/acceptance.md), and [detailed implementation plan](docs/implementation-plan.md) for semantics, acceptance gates, validation strategy, and release scope. [Replay evidence](evidence/replay/replay-validation.md) records replay, witness, compiler, and sanitizer checks. FRR and benchmark commands in the plan remain planned interfaces.
