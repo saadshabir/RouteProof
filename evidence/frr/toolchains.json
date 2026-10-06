@@ -1,0 +1,19 @@
+{
+  "clang-debug": {
+    "compiler": "/opt/homebrew/opt/llvm@18/bin/clang++",
+    "ctest_python": "Python 3.13.16",
+    "version": "Homebrew clang version 18.1.8"
+  },
+  "gcc-debug": {
+    "compiler": "/opt/homebrew/bin/g++-12",
+    "ctest_python": "Python 3.13.16",
+    "version": "g++-12 (Homebrew GCC 12.5.0) 12.5.0"
+  },
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "host-debug": {
+    "compiler": "/usr/bin/c++",
+    "ctest_python": "Python 3.13.16",
+    "version": "Apple clang version 21.0.0 (clang-2100.3.34.2)"
+  },
+  "python": "Python 3.9.6"
+}

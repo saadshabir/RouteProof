@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "model": "ospf_spf_v1",
+  "name": "pair-asymmetric",
+  "routers": [
+    {
+      "id": "a",
+      "router_id": "0.0.0.1"
+    },
+    {
+      "id": "b",
+      "router_id": "0.0.0.2"
+    }
+  ],
+  "links": [
+    {
+      "id": "ab",
+      "a": "a",
+      "b": "b",
+      "cost_ab": 2,
+      "cost_ba": 7
+    }
+  ],
+  "prefixes": [
+    {
+      "prefix": "10.10.1.0/24",
+      "origin": "a",
+      "stub_cost": 2
+    },
+    {
+      "prefix": "10.10.2.0/24",
+      "origin": "b",
+      "stub_cost": 3
+    }
+  ],
+  "events": [
+    {
+      "id": "link_down-ab-1",
+      "seq": 1,
+      "at_ns": 1000000,
+      "type": "link_down",
+      "link": "ab"
+    },
+    {
+      "id": "link_up-ab-2",
+      "seq": 2,
+      "at_ns": 2000000,
+      "type": "link_up",
+      "link": "ab"
+    }
+  ],
+  "assertions": []
+}

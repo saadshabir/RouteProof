@@ -1,0 +1,4 @@
+$ python3 tools/frr/run_matrix.py --generate-only --out results/frr-review-fixes
+{"status": "skipped", "passing_snapshots": 0, "comparison_slots": 0, "matched_slots": 0}
+
+exit_code: 3

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "frr_version": "10.2.1",
+  "platform": "linux/amd64",
+  "profiles": [
+    {
+      "id": "pair",
+      "scenarios": [
+        "labs/profiles/pair.json",
+        "labs/profiles/pair-asymmetric.json"
+      ]
+    },
+    {
+      "id": "chain",
+      "scenarios": [
+        "labs/profiles/chain.json"
+      ]
+    },
+    {
+      "id": "diamond",
+      "scenarios": [
+        "examples/diamond-failures.yaml"
+      ]
+    },
+    {
+      "id": "parallel",
+      "scenarios": [
+        "labs/profiles/parallel.json"
+      ]
+    },
+    {
+      "id": "ring",
+      "scenarios": [
+        "labs/profiles/ring.json"
+      ]
+    }
+  ]
+}

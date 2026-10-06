@@ -1,0 +1,182 @@
+{
+  "cells": [
+    {
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+        "--scenario",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/pair.json",
+        "--out",
+        "results/frr-phase4-evidence/pair",
+        "--routeproof",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "--generate-only"
+      ],
+      "exit_code": 3,
+      "profile": "pair",
+      "report": {
+        "cleanup": "not_needed",
+        "comparison_slots": 0,
+        "completed_snapshots": 0,
+        "matched_slots": 0,
+        "reason": "generation only; no FRR observations",
+        "requested_snapshots": 3,
+        "schema_version": 1,
+        "status": "skipped"
+      },
+      "scenario": "labs/profiles/pair.json",
+      "stderr": "",
+      "stdout": "{\"comparison_slots\": 0, \"completed_snapshots\": 0, \"matched_slots\": 0, \"requested_snapshots\": 3, \"status\": \"skipped\"}\n"
+    },
+    {
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+        "--scenario",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/pair-asymmetric.json",
+        "--out",
+        "results/frr-phase4-evidence/pair-asymmetric",
+        "--routeproof",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "--generate-only"
+      ],
+      "exit_code": 3,
+      "profile": "pair",
+      "report": {
+        "cleanup": "not_needed",
+        "comparison_slots": 0,
+        "completed_snapshots": 0,
+        "matched_slots": 0,
+        "reason": "generation only; no FRR observations",
+        "requested_snapshots": 3,
+        "schema_version": 1,
+        "status": "skipped"
+      },
+      "scenario": "labs/profiles/pair-asymmetric.json",
+      "stderr": "",
+      "stdout": "{\"comparison_slots\": 0, \"completed_snapshots\": 0, \"matched_slots\": 0, \"requested_snapshots\": 3, \"status\": \"skipped\"}\n"
+    },
+    {
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+        "--scenario",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/chain.json",
+        "--out",
+        "results/frr-phase4-evidence/chain",
+        "--routeproof",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "--generate-only"
+      ],
+      "exit_code": 3,
+      "profile": "chain",
+      "report": {
+        "cleanup": "not_needed",
+        "comparison_slots": 0,
+        "completed_snapshots": 0,
+        "matched_slots": 0,
+        "reason": "generation only; no FRR observations",
+        "requested_snapshots": 5,
+        "schema_version": 1,
+        "status": "skipped"
+      },
+      "scenario": "labs/profiles/chain.json",
+      "stderr": "",
+      "stdout": "{\"comparison_slots\": 0, \"completed_snapshots\": 0, \"matched_slots\": 0, \"requested_snapshots\": 5, \"status\": \"skipped\"}\n"
+    },
+    {
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+        "--scenario",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/examples/diamond-failures.yaml",
+        "--out",
+        "results/frr-phase4-evidence/diamond-failures",
+        "--routeproof",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "--generate-only"
+      ],
+      "exit_code": 3,
+      "profile": "diamond",
+      "report": {
+        "cleanup": "not_needed",
+        "comparison_slots": 0,
+        "completed_snapshots": 0,
+        "matched_slots": 0,
+        "reason": "generation only; no FRR observations",
+        "requested_snapshots": 6,
+        "schema_version": 1,
+        "status": "skipped"
+      },
+      "scenario": "examples/diamond-failures.yaml",
+      "stderr": "",
+      "stdout": "{\"comparison_slots\": 0, \"completed_snapshots\": 0, \"matched_slots\": 0, \"requested_snapshots\": 6, \"status\": \"skipped\"}\n"
+    },
+    {
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+        "--scenario",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/parallel.json",
+        "--out",
+        "results/frr-phase4-evidence/parallel",
+        "--routeproof",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "--generate-only"
+      ],
+      "exit_code": 3,
+      "profile": "parallel",
+      "report": {
+        "cleanup": "not_needed",
+        "comparison_slots": 0,
+        "completed_snapshots": 0,
+        "matched_slots": 0,
+        "reason": "generation only; no FRR observations",
+        "requested_snapshots": 5,
+        "schema_version": 1,
+        "status": "skipped"
+      },
+      "scenario": "labs/profiles/parallel.json",
+      "stderr": "",
+      "stdout": "{\"comparison_slots\": 0, \"completed_snapshots\": 0, \"matched_slots\": 0, \"requested_snapshots\": 5, \"status\": \"skipped\"}\n"
+    },
+    {
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+        "--scenario",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/ring.json",
+        "--out",
+        "results/frr-phase4-evidence/ring",
+        "--routeproof",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "--generate-only"
+      ],
+      "exit_code": 3,
+      "profile": "ring",
+      "report": {
+        "cleanup": "not_needed",
+        "comparison_slots": 0,
+        "completed_snapshots": 0,
+        "matched_slots": 0,
+        "reason": "generation only; no FRR observations",
+        "requested_snapshots": 5,
+        "schema_version": 1,
+        "status": "skipped"
+      },
+      "scenario": "labs/profiles/ring.json",
+      "stderr": "",
+      "stdout": "{\"comparison_slots\": 0, \"completed_snapshots\": 0, \"matched_slots\": 0, \"requested_snapshots\": 5, \"status\": \"skipped\"}\n"
+    }
+  ],
+  "comparison_slots": 0,
+  "completed_scenarios": 6,
+  "completed_snapshots": 0,
+  "matched_slots": 0,
+  "passing_snapshots": 0,
+  "profile_count": 5,
+  "requested_scenarios": 6,
+  "requested_snapshots": 27,
+  "schema_version": 1,
+  "status": "skipped"
+}

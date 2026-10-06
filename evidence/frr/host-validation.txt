@@ -1,0 +1,23 @@
+Test project /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug
+    Start 1: input.physical_topology
+1/9 Test #1: input.physical_topology ..........   Passed    0.01 sec
+    Start 2: input.input_fixtures
+2/9 Test #2: input.input_fixtures .............   Passed    0.30 sec
+    Start 3: input.input_limits
+3/9 Test #3: input.input_limits ...............   Passed    0.01 sec
+    Start 4: input.input_regressions
+4/9 Test #4: input.input_regressions ..........   Passed    1.30 sec
+    Start 5: routing.routing_contract
+5/9 Test #5: routing.routing_contract .........   Passed    0.13 sec
+    Start 6: routing.independent_oracle
+6/9 Test #6: routing.independent_oracle .......   Passed    1.45 sec
+    Start 7: replay.replay_checker
+7/9 Test #7: replay.replay_checker ............   Passed    0.17 sec
+    Start 8: replay.independent_replay
+8/9 Test #8: replay.independent_replay ........   Passed    8.22 sec
+    Start 9: frr.offline_harness
+9/9 Test #9: frr.offline_harness ..............   Passed    1.52 sec
+
+100% tests passed out of 9
+
+Total Test time (real) =  13.13 sec

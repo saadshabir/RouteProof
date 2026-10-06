@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "model": "ospf_spf_v1",
+  "name": "ring",
+  "routers": [
+    {
+      "id": "a",
+      "router_id": "0.0.0.1"
+    },
+    {
+      "id": "b",
+      "router_id": "0.0.0.2"
+    },
+    {
+      "id": "c",
+      "router_id": "0.0.0.3"
+    },
+    {
+      "id": "d",
+      "router_id": "0.0.0.4"
+    },
+    {
+      "id": "e",
+      "router_id": "0.0.0.5"
+    }
+  ],
+  "links": [
+    {
+      "id": "ab",
+      "a": "a",
+      "b": "b",
+      "cost_ab": 1,
+      "cost_ba": 1
+    },
+    {
+      "id": "bc",
+      "a": "b",
+      "b": "c",
+      "cost_ab": 1,
+      "cost_ba": 1
+    },
+    {
+      "id": "cd",
+      "a": "c",
+      "b": "d",
+      "cost_ab": 1,
+      "cost_ba": 1
+    },
+    {
+      "id": "de",
+      "a": "d",
+      "b": "e",
+      "cost_ab": 1,
+      "cost_ba": 1
+    },
+    {
+      "id": "ea",
+      "a": "e",
+      "b": "a",
+      "cost_ab": 1,
+      "cost_ba": 1
+    }
+  ],
+  "prefixes": [
+    {
+      "prefix": "10.10.1.0/24",
+      "origin": "a",
+      "stub_cost": 2
+    },
+    {
+      "prefix": "10.10.2.0/24",
+      "origin": "b",
+      "stub_cost": 3
+    },
+    {
+      "prefix": "10.10.3.0/24",
+      "origin": "c",
+      "stub_cost": 4
+    },
+    {
+      "prefix": "10.10.4.0/24",
+      "origin": "d",
+      "stub_cost": 5
+    },
+    {
+      "prefix": "10.10.5.0/24",
+      "origin": "e",
+      "stub_cost": 6
+    }
+  ],
+  "events": [
+    {
+      "id": "link_down-ab-1",
+      "seq": 1,
+      "at_ns": 1000000,
+      "type": "link_down",
+      "link": "ab"
+    },
+    {
+      "id": "link_up-ab-2",
+      "seq": 2,
+      "at_ns": 2000000,
+      "type": "link_up",
+      "link": "ab"
+    },
+    {
+      "id": "router_down-e-3",
+      "seq": 3,
+      "at_ns": 3000000,
+      "type": "router_down",
+      "router": "e"
+    },
+    {
+      "id": "router_up-e-4",
+      "seq": 4,
+      "at_ns": 4000000,
+      "type": "router_up",
+      "router": "e"
+    }
+  ],
+  "assertions": []
+}

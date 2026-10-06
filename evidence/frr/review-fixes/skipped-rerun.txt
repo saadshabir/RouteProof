@@ -1,0 +1,4 @@
+$ python3 tools/frr/compare_runs.py results/frr-review-fixes/matrix-report.json results/frr-review-fixes/matrix-report.json
+{"reason": "rerun gate requires complete passing LIVE matrices; skipped/incomplete/failed is not agreement", "schema_version": 1, "status": "incomplete"}
+
+exit_code: 3

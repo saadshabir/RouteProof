@@ -1,6 +1,6 @@
 # RouteProof: focused MVP implementation plan
 
-**Status:** execution in progress; Phases 0–3 are complete. SPF/prefix/ECMP routing, deterministic failure replay, and all-branch reachability with validated witnesses are implemented and independently checked. FRR comparisons and benchmark results remain open.
+**Status:** execution in progress; Phases 0–3 are complete. SPF/prefix/ECMP routing, deterministic failure replay, and all-branch reachability with validated witnesses are implemented and independently checked. Phase 4 lab tooling and offline harness checks are implemented; live Linux FRR comparisons, image compatibility/digest freezing, and benchmark results remain open.
 
 **Scope:** the five deliverables specified below.
 
@@ -192,7 +192,7 @@ Forbidden reachability, policy isolation, route leaks, and unexpected-transit as
 
 Initially keep topology, events, and assertions in one strict versioned YAML file. Split shared inputs through explicit references only when benchmark reuse warrants it.
 
-The example and `validate`, `simulate`, and `explain` commands are implemented. FRR and `bench` commands remain planned interfaces.
+The example and `validate`, `simulate`, and `explain` commands are implemented. FRR generation/live-harness commands are implemented; the privileged Linux agreement gate remains open. `bench` remains a planned interface.
 
 ```yaml
 schema_version: 1
@@ -243,7 +243,8 @@ routeproof validate examples/diamond-failures.yaml
 routeproof simulate examples/diamond-failures.yaml --out results/diamond
 routeproof explain results/diamond/result.json --assertion a-to-d
 routeproof bench --profile benchmarks/profiles/sparse-small.yaml --out results/bench
-python3 tools/frr/run_lab.py --scenario examples/diamond-failures.yaml --out results/frr
+python3 tools/frr/run_lab.py --scenario examples/diamond-failures.yaml --generate-only --out results/frr
+# On the Linux lab host, supply --image repository@sha256:digest for live comparisons.
 ```
 
 A run produces canonical `result.json` and a separate `run.json` provenance/measurement manifest. CLI explanation and JSON output are sufficient for v0.1.
@@ -506,6 +507,8 @@ Exit gate: the diamond trace produces the specified next hops/failures; source/o
 Deliverables: lab/config generator, readiness/stability/cleanup harness, JSON normalization, all five lab profiles, and raw cost/next-hop comparisons.
 
 Exit gate: every declared supported baseline/post-event snapshot agrees exactly; missing/extra routes and unavailable routers are handled explicitly; a clean rerun reproduces the evidence. Timeouts remain failures.
+
+**Status:** tooling implemented and offline checks pass. Generator, complete five-profile/six-scenario matrix, bounded readiness/stability, physical event replay, raw JSON capture, strict FRR 10.2.1 adapters (including `/32` local delivery), comparison denominators, and owned-resource cleanup are documented in [validation.md](validation.md). Generated configs disable kernel next-hop objects for explicit route captures; rerun acceptance checks live provenance, distinct lab identities, source/image consistency, and a clean reproduction checkout. [Phase 4 evidence](../evidence/frr/frr-validation.md) records offline coverage. The 27-snapshot/687-slot live matrix, tested image digest, recorded JSON compatibility, and fresh Linux rerun remain open; this phase's exit gate is not complete.
 
 ### Phase 5 — Scenario, memory, and scaling evidence (3–5 days)
 

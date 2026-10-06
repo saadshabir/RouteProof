@@ -1,0 +1,12 @@
+[0/2] Re-checking globbed directories...
+[1/2] Re-running CMake...
+-- Using the multi-header code from /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/nlohmann_json-src/include/
+-- RouteProof model: ospf_spf_v1
+-- RouteProof scenario schema: 1
+-- RouteProof result schema: 1
+-- RouteProof dependencies: yaml-cpp 0.9.0, nlohmann/json 3.12.0, PicoSHA2 1.0.1
+-- Configuring done (0.5s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/gcc-debug
+[0/4] Re-checking globbed directories...
+ninja: no work to do.

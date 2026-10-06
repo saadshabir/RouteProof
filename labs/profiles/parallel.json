@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "model": "ospf_spf_v1",
+  "name": "parallel",
+  "routers": [
+    {
+      "id": "a",
+      "router_id": "0.0.0.1"
+    },
+    {
+      "id": "b",
+      "router_id": "0.0.0.2"
+    }
+  ],
+  "links": [
+    {
+      "id": "ab1",
+      "a": "a",
+      "b": "b",
+      "cost_ab": 3,
+      "cost_ba": 3
+    },
+    {
+      "id": "ab2",
+      "a": "a",
+      "b": "b",
+      "cost_ab": 3,
+      "cost_ba": 3
+    }
+  ],
+  "prefixes": [
+    {
+      "prefix": "10.10.1.0/24",
+      "origin": "a",
+      "stub_cost": 2
+    },
+    {
+      "prefix": "10.10.2.0/24",
+      "origin": "b",
+      "stub_cost": 3
+    }
+  ],
+  "events": [
+    {
+      "id": "link_down-ab1-1",
+      "seq": 1,
+      "at_ns": 1000000,
+      "type": "link_down",
+      "link": "ab1"
+    },
+    {
+      "id": "link_up-ab1-2",
+      "seq": 2,
+      "at_ns": 2000000,
+      "type": "link_up",
+      "link": "ab1"
+    },
+    {
+      "id": "link_down-ab2-3",
+      "seq": 3,
+      "at_ns": 3000000,
+      "type": "link_down",
+      "link": "ab2"
+    },
+    {
+      "id": "link_up-ab2-4",
+      "seq": 4,
+      "at_ns": 4000000,
+      "type": "link_up",
+      "link": "ab2"
+    }
+  ],
+  "assertions": []
+}

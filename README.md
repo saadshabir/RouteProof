@@ -14,7 +14,7 @@ The first release has five deliverables:
 
 Each event produces a converged forwarding snapshot. Lean, transient convergence, BGP, Prometheus, and visualization are optional follow-up work.
 
-**Current status:** The tool validates and canonicalizes v1 scenarios and computes baseline prefix routes with directional costs, connected delivery, and complete ECMP interface sets. It replays ordered link/router failures and restorations, checks every ECMP branch, and emits validated partition/drop/cycle witnesses. Independent tiny-graph and replay oracles validate routing and findings. FRR comparisons and published benchmark measurements remain open.
+**Current status:** The tool validates and canonicalizes v1 scenarios and computes baseline prefix routes with directional costs, connected delivery, and complete ECMP interface sets. It replays ordered link/router failures and restorations, checks every ECMP branch, and emits validated partition/drop/cycle witnesses. Independent tiny-graph and replay oracles validate routing and findings. The FRR lab generator, five-profile matrix, capture/cleanup harness, and route adapters are implemented with offline tests. Live Linux FRR agreement and published benchmark measurements remain open.
 
 ## Build
 
@@ -56,4 +56,15 @@ The validator rejects unsupported fields and semantic errors with source locatio
 
 CTest runs the CLI fixtures, constructed physical-topology integration check, parser-limit boundaries, and regressions for JSON interoperability, safe output, aliases, prefix ownership, and larger input. It also compares routing against an independent Python Floyd–Warshall oracle on named and generated tiny graphs, with input-order and repeat invariance checks. [Routing evidence](evidence/routing/routing-validation.md) records the routing coverage and toolchain checks. The [input security fixes](evidence/input/security-fixes.md) record their validation.
 
-Read the [model contract](docs/model.md), [v0.1 acceptance checklist](docs/acceptance.md), and [detailed implementation plan](docs/implementation-plan.md) for semantics, acceptance gates, validation strategy, and release scope. [Replay evidence](evidence/replay/replay-validation.md) records replay, witness, compiler, and sanitizer checks. FRR and benchmark commands in the plan remain planned interfaces.
+Read the [model contract](docs/model.md), [v0.1 acceptance checklist](docs/acceptance.md), and [detailed implementation plan](docs/implementation-plan.md) for semantics, acceptance gates, validation strategy, and release scope. [Replay evidence](evidence/replay/replay-validation.md) records replay, witness, compiler, and sanitizer checks. The [FRR workflow](docs/validation.md) implements `tools/frr/run_lab.py` and
+`run_matrix.py`. Review all five generated profiles without Linux access:
+
+```sh
+python3 tools/frr/run_matrix.py --generate-only --out results/frr-generated
+```
+
+This saves configs, mappings, and expected snapshots, reports `skipped`, and exits
+3; it does not claim FRR agreement. Live runs require a Linux amd64
+Docker/Containerlab host and an explicitly supplied FRR 10.2.1 image digest. The
+[Phase 4 evidence](evidence/frr/frr-validation.md) records offline coverage and the
+open live acceptance gate. `bench` remains a planned interface.

@@ -1,6 +1,6 @@
 # Validation evidence
 
-Evidence is grouped by capability: `build`, `input`, `routing`, and `replay`.
+Evidence is grouped by capability: `build`, `input`, `routing`, `replay`, and `frr`.
 Documentation in each group states the tested scope and points to its commands,
 logs, fixtures, and source manifests.
 
@@ -9,3 +9,5 @@ names. These labels were normalized without changing recorded outcomes, timing
 values, or scenario/result hashes. Historical source manifests retain the
 checksums of the snapshots originally tested; they are not checksums of today's
 edited source tree.
+
+[FRR tooling evidence](frr/frr-validation.md) records offline harness coverage and generation artifacts. Privileged Linux image compatibility, route agreement, and clean-rerun acceptance remain open.

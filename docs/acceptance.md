@@ -7,7 +7,7 @@ The release stays incomplete until every deliverable has reproducible evidence. 
 | C++20 routing engine: validated single-area model, prefixes, shortest paths, complete ECMP | Independent tiny-graph oracle agrees on costs and all first-hop interfaces, including asymmetry and parallel links | Complete for baseline routing; [Routing evidence](../evidence/routing/routing-validation.md) |
 | Link/router failure scenarios with deterministic replay | Baseline plus each ordered event yields canonical snapshots; repeat runs/toolchains agree; router restoration preserves link administrative state | Complete; [Replay evidence](../evidence/replay/replay-validation.md) |
 | All-branch reachability and useful explanations | Every ECMP branch is checked; each emitted witness/frontier certificate validates against its snapshot; resource exhaustion is `incomplete` | Complete; [Replay evidence](../evidence/replay/replay-validation.md) |
-| FRRouting comparison | Fresh supported labs agree on converged route costs and full next-hop sets for every declared snapshot, including missing routes | Not implemented |
+| FRRouting comparison | Fresh supported labs agree on converged route costs and full next-hop sets for every declared snapshot, including missing routes | Tooling implemented; offline checks pass; live Linux agreement/rerun open ([FRR evidence](../evidence/frr/frr-validation.md)) |
 | Reproducible time, memory, and scaling measurements | Frozen workload, commands, toolchain/host manifest, raw samples, hashes, and one clean-checkout reproduction | Not implemented |
 
 ## Build contract
@@ -49,3 +49,18 @@ Commands, compiler details, coverage, and logs are recorded in [routing-validati
 - [x] CLI simulation/explanation, digest rejection, invalid input, preserved existing artifacts, and host ASan/UBSan checks pass.
 
 Commands and raw output are recorded in [replay-validation.md](../evidence/replay/replay-validation.md). FRR comparison and measurement release gates remain open.
+
+## FRRouting labs
+
+- [x] Canonical-model lab generation preserves directional costs, passive stub costs, prefix masks, and parallel interface identity.
+- [x] All five profiles (six scenarios) and 27 expected snapshots are generated; independent offline transport checks cover 687 comparison slots.
+- [x] Readiness/stability deadlines, explicit missing/unavailable states, raw captures, mismatch reports, and run-owned cleanup pass offline failure-injection tests.
+- [x] Adapter regressions cover malformed envelopes and `/32` local delivery; generated configs disable kernel next-hop objects for explicit forwarding captures.
+- [x] Rerun checks reject reused lab identities, missing/nonlive provenance, inconsistent coverage, and dirty reproduction checkouts.
+- [ ] Candidate FRR 10.2.1 Linux amd64 image startup/configuration and actual JSON compatibility are verified, and the tested digest is frozen.
+- [ ] Every supported live baseline/post-event snapshot agrees exactly across OSPF, Zebra, and kernel forwarding.
+- [ ] Raw live captures, environment/configuration manifests, denominators, and a second clean Linux run reproduce the agreement.
+
+Commands, limitations, and evidence are documented in [validation.md](validation.md)
+and [frr-validation.md](../evidence/frr/frr-validation.md). Offline transport tests
+and generation-only `skipped` reports do not close the live release gate.

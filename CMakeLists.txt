@@ -123,6 +123,9 @@ if(BUILD_TESTING)
     add_test(NAME replay.independent_replay COMMAND "${Python3_EXECUTABLE}"
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/reference/check_replay.py" "$<TARGET_FILE:routeproof>")
     set_tests_properties(replay.replay_checker replay.independent_replay PROPERTIES TIMEOUT 60)
+    add_test(NAME frr.offline_harness COMMAND "${Python3_EXECUTABLE}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/frr/check_frr.py" "$<TARGET_FILE:routeproof>")
+    set_tests_properties(frr.offline_harness PROPERTIES TIMEOUT 60)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")

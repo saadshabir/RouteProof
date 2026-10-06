@@ -1,0 +1,13 @@
+{
+  "cleanup": "not_started",
+  "comparison_slots": 0,
+  "completed_snapshots": 0,
+  "error": "live labs require a Linux amd64 Docker/Containerlab host; use --generate-only on macOS",
+  "event_actions": [],
+  "matched_slots": 0,
+  "passing_snapshots": 0,
+  "requested_snapshots": 3,
+  "schema_version": 1,
+  "snapshots": [],
+  "status": "incomplete"
+}

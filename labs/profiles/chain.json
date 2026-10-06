@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "model": "ospf_spf_v1",
+  "name": "chain",
+  "routers": [
+    {
+      "id": "a",
+      "router_id": "0.0.0.1"
+    },
+    {
+      "id": "b",
+      "router_id": "0.0.0.2"
+    },
+    {
+      "id": "c",
+      "router_id": "0.0.0.3"
+    }
+  ],
+  "links": [
+    {
+      "id": "ab",
+      "a": "a",
+      "b": "b",
+      "cost_ab": 2,
+      "cost_ba": 3
+    },
+    {
+      "id": "bc",
+      "a": "b",
+      "b": "c",
+      "cost_ab": 4,
+      "cost_ba": 5
+    }
+  ],
+  "prefixes": [
+    {
+      "prefix": "10.10.1.0/24",
+      "origin": "a",
+      "stub_cost": 2
+    },
+    {
+      "prefix": "10.10.2.0/24",
+      "origin": "b",
+      "stub_cost": 3
+    },
+    {
+      "prefix": "10.10.3.0/24",
+      "origin": "c",
+      "stub_cost": 4
+    }
+  ],
+  "events": [
+    {
+      "id": "link_down-bc-1",
+      "seq": 1,
+      "at_ns": 1000000,
+      "type": "link_down",
+      "link": "bc"
+    },
+    {
+      "id": "link_up-bc-2",
+      "seq": 2,
+      "at_ns": 2000000,
+      "type": "link_up",
+      "link": "bc"
+    },
+    {
+      "id": "router_down-b-3",
+      "seq": 3,
+      "at_ns": 3000000,
+      "type": "router_down",
+      "router": "b"
+    },
+    {
+      "id": "router_up-b-4",
+      "seq": 4,
+      "at_ns": 4000000,
+      "type": "router_up",
+      "router": "b"
+    }
+  ],
+  "assertions": []
+}
