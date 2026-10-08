@@ -22,6 +22,10 @@ has deterministic tar/gzip metadata and a complete per-file inventory in
 [manifest.json](manifest.json). [SHA256SUMS](SHA256SUMS) covers the source archive,
 manifest and [Linux acceptance receipt](linux-acceptance.json).
 [The package integrity check](package-check.json) records the checked hashes.
+[A fresh extracted-source Release build](source-verification.json) also passes all
+11 CTest groups, the checked diamond and frozen small workload, with a clean
+source snapshot before and after verification. Offline FRR generation stays
+explicitly skipped; the separate live Linux receipts establish that gate.
 
 The packager reruns strict raw Linux reproduction and RSS acceptance, then
 matches every routing, lab and measurement implementation input to its tested

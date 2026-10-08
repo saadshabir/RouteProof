@@ -556,8 +556,8 @@
     "tools/release/verify.py": "2371b8e6dad68510f6bac2b467c2e16014edfdd05c5bee45efbad1fd15e6d9f3"
   },
   "source_files_sha256": "486cfe583b55d8379f4d1d762ceca4393fe1676bd0266b3812d29ddd3863c7fd",
-  "source_git_status": "M .github/workflows/ci.yml\n M .github/workflows/linux-acceptance.yml\n M README.md\n M docs/acceptance.md\n M docs/benchmarks.md\n M docs/implementation-plan.md\n M docs/lab-environment.md\n M docs/model.md\n M docs/release.md\n M docs/validation.md\n M evidence/bench/benchmark-validation.md\n M evidence/frr/frr-validation.md\n M evidence/release/v0.1.0-rc.1/README.md\n?? evidence/release/linux/\n?? evidence/release/v0.1.0/",
-  "source_revision": "b0fda99c5fdfdbf4cfb97f95ec66e5e62ea94150",
+  "source_git_status": "",
+  "source_revision": "b0fe687d355c00980f9a8a14a40ecf4cd66a58ce",
   "status": "release",
   "version": "0.1.0"
 }
