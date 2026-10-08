@@ -6,6 +6,16 @@ clean source reproduction are recorded in [native evidence](../evidence/bench/be
 and a clean reproduction for the 16-router small workload. Scenario processing measures converged snapshots; these times
 are not network convergence, detection delays, or outage durations.
 
+On 2026-10-08, SPF buffer reuse, no-op table reuse and direct snapshot JSON
+construction reduced simulation medians by 21–40% across 14 completed cells of
+the unchanged scaling profile. The 256-router chain's core median fell from
+17.396 to 6.493 ms; complete CLI fell from 57.964 to 38.865 ms. Canonical bytes
+matched, and two large probes remained budget-skipped. Measurements used an
+Apple M4 on macOS with Apple Clang 21.0.0 Release, one warmup and five fresh
+processes per mode; frequency and background load were uncontrolled. Peak RSS
+fell in 13 cells and increased about 6% in the assertion-heavy cell; macOS RSS
+remains provisional. Raw runs are kept locally under ignored `results/`.
+
 ## Run the frozen workloads
 
 Use an unsanitized Release build with Python 3.9+, CMake and Ninja:
@@ -49,7 +59,8 @@ current/candidate C++ routing tables. Instrumentation leaves `result.json`
 byte-identical to ordinary `simulate`; every warmup and repetition checks this.
 
 - **Core processing:** C++ `steady_clock` segments covering baseline initialization,
-  physical event mutation, full routing recomputation and invariants, cached
+  physical event mutation, routing recomputation and invariants for changed states
+  (table reuse for no-ops), cached
   destination analysis, all assertions, and witness validation. Parsing, canonical
   JSON construction/hashing/publication, cache cleanup, final serialization and
   file writes are outside these segments. Per-event samples use the same boundary;
@@ -161,5 +172,5 @@ each other; they cannot be mixed with the new provenance format.
 
 Full generated runs live under ignored `results/`. The published bundle retains
 small raw evidence and a source archive with checksums; larger canonical results
-can be regenerated from the archived normalized scenarios. No routing optimization
-was introduced: this phase measures the reference implementation first.
+can be regenerated from the archived normalized scenarios. The original Phase 5
+measurements used the reference implementation before optimization.

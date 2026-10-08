@@ -108,6 +108,34 @@ int main(int argc, char** argv) {
         limits.max_scratch_next_hops = 0;
         rejects<routeproof::spf::ResourceLimit>([&]{ (void)routeproof::forwarding::compute(topology, state, limits); },
             "scratch budget did not reject");
+        // An exhausted reused workspace must recover, and merged ECMP must
+        // consume exactly the number of unique scratch next-hop references.
+        routeproof::spf::Workspace workspace;
+        routeproof::spf::compute(topology, state, source, workspace);
+        const auto distances = workspace.distances;
+        const auto first_hops = workspace.first_hops;
+        std::size_t scratch_hops = 0;
+        for (const auto& set : first_hops) { scratch_hops += set.size(); }
+        require(scratch_hops > 0, "fixture has no scratch next hops");
+        routeproof::spf::compute(topology, state, source, workspace, scratch_hops);
+        require(workspace.distances == distances && workspace.first_hops == first_hops,
+                "exact scratch budget changed ECMP");
+        rejects<routeproof::spf::ResourceLimit>([&] {
+            routeproof::spf::compute(topology, state, source, workspace, scratch_hops - 1);
+        }, "scratch budget accepted one fewer reference");
+        routeproof::spf::compute(topology, state, origin, workspace);
+        routeproof::spf::compute(topology, state, source, workspace);
+        require(workspace.distances == distances && workspace.first_hops == first_hops,
+                "workspace reuse retained previous source or partial ECMP state");
+        auto down_source = state;
+        down_source.available_routers[source] = false;
+        routeproof::spf::compute(topology, down_source, source, workspace, 0);
+        require(workspace.order.empty() &&
+                std::all_of(workspace.distances.begin(), workspace.distances.end(), [](const auto distance) {
+                    return distance == routeproof::spf::infinity;
+                }) && std::all_of(workspace.first_hops.begin(), workspace.first_hops.end(),
+                    [](const auto& set) { return set.empty(); }),
+                "unavailable source retained prior workspace state");
         auto bad_state = state;
         bad_state.available_routers.pop_back();
         rejects<std::invalid_argument>([&]{ (void)routeproof::forwarding::compute(topology, bad_state); },
