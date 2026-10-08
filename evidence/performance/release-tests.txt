@@ -1,0 +1,224 @@
+Start testing: Oct 08 03:37 EDT
+----------------------------------------------------------
+6/11 Testing: routing.independent_oracle
+6/11 Test: routing.independent_oracle
+Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tests/reference/check_routing.py" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof"
+Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release
+"routing.independent_oracle" start time: Oct 08 03:37 EDT
+Output:
+----------------------------------------------------------
+PASS Floyd-Warshall oracle: 87 cases, 1044 route rows, 781 next-hop references
+PASS declaration/endpoint reversal, repeat/timing invariance; corpus sha256=9439e765869a1a636f240a55a4ddd01adf743795bef376587f883e8d56e3d505
+<end of output>
+Test time =   0.97 sec
+----------------------------------------------------------
+Test Passed.
+"routing.independent_oracle" end time: Oct 08 03:37 EDT
+"routing.independent_oracle" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/11 Testing: workflows.acceptance_contract
+11/11 Test: workflows.acceptance_contract
+Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tests/workflows/check_workflows.py" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof"
+Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release
+"workflows.acceptance_contract" start time: Oct 08 03:37 EDT
+Output:
+----------------------------------------------------------
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.019s
+
+OK
+<end of output>
+Test time =   0.20 sec
+----------------------------------------------------------
+Test Passed.
+"workflows.acceptance_contract" end time: Oct 08 03:37 EDT
+"workflows.acceptance_contract" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/11 Testing: input.input_regressions
+4/11 Test: input.input_regressions
+Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/input/validate_regressions.py" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof"
+Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release
+"input.input_regressions" start time: Oct 08 03:37 EDT
+Output:
+----------------------------------------------------------
+PASS JSON Unicode escapes, token cursor, BOM, automatic detection, canonical hashes
+PASS escaped summary and diagnostics, including untrusted source paths
+PASS strict JSON, duplicate decoded keys, numeric types, original source locations
+PASS nonrecursive aliases, flow YAML, alias-cycle rejection
+PASS sorted prefix lookup at network endpoints and address-space boundaries
+PASS large valid input and bounded file reads
+<end of output>
+Test time =   0.30 sec
+----------------------------------------------------------
+Test Passed.
+"input.input_regressions" end time: Oct 08 03:37 EDT
+"input.input_regressions" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/11 Testing: input.input_fixtures
+2/11 Test: input.input_fixtures
+Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/input/validate_fixtures.py" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof"
+Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release
+"input.input_fixtures" start time: Oct 08 03:37 EDT
+Output:
+----------------------------------------------------------
+PASS valid examples/input/valid/diamond.yaml sha256=1865a5b65a7295132a1b1ec4920c22a28838067c07ad586aec8d565d05efe338
+PASS valid examples/input/valid/equivalent-a.yaml sha256=606c53d0e6f93134c0948bff06854d71d474926a6d7a968d69ccd1db89d3d199
+PASS valid examples/input/valid/equivalent-b.yaml sha256=606c53d0e6f93134c0948bff06854d71d474926a6d7a968d69ccd1db89d3d199
+PASS valid examples/input/valid/explicit-tags.yaml sha256=1a7fbcc502c5bbb88d670d95f498fdde56d694aef5b18fb219952672073203ff
+PASS valid examples/input/valid/physical-state.yaml sha256=0b5329bcbdb27fd5390b7612c03e0ed2f68cf100b649343a6d52a25be1b7f58f
+PASS equivalent declaration normalization
+PASS normalized directional parallel links and independent router/link state
+PASS invalid examples/input/invalid/default-route.yaml: routeproof: examples/input/invalid/default-route.yaml:6:21: prefixes[0].prefix default route '0.0.0.0/0' is unsupported in ospf_spf_v1
+PASS invalid examples/input/invalid/duplicate-key.yaml: routeproof: examples/input/invalid/duplicate-key.yaml:2:1: duplicate mapping key 'schema_version'
+PASS invalid examples/input/invalid/duplicate-router-id.yaml: routeproof: examples/input/invalid/duplicate-router-id.yaml:6:24: duplicate numeric OSPF router_id '0.0.0.1'
+PASS invalid examples/input/invalid/event-order.yaml: routeproof: examples/input/invalid/event-order.yaml:10:5: event at_ns values must be nondecreasing in sequence order
+PASS invalid examples/input/invalid/invalid-cost.yaml: routeproof: examples/input/invalid/invalid-cost.yaml:7:39: links[0].cost_ab must be in 1..65535
+PASS invalid examples/input/invalid/mapping-sequence-tag.yaml: routeproof: examples/input/invalid/mapping-sequence-tag.yaml:4:11: YAML tag 'tag:yaml.org,2002:seq' does not match the node type
+PASS invalid examples/input/invalid/multiple-documents.yaml: routeproof: examples/input/invalid/multiple-documents.yaml:9:1: exactly one YAML document is supported
+PASS invalid examples/input/invalid/non-string-key.yaml: routeproof: examples/input/invalid/non-string-key.yaml:1:1: mapping key must be a string, not a tagged YAML value
+PASS invalid examples/input/invalid/noncanonical-prefix.yaml: routeproof: examples/input/invalid/noncanonical-prefix.yaml:6:21: prefixes[0].prefix must name the canonical network address
+PASS invalid examples/input/invalid/overlapping-prefixes.yaml: routeproof: examples/input/invalid/overlapping-prefixes.yaml:7:3: prefixes must be disjoint; overlapping prefix '10.0.0.128/25'
+PASS invalid examples/input/invalid/quoted-cost.yaml: routeproof: examples/input/invalid/quoted-cost.yaml:7:39: links[0].cost_ab must be an integer
+PASS invalid examples/input/invalid/reserved-namespace-tag.yaml: routeproof: examples/input/invalid/reserved-namespace-tag.yaml:4:10: unsupported YAML tag 'tag:yaml.org,2002:routeproof-custom'
+PASS invalid examples/input/invalid/sequence-integer-tag.yaml: routeproof: examples/input/invalid/sequence-integer-tag.yaml:5:8: YAML tag 'tag:yaml.org,2002:int' does not match the node type
+PASS invalid examples/input/invalid/sequence-string-tag.yaml: routeproof: examples/input/invalid/sequence-string-tag.yaml:4:10: YAML tag 'tag:yaml.org,2002:str' does not match the node type
+PASS invalid examples/input/invalid/unknown-field.yaml: routeproof: examples/input/invalid/unknown-field.yaml:4:1: scenario contains unsupported field 'area'
+PASS invalid examples/input/invalid/unresolved-endpoint.yaml: routeproof: examples/input/invalid/unresolved-endpoint.yaml:5:27: links[0].b references unknown router 'missing'
+PASS invalid examples/input/invalid/unsupported-tag.yaml: routeproof: examples/input/invalid/unsupported-tag.yaml:5:24: unsupported YAML tag '!routing'
+<end of output>
+Test time =   0.17 sec
+----------------------------------------------------------
+Test Passed.
+"input.input_fixtures" end time: Oct 08 03:37 EDT
+"input.input_fixtures" time elapsed: 00:00:00
+----------------------------------------------------------
+
+7/11 Testing: replay.replay_checker
+7/11 Test: replay.replay_checker
+Command: "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof_replay_check" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/examples/diamond-failures.yaml"
+Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release
+"replay.replay_checker" start time: Oct 08 03:37 EDT
+Output:
+----------------------------------------------------------
+PASS replay/checker: all branches, 64 exhaustive FIBs, 20000-router chain/cycle, bad ECMP branch, cycle with exit, drops, physical certificates, witness rejection, no-ops, restoration, atomic publication, resource budgets
+<end of output>
+Test time =   0.09 sec
+----------------------------------------------------------
+Test Passed.
+"replay.replay_checker" end time: Oct 08 03:37 EDT
+"replay.replay_checker" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/11 Testing: routing.routing_contract
+5/11 Test: routing.routing_contract
+Command: "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof_routing_check" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/examples/routing/merged-ecmp.json"
+Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release
+"routing.routing_contract" start time: Oct 08 03:37 EDT
+Output:
+----------------------------------------------------------
+PASS routing contract: shared sets, lookup, connected cost, removal/restoration, resource boundaries, rank/overflow checks, 100000 unavailable sources and state dimensions
+<end of output>
+Test time =   0.09 sec
+----------------------------------------------------------
+Test Passed.
+"routing.routing_contract" end time: Oct 08 03:37 EDT
+"routing.routing_contract" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/11 Testing: input.input_limits
+3/11 Test: input.input_limits
+Command: "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof_input_limits_check" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/examples/input/valid/diamond.yaml"
+Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release
+"input.input_limits" start time: Oct 08 03:37 EDT
+Output:
+----------------------------------------------------------
+PASS input budgets, exact boundaries, alias cycles, and JSON source marks
+<end of output>
+Test time =   0.08 sec
+----------------------------------------------------------
+Test Passed.
+"input.input_limits" end time: Oct 08 03:37 EDT
+"input.input_limits" time elapsed: 00:00:00
+----------------------------------------------------------
+
+1/11 Testing: input.physical_topology
+1/11 Test: input.physical_topology
+Command: "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof_topology_check" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/examples/input/valid/physical-state.yaml"
+Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release
+"input.physical_topology" start time: Oct 08 03:37 EDT
+Output:
+----------------------------------------------------------
+PASS constructed topology: directional parallel arcs, endpoint interfaces, independent router/link state, and prefix ownership
+<end of output>
+Test time =   0.08 sec
+----------------------------------------------------------
+Test Passed.
+"input.physical_topology" end time: Oct 08 03:37 EDT
+"input.physical_topology" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/11 Testing: replay.independent_replay
+8/11 Test: replay.independent_replay
+Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tests/reference/check_replay.py" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof"
+Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release
+"replay.independent_replay" start time: Oct 08 03:37 EDT
+Output:
+----------------------------------------------------------
+PASS independent replay: 42 traces, 373 snapshots, 4830 validated failures; full Floyd-Warshall route domain, physical components/frontiers
+PASS repeat/order/endpoint/compiler invariance (1 toolchains), CLI explain/errors; corpus sha256=54d3222c07f6a1bc7fc3671d256cca71262c1397ffe4d36d432ad9f5909fec0c
+<end of output>
+Test time =   2.71 sec
+----------------------------------------------------------
+Test Passed.
+"replay.independent_replay" end time: Oct 08 03:37 EDT
+"replay.independent_replay" time elapsed: 00:00:02
+----------------------------------------------------------
+
+9/11 Testing: frr.offline_harness
+9/11 Test: frr.offline_harness
+Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tests/frr/check_frr.py" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof"
+Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release
+"frr.offline_harness" start time: Oct 08 03:37 EDT
+Output:
+----------------------------------------------------------
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 10.354s
+
+OK
+<end of output>
+Test time =  10.65 sec
+----------------------------------------------------------
+Test Passed.
+"frr.offline_harness" end time: Oct 08 03:37 EDT
+"frr.offline_harness" time elapsed: 00:00:10
+----------------------------------------------------------
+
+10/11 Testing: bench.harness_contract
+10/11 Test: bench.harness_contract
+Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tests/bench/check_bench.py" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof"
+Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release
+"bench.harness_contract" start time: Oct 08 03:37 EDT
+Output:
+----------------------------------------------------------
+....sparse-small-16: complete
+budget-probe: budget_skipped
+...sparse-small-16: complete
+...
+----------------------------------------------------------------------
+Ran 10 tests in 11.812s
+
+OK
+<end of output>
+Test time =  12.13 sec
+----------------------------------------------------------
+Test Passed.
+"bench.harness_contract" end time: Oct 08 03:37 EDT
+"bench.harness_contract" time elapsed: 00:00:12
+----------------------------------------------------------
+
+End testing: Oct 08 03:37 EDT

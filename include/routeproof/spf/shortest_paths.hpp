@@ -5,6 +5,7 @@
 #include <compare>
 #include <limits>
 #include <stdexcept>
+#include <utility>
 
 namespace routeproof::spf {
 using Distance = std::uint64_t;
@@ -34,6 +35,7 @@ struct Workspace {
     std::vector<Distance> distances;
     std::vector<NextHopSet> first_hops;
     std::vector<model::RouterIndex> order;
+    std::vector<std::pair<Distance, model::RouterIndex>> queue;
 };
 
 // Requires the validated, positive-cost topology produced by the input module.

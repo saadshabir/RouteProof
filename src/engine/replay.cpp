@@ -23,6 +23,14 @@ void replay(const model::Topology& topology, const Observer& observe,
         candidate.state = current.state;
         candidate.applied = apply(candidate.state, event);
         candidate.event = &event;
+        if (!candidate.applied) {
+            // State and tables are unchanged, but the observer still evaluates
+            // and publishes this event's distinct snapshot and assertions.
+            current.event = &event;
+            current.applied = false;
+            observe(current);
+            continue;
+        }
         candidate.tables = forwarding::compute(topology, candidate.state, limits);
         current = std::move(candidate);
         observe(current);

@@ -1,5 +1,5 @@
 #include "routeproof/output/simulation.hpp"
-#include "routeproof/output/baseline.hpp"
+#include "baseline_document.hpp"
 #include "routeproof/engine/replay.hpp"
 #include "routeproof/version.hpp"
 #include "routeproof/bench/measurement.hpp"
@@ -105,9 +105,11 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
             }
             charge(routes, snapshot.tables.route_entries, limits.max_retained_routes, "retained route budget exceeded");
             charge(hops, snapshot.tables.next_hop_references, limits.max_retained_next_hops, "retained next-hop budget exceeded");
-            auto baseline = Json::parse(baseline_json(loaded, snapshot.state, snapshot.tables));
-            Json physical{{"available_routers", baseline.at("available_routers")},
-                {"administratively_up_links", baseline.at("administratively_up_links")}, {"routes", baseline.at("routes")}};
+            auto baseline = detail::baseline_document(loaded, snapshot.state, snapshot.tables);
+            Json physical = Json::object();
+            physical["available_routers"] = std::move(baseline.at("available_routers"));
+            physical["administratively_up_links"] = std::move(baseline.at("administratively_up_links"));
+            physical["routes"] = std::move(baseline.at("routes"));
             const auto hash = digest(physical);
             const auto id = snapshot.event ? "event-" + std::to_string(snapshot.event->sequence) : "baseline";
             if (metrics) {

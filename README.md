@@ -16,6 +16,11 @@ Each event produces a converged forwarding snapshot. Lean, transient convergence
 
 **Current status:** v0.1 implementation and acceptance are complete. RouteProof validates strict scenarios, computes directional SPF and complete ECMP sets, replays link/router failures, and checks every forwarding branch with validated explanations. Two fresh Linux FRR runs agree for all 27 snapshots and 687 slots each. [Native benchmark evidence](evidence/bench/benchmark-validation.md) records timing, scaling and clean source reproduction; [Linux acceptance](evidence/linux/README.md) records authoritative small-workload RSS.
 
+The [first performance pass](evidence/performance/README.md) reduces measured
+simulation medians by 21–40% across 14 completed frozen workloads on the native
+host, with byte-identical results. It reuses SPF buffers and no-op tables and
+removes repeated JSON serialization, parsing and copying.
+
 ## Clone and run
 
 Clone this repository or download its ZIP, then run the launcher:

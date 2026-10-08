@@ -1,0 +1,1144 @@
+{
+  "baseline_revision": "670e0dbd5e560685b1aa089e8776430480c9e395",
+  "baseline_source_sha256": "84568dbf1d66699d34eb80f012f2a07ed43e3e2fd5c861a08d8dd1e8ad09c31c",
+  "cells": [
+    {
+      "cli_ns": {
+        "after": {
+          "max": 5599834,
+          "median": 5524750,
+          "median_absolute_deviation": 72625,
+          "min": 5380916
+        },
+        "before": {
+          "max": 5706875,
+          "median": 5542750,
+          "median_absolute_deviation": 21625,
+          "min": 5338542
+        },
+        "median_reduction_percent": 0.3247485453971355
+      },
+      "cli_simulation_ns": {
+        "after": {
+          "max": 1790417,
+          "median": 1739125,
+          "median_absolute_deviation": 21375,
+          "min": 1717750
+        },
+        "before": {
+          "max": 2317417,
+          "median": 2250542,
+          "median_absolute_deviation": 41667,
+          "min": 2206958
+        },
+        "median_reduction_percent": 22.724170444275206
+      },
+      "core_ns": {
+        "after": {
+          "max": 104878,
+          "median": 92292,
+          "median_absolute_deviation": 917,
+          "min": 90791
+        },
+        "before": {
+          "max": 134627,
+          "median": 134129,
+          "median_absolute_deviation": 498,
+          "min": 132708
+        },
+        "median_reduction_percent": 31.191614043197223
+      },
+      "dimensions": {
+        "analyzed_destinations": 1,
+        "assertions": 1,
+        "directed_arcs": 30,
+        "events": 8,
+        "next_hop_reference_upper_bound": 576,
+        "output_bytes_estimate": 239616,
+        "physical_links": 15,
+        "prefixes": 2,
+        "retained_route_upper_bound": 288,
+        "routers": 16,
+        "rss_bytes_estimate": 34521088,
+        "spf_work_units": 6624
+      },
+      "id": "chain-16",
+      "peak_rss_bytes": {
+        "after": {
+          "max": 3850240,
+          "median": 3801088,
+          "median_absolute_deviation": 49152,
+          "min": 3473408
+        },
+        "before": {
+          "max": 3964928,
+          "median": 3915776,
+          "median_absolute_deviation": 49152,
+          "min": 3850240
+        },
+        "median_reduction_percent": 2.9288702928870314
+      },
+      "result_file_sha256": "0eb75f2c27523249bc033938d54c98d3edc1124b1e38b125fb42e9301c3631ef"
+    },
+    {
+      "cli_ns": {
+        "after": {
+          "max": 11746375,
+          "median": 11508417,
+          "median_absolute_deviation": 86334,
+          "min": 11422083
+        },
+        "before": {
+          "max": 13815958,
+          "median": 13586083,
+          "median_absolute_deviation": 161708,
+          "min": 13424375
+        },
+        "median_reduction_percent": 15.292604939922716
+      },
+      "cli_simulation_ns": {
+        "after": {
+          "max": 6429000,
+          "median": 6297083,
+          "median_absolute_deviation": 92041,
+          "min": 6205042
+        },
+        "before": {
+          "max": 9264000,
+          "median": 8879166,
+          "median_absolute_deviation": 73251,
+          "min": 8789084
+        },
+        "median_reduction_percent": 29.080242446193704
+      },
+      "core_ns": {
+        "after": {
+          "max": 568668,
+          "median": 541957,
+          "median_absolute_deviation": 11793,
+          "min": 526668
+        },
+        "before": {
+          "max": 1265292,
+          "median": 1153418,
+          "median_absolute_deviation": 24336,
+          "min": 1075003
+        },
+        "median_reduction_percent": 53.01295800828494
+      },
+      "dimensions": {
+        "analyzed_destinations": 1,
+        "assertions": 1,
+        "directed_arcs": 126,
+        "events": 8,
+        "next_hop_reference_upper_bound": 2304,
+        "output_bytes_estimate": 930816,
+        "physical_links": 63,
+        "prefixes": 2,
+        "retained_route_upper_bound": 1152,
+        "routers": 64,
+        "rss_bytes_estimate": 37310464,
+        "spf_work_units": 109440
+      },
+      "id": "chain-64",
+      "peak_rss_bytes": {
+        "after": {
+          "max": 6717440,
+          "median": 5816320,
+          "median_absolute_deviation": 49152,
+          "min": 5734400
+        },
+        "before": {
+          "max": 6848512,
+          "median": 6832128,
+          "median_absolute_deviation": 16384,
+          "min": 6766592
+        },
+        "median_reduction_percent": 14.868105515587526
+      },
+      "result_file_sha256": "40a4830b8c5da9707a7437655a92bbd8f16d8f282d219a943c78f32a056d40e6"
+    },
+    {
+      "cli_ns": {
+        "after": {
+          "max": 49077875,
+          "median": 38864833,
+          "median_absolute_deviation": 365208,
+          "min": 38499625
+        },
+        "before": {
+          "max": 59517083,
+          "median": 57964417,
+          "median_absolute_deviation": 216042,
+          "min": 56198833
+        },
+        "median_reduction_percent": 32.95053239300242
+      },
+      "cli_simulation_ns": {
+        "after": {
+          "max": 36061708,
+          "median": 28499083,
+          "median_absolute_deviation": 528833,
+          "min": 27970250
+        },
+        "before": {
+          "max": 49185958,
+          "median": 47713708,
+          "median_absolute_deviation": 149876,
+          "min": 46484958
+        },
+        "median_reduction_percent": 40.2706597441557
+      },
+      "core_ns": {
+        "after": {
+          "max": 9210333,
+          "median": 6492832,
+          "median_absolute_deviation": 149244,
+          "min": 6343588
+        },
+        "before": {
+          "max": 17819665,
+          "median": 17396292,
+          "median_absolute_deviation": 30875,
+          "min": 15808501
+        },
+        "median_reduction_percent": 62.67691988614585
+      },
+      "dimensions": {
+        "analyzed_destinations": 1,
+        "assertions": 1,
+        "directed_arcs": 510,
+        "events": 8,
+        "next_hop_reference_upper_bound": 9216,
+        "output_bytes_estimate": 3695616,
+        "physical_links": 255,
+        "prefixes": 2,
+        "retained_route_upper_bound": 4608,
+        "routers": 256,
+        "rss_bytes_estimate": 48467968,
+        "spf_work_units": 1764864
+      },
+      "id": "chain-256",
+      "peak_rss_bytes": {
+        "after": {
+          "max": 17956864,
+          "median": 15138816,
+          "median_absolute_deviation": 688128,
+          "min": 14450688
+        },
+        "before": {
+          "max": 18923520,
+          "median": 18399232,
+          "median_absolute_deviation": 0,
+          "min": 17727488
+        },
+        "median_reduction_percent": 17.720391807658054
+      },
+      "result_file_sha256": "74d5a59f7106e9cae39da13415cf9c7a8cb52d9054567d0e88ab326cd4cb64b2"
+    },
+    {
+      "cli_ns": {
+        "after": {
+          "max": 5658750,
+          "median": 5270291,
+          "median_absolute_deviation": 130459,
+          "min": 5007708
+        },
+        "before": {
+          "max": 6468250,
+          "median": 6147458,
+          "median_absolute_deviation": 320792,
+          "min": 5816000
+        },
+        "median_reduction_percent": 14.268775809448398
+      },
+      "cli_simulation_ns": {
+        "after": {
+          "max": 1861834,
+          "median": 1805875,
+          "median_absolute_deviation": 30541,
+          "min": 1775334
+        },
+        "before": {
+          "max": 2505209,
+          "median": 2352625,
+          "median_absolute_deviation": 47583,
+          "min": 2304250
+        },
+        "median_reduction_percent": 23.239997874714412
+      },
+      "core_ns": {
+        "after": {
+          "max": 99004,
+          "median": 93126,
+          "median_absolute_deviation": 1714,
+          "min": 91206
+        },
+        "before": {
+          "max": 148833,
+          "median": 142583,
+          "median_absolute_deviation": 3208,
+          "min": 139375
+        },
+        "median_reduction_percent": 34.68646332311707
+      },
+      "dimensions": {
+        "analyzed_destinations": 1,
+        "assertions": 1,
+        "directed_arcs": 32,
+        "events": 8,
+        "next_hop_reference_upper_bound": 864,
+        "output_bytes_estimate": 276480,
+        "physical_links": 16,
+        "prefixes": 2,
+        "retained_route_upper_bound": 288,
+        "routers": 16,
+        "rss_bytes_estimate": 34668544,
+        "spf_work_units": 6912
+      },
+      "id": "ring-16",
+      "peak_rss_bytes": {
+        "after": {
+          "max": 3833856,
+          "median": 3620864,
+          "median_absolute_deviation": 0,
+          "min": 3620864
+        },
+        "before": {
+          "max": 3948544,
+          "median": 3915776,
+          "median_absolute_deviation": 32768,
+          "min": 3883008
+        },
+        "median_reduction_percent": 7.531380753138073
+      },
+      "result_file_sha256": "f3a82224e5284e7ebf1f95ae50401faea4292315f5f28eaa7ce015dde79e1b98"
+    },
+    {
+      "cli_ns": {
+        "after": {
+          "max": 6066709,
+          "median": 5928792,
+          "median_absolute_deviation": 137917,
+          "min": 5649875
+        },
+        "before": {
+          "max": 6561542,
+          "median": 6398750,
+          "median_absolute_deviation": 49250,
+          "min": 6171250
+        },
+        "median_reduction_percent": 7.344528228169567
+      },
+      "cli_simulation_ns": {
+        "after": {
+          "max": 2152875,
+          "median": 2089750,
+          "median_absolute_deviation": 19625,
+          "min": 2066375
+        },
+        "before": {
+          "max": 3012583,
+          "median": 2785917,
+          "median_absolute_deviation": 61542,
+          "min": 2692166
+        },
+        "median_reduction_percent": 24.988791841250112
+      },
+      "core_ns": {
+        "after": {
+          "max": 157378,
+          "median": 147794,
+          "median_absolute_deviation": 3333,
+          "min": 143957
+        },
+        "before": {
+          "max": 226293,
+          "median": 224207,
+          "median_absolute_deviation": 2086,
+          "min": 219501
+        },
+        "median_reduction_percent": 34.08145151578675
+      },
+      "dimensions": {
+        "analyzed_destinations": 1,
+        "assertions": 1,
+        "directed_arcs": 46,
+        "events": 8,
+        "next_hop_reference_upper_bound": 1152,
+        "output_bytes_estimate": 313344,
+        "physical_links": 23,
+        "prefixes": 2,
+        "retained_route_upper_bound": 288,
+        "routers": 16,
+        "rss_bytes_estimate": 34816000,
+        "spf_work_units": 8928
+      },
+      "id": "grid-16",
+      "peak_rss_bytes": {
+        "after": {
+          "max": 4112384,
+          "median": 3850240,
+          "median_absolute_deviation": 16384,
+          "min": 3833856
+        },
+        "before": {
+          "max": 4210688,
+          "median": 4161536,
+          "median_absolute_deviation": 16384,
+          "min": 4145152
+        },
+        "median_reduction_percent": 7.480314960629919
+      },
+      "result_file_sha256": "5a90ec939315b29fe5a3ba54185898ee363957e244a13766596111c85c39cf9a"
+    },
+    {
+      "cli_ns": {
+        "after": {
+          "max": 5941875,
+          "median": 5861458,
+          "median_absolute_deviation": 66084,
+          "min": 5645125
+        },
+        "before": {
+          "max": 6464375,
+          "median": 6271792,
+          "median_absolute_deviation": 164583,
+          "min": 5894791
+        },
+        "median_reduction_percent": 6.54253202274565
+      },
+      "cli_simulation_ns": {
+        "after": {
+          "max": 1967375,
+          "median": 1935583,
+          "median_absolute_deviation": 22166,
+          "min": 1913417
+        },
+        "before": {
+          "max": 2742792,
+          "median": 2661875,
+          "median_absolute_deviation": 45542,
+          "min": 2467375
+        },
+        "median_reduction_percent": 27.284977694294433
+      },
+      "core_ns": {
+        "after": {
+          "max": 125039,
+          "median": 120539,
+          "median_absolute_deviation": 1334,
+          "min": 112585
+        },
+        "before": {
+          "max": 202538,
+          "median": 188123,
+          "median_absolute_deviation": 4253,
+          "min": 182416
+        },
+        "median_reduction_percent": 35.925431765387536
+      },
+      "dimensions": {
+        "analyzed_destinations": 1,
+        "assertions": 1,
+        "directed_arcs": 38,
+        "events": 8,
+        "next_hop_reference_upper_bound": 1152,
+        "output_bytes_estimate": 313344,
+        "physical_links": 19,
+        "prefixes": 2,
+        "retained_route_upper_bound": 288,
+        "routers": 16,
+        "rss_bytes_estimate": 34816000,
+        "spf_work_units": 7776
+      },
+      "id": "diamond-width-2",
+      "peak_rss_bytes": {
+        "after": {
+          "max": 4046848,
+          "median": 3801088,
+          "median_absolute_deviation": 65536,
+          "min": 3735552
+        },
+        "before": {
+          "max": 4112384,
+          "median": 4096000,
+          "median_absolute_deviation": 16384,
+          "min": 4079616
+        },
+        "median_reduction_percent": 7.199999999999996
+      },
+      "result_file_sha256": "00200d3f07908bc9fb5f79461d7a944dc94d9053dd9654f4a19290ac2765933e"
+    },
+    {
+      "cli_ns": {
+        "after": {
+          "max": 6050500,
+          "median": 5863333,
+          "median_absolute_deviation": 136917,
+          "min": 5665250
+        },
+        "before": {
+          "max": 6427750,
+          "median": 6253084,
+          "median_absolute_deviation": 117332,
+          "min": 6063875
+        },
+        "median_reduction_percent": 6.232940417880206
+      },
+      "cli_simulation_ns": {
+        "after": {
+          "max": 2005625,
+          "median": 1974625,
+          "median_absolute_deviation": 18958,
+          "min": 1955667
+        },
+        "before": {
+          "max": 2683625,
+          "median": 2622708,
+          "median_absolute_deviation": 3625,
+          "min": 2603458
+        },
+        "median_reduction_percent": 24.710451945088817
+      },
+      "core_ns": {
+        "after": {
+          "max": 137206,
+          "median": 133666,
+          "median_absolute_deviation": 913,
+          "min": 131290
+        },
+        "before": {
+          "max": 236498,
+          "median": 219165,
+          "median_absolute_deviation": 7580,
+          "min": 202454
+        },
+        "median_reduction_percent": 39.01124723381927
+      },
+      "dimensions": {
+        "analyzed_destinations": 1,
+        "assertions": 1,
+        "directed_arcs": 42,
+        "events": 8,
+        "next_hop_reference_upper_bound": 2304,
+        "output_bytes_estimate": 460800,
+        "physical_links": 21,
+        "prefixes": 2,
+        "retained_route_upper_bound": 288,
+        "routers": 16,
+        "rss_bytes_estimate": 35405824,
+        "spf_work_units": 8352
+      },
+      "id": "diamond-width-4",
+      "peak_rss_bytes": {
+        "after": {
+          "max": 4145152,
+          "median": 3850240,
+          "median_absolute_deviation": 32768,
+          "min": 3768320
+        },
+        "before": {
+          "max": 4194304,
+          "median": 4161536,
+          "median_absolute_deviation": 32768,
+          "min": 4079616
+        },
+        "median_reduction_percent": 7.480314960629919
+      },
+      "result_file_sha256": "a91d65c78478082ad65b419e337cb42145da8eaa990ce367ea11d3d3d7b55e69"
+    },
+    {
+      "cli_ns": {
+        "after": {
+          "max": 5889125,
+          "median": 5674541,
+          "median_absolute_deviation": 145959,
+          "min": 5487375
+        },
+        "before": {
+          "max": 6239041,
+          "median": 6119542,
+          "median_absolute_deviation": 119499,
+          "min": 5925125
+        },
+        "median_reduction_percent": 7.271802366909153
+      },
+      "cli_simulation_ns": {
+        "after": {
+          "max": 1938709,
+          "median": 1888625,
+          "median_absolute_deviation": 13250,
+          "min": 1875375
+        },
+        "before": {
+          "max": 2564666,
+          "median": 2511125,
+          "median_absolute_deviation": 15000,
+          "min": 2496125
+        },
+        "median_reduction_percent": 24.789685897754985
+      },
+      "core_ns": {
+        "after": {
+          "max": 164165,
+          "median": 150919,
+          "median_absolute_deviation": 1456,
+          "min": 149455
+        },
+        "before": {
+          "max": 269418,
+          "median": 232126,
+          "median_absolute_deviation": 10584,
+          "min": 221542
+        },
+        "median_reduction_percent": 34.98401730094862
+      },
+      "dimensions": {
+        "analyzed_destinations": 1,
+        "assertions": 1,
+        "directed_arcs": 60,
+        "events": 8,
+        "next_hop_reference_upper_bound": 1440,
+        "output_bytes_estimate": 350208,
+        "physical_links": 30,
+        "prefixes": 2,
+        "retained_route_upper_bound": 288,
+        "routers": 16,
+        "rss_bytes_estimate": 34963456,
+        "spf_work_units": 10944
+      },
+      "id": "sparse-16",
+      "peak_rss_bytes": {
+        "after": {
+          "max": 4161536,
+          "median": 3866624,
+          "median_absolute_deviation": 49152,
+          "min": 3817472
+        },
+        "before": {
+          "max": 4145152,
+          "median": 4145152,
+          "median_absolute_deviation": 0,
+          "min": 4046848
+        },
+        "median_reduction_percent": 6.719367588932801
+      },
+      "result_file_sha256": "aa6a76f0da35660bc103bc76615158f24ec2f205929425b686c46c28b4d1b649"
+    },
+    {
+      "cli_ns": {
+        "after": {
+          "max": 6765417,
+          "median": 6555791,
+          "median_absolute_deviation": 16541,
+          "min": 6539250
+        },
+        "before": {
+          "max": 7125667,
+          "median": 7049083,
+          "median_absolute_deviation": 71500,
+          "min": 6919875
+        },
+        "median_reduction_percent": 6.997959876483229
+      },
+      "cli_simulation_ns": {
+        "after": {
+          "max": 2418042,
+          "median": 2360375,
+          "median_absolute_deviation": 28916,
+          "min": 2330083
+        },
+        "before": {
+          "max": 3221375,
+          "median": 3219125,
+          "median_absolute_deviation": 2250,
+          "min": 3174333
+        },
+        "median_reduction_percent": 26.67650370830583
+      },
+      "core_ns": {
+        "after": {
+          "max": 199834,
+          "median": 192541,
+          "median_absolute_deviation": 2082,
+          "min": 190459
+        },
+        "before": {
+          "max": 331086,
+          "median": 305709,
+          "median_absolute_deviation": 14706,
+          "min": 291003
+        },
+        "median_reduction_percent": 37.018210127932115
+      },
+      "dimensions": {
+        "analyzed_destinations": 1,
+        "assertions": 1,
+        "directed_arcs": 90,
+        "events": 8,
+        "next_hop_reference_upper_bound": 2304,
+        "output_bytes_estimate": 460800,
+        "physical_links": 45,
+        "prefixes": 2,
+        "retained_route_upper_bound": 288,
+        "routers": 16,
+        "rss_bytes_estimate": 35405824,
+        "spf_work_units": 15264
+      },
+      "id": "sparse-denser-16",
+      "peak_rss_bytes": {
+        "after": {
+          "max": 4423680,
+          "median": 4358144,
+          "median_absolute_deviation": 65536,
+          "min": 4030464
+        },
+        "before": {
+          "max": 4472832,
+          "median": 4407296,
+          "median_absolute_deviation": 49152,
+          "min": 4341760
+        },
+        "median_reduction_percent": 1.115241635687736
+      },
+      "result_file_sha256": "f6b8f6a1694b3f867b4a8ebea2c9ebd8311da7d1ba5cc4128dd45333f532ed81"
+    },
+    {
+      "cli_ns": {
+        "after": {
+          "max": 19080625,
+          "median": 18721834,
+          "median_absolute_deviation": 201918,
+          "min": 18519916
+        },
+        "before": {
+          "max": 24568000,
+          "median": 23672584,
+          "median_absolute_deviation": 292666,
+          "min": 23325875
+        },
+        "median_reduction_percent": 20.91343302446408
+      },
+      "cli_simulation_ns": {
+        "after": {
+          "max": 12631250,
+          "median": 12268000,
+          "median_absolute_deviation": 156166,
+          "min": 12111834
+        },
+        "before": {
+          "max": 17989875,
+          "median": 17419833,
+          "median_absolute_deviation": 288083,
+          "min": 17131750
+        },
+        "median_reduction_percent": 29.57452577186015
+      },
+      "core_ns": {
+        "after": {
+          "max": 197710,
+          "median": 194873,
+          "median_absolute_deviation": 2837,
+          "min": 177836
+        },
+        "before": {
+          "max": 272126,
+          "median": 259294,
+          "median_absolute_deviation": 5411,
+          "min": 251708
+        },
+        "median_reduction_percent": 24.844770800712702
+      },
+      "dimensions": {
+        "analyzed_destinations": 1,
+        "assertions": 1,
+        "directed_arcs": 32,
+        "events": 8,
+        "next_hop_reference_upper_bound": 6912,
+        "output_bytes_estimate": 2082816,
+        "physical_links": 16,
+        "prefixes": 16,
+        "retained_route_upper_bound": 2304,
+        "routers": 16,
+        "rss_bytes_estimate": 41951232,
+        "spf_work_units": 6912
+      },
+      "id": "ring-prefix-density-1",
+      "peak_rss_bytes": {
+        "after": {
+          "max": 10682368,
+          "median": 10633216,
+          "median_absolute_deviation": 49152,
+          "min": 8634368
+        },
+        "before": {
+          "max": 10960896,
+          "median": 10911744,
+          "median_absolute_deviation": 16384,
+          "min": 10895360
+        },
+        "median_reduction_percent": 2.552552552552556
+      },
+      "result_file_sha256": "65359b31692b77625be0f25a912ddc09545640d64b2749f53fcec48af257c294"
+    },
+    {
+      "cli_ns": {
+        "after": {
+          "max": 34237166,
+          "median": 33600584,
+          "median_absolute_deviation": 176334,
+          "min": 33424250
+        },
+        "before": {
+          "max": 44139542,
+          "median": 43936000,
+          "median_absolute_deviation": 203542,
+          "min": 43321209
+        },
+        "median_reduction_percent": 23.523798252002916
+      },
+      "cli_simulation_ns": {
+        "after": {
+          "max": 24530625,
+          "median": 24223750,
+          "median_absolute_deviation": 52625,
+          "min": 23748625
+        },
+        "before": {
+          "max": 34930750,
+          "median": 34469000,
+          "median_absolute_deviation": 168959,
+          "min": 34269208
+        },
+        "median_reduction_percent": 29.723084510719776
+      },
+      "core_ns": {
+        "after": {
+          "max": 258086,
+          "median": 248539,
+          "median_absolute_deviation": 3705,
+          "min": 244834
+        },
+        "before": {
+          "max": 353584,
+          "median": 332418,
+          "median_absolute_deviation": 11587,
+          "min": 320831
+        },
+        "median_reduction_percent": 25.232989789963234
+      },
+      "dimensions": {
+        "analyzed_destinations": 2,
+        "assertions": 2,
+        "directed_arcs": 32,
+        "events": 8,
+        "next_hop_reference_upper_bound": 13824,
+        "output_bytes_estimate": 4165632,
+        "physical_links": 16,
+        "prefixes": 32,
+        "retained_route_upper_bound": 4608,
+        "routers": 16,
+        "rss_bytes_estimate": 50348032,
+        "spf_work_units": 6912
+      },
+      "id": "ring-prefix-density-2",
+      "peak_rss_bytes": {
+        "after": {
+          "max": 18333696,
+          "median": 17530880,
+          "median_absolute_deviation": 802816,
+          "min": 13615104
+        },
+        "before": {
+          "max": 18661376,
+          "median": 18644992,
+          "median_absolute_deviation": 16384,
+          "min": 17793024
+        },
+        "median_reduction_percent": 5.975395430579966
+      },
+      "result_file_sha256": "2998b9d2ea9c3c1935587d5c7620c074629bc5231d83ab6b1ddf2d3f54958a04"
+    },
+    {
+      "cli_ns": {
+        "after": {
+          "max": 30350958,
+          "median": 29495625,
+          "median_absolute_deviation": 386125,
+          "min": 29109500
+        },
+        "before": {
+          "max": 35340334,
+          "median": 34561334,
+          "median_absolute_deviation": 599582,
+          "min": 33658959
+        },
+        "median_reduction_percent": 14.657157041449842
+      },
+      "cli_simulation_ns": {
+        "after": {
+          "max": 20555333,
+          "median": 19924750,
+          "median_absolute_deviation": 181375,
+          "min": 19715417
+        },
+        "before": {
+          "max": 25855583,
+          "median": 25356375,
+          "median_absolute_deviation": 438083,
+          "min": 24445167
+        },
+        "median_reduction_percent": 21.421141626119667
+      },
+      "core_ns": {
+        "after": {
+          "max": 566081,
+          "median": 516465,
+          "median_absolute_deviation": 4455,
+          "min": 498085
+        },
+        "before": {
+          "max": 589299,
+          "median": 578422,
+          "median_absolute_deviation": 6341,
+          "min": 553180
+        },
+        "median_reduction_percent": 10.711383730217728
+      },
+      "dimensions": {
+        "analyzed_destinations": 16,
+        "assertions": 256,
+        "directed_arcs": 32,
+        "events": 8,
+        "next_hop_reference_upper_bound": 6912,
+        "output_bytes_estimate": 6782976,
+        "physical_links": 16,
+        "prefixes": 16,
+        "retained_route_upper_bound": 2304,
+        "routers": 16,
+        "rss_bytes_estimate": 60751872,
+        "spf_work_units": 6912
+      },
+      "id": "ring-all-assertions",
+      "peak_rss_bytes": {
+        "after": {
+          "max": 16842752,
+          "median": 16760832,
+          "median_absolute_deviation": 81920,
+          "min": 13778944
+        },
+        "before": {
+          "max": 15990784,
+          "median": 15859712,
+          "median_absolute_deviation": 114688,
+          "min": 15319040
+        },
+        "median_reduction_percent": -5.681818181818188
+      },
+      "result_file_sha256": "e2a19577524bb3fbeb0056d75dbf52bb60ac8f583fde64688955f263ff8b51e6"
+    },
+    {
+      "cli_ns": {
+        "after": {
+          "max": 11310500,
+          "median": 11127500,
+          "median_absolute_deviation": 120042,
+          "min": 10824000
+        },
+        "before": {
+          "max": 13613666,
+          "median": 13492416,
+          "median_absolute_deviation": 39293,
+          "min": 13441500
+        },
+        "median_reduction_percent": 17.527742992804253
+      },
+      "cli_simulation_ns": {
+        "after": {
+          "max": 6281375,
+          "median": 6195459,
+          "median_absolute_deviation": 70751,
+          "min": 6008125
+        },
+        "before": {
+          "max": 8774750,
+          "median": 8468166,
+          "median_absolute_deviation": 183291,
+          "min": 8263375
+        },
+        "median_reduction_percent": 26.838243369343495
+      },
+      "core_ns": {
+        "after": {
+          "max": 271294,
+          "median": 266713,
+          "median_absolute_deviation": 4581,
+          "min": 258329
+        },
+        "before": {
+          "max": 462628,
+          "median": 443874,
+          "median_absolute_deviation": 12993,
+          "min": 430881
+        },
+        "median_reduction_percent": 39.9124526329544
+      },
+      "dimensions": {
+        "analyzed_destinations": 1,
+        "assertions": 1,
+        "directed_arcs": 32,
+        "events": 32,
+        "next_hop_reference_upper_bound": 3168,
+        "output_bytes_estimate": 1013760,
+        "physical_links": 16,
+        "prefixes": 2,
+        "retained_route_upper_bound": 1056,
+        "routers": 16,
+        "rss_bytes_estimate": 37617664,
+        "spf_work_units": 25344
+      },
+      "id": "ring-long-trace",
+      "peak_rss_bytes": {
+        "after": {
+          "max": 6553600,
+          "median": 5619712,
+          "median_absolute_deviation": 32768,
+          "min": 5586944
+        },
+        "before": {
+          "max": 6602752,
+          "median": 6553600,
+          "median_absolute_deviation": 0,
+          "min": 6553600
+        },
+        "median_reduction_percent": 14.249999999999996
+      },
+      "result_file_sha256": "0059d8d8c2d3bb0b0734577103e57f85acab60b6324ade1cc3552df10f25d8f5"
+    },
+    {
+      "cli_ns": {
+        "after": {
+          "max": 256630458,
+          "median": 254628958,
+          "median_absolute_deviation": 1780874,
+          "min": 250483333
+        },
+        "before": {
+          "max": 369050667,
+          "median": 359048417,
+          "median_absolute_deviation": 3092166,
+          "min": 355664458
+        },
+        "median_reduction_percent": 29.082278059451795
+      },
+      "cli_simulation_ns": {
+        "after": {
+          "max": 202397250,
+          "median": 200015250,
+          "median_absolute_deviation": 695459,
+          "min": 198884750
+        },
+        "before": {
+          "max": 315022125,
+          "median": 306201833,
+          "median_absolute_deviation": 1822000,
+          "min": 304379833
+        },
+        "median_reduction_percent": 34.678624213199924
+      },
+      "core_ns": {
+        "after": {
+          "max": 2166544,
+          "median": 2064375,
+          "median_absolute_deviation": 33874,
+          "min": 2030501
+        },
+        "before": {
+          "max": 3328542,
+          "median": 3253998,
+          "median_absolute_deviation": 59373,
+          "min": 3177499
+        },
+        "median_reduction_percent": 36.558811652619326
+      },
+      "dimensions": {
+        "analyzed_destinations": 1,
+        "assertions": 1,
+        "directed_arcs": 128,
+        "events": 8,
+        "next_hop_reference_upper_bound": 110592,
+        "output_bytes_estimate": 33076224,
+        "physical_links": 64,
+        "prefixes": 64,
+        "retained_route_upper_bound": 36864,
+        "routers": 64,
+        "rss_bytes_estimate": 166907904,
+        "spf_work_units": 110592
+      },
+      "id": "ring-64",
+      "peak_rss_bytes": {
+        "after": {
+          "max": 105971712,
+          "median": 82640896,
+          "median_absolute_deviation": 16384,
+          "min": 82624512
+        },
+        "before": {
+          "max": 108265472,
+          "median": 108101632,
+          "median_absolute_deviation": 98304,
+          "min": 101236736
+        },
+        "median_reduction_percent": 23.55259169445286
+      },
+      "result_file_sha256": "34e6c409ec6403a5a96b2eaa79f94e8796644c541ae4809f734361cdb7ece6bf"
+    }
+  ],
+  "completed_cells": 14,
+  "declared_cells": 16,
+  "excluded_cells": [
+    {
+      "dimensions": {
+        "analyzed_destinations": 1,
+        "assertions": 1,
+        "directed_arcs": 2046,
+        "events": 8,
+        "next_hop_reference_upper_bound": 36864,
+        "output_bytes_estimate": 14754816,
+        "physical_links": 1023,
+        "prefixes": 2,
+        "retained_route_upper_bound": 18432,
+        "routers": 1024,
+        "rss_bytes_estimate": 93097984,
+        "spf_work_units": 28293120
+      },
+      "id": "chain-1024",
+      "reason": "spf_work_units=28293120 exceeds 10000000",
+      "status": "budget_skipped"
+    },
+    {
+      "dimensions": {
+        "analyzed_destinations": 2,
+        "assertions": 2,
+        "directed_arcs": 512,
+        "events": 8,
+        "next_hop_reference_upper_bound": 3538944,
+        "output_bytes_estimate": 1057277952,
+        "physical_links": 256,
+        "prefixes": 512,
+        "retained_route_upper_bound": 1179648,
+        "routers": 256,
+        "rss_bytes_estimate": 4296220672,
+        "spf_work_units": 1769472
+      },
+      "id": "ring-256-dense-probe",
+      "reason": "retained_route_upper_bound=1179648 exceeds 100000; output_bytes_estimate=1057277952 exceeds 50331648; rss_bytes_estimate=4296220672 exceeds 805306368",
+      "status": "budget_skipped"
+    }
+  ],
+  "optimized_source_sha256": "4698206dafe2cb2e0cb90c13ad7cc0302dc606d11f40fdc3fcdea70f9bf76ed7",
+  "policy": "Five fresh processes per mode after one warmup; descriptive medians; identical canonical bytes; no timing threshold or capacity claim. macOS RSS is provisional.",
+  "status": "validated_comparison",
+  "sweep_status": "partial"
+}

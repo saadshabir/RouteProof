@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include <functional>
-#include <queue>
 #include <tuple>
 
 namespace routeproof::spf {
@@ -39,6 +38,7 @@ void compute(const model::Topology& topology, const PhysicalState& state,
         hops.clear();
     }
     scratch.order.clear();
+    scratch.queue.clear();
     if (!state.available_routers[source]) {
         return;
     }
@@ -46,13 +46,14 @@ void compute(const model::Topology& topology, const PhysicalState& state,
         return state.administratively_up_links[arc.link] &&
                state.available_routers[arc.neighbor];
     };
-    using Item = std::pair<Distance, model::RouterIndex>;
-    std::priority_queue<Item, std::vector<Item>, std::greater<>> queue;
+    // Keep heap storage with the other per-source scratch buffers.
+    auto& queue = scratch.queue;
     scratch.distances[source] = 0;
-    queue.emplace(0, source);
+    queue.emplace_back(0, source);
     while (!queue.empty()) {
-        const auto [distance, router] = queue.top();
-        queue.pop();
+        std::pop_heap(queue.begin(), queue.end(), std::greater<>{});
+        const auto [distance, router] = queue.back();
+        queue.pop_back();
         if (distance != scratch.distances[router]) {
             continue;
         }
@@ -64,7 +65,8 @@ void compute(const model::Topology& topology, const PhysicalState& state,
             const auto candidate = checked_add(distance, arc.cost);
             if (candidate < scratch.distances[arc.neighbor]) {
                 scratch.distances[arc.neighbor] = candidate;
-                queue.emplace(candidate, arc.neighbor);
+                queue.emplace_back(candidate, arc.neighbor);
+                std::push_heap(queue.begin(), queue.end(), std::greater<>{});
             }
         }
     }
@@ -84,9 +86,7 @@ void compute(const model::Topology& topology, const PhysicalState& state,
                 continue;
             }
             auto& target = scratch.first_hops[arc.neighbor];
-            const NextHopSet direct{{arc.neighbor, arc.link, arc.outgoing_interface}};
-            const auto& incoming = router == source ? direct : scratch.first_hops[router];
-            for (const auto& hop : incoming) {
+            const auto insert = [&](const NextHop& hop) {
                 const auto position = std::lower_bound(target.begin(), target.end(), hop, less);
                 if (position == target.end() || *position != hop) {
                     if (references >= max_scratch_next_hops) {
@@ -94,6 +94,22 @@ void compute(const model::Topology& topology, const PhysicalState& state,
                     }
                     target.insert(position, hop);
                     ++references;
+                }
+            };
+            if (router == source) {
+                insert({arc.neighbor, arc.link, arc.outgoing_interface});
+            } else {
+                const auto& incoming = scratch.first_hops[router];
+                if (target.empty()) {
+                    // Incoming sets are already sorted and unique. The first
+                    // predecessor can copy the complete set without searches.
+                    if (incoming.size() > max_scratch_next_hops - references) {
+                        throw ResourceLimit("SPF scratch next-hop budget exceeded");
+                    }
+                    target.assign(incoming.begin(), incoming.end());
+                    references += incoming.size();
+                } else {
+                    for (const auto& hop : incoming) { insert(hop); }
                 }
             }
         }

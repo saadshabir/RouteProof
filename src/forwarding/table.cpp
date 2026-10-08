@@ -28,12 +28,13 @@ Tables compute(const model::Topology& topology, const spf::PhysicalState& state,
     tables.routers.resize(topology.scenario.routers.size());
     spf::Workspace scratch;
     const auto empty = std::make_shared<const spf::NextHopSet>();
+    std::vector<std::shared_ptr<const spf::NextHopSet>> shared;
     for (model::RouterIndex source = 0; source < tables.routers.size(); ++source) {
         if (!state.available_routers[source]) {
             continue;
         }
         spf::compute(topology, state, source, scratch, limits.max_scratch_next_hops);
-        std::vector<std::shared_ptr<const spf::NextHopSet>> shared(tables.routers.size());
+        shared.assign(tables.routers.size(), nullptr);
         for (model::PrefixIndex index = 0; index < topology.scenario.prefixes.size(); ++index) {
             const auto& prefix = topology.scenario.prefixes[index];
             const auto distance = scratch.distances[prefix.origin];

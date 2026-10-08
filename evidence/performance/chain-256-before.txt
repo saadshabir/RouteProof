@@ -1,0 +1,6 @@
+all_source_spf=1751668 ns
+table_compute=1860897 ns
+table_validation=2895 ns
+baseline_serialization=1087297 ns
+simulation=47884264 ns
+sink=22464330

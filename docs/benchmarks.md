@@ -6,6 +6,12 @@ clean source reproduction are recorded in [native evidence](../evidence/bench/be
 and a clean reproduction for the 16-router small workload. Scenario processing measures converged snapshots; these times
 are not network convergence, detection delays, or outage durations.
 
+The [first optimization measurements](../evidence/performance/README.md) compare
+the same frozen scaling profile before and after SPF allocation, no-op replay,
+and JSON construction improvements. All 14 completed workloads retain identical
+canonical bytes; two probes remain budget-skipped. Historical acceptance receipts
+above describe their original source snapshots.
+
 ## Run the frozen workloads
 
 Use an unsanitized Release build with Python 3.9+, CMake and Ninja:
@@ -49,7 +55,8 @@ current/candidate C++ routing tables. Instrumentation leaves `result.json`
 byte-identical to ordinary `simulate`; every warmup and repetition checks this.
 
 - **Core processing:** C++ `steady_clock` segments covering baseline initialization,
-  physical event mutation, full routing recomputation and invariants, cached
+  physical event mutation, routing recomputation and invariants for changed states
+  (table reuse for no-ops), cached
   destination analysis, all assertions, and witness validation. Parsing, canonical
   JSON construction/hashing/publication, cache cleanup, final serialization and
   file writes are outside these segments. Per-event samples use the same boundary;
@@ -161,5 +168,6 @@ each other; they cannot be mixed with the new provenance format.
 
 Full generated runs live under ignored `results/`. The published bundle retains
 small raw evidence and a source archive with checksums; larger canonical results
-can be regenerated from the archived normalized scenarios. No routing optimization
-was introduced: this phase measures the reference implementation first.
+can be regenerated from the archived normalized scenarios. The original Phase 5
+measurements used the reference implementation before optimization. Separate
+optimization receipts preserve both source snapshots and raw before/after measurements.
