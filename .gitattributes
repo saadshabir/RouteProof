@@ -2,3 +2,4 @@
 * text=auto
 # Raw measurement CSV checksums must survive checkout without EOL conversion.
 evidence/bench/**/*.csv -text whitespace=cr-at-eol
+evidence/release/**/*.csv -text whitespace=cr-at-eol
