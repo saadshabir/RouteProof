@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'tools/release'))
 from package import REQUIRED_FILES, check, create
 from demo import check_result, run
-from check_linux import memory_evidence
+from check_linux import memory_evidence, same_implementation
 
 BINARY = Path(sys.argv.pop(1)).resolve()
 
@@ -53,6 +53,25 @@ def archive_bundle(out, manifest, names, version=None):
 
 
 class ReleaseTests(unittest.TestCase):
+    def test_linux_gate_rejects_unrelated_lab_and_memory_builds(self):
+        files = {name: 'a' * 64 for name in ('CMakeLists.txt', 'CMakePresets.json', 'app/main.cpp')}
+        manifest = {'host': {'source_revision': '1' * 40, 'binary_sha256': 'b' * 64,
+                             'source_inputs': {'files': files}}}
+        lab = {'git_revision': '1' * 40, 'binary_sha256': 'b' * 64, 'source_hashes': files.copy()}
+        same_implementation(manifest, {'cells': [{'manifest': lab}]})
+        for mutation in ('revision', 'binary', 'input', 'unrelated-inputs'):
+            changed = copy.deepcopy(lab)
+            if mutation == 'revision':
+                changed['git_revision'] = '2' * 40
+            elif mutation == 'binary':
+                changed['binary_sha256'] = 'c' * 64
+            elif mutation == 'input':
+                changed['source_hashes']['app/main.cpp'] = 'd' * 64
+            else:
+                changed['source_hashes'] = {'other.cpp': 'a' * 64}
+            with self.subTest(mutation=mutation), self.assertRaisesRegex(ValueError, 'same source and binary'):
+                same_implementation(manifest, {'cells': [{'manifest': changed}]})
+
     def test_linux_memory_gate_rejects_native_or_missing_samples(self):
         # A recorded native run must never close the Linux memory gate.
         # This rejection is independent of external candidate receipts.
@@ -97,6 +116,13 @@ class ReleaseTests(unittest.TestCase):
             (source / 'src').mkdir(parents=True)
             with self.assertRaises(ValueError):
                 create(source, tmp / 'final', '0.1.0')
+            # An asserted pass without both raw runs cannot authorize a final artifact.
+            evidence = tmp / 'linux'
+            evidence.mkdir()
+            (evidence / 'acceptance.json').write_text(json.dumps({'status': 'pass', 'release_complete': True}))
+            with self.assertRaisesRegex(ValueError, 'raw Linux acceptance'):
+                create(source, tmp / 'false-final', '0.1.0', evidence)
+            self.assertFalse((tmp / 'false-final').exists())
             (source / 'src/link').symlink_to(source / 'CMakeLists.txt')
             with self.assertRaisesRegex(ValueError, 'symlinks'):
                 create(source, tmp / 'linked', '0.1.0-rc.1')
@@ -166,7 +192,7 @@ class ReleaseTests(unittest.TestCase):
                 out = tmp / str(index)
                 manifest = create(source, out, '0.1.0-rc.1')
                 archive_bundle(out, manifest, ['routeproof-' + version + '/escape'], version)
-                with self.assertRaisesRegex(ValueError, 'candidate version'):
+                with self.assertRaisesRegex(ValueError, 'candidate version|Linux acceptance receipt'):
                     check(out)
             out = tmp / 'empty'
             manifest = create(source, out, '0.1.0-rc.1')

@@ -48,6 +48,19 @@ def memory_evidence(manifest, summary):
             'cli_peak_rss_bytes': peaks, 'instrumented_boundaries': rows}
 
 
+def same_implementation(manifest, matrix):
+    host = manifest['host']
+    bench_source = host['source_inputs']['files']
+    for cell in matrix['cells']:
+        lab = cell['manifest']
+        if (lab['git_revision'] != host['source_revision']
+                or lab['binary_sha256'] != host['binary_sha256']
+                or not {'CMakeLists.txt', 'CMakePresets.json', 'app/main.cpp'} <= lab['source_hashes'].keys() & bench_source.keys()
+                or any(digest != bench_source[name] for name, digest in lab['source_hashes'].items()
+                       if name in bench_source)):
+            raise ValueError('FRR and memory must test the same source and binary')
+
+
 def check(first, second, out):
     out.mkdir(parents=True, exist_ok=False)
     report = {'schema_version': 1, 'status': 'incomplete', 'release_complete': False}
@@ -68,6 +81,8 @@ def check(first, second, out):
         for directory in (first, second):
             manifest = json.loads((directory / 'bench-small/manifest.json').read_text())
             summary = json.loads((directory / 'bench-small/summary.json').read_text())
+            matrix = json.loads((directory / 'frr/matrix-report.json').read_text())
+            same_implementation(manifest, matrix)
             report['memory'].append(memory_evidence(manifest, summary))
         report.update(status='pass', release_complete=True, open_gates=[])
         return 0
