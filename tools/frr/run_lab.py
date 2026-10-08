@@ -301,6 +301,16 @@ def cleanup(mapping, topology, commands):
     require(f"{mapping['lab_name']}-mgmt" not in networks, "cleanup left owned management network")
 
 
+def save_report(output, report):
+    # Every checkpoint must carry the coverage of its saved snapshots, even if
+    # the matrix has to kill this runner before its cleanup/final report finishes.
+    report["completed_snapshots"] = len(report["snapshots"])
+    report["matched_slots"] = sum(s["matched_slots"] for s in report["snapshots"])
+    report["comparison_slots"] = sum(s["comparison_slots"] for s in report["snapshots"])
+    report["passing_snapshots"] = sum(s["status"] == "pass" for s in report["snapshots"])
+    write_json(output / "report.json", report)
+
+
 def execute_live(scenario, mapping, expected, output, commands, options):
     topology = output / "lab" / "topology.clab.json"
     report = {"schema_version": 1, "status": "incomplete", "requested_snapshots": len(expected["snapshots"]),
@@ -343,8 +353,7 @@ def execute_live(scenario, mapping, expected, output, commands, options):
             comparison["stability"] = stability
             write_json(directory / "comparison.json", comparison)
             report["snapshots"].append(comparison)
-            report["completed_snapshots"] += 1
-            write_json(output / "report.json", report)
+            save_report(output, report)
         report["status"] = "pass" if all(s["status"] == "pass" for s in report["snapshots"]) else "fail"
     except (InfrastructureError, ObservationError, ValueError, KeyError, OSError) as error:
         report.update(status="incomplete", error=str(error))
@@ -358,10 +367,7 @@ def execute_live(scenario, mapping, expected, output, commands, options):
                 report["cleanup"] = "complete"
             except (InfrastructureError, ObservationError, OSError, KeyError, KeyboardInterrupt) as error:
                 report.update(status="incomplete", cleanup="failed", cleanup_error=str(error))
-        report["matched_slots"] = sum(s["matched_slots"] for s in report["snapshots"])
-        report["comparison_slots"] = sum(s["comparison_slots"] for s in report["snapshots"])
-        report["passing_snapshots"] = sum(s["status"] == "pass" for s in report["snapshots"])
-        write_json(output / "report.json", report)
+        save_report(output, report)
     return report
 
 

@@ -1,0 +1,9 @@
+{
+  "architecture": "arm64",
+  "containerlab": null,
+  "docker": null,
+  "kernel": "27.0.0",
+  "reason": "Live Phase 4 acceptance requires a Linux amd64 host with Docker and Containerlab; no live observations collected.",
+  "status": "incomplete",
+  "system": "Darwin"
+}

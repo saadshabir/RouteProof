@@ -3,13 +3,16 @@
 import copy
 import ipaddress
 import json
+import os
+import signal
 import subprocess
 import sys
 import tempfile
+import time
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'tools/frr'))
@@ -17,6 +20,7 @@ from generate import check_image, generate
 from normalize import (ObservationError, compare, normalize_kernel,
                        normalize_ospf, normalize_zebra)
 import run_lab
+import run_matrix
 from run_matrix import summary
 from compare_runs import compare_runs
 
@@ -581,6 +585,211 @@ class HarnessTests(unittest.TestCase):
         self.assertEqual(summary([{'report': {'status': 'skipped'}}], 5, 1)['status'], 'skipped')
         self.assertEqual(summary([{'report': {'status': 'incomplete'}}], 5, 1)['status'], 'incomplete')
         self.assertEqual(summary([{'report': {'status': 'pass'}}], 5, 2)['status'], 'incomplete')
+
+    def test_matrix_timeout_retains_partial_comparisons_and_cleanup(self):
+        output = self.directory / 'matrix-timeout'
+        output.mkdir()
+        partial = {'status': 'incomplete', 'cleanup': 'complete', 'completed_snapshots': 1,
+                   'comparison_slots': 12, 'matched_slots': 11,
+                   'snapshots': [{'status': 'fail', 'mismatches': [{'reason': 'missing_route'}]}]}
+        (output / 'report.json').write_text(json.dumps(partial))
+        (output / 'manifest.json').write_text(json.dumps({'lab_name': 'rp-partial'}))
+        child = Mock(returncode=3)
+        child.poll.return_value = None
+        child.communicate.side_effect = [subprocess.TimeoutExpired(['runner'], 1), ('raw stdout', 'raw stderr')]
+        with patch.object(run_matrix.subprocess, 'Popen', return_value=child):
+            cell, interrupted = run_matrix.collect_cell(['runner'], output, timeout=1)
+        self.assertFalse(interrupted)
+        child.terminate.assert_called_once()
+        child.kill.assert_not_called()
+        self.assertEqual(cell['exit_code'], 3)
+        self.assertEqual(cell['report']['snapshots'], partial['snapshots'])
+        self.assertEqual(cell['report']['comparison_slots'], 12)
+        self.assertEqual(cell['report']['cleanup'], 'complete')
+        self.assertEqual(cell['manifest']['lab_name'], 'rp-partial')
+        self.assertEqual(cell['stderr'], 'raw stderr')
+        # A broken manifest cannot erase already-readable comparison evidence.
+        (output / 'manifest.json').write_text('[]')
+        child = Mock(returncode=3)
+        child.communicate.return_value = ('', '')
+        with patch.object(run_matrix.subprocess, 'Popen', return_value=child):
+            cell, _ = run_matrix.collect_cell(['runner'], output)
+        self.assertEqual(cell['report']['snapshots'], partial['snapshots'])
+        self.assertEqual(cell['report']['comparison_slots'], 12)
+        self.assertIn('expected an evidence object', cell['report']['evidence_error'])
+
+    def test_matrix_forced_kill_and_inconsistent_exit_cannot_pass(self):
+        output = self.directory / 'matrix-kill'
+        output.mkdir()
+        (output / 'report.json').write_text(json.dumps({'status': 'pass', 'cleanup': 'complete'}))
+        (output / 'manifest.json').write_text('{}')
+        child = Mock(returncode=-9)
+        child.poll.return_value = None
+        child.communicate.side_effect = [subprocess.TimeoutExpired(['runner'], 1),
+                                         subprocess.TimeoutExpired(['runner'], 180), ('', '')]
+        with patch.object(run_matrix.subprocess, 'Popen', return_value=child):
+            cell, _ = run_matrix.collect_cell(['runner'], output, timeout=1)
+        child.kill.assert_called_once()
+        self.assertEqual((cell['report']['status'], cell['report']['cleanup']), ('incomplete', 'unknown'))
+        child = Mock(returncode=3)
+        child.communicate.return_value = ('', '')
+        with patch.object(run_matrix.subprocess, 'Popen', return_value=child):
+            cell, _ = run_matrix.collect_cell(['runner'], output)
+        self.assertEqual(cell['report']['status'], 'incomplete')
+        self.assertIn('exit code', cell['report']['orchestration_error'])
+
+    def test_matrix_sigterm_waits_for_child_cleanup_and_saves_evidence(self):
+        self.check_matrix_signal(signal.SIGTERM)
+
+    def test_matrix_process_group_signals_do_not_interrupt_cleanup(self):
+        for signum in (signal.SIGINT, signal.SIGTERM):
+            with self.subTest(signal=signum):
+                self.check_matrix_signal(signum, process_group=True)
+
+    def test_matrix_signals_during_cleanup_preserve_evidence(self):
+        for timeout in (False, True):
+            for signum in (signal.SIGINT, signal.SIGTERM):
+                with self.subTest(timeout=timeout, signal=signum):
+                    self.check_matrix_signal(signum, during_cleanup=True, timeout=timeout)
+
+    def test_matrix_forced_kill_retains_real_checkpoint_totals(self):
+        output = self.directory / 'matrix-checkpoint'
+        output.mkdir()
+        checkpoints = []
+        original_write = run_lab.write_json
+        def record(path, value):
+            if path == output / 'report.json' and value['cleanup'] == 'not_started':
+                checkpoints.append(copy.deepcopy(value))
+            original_write(path, value)
+        fake = FakeCommands(self.scenario, self.mapping)
+        with patch.object(run_lab, 'write_json', side_effect=record):
+            self.execute_fake(self.scenario, self.mapping, self.result, output, fake)
+        self.assertEqual(len(checkpoints), 6)
+        for checkpoint in checkpoints:
+            self.assertEqual(checkpoint['completed_snapshots'], len(checkpoint['snapshots']))
+            self.assertEqual(checkpoint['comparison_slots'], sum(s['comparison_slots'] for s in checkpoint['snapshots']))
+            self.assertEqual(checkpoint['matched_slots'], sum(s['matched_slots'] for s in checkpoint['snapshots']))
+            self.assertEqual(checkpoint['passing_snapshots'], sum(s['status'] == 'pass' for s in checkpoint['snapshots']))
+        (output / 'report.json').write_text(json.dumps(checkpoints[-1]))
+        (output / 'manifest.json').write_text(json.dumps({'lab_name': 'rp-checkpoint'}))
+        child = Mock(returncode=-9)
+        child.poll.return_value = None
+        child.communicate.side_effect = [subprocess.TimeoutExpired(['runner'], 1),
+                                         subprocess.TimeoutExpired(['runner'], 180), ('', '')]
+        with patch.object(run_matrix.subprocess, 'Popen', return_value=child):
+            cell, interrupted = run_matrix.collect_cell(['runner'], output, timeout=1)
+        self.assertFalse(interrupted)
+        child.kill.assert_called_once()
+        report = summary([cell], 1, 1)
+        self.assertEqual((report['status'], cell['report']['cleanup']), ('incomplete', 'unknown'))
+        self.assertEqual((report['completed_snapshots'], report['passing_snapshots']), (6, 6))
+        self.assertEqual((report['comparison_slots'], report['matched_slots']), (69, 69))
+        self.assertEqual(cell['report']['snapshots'], checkpoints[-1]['snapshots'])
+
+    def check_matrix_signal(self, signum, process_group=False, during_cleanup=False, timeout=False):
+        temporary = tempfile.TemporaryDirectory(dir=self.directory)
+        self.addCleanup(temporary.cleanup)
+        directory = Path(temporary.name)
+        root = directory / 'signal-root'
+        (root / 'tools/frr').mkdir(parents=True)
+        (root / 'labs/profiles').mkdir(parents=True)
+        (root / 'labs/profiles/matrix.json').write_text(json.dumps(
+            {'profiles': [{'id': 'pair', 'scenarios': ['pair.json', 'later.json']}]}))
+        # Exercise the real execute_live exception, checkpoint, and cleanup
+        # paths. Only the transport and its cleanup work are simulated.
+        (root / 'tools/frr/run_lab.py').write_text(f'''import argparse, json, os, signal, sys, time
+from pathlib import Path
+from types import SimpleNamespace
+sys.path.insert(0, {str(ROOT / 'tools/frr')!r})
+import run_lab
+p = argparse.ArgumentParser()
+p.add_argument('--out', type=Path)
+a, _ = p.parse_known_args()
+a.out.mkdir()
+signal.signal(signal.SIGTERM, run_lab.handle_termination)
+(a.out / 'pid').write_text(str(os.getpid()))
+(a.out / 'manifest.json').write_text(json.dumps({{'lab_name': 'rp-signal'}}))
+class Commands:
+    deadline = None
+    def run(self, argv):
+        return ''
+def wait(*args):
+    if (a.out / 'report.json').exists():
+        (a.out / 'ready').touch()
+        while True:
+            time.sleep(0.01)
+    return {{}}, {{}}
+def cleanup(*args):
+    (a.out / 'cleanup-started').touch()
+    time.sleep(0.6)
+    (a.out / 'resources-removed').touch()
+run_lab.environment = lambda *args: {{}}
+run_lab.check_fresh = lambda *args: None
+run_lab.initialize = lambda *args: None
+run_lab.apply_state = lambda *args: None
+run_lab.wait_stable = wait
+run_lab.compare = lambda *args: {{'status': 'pass', 'comparison_slots': 12, 'matched_slots': 12}}
+run_lab.cleanup = cleanup
+scenario = {{'routers': [], 'links': [], 'events': []}}
+snapshots = [{{'id': name, 'sequence': index, 'available_routers': [], 'administratively_up_links': []}}
+             for index, name in enumerate(('baseline', 'pending'))]
+options = SimpleNamespace(timeout=10, poll_interval=1, stable_window=1, stable_polls=2)
+report = run_lab.execute_live(scenario, {{'image': 'unused'}}, {{'snapshots': snapshots}}, a.out, Commands(), options)
+sys.exit(3 if report['status'] == 'incomplete' else 0)
+''')
+        output = directory / 'signal-output'
+        code = ('import sys; from pathlib import Path; '
+                f'sys.path.insert(0, {str(ROOT / "tools/frr")!r}); import run_matrix; '
+                f'run_matrix.ROOT = Path({str(root)!r}); ')
+        if timeout:
+            code += ('collect = run_matrix.collect_cell; '
+                     'run_matrix.collect_cell = lambda argv, output, **kwargs: '
+                     'collect(argv, output, timeout=0.5, cleanup_timeout=5, **kwargs); ')
+        code += 'sys.exit(run_matrix.main())'
+        parent = subprocess.Popen([sys.executable, '-c', code, '--generate-only', '--out', str(output)],
+                                  stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, start_new_session=True)
+        def wait_for(name):
+            deadline = time.monotonic() + 5
+            while not (output / 'pair' / name).exists() and parent.poll() is None and time.monotonic() < deadline:
+                time.sleep(0.01)
+            self.assertTrue((output / 'pair' / name).exists(), f'child did not reach {name}')
+        try:
+            if timeout:
+                wait_for('cleanup-started')
+            else:
+                wait_for('ready')
+                if during_cleanup:
+                    os.kill(parent.pid, signal.SIGTERM)
+                    wait_for('cleanup-started')
+            if process_group:
+                os.killpg(parent.pid, signum)
+            else:
+                os.kill(parent.pid, signum)
+            stdout, stderr = parent.communicate(timeout=5)
+            self.assertEqual(parent.returncode, 3, (stdout, stderr))
+            report = json.loads((output / 'matrix-report.json').read_text())
+            self.assertEqual(report['status'], 'incomplete')
+            self.assertEqual(len(report['cells']), 1)
+            self.assertEqual(report['comparison_slots'], 12)
+            self.assertEqual(report['cells'][0]['report']['cleanup'], 'complete')
+            self.assertEqual(report['cells'][0]['manifest']['lab_name'], 'rp-signal')
+            self.assertTrue((output / 'pair/resources-removed').exists())
+            self.assertFalse((output / 'later').exists())
+        finally:
+            if parent.poll() is None:
+                parent.terminate()
+                try:
+                    parent.communicate(timeout=5)
+                except subprocess.TimeoutExpired:
+                    parent.kill()
+                    parent.communicate()
+            # On a broken parent, its isolated child must not outlive the test.
+            pid_file = output / 'pair/pid'
+            if parent.returncode != 3 and pid_file.exists():
+                try:
+                    os.kill(int(pid_file.read_text()), signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
 
 
 if __name__ == '__main__':

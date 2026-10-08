@@ -128,6 +128,21 @@ is used. Cleanup errors and remaining owned resources force `incomplete`. Abrupt
 host loss or SIGKILL cannot execute cleanup; saved lab topology and labels identify
 resources for recovery.
 
+The matrix runner also handles Ctrl-C and SIGTERM. Each child runs in a separate
+session, so a foreground process-group signal reaches the matrix without also
+interrupting the child. The matrix forwards one SIGTERM, allows up to 180 seconds
+for owned-resource cleanup, saves that child's partial comparisons and provenance,
+and stops before deploying another cell. Further Ctrl-C or SIGTERM signals during
+cleanup or evidence collection are recorded without interrupting that work or
+sending another termination signal to the child. Every lab report checkpoint
+includes completed/passing snapshot counts and compared/matched slot totals, so
+forced-kill recovery retains coverage already saved before cleanup.
+A cell timeout remains `incomplete` even if the child finishes a passing report
+while termination is in progress. If the cleanup grace period expires, the
+child is killed and cleanup is explicitly `unknown`; earlier comparison evidence
+is retained. A runner exit code inconsistent with its report also fails as
+incomplete infrastructure.
+
 ## Readiness, capture, and stability
 
 Default policy: 90-second snapshot/daemon readiness timeout, 30-second individual
