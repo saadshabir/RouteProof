@@ -2,6 +2,8 @@
 #include "routeproof/output/baseline.hpp"
 #include "routeproof/engine/replay.hpp"
 #include "routeproof/version.hpp"
+#include "routeproof/bench/measurement.hpp"
+#include <chrono>
 #include <nlohmann/json.hpp>
 #include <picosha2.h>
 #include <fstream>
@@ -76,7 +78,11 @@ int status_code(const std::string& status) {
     throw input::InputError("invalid result status");
 }
 }
-SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationLimits& limits) {
+SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationLimits& limits,
+                          SimulationMetrics* metrics) {
+    using Clock = std::chrono::steady_clock;
+    Clock::time_point start;
+    if (metrics) { *metrics = {}; }
     const auto normalized = Json::parse(loaded.normalized_json);
     Json result{{"schema_version", 1}, {"model", model_id}, {"scenario_name", loaded.topology.scenario.name},
         {"scenario_sha256", loaded.scenario_sha256}, {"events_sha256", digest(normalized.at("events"))},
@@ -93,6 +99,10 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
             throw spf::ResourceLimit("assertion evaluation budget exceeded");
         }
         engine::replay(loaded.topology, [&](const engine::Snapshot& snapshot) {
+            SnapshotSample sample;
+            if (metrics) {
+                sample.processing_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(Clock::now() - start).count();
+            }
             charge(routes, snapshot.tables.route_entries, limits.max_retained_routes, "retained route budget exceeded");
             charge(hops, snapshot.tables.next_hop_references, limits.max_retained_next_hops, "retained next-hop budget exceeded");
             auto baseline = Json::parse(baseline_json(loaded, snapshot.state, snapshot.tables));
@@ -100,6 +110,15 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
                 {"administratively_up_links", baseline.at("administratively_up_links")}, {"routes", baseline.at("routes")}};
             const auto hash = digest(physical);
             const auto id = snapshot.event ? "event-" + std::to_string(snapshot.event->sequence) : "baseline";
+            if (metrics) {
+                sample.id = id; sample.applied = snapshot.applied;
+                sample.route_entries = snapshot.tables.route_entries;
+                sample.next_hop_references = snapshot.tables.next_hop_references;
+                for (const auto& table : snapshot.tables.routers) {
+                    for (const auto& route : table) { sample.max_ecmp_width = std::max(sample.max_ecmp_width, route.next_hops->size()); }
+                }
+                sample.available_routers = std::count(snapshot.state.available_routers.begin(), snapshot.state.available_routers.end(), true);
+            }
             physical["id"] = id; physical["sha256"] = hash;
             physical["sequence"] = snapshot.event ? Json(snapshot.event->sequence) : Json(nullptr);
             physical["event_id"] = snapshot.event ? Json(snapshot.event->id) : Json(nullptr);
@@ -108,6 +127,7 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
             std::map<model::PrefixIndex, std::unique_ptr<analysis::DestinationAnalysis>> cache;
             std::string status = "pass";
             for (const auto& assertion : loaded.topology.scenario.assertions) {
+                const auto analysis_start = metrics ? Clock::now() : Clock::time_point{};
                 charge(evaluations, 1, limits.max_assertion_evaluations, "assertion evaluation budget exceeded");
                 auto& graph = cache[assertion.destination_prefix];
                 if (!graph) {
@@ -120,11 +140,21 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
                         snapshot.tables, assertion.destination_prefix, limits.analysis);
                 }
                 auto finding = graph->check(assertion.source);
-                Json record{{"assertion_id", assertion.id}, {"snapshot_id", id}, {"snapshot_sha256", hash},
-                    {"status", "pass"}, {"findings", Json::array()}};
                 if (finding) {
                     analysis::validate_witness(loaded.topology, snapshot.state, snapshot.tables,
                                               assertion.destination_prefix, assertion.source, *finding);
+                }
+                if (metrics) {
+                    sample.processing_ns += std::chrono::duration_cast<std::chrono::nanoseconds>(Clock::now() - analysis_start).count();
+                    ++sample.assertion_evaluations;
+                    if (finding) {
+                        if (finding->kind == "incomplete") { ++sample.incomplete_assertions; }
+                        else { ++sample.failed_assertions; }
+                    }
+                }
+                Json record{{"assertion_id", assertion.id}, {"snapshot_id", id}, {"snapshot_sha256", hash},
+                    {"status", "pass"}, {"findings", Json::array()}};
+                if (finding) {
                     record["status"] = finding->kind == "incomplete" ? "incomplete" : "fail";
                     record["findings"].push_back(finding_json(loaded, snapshot, hash, assertion, *finding));
                     if (status != "incomplete") { status = record.at("status").get<std::string>(); }
@@ -142,13 +172,22 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
                     {"next_hop_references", snapshot.tables.next_hop_references}};
             }
             charge(bytes, event.dump().size(), limits.max_output_bytes, "canonical output byte budget exceeded");
+            if (metrics) {
+                sample.destination_analyses = cache.size();
+                sample.retained_snapshots = result["snapshots"].size();
+                sample.steady_rss_bytes = bench::steady_rss_bytes();
+            }
             // Publish a snapshot and all of its assertions together. A failed
             // candidate contributes neither an event nor partial assertions.
             result["snapshots"].push_back(std::move(physical));
             if (snapshot.event) { result["events"].push_back(std::move(event)); }
             for (auto& record : assertions) { result["assertions"].push_back(std::move(record)); }
             if (status != "pass" && result["status"] != "incomplete") { result["status"] = status; }
-        }, limits.routing);
+            if (metrics) {
+                metrics->core_processing_ns += sample.processing_ns;
+                metrics->snapshots.push_back(std::move(sample));
+            }
+        }, limits.routing, metrics ? engine::BeforeSnapshot([&] { start = Clock::now(); }) : engine::BeforeSnapshot{});
     } catch (const std::exception& error) {
         result["status"] = "incomplete";
         result["incomplete_reason"] = error.what();

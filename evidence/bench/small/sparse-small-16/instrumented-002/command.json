@@ -1,0 +1,7 @@
+[
+  "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+  "bench-sample",
+  "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-small-final/sparse-small-16/scenario.json",
+  "--out",
+  "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-small-final/sparse-small-16/instrumented-002/output"
+]

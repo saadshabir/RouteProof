@@ -14,7 +14,7 @@ The first release has five deliverables:
 
 Each event produces a converged forwarding snapshot. Lean, transient convergence, BGP, Prometheus, and visualization are optional follow-up work.
 
-**Current status:** The tool validates and canonicalizes v1 scenarios and computes baseline prefix routes with directional costs, connected delivery, and complete ECMP interface sets. It replays ordered link/router failures and restorations, checks every ECMP branch, and emits validated partition/drop/cycle witnesses. Independent tiny-graph and replay oracles validate routing and findings. The FRR lab generator, five-profile matrix, capture/cleanup harness, and route adapters are implemented with offline tests. Live Linux FRR agreement and published benchmark measurements remain open.
+**Current status:** The tool validates and canonicalizes v1 scenarios and computes baseline prefix routes with directional costs, connected delivery, and complete ECMP interface sets. It replays ordered link/router failures and restorations, checks every ECMP branch, and emits validated partition/drop/cycle witnesses. Independent tiny-graph and replay oracles validate routing and findings. The FRR lab generator, five-profile matrix, capture/cleanup harness, and route adapters are implemented with offline tests. Frozen workload generation, fresh-process core/CLI timing, RSS collection, and bounded scaling sweeps are implemented. Native measurements and a clean source reproduction are published; live Linux FRR agreement and authoritative Linux memory evidence remain open.
 
 ## Build
 
@@ -67,4 +67,16 @@ This saves configs, mappings, and expected snapshots, reports `skipped`, and exi
 3; it does not claim FRR agreement. Live runs require a Linux amd64
 Docker/Containerlab host and an explicitly supplied FRR 10.2.1 image digest. The
 [Phase 4 evidence](evidence/frr/frr-validation.md) records offline coverage and the
-open live acceptance gate. `bench` remains a planned interface.
+open live acceptance gate. The [benchmark workflow](docs/benchmarks.md) provides frozen profiles and raw measurements:
+
+```sh
+cmake --preset host-release
+cmake --build --preset host-release
+build/host-release/routeproof bench --profile benchmarks/profiles/sparse-small.json --out results/bench
+```
+
+The scaling profile preserves budget-skipped/failed probes and exits 3 for a partial
+sweep. Core processing, complete CLI time, and RSS have separate boundaries; these
+are converged-scenario measurements. macOS RSS is provisional. See the
+[Phase 5 evidence](evidence/bench/benchmark-validation.md) for measured coverage,
+raw samples and clean source reproduction.

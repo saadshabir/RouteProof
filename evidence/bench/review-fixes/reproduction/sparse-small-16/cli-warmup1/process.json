@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "/private/tmp/routeproof-phase5-reviewed-wwscgwd7/build/host-release/routeproof",
+    "simulate",
+    "/private/tmp/routeproof-phase5-reviewed-wwscgwd7/results/bench-small/sparse-small-16/scenario.json",
+    "--out",
+    "/private/tmp/routeproof-phase5-reviewed-wwscgwd7/results/bench-small/sparse-small-16/cli-warmup1/output"
+  ],
+  "elapsed_ns": 5654083,
+  "exit_code": 1,
+  "peak_rss_bytes": 4128768,
+  "pid": 70777,
+  "polled_peak_rss_bytes": 0,
+  "status": "complete"
+}

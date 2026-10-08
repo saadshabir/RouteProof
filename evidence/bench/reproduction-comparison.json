@@ -1,0 +1,32 @@
+{
+  "status": "pass",
+  "cell": "sparse-small-16",
+  "source_sha256": "7907c181f223d25d90c469771fd200c11804b13a41fe635b5acdd89e79b47741",
+  "scenario_sha256": "98fc81622990d0d41a757d554645dcc9d8b827ca26ee22d01543dc05c997b6ac",
+  "result_file_sha256": "ff773b89a3298cc37f4d036a990abe6ae924c42b90eee78f66f81d9e09f35f2a",
+  "original_core_ns": {
+    "max": 222957,
+    "median": 215665,
+    "median_absolute_deviation": 6539,
+    "min": 204167
+  },
+  "reproduced_core_ns": {
+    "max": 251293,
+    "median": 227873,
+    "median_absolute_deviation": 8876,
+    "min": 218997
+  },
+  "original_cli_ns": {
+    "max": 5989708,
+    "median": 5824833,
+    "median_absolute_deviation": 82916,
+    "min": 5741917
+  },
+  "reproduced_cli_ns": {
+    "max": 6272958,
+    "median": 5809667,
+    "median_absolute_deviation": 81209,
+    "min": 5728458
+  },
+  "timing_policy": "descriptive comparison; no equality or regression threshold claimed"
+}

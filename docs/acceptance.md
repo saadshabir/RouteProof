@@ -8,7 +8,7 @@ The release stays incomplete until every deliverable has reproducible evidence. 
 | Link/router failure scenarios with deterministic replay | Baseline plus each ordered event yields canonical snapshots; repeat runs/toolchains agree; router restoration preserves link administrative state | Complete; [Replay evidence](../evidence/replay/replay-validation.md) |
 | All-branch reachability and useful explanations | Every ECMP branch is checked; each emitted witness/frontier certificate validates against its snapshot; resource exhaustion is `incomplete` | Complete; [Replay evidence](../evidence/replay/replay-validation.md) |
 | FRRouting comparison | Fresh supported labs agree on converged route costs and full next-hop sets for every declared snapshot, including missing routes | Tooling implemented; offline checks pass; live Linux agreement/rerun open ([FRR evidence](../evidence/frr/frr-validation.md)) |
-| Reproducible time, memory, and scaling measurements | Frozen workload, commands, toolchain/host manifest, raw samples, hashes, and one clean-checkout reproduction | Not implemented |
+| Reproducible time, memory, and scaling measurements | Frozen workload, commands, toolchain/host manifest, raw samples, hashes, and one clean-checkout reproduction | Native timing/scaling and provisional RSS published; clean source reproduction passes; authoritative Linux RSS open ([Benchmark evidence](../evidence/bench/benchmark-validation.md)) |
 
 ## Build contract
 
@@ -64,3 +64,24 @@ Commands and raw output are recorded in [replay-validation.md](../evidence/repla
 Commands, limitations, and evidence are documented in [validation.md](validation.md)
 and [frr-validation.md](../evidence/frr/frr-validation.md). Offline transport tests
 and generation-only `skipped` reports do not close the live release gate.
+
+## Scenario benchmarks
+
+- [x] Frozen integer/xorshift32 profiles cover five shapes, sizes, prefix density,
+  ECMP width, assertion coverage and trace length independently.
+- [x] Core/per-snapshot processing and complete CLI time have explicit boundaries;
+  instrumentation preserves canonical simulation bytes.
+- [x] Each published cell has fixed warmups and five fresh-process repetitions per
+  mode, raw samples, actual route/next-hop counters and input/result hashes.
+- [x] A clean source snapshot with a distinct Release build reproduces the small
+  workload's canonical bytes and counters.
+- [x] Budget-skipped cells, timeouts, memory guard failures and interrupted workers
+  retain explicit evidence; owned worker processes are terminated and reaped.
+- [ ] Authoritative Linux peak and boundary RSS samples are published. Native
+  macOS RSS is provisional and does not close this memory gate.
+
+Commands, measured coverage, raw evidence and limitations are recorded in
+[benchmarks.md](benchmarks.md) and [benchmark-validation.md](../evidence/bench/benchmark-validation.md).
+The [review-fix evidence](../evidence/bench/review-fixes/README.md) covers interrupted
+sweep completion, binary/harness provenance, raw counter/timing reconciliation
+and final timeout enforcement.

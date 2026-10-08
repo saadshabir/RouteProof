@@ -1,0 +1,7 @@
+[
+  "/private/tmp/routeproof-phase5-reviewed-wwscgwd7/build/host-release/routeproof",
+  "simulate",
+  "/private/tmp/routeproof-phase5-reviewed-wwscgwd7/results/bench-small/sparse-small-16/scenario.json",
+  "--out",
+  "/private/tmp/routeproof-phase5-reviewed-wwscgwd7/results/bench-small/sparse-small-16/cli-003/output"
+]

@@ -1,0 +1,16 @@
+{
+  "status": "pass",
+  "binary_path": "/private/tmp/routeproof-phase5-reviewed-wwscgwd7/build/host-release/routeproof",
+  "binary_source": {
+    "source_root": "/private/tmp/routeproof-phase5-reviewed-wwscgwd7",
+    "source_revision": "d4e3830199ffcf2dade056707dc428693c5b3f99",
+    "git_status": "",
+    "source_sha256": "9ccd95071b19708530f0e195d490d90be744764a2eda4809491a67a46eaa2aed"
+  },
+  "harness_source": {
+    "source_root": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof",
+    "source_revision": "2c6ebc25ba822f32e206d2848f6bf5aa5ad3250d",
+    "git_status": "M CMakeLists.txt\n M CMakePresets.json\n M README.md\n M app/main.cpp\n M docs/acceptance.md\n M docs/implementation-plan.md\n M evidence/README.md\n M include/routeproof/engine/replay.hpp\n M include/routeproof/output/simulation.hpp\n M src/engine/replay.cpp\n M src/output/simulation.cpp\n?? benchmarks/\n?? docs/benchmarks.md\n?? evidence/bench/\n?? include/routeproof/bench/\n?? src/bench/\n?? tests/bench/\n?? tools/bench/",
+    "source_sha256": "9ccd95071b19708530f0e195d490d90be744764a2eda4809491a67a46eaa2aed"
+  }
+}

@@ -1,0 +1,46 @@
+# Commands executed in the RouteProof working tree on 2026-10-07.
+# Existing dependency source caches were used; their Git HEADs and clean status
+# were verified. CMake dependency pins also allow fresh normal acquisition.
+cmake --preset host-release -DFETCHCONTENT_SOURCE_DIR_YAML-CPP="$PWD/build/host-debug/_deps/yaml-cpp-src" -DFETCHCONTENT_SOURCE_DIR_NLOHMANN_JSON="$PWD/build/host-debug/_deps/nlohmann_json-src" -DFETCHCONTENT_SOURCE_DIR_PICOSHA2="$PWD/build/host-debug/_deps/picosha2-src"
+cmake --build --preset host-release -j 4
+ctest --test-dir build/host-release --output-on-failure
+build/host-release/routeproof bench --profile benchmarks/profiles/scaling.json --out results/phase5-scaling-final
+# Exit 3 above is expected: 14 complete cells, two budget skips.
+build/host-release/routeproof bench --profile benchmarks/profiles/sparse-small.json --out results/phase5-small-final
+ROUTEPROOF_GCC_CXX=/opt/homebrew/bin/g++-12 cmake --preset gcc-debug
+cmake --build --preset gcc-debug -j 4
+ctest --test-dir build/gcc-debug --output-on-failure
+ROUTEPROOF_CLANG_CXX=/opt/homebrew/opt/llvm@18/bin/clang++ cmake --preset clang-debug
+cmake --build --preset clang-debug -j 4
+ctest --test-dir build/clang-debug --output-on-failure
+# Follow-up benchmark-only tests were run after signal-forwarding changes.
+ctest --test-dir build/gcc-debug -R bench --output-on-failure
+ctest --test-dir build/clang-debug -R bench --output-on-failure
+# Existing host-sanitizers cache uses -fsanitize=address,undefined
+# -fno-omit-frame-pointer (never used to publish timings).
+cmake --build build/host-sanitizers -j 4
+ctest --test-dir build/host-sanitizers --output-on-failure
+
+# Reproduction: source-snapshot.tar.gz was constructed from the measured source
+# directories app/src/include/cmake/tools/tests/benchmarks/schemas/examples/labs/docs
+# plus CMakeLists/CMakePresets/README/LICENSE/git ignore/attributes; it excludes
+# .git, builds, results, evidence, Python caches and .DS_Store.
+# To recreate the isolated source checkout in a fresh location:
+mkdir /private/tmp/routeproof-phase5-clean
+# The actual run copied these sources and archived them before initializing Git.
+# This extraction yields the same files:
+tar -xzf evidence/bench/source-snapshot.tar.gz -C /private/tmp/routeproof-phase5-clean
+git -C /private/tmp/routeproof-phase5-clean init
+git -C /private/tmp/routeproof-phase5-clean add .
+git -C /private/tmp/routeproof-phase5-clean -c user.name="RouteProof benchmark snapshot" -c user.email=benchmark@routeproof.local commit -m "Frozen Phase 5 measurement source"
+cd /private/tmp/routeproof-phase5-clean
+cmake --preset host-release -DFETCHCONTENT_SOURCE_DIR_YAML-CPP=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/yaml-cpp-src -DFETCHCONTENT_SOURCE_DIR_NLOHMANN_JSON=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/nlohmann_json-src -DFETCHCONTENT_SOURCE_DIR_PICOSHA2=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/picosha2-src
+cmake --build --preset host-release -j 4
+build/host-release/routeproof bench --profile benchmarks/profiles/sparse-small.json --out results/bench-small
+ctest --test-dir build/host-release --output-on-failure
+
+# From the original repository after copying small/reproduction raw evidence:
+python3 tools/bench/compare_runs.py evidence/bench/small evidence/bench/reproduction --cell sparse-small-16
+# Unpack and verify every completed scaling cell against its raw manifests:
+tar -xzf evidence/bench/scaling-raw.tar.gz -C results
+# tools/bench/compare_runs.validate_run(Path('results/scaling'), CELL_ID)

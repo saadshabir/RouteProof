@@ -1,6 +1,6 @@
 # RouteProof: focused MVP implementation plan
 
-**Status:** execution in progress; Phases 0–3 are complete. SPF/prefix/ECMP routing, deterministic failure replay, and all-branch reachability with validated witnesses are implemented and independently checked. Phase 4 lab tooling and offline harness checks are implemented; live Linux FRR comparisons, image compatibility/digest freezing, and benchmark results remain open.
+**Status:** execution in progress; Phases 0–3 are complete. SPF/prefix/ECMP routing, deterministic failure replay, and all-branch reachability with validated witnesses are implemented and independently checked. Phase 4 lab tooling and offline harness checks are implemented; live Linux FRR comparisons, image compatibility/digest freezing, and authoritative Linux memory remain open. Phase 5 tooling and native measurement/reproduction evidence are implemented.
 
 **Scope:** the five deliverables specified below.
 
@@ -192,7 +192,7 @@ Forbidden reachability, policy isolation, route leaks, and unexpected-transit as
 
 Initially keep topology, events, and assertions in one strict versioned YAML file. Split shared inputs through explicit references only when benchmark reuse warrants it.
 
-The example and `validate`, `simulate`, and `explain` commands are implemented. FRR generation/live-harness commands are implemented; the privileged Linux agreement gate remains open. `bench` remains a planned interface.
+The example and `validate`, `simulate`, and `explain` commands are implemented. FRR generation/live-harness commands are implemented; the privileged Linux agreement gate remains open. `bench` is implemented with frozen JSON profiles, raw sample manifests, and explicit resource budgets; see [benchmarks.md](benchmarks.md).
 
 ```yaml
 schema_version: 1
@@ -242,7 +242,7 @@ The timestamps specify ordering, not outage durations or benchmark results. The 
 routeproof validate examples/diamond-failures.yaml
 routeproof simulate examples/diamond-failures.yaml --out results/diamond
 routeproof explain results/diamond/result.json --assertion a-to-d
-routeproof bench --profile benchmarks/profiles/sparse-small.yaml --out results/bench
+routeproof bench --profile benchmarks/profiles/sparse-small.json --out results/bench
 python3 tools/frr/run_lab.py --scenario examples/diamond-failures.yaml --generate-only --out results/frr
 # On the Linux lab host, supply --image repository@sha256:digest for live comparisons.
 ```
@@ -520,6 +520,16 @@ Exit gate: the measurement boundary and workload dimensions are explicit; at lea
 
 Optimize only a measured bottleneck, retaining the reference implementation and checking semantic equivalence.
 
+**Implementation status:** frozen v1 profiles, core/per-snapshot instrumentation,
+fresh-process CLI/RSS collection, strict sample policy, bounded scaling, interrupted
+worker cleanup, and clean source comparison are implemented. [Benchmark documentation](benchmarks.md)
+defines boundaries, counters, PRNG and budgets; [Phase 5 evidence](../evidence/bench/benchmark-validation.md)
+contains native raw samples and reproduction. Canonical simulation bytes remain
+identical with instrumentation. The authoritative Linux RSS gate remains open;
+native macOS memory is explicitly provisional. No routing optimization was added.
+[Review-fix evidence](../evidence/bench/review-fixes/README.md) covers sweep completion,
+binary/harness provenance, counter/timing validation and final timeout enforcement.
+
 ### Phase 6 — Release credibility pass (2–3 days)
 
 **Depends on:** phases 0–5.
@@ -573,9 +583,10 @@ Every item requires a command, result, or evidence pointer.
 - [x] Independent tiny-graph checks and sanitizer fixtures pass ([Phase 3 evidence](../evidence/replay/replay-validation.md)).
 - [ ] All five FRR lab profiles match converged costs and complete next-hop sets for their declared snapshots.
 - [ ] Raw comparisons, denominators, errors, and generated configurations are available.
-- [ ] Scenario time, memory, and scaling measurements include raw samples and workload dimensions.
-- [ ] At least one representative measurement reproduces from a clean checkout.
-- [ ] Failed scale probes and infrastructure errors remain visible.
+- [x] Native scenario time, provisional RSS, and scaling measurements include raw samples and workload dimensions ([Phase 5 evidence](../evidence/bench/benchmark-validation.md)).
+- [ ] Authoritative Linux peak/steady RSS evidence is published.
+- [x] At least one representative native measurement reproduces from a clean source checkout ([Phase 5 evidence](../evidence/bench/benchmark-validation.md)).
+- [x] Budget-skipped probes and harness timeout/memory/interruption checks remain visible ([Phase 5 evidence](../evidence/bench/benchmark-validation.md)).
 - [ ] README states measured coverage, model limits, and actual project status.
 
 Keep the project marked as planning/building until these gates pass. Portfolio claims should describe shipped behavior and measured workloads.

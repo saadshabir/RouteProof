@@ -11,12 +11,14 @@ bool apply(spf::PhysicalState& state, const model::Event& event) {
     return changed;
 }
 void replay(const model::Topology& topology, const Observer& observe,
-            const forwarding::RoutingLimits& limits) {
+            const forwarding::RoutingLimits& limits, const BeforeSnapshot& before) {
+    if (before) { before(); }
     Snapshot current;
     current.state = spf::initial_state(topology);
     current.tables = forwarding::compute(topology, current.state, limits);
     observe(current);
     for (const auto& event : topology.scenario.events) {
+        if (before) { before(); }
         Snapshot candidate;
         candidate.state = current.state;
         candidate.applied = apply(candidate.state, event);

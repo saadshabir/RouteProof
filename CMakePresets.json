@@ -70,6 +70,15 @@
         "CMAKE_CXX_COMPILER": "clang++",
         "ROUTEPROOF_EXPECTED_COMPILER_ID": "Clang"
       }
+    },
+    {
+      "name": "host-release",
+      "displayName": "Release measurements with the host compiler",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/host-release",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
     }
   ],
   "buildPresets": [
@@ -92,6 +101,10 @@
     {
       "name": "linux-clang-debug",
       "configurePreset": "linux-clang-debug"
+    },
+    {
+      "name": "host-release",
+      "configurePreset": "host-release"
     }
   ]
 }

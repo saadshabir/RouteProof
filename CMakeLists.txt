@@ -63,6 +63,7 @@ add_library(routeproof_core STATIC
     src/engine/replay.cpp
     src/analysis/reachability.cpp
     src/output/simulation.cpp
+    src/bench/measurement.cpp
 )
 
 target_compile_features(routeproof_core PUBLIC cxx_std_20)
@@ -74,6 +75,12 @@ target_link_libraries(routeproof_core PRIVATE
     yaml-cpp::yaml-cpp
     nlohmann_json::nlohmann_json
     picosha2
+)
+find_package(Python3 3.9 REQUIRED COMPONENTS Interpreter)
+target_compile_definitions(routeproof_core PRIVATE
+    ROUTEPROOF_BUILD_TYPE="${CMAKE_BUILD_TYPE}"
+    ROUTEPROOF_PYTHON="${Python3_EXECUTABLE}"
+    ROUTEPROOF_BENCH_SCRIPT="${CMAKE_CURRENT_SOURCE_DIR}/tools/bench/run.py"
 )
 
 add_executable(routeproof app/main.cpp)
@@ -126,6 +133,9 @@ if(BUILD_TESTING)
     add_test(NAME frr.offline_harness COMMAND "${Python3_EXECUTABLE}"
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/frr/check_frr.py" "$<TARGET_FILE:routeproof>")
     set_tests_properties(frr.offline_harness PROPERTIES TIMEOUT 60)
+    add_test(NAME bench.harness_contract COMMAND "${Python3_EXECUTABLE}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/bench/check_bench.py" "$<TARGET_FILE:routeproof>")
+    set_tests_properties(bench.harness_contract PROPERTIES TIMEOUT 60)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")

@@ -3,6 +3,7 @@
 #include "routeproof/output/baseline.hpp"
 #include <chrono>
 #include "routeproof/output/simulation.hpp"
+#include "routeproof/bench/measurement.hpp"
 #include <filesystem>
 #include <fstream>
 
@@ -73,6 +74,8 @@ void print_help(std::ostream& output) {
            << "  routes FILE [--timing]      Print baseline routes; optional timing JSON on stderr\n"
            << "  simulate FILE --out DIR    Replay events and check all ECMP branches\n"
            << "  explain RESULT --assertion ID  Explain recorded failures\n";
+    output << "  bench --profile FILE --out DIR  Collect frozen workload time/RSS evidence\n"
+           << "  bench-sample FILE --out DIR     Instrument one scenario (harness worker)\n";
 }
 
 void print_version(std::ostream& output) {
@@ -100,8 +103,16 @@ int main(int argc, char* argv[]) {
         return 2;
     }
 
-    if (std::string_view{argv[1]} == "simulate" || std::string_view{argv[1]} == "explain") {
-        const bool simulate = std::string_view{argv[1]} == "simulate";
+    if (std::string_view{argv[1]} == "bench") {
+        try { return routeproof::bench::run_harness(argc, argv); }
+        catch (const std::exception& error) {
+            std::cerr << "routeproof: benchmark incomplete: " << escape_output(error.what()) << '\n'; return 3;
+        }
+    }
+    if (std::string_view{argv[1]} == "simulate" || std::string_view{argv[1]} == "explain" ||
+        std::string_view{argv[1]} == "bench-sample") {
+        const bool instrument = std::string_view{argv[1]} == "bench-sample";
+        const bool simulate = std::string_view{argv[1]} != "explain";
         if (argc != 5 || std::string_view{argv[3]} != (simulate ? "--out" : "--assertion")) {
             print_help(std::cerr); return 2;
         }
@@ -112,8 +123,10 @@ int main(int argc, char* argv[]) {
                 return explanation.exit_code;
             }
             const auto loaded = routeproof::input::load_scenario(argv[2]);
+            const auto loaded_rss = instrument ? routeproof::bench::steady_rss_bytes() : 0;
+            routeproof::output::SimulationMetrics metrics;
             const auto start = std::chrono::steady_clock::now();
-            const auto result = routeproof::output::simulate(loaded);
+            const auto result = routeproof::output::simulate(loaded, {}, instrument ? &metrics : nullptr);
             const auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(
                 std::chrono::steady_clock::now() - start).count();
             const std::filesystem::path directory(argv[4]);
@@ -127,11 +140,13 @@ int main(int argc, char* argv[]) {
                 file << content << '\n'; file.close();
                 if (!file) { throw std::runtime_error("output artifact write failed"); }
             };
-            if (std::filesystem::exists(directory / "result.json") || std::filesystem::exists(directory / "run.json")) {
+            if (std::filesystem::exists(directory / "result.json") || std::filesystem::exists(directory / "run.json") ||
+                (instrument && std::filesystem::exists(directory / "sample.json"))) {
                 throw std::runtime_error("output artifacts already exist; use a fresh output directory");
             }
             write("run.json", routeproof::output::run_manifest(loaded, result, argv[2], elapsed));
             write("result.json", result.json);
+            if (instrument) { write("sample.json", routeproof::bench::sample_manifest(loaded, result, metrics, loaded_rss, elapsed)); }
             std::cout << "result: " << escape_output((directory / "result.json").string()) << '\n';
             return result.exit_code;
         } catch (const routeproof::input::InputError& error) {

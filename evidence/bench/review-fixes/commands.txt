@@ -1,0 +1,25 @@
+# Phase 5 review-fix validation on 2026-10-07 (America/Toronto).
+# Commands run from the original repository unless a cd is shown.
+ctest --test-dir build/host-release -R bench.harness_contract --output-on-failure
+ctest --test-dir build/host-release --output-on-failure --output-log evidence/bench/review-fixes/host-release-tests.txt
+build/host-release/routeproof bench --profile benchmarks/profiles/sparse-small.json --out results/phase5-review-small
+python3 tools/bench/compare_runs.py evidence/bench/small evidence/bench/reproduction --cell sparse-small-16
+# Every completed cell in scaling-raw.tar.gz was additionally checked with
+# tools/bench/compare_runs.validate_run; historical-validation.json records them.
+
+# Equivalent reconstruction of the fresh source checkout. Choose an unused
+# directory when rerunning; the recorded run used this exact checkout path.
+mkdir /private/tmp/routeproof-phase5-reviewed-wwscgwd7
+tar -xzf evidence/bench/review-fixes/source-snapshot.tar.gz -C /private/tmp/routeproof-phase5-reviewed-wwscgwd7
+git -C /private/tmp/routeproof-phase5-reviewed-wwscgwd7 init --quiet
+git -C /private/tmp/routeproof-phase5-reviewed-wwscgwd7 add .
+git -C /private/tmp/routeproof-phase5-reviewed-wwscgwd7 -c user.name='RouteProof benchmark snapshot' -c user.email=benchmark@routeproof.local commit --quiet -m 'Frozen Phase 5 review fixes'
+cd /private/tmp/routeproof-phase5-reviewed-wwscgwd7
+cmake --preset host-release -DFETCHCONTENT_SOURCE_DIR_YAML-CPP=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/yaml-cpp-src -DFETCHCONTENT_SOURCE_DIR_NLOHMANN_JSON=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/nlohmann_json-src -DFETCHCONTENT_SOURCE_DIR_PICOSHA2=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/picosha2-src
+cmake --build --preset host-release -j 4
+build/host-release/routeproof bench --profile benchmarks/profiles/sparse-small.json --out results/bench-small
+ctest --test-dir build/host-release --output-on-failure --output-log /Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/bench/review-fixes/clean-release-tests.txt
+
+# After copying both raw runs into evidence/bench/review-fixes, from the original
+# repository, compare with the stricter validator:
+python3 tools/bench/compare_runs.py evidence/bench/review-fixes/small evidence/bench/review-fixes/reproduction --cell sparse-small-16

@@ -1,0 +1,25 @@
+Start testing: Oct 07 21:02 EDT
+----------------------------------------------------------
+10/10 Testing: bench.harness_contract
+10/10 Test: bench.harness_contract
+Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tests/bench/check_bench.py" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/clang-debug/routeproof"
+Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/clang-debug
+"bench.harness_contract" start time: Oct 07 21:02 EDT
+Output:
+----------------------------------------------------------
+..sparse-small-16: complete
+budget-probe: budget_skipped
+.....
+----------------------------------------------------------------------
+Ran 7 tests in 6.146s
+
+OK
+<end of output>
+Test time =   6.43 sec
+----------------------------------------------------------
+Test Passed.
+"bench.harness_contract" end time: Oct 07 21:02 EDT
+"bench.harness_contract" time elapsed: 00:00:06
+----------------------------------------------------------
+
+End testing: Oct 07 21:02 EDT

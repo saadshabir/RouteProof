@@ -1,0 +1,1 @@
+result: /private/tmp/routeproof-phase5-clean/results/bench-small/sparse-small-16/cli-002/output/result.json

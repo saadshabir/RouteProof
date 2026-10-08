@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "name": "sparse-small-v1",
+  "warmups": 1,
+  "repetitions": 5,
+  "budgets": {
+    "timeout_seconds": 10,
+    "memory_mib": 768,
+    "max_retained_routes": 100000,
+    "max_output_mib": 48,
+    "max_spf_work_units": 10000000
+  },
+  "cells": [
+    {
+      "shape": "sparse_random",
+      "routers": 16,
+      "prefixes_per_origin": 1,
+      "prefix_origins": "selected",
+      "assertions": "selected",
+      "trace_cycles": 1,
+      "ecmp_width": 2,
+      "seed": 1776,
+      "extra_edges_per_router": 1,
+      "id": "sparse-small-16"
+    }
+  ]
+}

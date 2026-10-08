@@ -1,0 +1,7 @@
+[
+  "/private/tmp/routeproof-phase5-clean/build/host-release/routeproof",
+  "bench-sample",
+  "/private/tmp/routeproof-phase5-clean/results/bench-small/sparse-small-16/scenario.json",
+  "--out",
+  "/private/tmp/routeproof-phase5-clean/results/bench-small/sparse-small-16/instrumented-000/output"
+]
