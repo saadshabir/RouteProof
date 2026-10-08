@@ -1,0 +1,99 @@
+{
+  "ecmp_limit": 64,
+  "frr_version": "10.2.1",
+  "image": "quay.io/frrouting/frr:10.2.1",
+  "lab_name": "rp-75530a4602c1",
+  "links": {
+    "ab1": {
+      "a": {
+        "address": "198.18.0.1",
+        "cost": 3,
+        "interface": "eth1",
+        "model_interface": "ab1@a",
+        "router": "a"
+      },
+      "b": {
+        "address": "198.18.0.2",
+        "cost": 3,
+        "interface": "eth1",
+        "model_interface": "ab1@b",
+        "router": "b"
+      },
+      "subnet": "198.18.0.0/30"
+    },
+    "ab2": {
+      "a": {
+        "address": "198.18.0.5",
+        "cost": 3,
+        "interface": "eth2",
+        "model_interface": "ab2@a",
+        "router": "a"
+      },
+      "b": {
+        "address": "198.18.0.6",
+        "cost": 3,
+        "interface": "eth2",
+        "model_interface": "ab2@b",
+        "router": "b"
+      },
+      "subnet": "198.18.0.4/30"
+    }
+  },
+  "management_subnet": "198.19.255.0/24",
+  "platform": "linux/amd64",
+  "prefixes": {
+    "10.10.1.0/24": {
+      "address": "10.10.1.1/24",
+      "interface": "stub0",
+      "origin": "a",
+      "stub_cost": 2
+    },
+    "10.10.2.0/24": {
+      "address": "10.10.2.1/24",
+      "interface": "stub1",
+      "origin": "b",
+      "stub_cost": 3
+    }
+  },
+  "routers": {
+    "a": {
+      "container": "clab-rp-75530a4602c1-r0",
+      "interfaces": {
+        "eth1": {
+          "interface": "ab1@a",
+          "link": "ab1",
+          "neighbor": "b",
+          "peer_address": "198.18.0.2"
+        },
+        "eth2": {
+          "interface": "ab2@a",
+          "link": "ab2",
+          "neighbor": "b",
+          "peer_address": "198.18.0.6"
+        }
+      },
+      "node": "r0",
+      "router_id": "0.0.0.1"
+    },
+    "b": {
+      "container": "clab-rp-75530a4602c1-r1",
+      "interfaces": {
+        "eth1": {
+          "interface": "ab1@b",
+          "link": "ab1",
+          "neighbor": "a",
+          "peer_address": "198.18.0.1"
+        },
+        "eth2": {
+          "interface": "ab2@b",
+          "link": "ab2",
+          "neighbor": "a",
+          "peer_address": "198.18.0.5"
+        }
+      },
+      "node": "r1",
+      "router_id": "0.0.0.2"
+    }
+  },
+  "schema_version": 1
+}

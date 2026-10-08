@@ -1,0 +1,319 @@
+{
+  "builds": [
+    {
+      "preset": "host-release",
+      "status": "pass"
+    },
+    {
+      "preset": "gcc-debug",
+      "status": "pass"
+    },
+    {
+      "preset": "clang-debug",
+      "status": "pass"
+    },
+    {
+      "preset": "host-sanitizers",
+      "status": "pass"
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cmake",
+        "--preset",
+        "host-release",
+        "-DFETCHCONTENT_SOURCE_DIR_YAML-CPP=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/yaml-cpp-src",
+        "-DFETCHCONTENT_SOURCE_DIR_NLOHMANN_JSON=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/nlohmann_json-src",
+        "-DFETCHCONTENT_SOURCE_DIR_PICOSHA2=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/picosha2-src"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "host-release-configure.txt"
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "--preset",
+        "host-release",
+        "--parallel",
+        "4"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "host-release-build.txt"
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/build/host-release",
+        "--output-on-failure"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "host-release-tests.txt"
+    },
+    {
+      "argv": [
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/build/host-release/routeproof",
+        "--version"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "host-release-version.txt"
+    },
+    {
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/tools/release/demo.py",
+        "--binary",
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/build/host-release/routeproof",
+        "--out",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/first/host-release-diamond"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "host-release-diamond-demo.txt"
+    },
+    {
+      "argv": [
+        "cmake",
+        "--preset",
+        "gcc-debug",
+        "-DFETCHCONTENT_SOURCE_DIR_YAML-CPP=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/yaml-cpp-src",
+        "-DFETCHCONTENT_SOURCE_DIR_NLOHMANN_JSON=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/nlohmann_json-src",
+        "-DFETCHCONTENT_SOURCE_DIR_PICOSHA2=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/picosha2-src"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "gcc-debug-configure.txt"
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "--preset",
+        "gcc-debug",
+        "--parallel",
+        "4"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "gcc-debug-build.txt"
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/build/gcc-debug",
+        "--output-on-failure"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "gcc-debug-tests.txt"
+    },
+    {
+      "argv": [
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/build/gcc-debug/routeproof",
+        "--version"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "gcc-debug-version.txt"
+    },
+    {
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/tools/release/demo.py",
+        "--binary",
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/build/gcc-debug/routeproof",
+        "--out",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/first/gcc-debug-diamond"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "gcc-debug-diamond-demo.txt"
+    },
+    {
+      "argv": [
+        "cmake",
+        "--preset",
+        "clang-debug",
+        "-DFETCHCONTENT_SOURCE_DIR_YAML-CPP=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/yaml-cpp-src",
+        "-DFETCHCONTENT_SOURCE_DIR_NLOHMANN_JSON=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/nlohmann_json-src",
+        "-DFETCHCONTENT_SOURCE_DIR_PICOSHA2=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/picosha2-src"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "clang-debug-configure.txt"
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "--preset",
+        "clang-debug",
+        "--parallel",
+        "4"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "clang-debug-build.txt"
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/build/clang-debug",
+        "--output-on-failure"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "clang-debug-tests.txt"
+    },
+    {
+      "argv": [
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/build/clang-debug/routeproof",
+        "--version"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "clang-debug-version.txt"
+    },
+    {
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/tools/release/demo.py",
+        "--binary",
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/build/clang-debug/routeproof",
+        "--out",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/first/clang-debug-diamond"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "clang-debug-diamond-demo.txt"
+    },
+    {
+      "argv": [
+        "cmake",
+        "--preset",
+        "host-sanitizers",
+        "-DFETCHCONTENT_SOURCE_DIR_YAML-CPP=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/yaml-cpp-src",
+        "-DFETCHCONTENT_SOURCE_DIR_NLOHMANN_JSON=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/nlohmann_json-src",
+        "-DFETCHCONTENT_SOURCE_DIR_PICOSHA2=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/picosha2-src"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "host-sanitizers-configure.txt"
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "--preset",
+        "host-sanitizers",
+        "--parallel",
+        "4"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "host-sanitizers-build.txt"
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/build/host-sanitizers",
+        "--output-on-failure"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "host-sanitizers-tests.txt"
+    },
+    {
+      "argv": [
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/build/host-sanitizers/routeproof",
+        "--version"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "host-sanitizers-version.txt"
+    },
+    {
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/tools/release/demo.py",
+        "--binary",
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/build/host-sanitizers/routeproof",
+        "--out",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/first/host-sanitizers-diamond"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "host-sanitizers-diamond-demo.txt"
+    },
+    {
+      "argv": [
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/build/host-release/routeproof",
+        "bench",
+        "--profile",
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/benchmarks/profiles/sparse-small.json",
+        "--out",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/first/bench-small"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "benchmark-small.txt"
+    },
+    {
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/tools/frr/run_matrix.py",
+        "--generate-only",
+        "--routeproof",
+        "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/build/host-release/routeproof",
+        "--out",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/first/frr-generated"
+      ],
+      "exit_code": 3,
+      "expected_exit_code": 3,
+      "log": "frr-generation.txt"
+    }
+  ],
+  "diamond_result_file_sha256": "c6e0a1be719af6c47b802e2f536b8c7357abcca0aa15e5c2f1f20c24b02fb7d0",
+  "final_git_status": "",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "initial_git_status": "",
+  "offline_frr_status": "skipped (not live acceptance)",
+  "open_gates": [
+    "live Linux FRR acceptance",
+    "authoritative Linux RSS"
+  ],
+  "release_complete": false,
+  "reused_dependencies": {
+    "nlohmann_json": {
+      "path": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/nlohmann_json-src",
+      "revision": "55f93686c01528224f448c19128836e7df245f72",
+      "tag": "v3.12.0"
+    },
+    "picosha2": {
+      "path": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/picosha2-src",
+      "revision": "161cb3fc4170fa7a3eca9e582cebd27cc4d1fe29",
+      "tag": "v1.0.1"
+    },
+    "yaml-cpp": {
+      "path": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/yaml-cpp-src",
+      "revision": "56e3bb550c91fd7005566f19c079cb7a503223cf",
+      "tag": "yaml-cpp-0.9.0"
+    }
+  },
+  "revision": "3ff8cfd0258232bc710d09439106d944d5f6e733",
+  "sanitizer_options": {
+    "ASAN_OPTIONS": "halt_on_error=1:detect_leaks=0",
+    "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1"
+  },
+  "source": "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1",
+  "status": "pass"
+}

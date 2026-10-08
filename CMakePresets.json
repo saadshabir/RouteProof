@@ -72,6 +72,16 @@
       }
     },
     {
+      "name": "host-sanitizers",
+      "displayName": "Host Debug with AddressSanitizer and UndefinedBehaviorSanitizer",
+      "inherits": "host-debug",
+      "binaryDir": "${sourceDir}/build/host-sanitizers",
+      "cacheVariables": {
+        "CMAKE_CXX_FLAGS": "-fsanitize=address,undefined -fno-omit-frame-pointer",
+        "CMAKE_EXE_LINKER_FLAGS": "-fsanitize=address,undefined"
+      }
+    },
+    {
       "name": "host-release",
       "displayName": "Release measurements with the host compiler",
       "generator": "Ninja",
@@ -101,6 +111,10 @@
     {
       "name": "linux-clang-debug",
       "configurePreset": "linux-clang-debug"
+    },
+    {
+      "name": "host-sanitizers",
+      "configurePreset": "host-sanitizers"
     },
     {
       "name": "host-release",

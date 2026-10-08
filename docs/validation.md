@@ -9,6 +9,16 @@ agreement and the clean Linux rerun remain unverified.**
 
 ## Commands
 
+The [Linux acceptance workflow](../.github/workflows/linux-acceptance.yml) runs
+the live matrix on a hosted Ubuntu amd64 runner, so no local Linux installation
+is required. It checksums the Containerlab package, resolves the candidate FRR
+image to an immutable digest, builds and tests two separate clean checkouts, and
+runs two fresh lab matrices. `tools/release/check_linux.py` requires the existing
+strict FRR/benchmark reproduction checks and positive authoritative Linux peak,
+loaded and per-snapshot boundary RSS before it reports acceptance. The complete
+raw bundle is uploaded even when a step fails. A failed or skipped job leaves
+the release gates open; the workflow declaration alone is not live evidence.
+
 Python 3.9+ is sufficient for generation, normalization, and harness tests. There
 are no additional Python packages. Build RouteProof first; pass `--routeproof`
 when using a binary outside `build/host-debug`.

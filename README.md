@@ -80,3 +80,31 @@ sweep. Core processing, complete CLI time, and RSS have separate boundaries; the
 are converged-scenario measurements. macOS RSS is provisional. See the
 [Phase 5 evidence](evidence/bench/benchmark-validation.md) for measured coverage,
 raw samples and clean source reproduction.
+
+## CI and release candidates
+
+[Core CI](.github/workflows/ci.yml) builds with GCC and upstream Clang on Linux and
+Clang on macOS, runs all CTest acceptance groups, and checks sanitizers and the
+generated graph corpus separately. A Release job checks the diamond demo, runs
+the small benchmark as a harness smoke check, and saves a source candidate with
+checksums. CI smoke timings are not published performance measurements.
+
+Run the checked demo on a fresh output path:
+
+```sh
+python3 tools/release/demo.py --binary build/host-release/routeproof --out results/diamond-demo
+```
+
+The runner exits 0 only when all six snapshots match, the partition and origin
+failure occur as expected, restoration preserves `cd`'s administrative failure,
+and repeated canonical bytes agree. Its underlying `simulate` and `explain`
+commands deliberately exit 1 for the two broken reachability requirements.
+
+[Release preparation](docs/release.md) documents deterministic `0.1.0-rc.N`
+source packages, integrity checks and fresh clean-source verification.
+[Candidate evidence](evidence/release/v0.1.0-rc.1/README.md) records the native
+release pass. The compiled core version remains `0.1.0`; candidate filenames and
+manifests explicitly mark release readiness as incomplete until Linux FRR and
+authoritative Linux RSS acceptance pass.
+CI downloads include companion candidate receipts; [release preparation](docs/release.md)
+shows how to place them in an extracted source tree so its evidence links resolve.

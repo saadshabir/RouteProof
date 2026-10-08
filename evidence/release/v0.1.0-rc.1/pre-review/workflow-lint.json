@@ -1,0 +1,21 @@
+{
+  "status": "pass",
+  "workflow_sha256": "57aaf057d24b7f7eca7bf283a3b8e96ac6d5f175efe6b4a610dd129cc4bb90fc",
+  "commands": [
+    {
+      "argv": [
+        "/private/tmp/routeproof-release-bin/actionlint",
+        "-version"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "/private/tmp/routeproof-release-bin/actionlint",
+        ".github/workflows/ci.yml"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "hosted_jobs_executed": false
+}

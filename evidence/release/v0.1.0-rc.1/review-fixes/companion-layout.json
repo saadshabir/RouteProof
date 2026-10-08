@@ -1,0 +1,26 @@
+{
+  "checked_delivered_document_links": 111,
+  "checked_documents": [
+    "README.md",
+    "docs/acceptance.md",
+    "docs/benchmarks.md",
+    "docs/implementation-plan.md",
+    "docs/lab-environment.md",
+    "docs/model.md",
+    "docs/release.md",
+    "docs/validation.md",
+    "evidence/release/v0.1.0-rc.1/README.md"
+  ],
+  "checked_local_document_links": 111,
+  "companion_source_archive_sha256": "6e6390d96443d038f1d88778315106a97c2c07f5c6233cc4dc46f4449836e0f5",
+  "companion_source_manifest_sha256": "6dd819a33a55ecd7ddbe7ee83f207a03d970dbb9e1b81091fe7f4464f13b1d31",
+  "download_paths": [
+    "results/ci-package",
+    "results/ci-release",
+    "evidence/release/v0.1.0-rc.1"
+  ],
+  "missing_delivered_links": [],
+  "placement": "cp -R evidence/release results/extracted/routeproof-0.1.0-rc.1/evidence/",
+  "status": "pass",
+  "workflow_receipt_path": "evidence/release/v0.1.0-rc.1/"
+}

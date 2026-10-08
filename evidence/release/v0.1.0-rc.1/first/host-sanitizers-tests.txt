@@ -1,0 +1,27 @@
+Test project /private/tmp/routeproof-rc1-verified1-ka3u3rzg/routeproof-0.1.0-rc.1/build/host-sanitizers
+      Start  1: input.physical_topology
+ 1/11 Test  #1: input.physical_topology ..........   Passed    0.20 sec
+      Start  2: input.input_fixtures
+ 2/11 Test  #2: input.input_fixtures .............   Passed    0.78 sec
+      Start  3: input.input_limits
+ 3/11 Test  #3: input.input_limits ...............   Passed    0.19 sec
+      Start  4: input.input_regressions
+ 4/11 Test  #4: input.input_regressions ..........   Passed    3.49 sec
+      Start  5: routing.routing_contract
+ 5/11 Test  #5: routing.routing_contract .........   Passed    0.62 sec
+      Start  6: routing.independent_oracle
+ 6/11 Test  #6: routing.independent_oracle .......   Passed    4.68 sec
+      Start  7: replay.replay_checker
+ 7/11 Test  #7: replay.replay_checker ............   Passed    0.75 sec
+      Start  8: replay.independent_replay
+ 8/11 Test  #8: replay.independent_replay ........   Passed   22.36 sec
+      Start  9: frr.offline_harness
+ 9/11 Test  #9: frr.offline_harness ..............   Passed   12.13 sec
+      Start 10: bench.harness_contract
+10/11 Test #10: bench.harness_contract ...........   Passed   14.72 sec
+      Start 11: release.artifact_contract
+11/11 Test #11: release.artifact_contract ........   Passed    0.32 sec
+
+100% tests passed out of 11
+
+Total Test time (real) =  60.25 sec

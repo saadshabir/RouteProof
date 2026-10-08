@@ -1,0 +1,22 @@
+{
+  "status": "pass",
+  "scope": "remaining non-Linux implementation-plan items",
+  "requirements": {
+    "ci_workflow": "implemented; actionlint passes; hosted execution not claimed",
+    "documentation_and_checklists": "reconciled; local evidence links resolve",
+    "versioned_source_artifact": "deterministic candidate; integrity check passes; matches current source",
+    "diamond_demo": "six expected snapshots; repeat and cross-toolchain bytes agree",
+    "fresh_candidate_builds": "11 CTest groups pass in all four requested configurations",
+    "clean_benchmark_reproduction": "strict raw-evidence comparison passes in distinct clean source/build snapshots"
+  },
+  "checked_local_document_links": 101,
+  "packaged_file_count": 537,
+  "source_files_sha256": "436395f66e4835f95bb2ff6f2b0d39ca594b1e3ee02bf13e2e5c3f9ad1152ead",
+  "archive_sha256": "a159e45f2785ded06c705fbe0b659d1a0142dfcb200c483f075a406455649dd4",
+  "full_release_complete": false,
+  "open_linux_gates": [
+    "live Linux FRR image compatibility, matrix agreement and clean rerun",
+    "authoritative Linux peak and boundary RSS"
+  ],
+  "hosted_ci_executed": false
+}

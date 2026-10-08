@@ -1,0 +1,97 @@
+name: Linux release acceptance
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'app/**'
+      - 'src/**'
+      - 'include/**'
+      - 'tools/**'
+      - 'tests/**'
+      - 'schemas/**'
+      - 'labs/**'
+      - 'benchmarks/**'
+      - 'cmake/**'
+      - 'CMakeLists.txt'
+      - 'CMakePresets.json'
+      - '.github/workflows/linux-acceptance.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: linux-acceptance-${{ github.ref }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  live:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    env:
+      CXX: g++-14
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.13'
+      - name: Install pinned Containerlab and compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build g++-14
+          curl --fail --location --retry 3 -o /tmp/containerlab.deb https://github.com/srl-labs/containerlab/releases/download/v0.79.0/containerlab_0.79.0_linux_amd64.deb
+          echo 'a399d92a622b4664d8d1231bc9b7f53a1d210255a0306fa091c3f63779f65f13  /tmp/containerlab.deb' | sha256sum --check
+          sudo dpkg -i /tmp/containerlab.deb
+          sudo modprobe dummy
+          mkdir -p results/linux-acceptance
+          containerlab version > results/linux-acceptance/containerlab-version.txt
+          docker version > results/linux-acceptance/docker-version.txt
+      - name: Resolve immutable FRR image
+        run: |
+          docker pull --platform linux/amd64 quay.io/frrouting/frr:10.2.1
+          docker image inspect quay.io/frrouting/frr:10.2.1 > results/linux-acceptance/image.json
+          python3 - <<'PY'
+          import json, os
+          image = json.load(open('results/linux-acceptance/image.json'))[0]
+          assert image['Architecture'] == 'amd64' and image['Os'] == 'linux'
+          pin = image['RepoDigests'][0]
+          with open(os.environ['GITHUB_ENV'], 'a') as output:
+              output.write('ROUTEPROOF_FRR_IMAGE=' + pin + '\n')
+          PY
+      - name: Build and test two clean source checkouts
+        run: |
+          cmake --preset host-release
+          cmake --build --preset host-release --parallel 4
+          ctest --test-dir build/host-release --output-on-failure | tee results/linux-acceptance/first-tests.txt
+          git clone --no-hardlinks . results/linux-clean-checkout
+          sudo -E git config --global --add safe.directory "$PWD"
+          sudo -E git config --global --add safe.directory "$PWD/results/linux-clean-checkout"
+          cd results/linux-clean-checkout
+          cmake --preset host-release
+          cmake --build --preset host-release --parallel 4
+          ctest --test-dir build/host-release --output-on-failure | tee ../linux-acceptance/second-tests.txt
+      - name: Capture first live matrix and Linux memory samples
+        run: |
+          build/host-release/routeproof bench --profile benchmarks/profiles/sparse-small.json --out results/linux-acceptance/first/bench-small
+          sudo -E "$(command -v python3)" tools/frr/run_matrix.py --image "$ROUTEPROOF_FRR_IMAGE" --routeproof "$PWD/build/host-release/routeproof" --out results/linux-acceptance/first/frr
+      - name: Reproduce in fresh labs from the separate build
+        working-directory: results/linux-clean-checkout
+        run: |
+          build/host-release/routeproof bench --profile benchmarks/profiles/sparse-small.json --out ../linux-acceptance/second/bench-small
+          sudo -E "$(command -v python3)" tools/frr/run_matrix.py --image "$ROUTEPROOF_FRR_IMAGE" --routeproof "$PWD/build/host-release/routeproof" --out ../linux-acceptance/second/frr
+      - name: Validate raw reproduction and authoritative RSS
+        run: python3 tools/release/check_linux.py --first results/linux-acceptance/first --second results/linux-acceptance/second --out results/linux-acceptance/checked
+      - name: Preserve complete Linux evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: linux-acceptance
+          path: results/linux-acceptance/
+          if-no-files-found: warn
+          retention-days: 90

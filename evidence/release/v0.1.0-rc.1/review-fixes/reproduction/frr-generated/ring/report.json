@@ -1,0 +1,10 @@
+{
+  "cleanup": "not_needed",
+  "comparison_slots": 0,
+  "completed_snapshots": 0,
+  "matched_slots": 0,
+  "reason": "generation only; no FRR observations",
+  "requested_snapshots": 5,
+  "schema_version": 1,
+  "status": "skipped"
+}

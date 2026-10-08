@@ -538,6 +538,8 @@ Deliverables: final README/model/validation/benchmark docs, a runnable diamond d
 
 Exit gate: every release checkbox has an evidence pointer; optional follow-up features have not become hidden dependencies.
 
+**Non-Linux implementation:** CI workflows run native/Linux compiler builds, all acceptance groups, a separate sanitizer/generated-corpus job, and a Release demo/benchmark smoke job. The checked diamond runner verifies both expected failures, branch changes, restoration and repeat bytes. Deterministic `0.1.0-rc.N` source packages include per-file hashes and archive checksums. [Release preparation](release.md) documents clean candidate verification and the [candidate evidence](../evidence/release/v0.1.0-rc.1/README.md). Phase 6's full release gate stays open until the live Linux lab/image/rerun and authoritative Linux RSS gates pass; candidate artifacts do not claim a completed v0.1 release.
+
 **Total planning range:** 22–33 focused days, approximately 130–200 hours. At 15 hours/week, allow roughly 9–14 weeks before interruptions. FRR environment and normalization issues are the largest uncertainty.
 
 The first usable milestone is phase 3: a complete failure trace with ECMP-aware explanations. FRR agreement and reproducible measurements finish the five-item MVP.
@@ -550,6 +552,11 @@ CI should run:
 - Separate sanitizer/generated-corpus jobs.
 - Privileged Linux FRR jobs for core/harness changes and the entire declared matrix before release.
 - A small benchmark harness smoke run; published performance comes from a documented measurement host.
+
+The nonprivileged jobs are implemented in [ci.yml](../.github/workflows/ci.yml).
+They use the existing independent oracles and generated corpus, run offline FRR
+failure-injection checks, and retain test/demo/benchmark artifacts. Privileged live
+FRR execution remains part of the Linux work; offline CI never closes that gate.
 
 A local lack of privileged networking is an explicit skipped lab status. It does not satisfy release acceptance.
 
@@ -571,8 +578,8 @@ If FRR infrastructure blocks progress, continue independent core/measurement wor
 
 Every item requires a command, result, or evidence pointer.
 
-- [ ] Both declared compilers build a clean checkout.
-- [ ] Strict parsing and unsupported-feature errors match the model contract.
+- [x] Both declared compilers build a clean checkout ([build contract evidence](../evidence/build/clean-builds.md); [candidate verification](../evidence/release/v0.1.0-rc.1/README.md)).
+- [x] Strict parsing and unsupported-feature errors match the model contract ([input evidence](../evidence/input/input-validation.md); [candidate verification](../evidence/release/v0.1.0-rc.1/README.md)).
 - [x] Single-area SPF, prefix costs, connected delivery, and complete ECMP interface sets match the independent oracle ([Phase 2 evidence](../evidence/routing/routing-validation.md)).
 - [x] Link/router down/up and administrative restoration semantics match the declared scenarios ([Phase 3 evidence](../evidence/replay/replay-validation.md)).
 - [x] Replay and witness selection produce identical canonical results ([Phase 3 evidence](../evidence/replay/replay-validation.md)).
@@ -587,7 +594,7 @@ Every item requires a command, result, or evidence pointer.
 - [ ] Authoritative Linux peak/steady RSS evidence is published.
 - [x] At least one representative native measurement reproduces from a clean source checkout ([Phase 5 evidence](../evidence/bench/benchmark-validation.md)).
 - [x] Budget-skipped probes and harness timeout/memory/interruption checks remain visible ([Phase 5 evidence](../evidence/bench/benchmark-validation.md)).
-- [ ] README states measured coverage, model limits, and actual project status.
+- [x] README states measured coverage, model limits, and actual project status ([README](../README.md); [native benchmark evidence](../evidence/bench/benchmark-validation.md)).
 
 Keep the project marked as planning/building until these gates pass. Portfolio claims should describe shipped behavior and measured workloads.
 

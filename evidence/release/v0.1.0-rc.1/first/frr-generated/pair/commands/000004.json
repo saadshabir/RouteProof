@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "git",
+    "-C",
+    "/private/tmp/routeproof-rc1-verified1-ka3u3rzg/routeproof-0.1.0-rc.1",
+    "status",
+    "--porcelain"
+  ],
+  "elapsed_seconds": 0.012924708999999993,
+  "returncode": 0,
+  "stderr": "",
+  "stdout": "",
+  "timeout_seconds": 30
+}

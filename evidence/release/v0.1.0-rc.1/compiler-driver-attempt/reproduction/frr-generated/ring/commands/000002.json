@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/private/tmp/routeproof-rc1-final2-mlt67lbv/routeproof-0.1.0-rc.1/build/host-release/routeproof",
+    "simulate",
+    "/private/tmp/routeproof-rc1-final2-mlt67lbv/routeproof-0.1.0-rc.1/labs/profiles/ring.json",
+    "--out",
+    "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/reproduction/frr-generated/ring/engine"
+  ],
+  "elapsed_seconds": 0.007149833000000022,
+  "returncode": 0,
+  "stderr": "",
+  "stdout": "result: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/reproduction/frr-generated/ring/engine/result.json\n",
+  "timeout_seconds": 30
+}

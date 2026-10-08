@@ -1,0 +1,7 @@
+[
+  "/private/tmp/routeproof-rc1-clean2-iq5i1_jn/routeproof-0.1.0-rc.1/build/host-release/routeproof",
+  "simulate",
+  "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/reproduction/bench-small/sparse-small-16/scenario.json",
+  "--out",
+  "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/reproduction/bench-small/sparse-small-16/cli-001/output"
+]

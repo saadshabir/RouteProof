@@ -1,0 +1,15 @@
+{
+  "argv": [
+    "/private/tmp/routeproof-rc1-review-verified2-sy2quucr/routeproof-0.1.0-rc.1/build/host-release/routeproof",
+    "bench-sample",
+    "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/reproduction/bench-small/sparse-small-16/scenario.json",
+    "--out",
+    "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/reproduction/bench-small/sparse-small-16/instrumented-warmup1/output"
+  ],
+  "elapsed_ns": 6554292,
+  "exit_code": 1,
+  "peak_rss_bytes": 4014080,
+  "pid": 3227,
+  "polled_peak_rss_bytes": 0,
+  "status": "complete"
+}

@@ -1,0 +1,70 @@
+{
+  "ecmp_limit": 64,
+  "frr_version": "10.2.1",
+  "image": "quay.io/frrouting/frr:10.2.1",
+  "lab_name": "rp-9a41f42f601a",
+  "links": {
+    "ab": {
+      "a": {
+        "address": "198.18.0.1",
+        "cost": 2,
+        "interface": "eth1",
+        "model_interface": "ab@a",
+        "router": "a"
+      },
+      "b": {
+        "address": "198.18.0.2",
+        "cost": 7,
+        "interface": "eth1",
+        "model_interface": "ab@b",
+        "router": "b"
+      },
+      "subnet": "198.18.0.0/30"
+    }
+  },
+  "management_subnet": "198.19.255.0/24",
+  "platform": "linux/amd64",
+  "prefixes": {
+    "10.10.1.0/24": {
+      "address": "10.10.1.1/24",
+      "interface": "stub0",
+      "origin": "a",
+      "stub_cost": 2
+    },
+    "10.10.2.0/24": {
+      "address": "10.10.2.1/24",
+      "interface": "stub1",
+      "origin": "b",
+      "stub_cost": 3
+    }
+  },
+  "routers": {
+    "a": {
+      "container": "clab-rp-9a41f42f601a-r0",
+      "interfaces": {
+        "eth1": {
+          "interface": "ab@a",
+          "link": "ab",
+          "neighbor": "b",
+          "peer_address": "198.18.0.2"
+        }
+      },
+      "node": "r0",
+      "router_id": "0.0.0.1"
+    },
+    "b": {
+      "container": "clab-rp-9a41f42f601a-r1",
+      "interfaces": {
+        "eth1": {
+          "interface": "ab@b",
+          "link": "ab",
+          "neighbor": "a",
+          "peer_address": "198.18.0.1"
+        }
+      },
+      "node": "r1",
+      "router_id": "0.0.0.2"
+    }
+  },
+  "schema_version": 1
+}

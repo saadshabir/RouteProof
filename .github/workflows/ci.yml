@@ -1,0 +1,141 @@
+name: Core acceptance
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: core-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  builds:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Linux GCC
+            os: ubuntu-24.04
+            preset: gcc-debug
+            compiler: gcc
+          - name: Linux Clang
+            os: ubuntu-24.04
+            preset: clang-debug
+            compiler: clang
+          - name: macOS Clang
+            os: macos-15
+            preset: clang-debug
+            compiler: macos-clang
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.13'
+      - name: Install Linux toolchains
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build g++-14 clang-19
+          echo "ROUTEPROOF_GCC_CXX=$(command -v g++-14)" >> "$GITHUB_ENV"
+          echo "ROUTEPROOF_CLANG_CXX=$(command -v clang++-19)" >> "$GITHUB_ENV"
+      - name: Install macOS toolchain
+        if: runner.os == 'macOS'
+        run: |
+          brew install ninja llvm@18
+          echo "ROUTEPROOF_CLANG_CXX=$(brew --prefix llvm@18)/bin/clang++" >> "$GITHUB_ENV"
+      - name: Configure and build
+        env:
+          PRESET: ${{ matrix.preset }}
+        run: |
+          cmake --preset "$PRESET"
+          cmake --build --preset "$PRESET" --parallel 4
+      - name: Run all acceptance groups
+        env:
+          PRESET: ${{ matrix.preset }}
+        run: ctest --test-dir "build/$PRESET" --output-on-failure
+      - name: Preserve test logs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: tests-${{ matrix.os }}-${{ matrix.preset }}
+          path: build/${{ matrix.preset }}/Testing/Temporary/
+          if-no-files-found: warn
+
+  sanitizers:
+    name: Sanitizers and generated corpus
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      CXX: clang++-19
+      ASAN_OPTIONS: detect_leaks=1:halt_on_error=1
+      UBSAN_OPTIONS: halt_on_error=1:print_stacktrace=1
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.13'
+      - name: Install toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build clang-19
+      - name: Build and check under ASan and UBSan
+        run: |
+          cmake --preset host-sanitizers
+          cmake --build --preset host-sanitizers --parallel 4
+          ctest --test-dir build/host-sanitizers --output-on-failure
+      - name: Preserve sanitizer logs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: sanitizer-tests
+          path: build/host-sanitizers/Testing/Temporary/
+          if-no-files-found: warn
+
+  release-smoke:
+    name: Release demo, benchmark smoke and source candidate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      CXX: g++-14
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.13'
+      - name: Install toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build g++-14
+      - name: Verify fresh Release build and offline workflows
+        run: python3 tools/release/verify.py --out results/ci-release
+      - name: Build a source candidate
+        run: |
+          python3 tools/release/package.py --out results/ci-package
+          python3 tools/release/package.py --check --out results/ci-package
+      - name: Preserve candidate and smoke evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: release-smoke
+          path: |
+            results/ci-release/
+            results/ci-package/
+            evidence/release/v0.1.0-rc.1/
+          if-no-files-found: warn

@@ -1,0 +1,11 @@
+"baseline": pass
+"event-1": pass
+"event-2": fail
+  "no_route": "a" -> "10.10.4.1" (all ECMP branches required)
+  path: "a" ["no_route"]
+  component: ["a","b","c"]; origin: "d"; frontier: [{"kind":"link","link":"bd","state":"administratively_down"},{"kind":"link","link":"cd","state":"administratively_down"}]
+"event-3": pass
+"event-4": fail
+  "destination_down": "a" -> "10.10.4.1" (all ECMP branches required)
+  path: "a" ["destination_down"]
+"event-5": pass

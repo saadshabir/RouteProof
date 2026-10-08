@@ -85,3 +85,20 @@ Commands, measured coverage, raw evidence and limitations are recorded in
 The [review-fix evidence](../evidence/bench/review-fixes/README.md) covers interrupted
 sweep completion, binary/harness provenance, raw counter/timing reconciliation
 and final timeout enforcement.
+
+## Release preparation
+
+- [x] Core CI declares Linux GCC/Clang and native macOS builds, all CTest checks,
+  a separate sanitizer/generated-corpus job, and a Release benchmark smoke job
+  ([workflow](../.github/workflows/ci.yml)). Hosted job outcomes require a GitHub run;
+  local verification does not claim those jobs have executed.
+- [x] Current README and model status distinguish shipped behavior, published native
+  measurements and the open Linux gates ([README](../README.md), [model](model.md)).
+- [x] A checked diamond demo verifies expected failures, restoration and deterministic
+  canonical bytes ([runner](../tools/release/demo.py), [candidate evidence](../evidence/release/v0.1.0-rc.1/README.md)).
+- [x] Versioned source candidate artifacts have deterministic archives, per-file
+  hashes and integrity checks ([packager](../tools/release/package.py), [candidate evidence](../evidence/release/v0.1.0-rc.1/README.md)).
+- [x] Fresh native candidate builds/tests and a separate clean-source benchmark
+  reproduction are recorded ([candidate evidence](../evidence/release/v0.1.0-rc.1/README.md)).
+- [ ] Live Linux lab/image/rerun and authoritative Linux RSS gates above pass before
+  tagging/publishing the final v0.1 release. Phase 6's complete release gate remains open.

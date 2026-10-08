@@ -192,7 +192,14 @@ class BenchTests(unittest.TestCase):
             fake.chmod(0o755)
             profile = tmp / 'profile.json'
             profile.write_text(json.dumps(PROFILE))
-            process = subprocess.Popen([sys.executable, str(ROOT / 'tools/bench/run.py'),
+            # Host discovery (notably macOS system_profiler) is unrelated to
+            # interruption and can exhaust the worker-start deadline under load.
+            # Keep the real CLI, signals, checkpointing and child lifecycle;
+            # replace only the provenance query in this isolated subprocess.
+            launcher = ('import sys; sys.path.insert(0, ' + repr(str(ROOT / 'tools/bench')) + '); '
+                        'import run; run.provenance = lambda binary: {"build_cache": {}, "source_inputs": None}; '
+                        'raise SystemExit(run.main())')
+            process = subprocess.Popen([sys.executable, '-c', launcher,
                 '--binary', str(fake), '--profile', str(profile), '--out', str(tmp / 'out'), '--allow-debug'],
                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, start_new_session=True)
             try:
@@ -211,7 +218,9 @@ class BenchTests(unittest.TestCase):
             finally:
                 if process.poll() is None:
                     os.killpg(process.pid, signal.SIGKILL)
-                    process.wait()
+                    process.communicate()
+                process.stdout.close()
+                process.stderr.close()
 
     def test_harness_fresh_processes_hashes_and_budget_skips(self):
         with tempfile.TemporaryDirectory() as name:

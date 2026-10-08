@@ -6,7 +6,7 @@
 
 **Result schema:** `schemas/result-v1.schema.json` (version 1)
 
-**Status:** frozen contract for v0.1. Input validation, physical topology, SPF, converged replay, and universal reachability with validated witnesses are implemented. FRR lab tooling and offline checks are implemented; live FRR agreement and published benchmarks remain open.
+**Status:** frozen contract for v0.1. Input validation, physical topology, SPF, converged replay, and universal reachability with validated witnesses are implemented. FRR lab tooling and offline checks are implemented. Native timing/scaling and clean source reproduction are published; live Linux FRR agreement and authoritative Linux RSS remain open.
 
 This document defines the behavior the engine must implement. The JSON Schemas define the structural data contract for YAML or JSON inputs and canonical JSON results. Semantic checks below remain mandatory even when a document passes schema validation.
 

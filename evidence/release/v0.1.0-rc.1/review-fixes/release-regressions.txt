@@ -1,0 +1,12 @@
+test_checker_refuses_invalid_version_and_empty_inventory (__main__.ReleaseTests) ... ok
+test_checker_rejects_unsafe_and_duplicate_archive_entries (__main__.ReleaseTests) ... ok
+test_demo_checks_failures_restoration_and_repeat_bytes (__main__.ReleaseTests) ... ok
+test_package_is_deterministic_and_detects_tampering (__main__.ReleaseTests) ... ok
+test_package_refuses_final_version_symlink_and_overwrite (__main__.ReleaseTests) ... ok
+test_package_refuses_included_outputs_and_allows_external_receipts (__main__.ReleaseTests) ... ok
+test_package_refuses_missing_or_incomplete_source_before_output (__main__.ReleaseTests) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.163s
+
+OK

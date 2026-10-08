@@ -1,0 +1,135 @@
+{
+  "builds": [
+    {
+      "preset": "host-release",
+      "status": "pass"
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "cmake",
+        "--preset",
+        "host-release",
+        "-DFETCHCONTENT_SOURCE_DIR_YAML-CPP=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/yaml-cpp-src",
+        "-DFETCHCONTENT_SOURCE_DIR_NLOHMANN_JSON=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/nlohmann_json-src",
+        "-DFETCHCONTENT_SOURCE_DIR_PICOSHA2=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/picosha2-src"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "host-release-configure.txt"
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "--preset",
+        "host-release",
+        "--parallel",
+        "4"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "host-release-build.txt"
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/private/tmp/routeproof-rc1-clean1-5gdmpzhm/routeproof-0.1.0-rc.1/build/host-release",
+        "--output-on-failure"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "host-release-tests.txt"
+    },
+    {
+      "argv": [
+        "/private/tmp/routeproof-rc1-clean1-5gdmpzhm/routeproof-0.1.0-rc.1/build/host-release/routeproof",
+        "--version"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "host-release-version.txt"
+    },
+    {
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "/private/tmp/routeproof-rc1-clean1-5gdmpzhm/routeproof-0.1.0-rc.1/tools/release/demo.py",
+        "--binary",
+        "/private/tmp/routeproof-rc1-clean1-5gdmpzhm/routeproof-0.1.0-rc.1/build/host-release/routeproof",
+        "--out",
+        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/first/host-release-diamond"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "host-release-diamond-demo.txt"
+    },
+    {
+      "argv": [
+        "cmake",
+        "--preset",
+        "gcc-debug",
+        "-DFETCHCONTENT_SOURCE_DIR_YAML-CPP=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/yaml-cpp-src",
+        "-DFETCHCONTENT_SOURCE_DIR_NLOHMANN_JSON=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/nlohmann_json-src",
+        "-DFETCHCONTENT_SOURCE_DIR_PICOSHA2=/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/picosha2-src"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "gcc-debug-configure.txt"
+    },
+    {
+      "argv": [
+        "cmake",
+        "--build",
+        "--preset",
+        "gcc-debug",
+        "--parallel",
+        "4"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "gcc-debug-build.txt"
+    },
+    {
+      "argv": [
+        "ctest",
+        "--test-dir",
+        "/private/tmp/routeproof-rc1-clean1-5gdmpzhm/routeproof-0.1.0-rc.1/build/gcc-debug",
+        "--output-on-failure"
+      ],
+      "exit_code": 8,
+      "expected_exit_code": 0,
+      "log": "gcc-debug-tests.txt"
+    }
+  ],
+  "diamond_result_file_sha256": "c6e0a1be719af6c47b802e2f536b8c7357abcca0aa15e5c2f1f20c24b02fb7d0",
+  "host": "macOS-27.0.1-arm64-arm-64bit",
+  "initial_git_status": "",
+  "open_gates": [
+    "live Linux FRR acceptance",
+    "authoritative Linux RSS"
+  ],
+  "reason": "gcc-debug-tests failed; see /Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/first/gcc-debug-tests.txt",
+  "release_complete": false,
+  "reused_dependencies": {
+    "nlohmann_json": {
+      "path": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/nlohmann_json-src",
+      "revision": "55f93686c01528224f448c19128836e7df245f72",
+      "tag": "v3.12.0"
+    },
+    "picosha2": {
+      "path": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/picosha2-src",
+      "revision": "161cb3fc4170fa7a3eca9e582cebd27cc4d1fe29",
+      "tag": "v1.0.1"
+    },
+    "yaml-cpp": {
+      "path": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/_deps/yaml-cpp-src",
+      "revision": "56e3bb550c91fd7005566f19c079cb7a503223cf",
+      "tag": "yaml-cpp-0.9.0"
+    }
+  },
+  "revision": "01ca98049dfb0ab299d31f52606fcef105393cc5",
+  "source": "/private/tmp/routeproof-rc1-clean1-5gdmpzhm/routeproof-0.1.0-rc.1",
+  "status": "incomplete"
+}

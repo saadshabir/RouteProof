@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/private/tmp/routeproof-rc1-verified1-ka3u3rzg/routeproof-0.1.0-rc.1/build/host-release/routeproof",
+    "simulate",
+    "/private/tmp/routeproof-rc1-verified1-ka3u3rzg/routeproof-0.1.0-rc.1/labs/profiles/pair-asymmetric.json",
+    "--out",
+    "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/first/frr-generated/pair-asymmetric/engine"
+  ],
+  "elapsed_seconds": 0.0027480000000000004,
+  "returncode": 0,
+  "stderr": "",
+  "stdout": "result: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/first/frr-generated/pair-asymmetric/engine/result.json\n",
+  "timeout_seconds": 30
+}

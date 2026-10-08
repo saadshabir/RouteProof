@@ -1,0 +1,54 @@
+{
+  "expected_explain_exit": 1,
+  "expected_simulate_exit": 1,
+  "result_file_sha256": "c6e0a1be719af6c47b802e2f536b8c7357abcca0aa15e5c2f1f20c24b02fb7d0",
+  "scenario": "diamond-failures",
+  "snapshots": [
+    {
+      "next_hop_links": [
+        "ab",
+        "ac"
+      ],
+      "reason": null,
+      "snapshot": "baseline",
+      "status": "pass"
+    },
+    {
+      "next_hop_links": [
+        "ac"
+      ],
+      "reason": null,
+      "snapshot": "event-1",
+      "status": "pass"
+    },
+    {
+      "next_hop_links": [],
+      "reason": "no_route",
+      "snapshot": "event-2",
+      "status": "fail"
+    },
+    {
+      "next_hop_links": [
+        "ab"
+      ],
+      "reason": null,
+      "snapshot": "event-3",
+      "status": "pass"
+    },
+    {
+      "next_hop_links": [],
+      "reason": "destination_down",
+      "snapshot": "event-4",
+      "status": "fail"
+    },
+    {
+      "next_hop_links": [
+        "ab"
+      ],
+      "reason": null,
+      "snapshot": "event-5",
+      "status": "pass"
+    }
+  ],
+  "status": "pass"
+}

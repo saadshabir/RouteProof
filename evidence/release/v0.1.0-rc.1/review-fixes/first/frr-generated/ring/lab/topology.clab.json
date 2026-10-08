@@ -1,0 +1,123 @@
+{
+  "mgmt": {
+    "ipv4-subnet": "198.19.255.0/24",
+    "network": "rp-8fa83f330876-mgmt"
+  },
+  "name": "rp-8fa83f330876",
+  "topology": {
+    "links": [
+      {
+        "endpoints": [
+          "r0:eth1",
+          "r1:eth1"
+        ]
+      },
+      {
+        "endpoints": [
+          "r1:eth2",
+          "r2:eth1"
+        ]
+      },
+      {
+        "endpoints": [
+          "r2:eth2",
+          "r3:eth1"
+        ]
+      },
+      {
+        "endpoints": [
+          "r3:eth2",
+          "r4:eth1"
+        ]
+      },
+      {
+        "endpoints": [
+          "r0:eth2",
+          "r4:eth2"
+        ]
+      }
+    ],
+    "nodes": {
+      "r0": {
+        "binds": [
+          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/first/frr-generated/ring/lab/r0/frr.conf:/etc/frr/frr.conf:ro",
+          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/first/frr-generated/ring/lab/r0/daemons:/etc/frr/daemons:ro"
+        ],
+        "image": "quay.io/frrouting/frr:10.2.1",
+        "kind": "linux",
+        "labels": {
+          "routeproof.run": "rp-8fa83f330876"
+        },
+        "sysctls": {
+          "net.ipv4.conf.all.rp_filter": "0",
+          "net.ipv4.conf.default.rp_filter": "0",
+          "net.ipv4.ip_forward": "1"
+        }
+      },
+      "r1": {
+        "binds": [
+          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/first/frr-generated/ring/lab/r1/frr.conf:/etc/frr/frr.conf:ro",
+          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/first/frr-generated/ring/lab/r1/daemons:/etc/frr/daemons:ro"
+        ],
+        "image": "quay.io/frrouting/frr:10.2.1",
+        "kind": "linux",
+        "labels": {
+          "routeproof.run": "rp-8fa83f330876"
+        },
+        "sysctls": {
+          "net.ipv4.conf.all.rp_filter": "0",
+          "net.ipv4.conf.default.rp_filter": "0",
+          "net.ipv4.ip_forward": "1"
+        }
+      },
+      "r2": {
+        "binds": [
+          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/first/frr-generated/ring/lab/r2/frr.conf:/etc/frr/frr.conf:ro",
+          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/first/frr-generated/ring/lab/r2/daemons:/etc/frr/daemons:ro"
+        ],
+        "image": "quay.io/frrouting/frr:10.2.1",
+        "kind": "linux",
+        "labels": {
+          "routeproof.run": "rp-8fa83f330876"
+        },
+        "sysctls": {
+          "net.ipv4.conf.all.rp_filter": "0",
+          "net.ipv4.conf.default.rp_filter": "0",
+          "net.ipv4.ip_forward": "1"
+        }
+      },
+      "r3": {
+        "binds": [
+          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/first/frr-generated/ring/lab/r3/frr.conf:/etc/frr/frr.conf:ro",
+          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/first/frr-generated/ring/lab/r3/daemons:/etc/frr/daemons:ro"
+        ],
+        "image": "quay.io/frrouting/frr:10.2.1",
+        "kind": "linux",
+        "labels": {
+          "routeproof.run": "rp-8fa83f330876"
+        },
+        "sysctls": {
+          "net.ipv4.conf.all.rp_filter": "0",
+          "net.ipv4.conf.default.rp_filter": "0",
+          "net.ipv4.ip_forward": "1"
+        }
+      },
+      "r4": {
+        "binds": [
+          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/first/frr-generated/ring/lab/r4/frr.conf:/etc/frr/frr.conf:ro",
+          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/first/frr-generated/ring/lab/r4/daemons:/etc/frr/daemons:ro"
+        ],
+        "image": "quay.io/frrouting/frr:10.2.1",
+        "kind": "linux",
+        "labels": {
+          "routeproof.run": "rp-8fa83f330876"
+        },
+        "sysctls": {
+          "net.ipv4.conf.all.rp_filter": "0",
+          "net.ipv4.conf.default.rp_filter": "0",
+          "net.ipv4.ip_forward": "1"
+        }
+      }
+    }
+  }
+}

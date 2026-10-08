@@ -1,0 +1,11 @@
+cell,repetition,mode,status,peak_rss_bytes,loaded_rss_bytes,authoritative
+sparse-small-16,0,instrumented,complete,4177920,2293760,False
+sparse-small-16,0,cli,complete,4177920,,False
+sparse-small-16,1,instrumented,complete,4210688,2293760,False
+sparse-small-16,1,cli,complete,4161536,,False
+sparse-small-16,2,instrumented,complete,4128768,2277376,False
+sparse-small-16,2,cli,complete,4210688,,False
+sparse-small-16,3,instrumented,complete,4210688,2293760,False
+sparse-small-16,3,cli,complete,4177920,,False
+sparse-small-16,4,instrumented,complete,4227072,2277376,False
+sparse-small-16,4,cli,complete,4210688,,False

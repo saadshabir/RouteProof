@@ -1,0 +1,44 @@
+[
+  {
+    "argv": [
+      "/private/tmp/routeproof-rc1-final1-qy3hd6wk/routeproof-0.1.0-rc.1/build/gcc-debug/routeproof",
+      "validate",
+      "/private/tmp/routeproof-rc1-final1-qy3hd6wk/routeproof-0.1.0-rc.1/examples/diamond-failures.yaml"
+    ],
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "argv": [
+      "/private/tmp/routeproof-rc1-final1-qy3hd6wk/routeproof-0.1.0-rc.1/build/gcc-debug/routeproof",
+      "simulate",
+      "/private/tmp/routeproof-rc1-final1-qy3hd6wk/routeproof-0.1.0-rc.1/examples/diamond-failures.yaml",
+      "--out",
+      "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/first/gcc-debug-diamond/first"
+    ],
+    "exit_code": 1,
+    "expected_exit_code": 1
+  },
+  {
+    "argv": [
+      "/private/tmp/routeproof-rc1-final1-qy3hd6wk/routeproof-0.1.0-rc.1/build/gcc-debug/routeproof",
+      "simulate",
+      "/private/tmp/routeproof-rc1-final1-qy3hd6wk/routeproof-0.1.0-rc.1/examples/diamond-failures.yaml",
+      "--out",
+      "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/first/gcc-debug-diamond/repeat"
+    ],
+    "exit_code": 1,
+    "expected_exit_code": 1
+  },
+  {
+    "argv": [
+      "/private/tmp/routeproof-rc1-final1-qy3hd6wk/routeproof-0.1.0-rc.1/build/gcc-debug/routeproof",
+      "explain",
+      "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/first/gcc-debug-diamond/first/result.json",
+      "--assertion",
+      "a-to-d"
+    ],
+    "exit_code": 1,
+    "expected_exit_code": 1
+  }
+]

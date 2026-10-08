@@ -1,0 +1,44 @@
+[
+  {
+    "argv": [
+      "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/build/host-sanitizers/routeproof",
+      "validate",
+      "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/examples/diamond-failures.yaml"
+    ],
+    "exit_code": 0,
+    "expected_exit_code": 0
+  },
+  {
+    "argv": [
+      "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/build/host-sanitizers/routeproof",
+      "simulate",
+      "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/examples/diamond-failures.yaml",
+      "--out",
+      "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/first/host-sanitizers-diamond/first"
+    ],
+    "exit_code": 1,
+    "expected_exit_code": 1
+  },
+  {
+    "argv": [
+      "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/build/host-sanitizers/routeproof",
+      "simulate",
+      "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/examples/diamond-failures.yaml",
+      "--out",
+      "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/first/host-sanitizers-diamond/repeat"
+    ],
+    "exit_code": 1,
+    "expected_exit_code": 1
+  },
+  {
+    "argv": [
+      "/private/tmp/routeproof-rc1-review-verified1-4zzwac76/routeproof-0.1.0-rc.1/build/host-sanitizers/routeproof",
+      "explain",
+      "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/evidence/release/v0.1.0-rc.1/review-fixes/first/host-sanitizers-diamond/first/result.json",
+      "--assertion",
+      "a-to-d"
+    ],
+    "exit_code": 1,
+    "expected_exit_code": 1
+  }
+]
