@@ -1,1 +1,0 @@
-{"status": "skipped", "passing_snapshots": 0, "comparison_slots": 0, "matched_slots": 0}

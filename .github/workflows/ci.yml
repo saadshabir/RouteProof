@@ -106,8 +106,8 @@ jobs:
           path: build/host-sanitizers/Testing/Temporary/
           if-no-files-found: warn
 
-  release-smoke:
-    name: Release demo, benchmark smoke and source candidate
+  checkout-smoke:
+    name: Clean checkout, demo and benchmark smoke
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
@@ -123,22 +123,16 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y ninja-build g++-14
-      - name: Verify fresh Release build and offline workflows
-        run: python3 tools/release/verify.py --out results/ci-release
+      - name: Verify fresh optimized build and offline workflows
+        run: python3 tools/verify_checkout.py --out results/ci-checkout
       - name: Check the repository launcher
         run: python3 tools/run.py demo --out results/ci-launcher-demo
-      - name: Build a source candidate
-        run: |
-          python3 tools/release/package.py --out results/ci-package
-          python3 tools/release/package.py --check --out results/ci-package
-      - name: Preserve candidate and smoke evidence
+      - name: Preserve checkout and smoke evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: release-smoke
+          name: checkout-smoke
           path: |
-            results/ci-release/
+            results/ci-checkout/
             results/ci-launcher-demo/
-            results/ci-package/
-            evidence/release/
           if-no-files-found: warn

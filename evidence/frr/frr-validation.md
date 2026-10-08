@@ -1,7 +1,7 @@
 # Phase 4: FRR tooling and offline validation
 
 Historical offline validation date: **2026-10-06**. Host: macOS 27.0.1 arm64.
-The Linux gate was open at that time. It is now complete in [Linux acceptance](../release/linux/README.md):
+The Linux gate was open at that time. It is now complete in [Linux acceptance](../linux/README.md):
 two fresh live matrices pass all 27 snapshots and 687 slots each. Earlier raw
 records and open-gate notes below describe this historical offline run.
 
@@ -110,4 +110,4 @@ Still required on Linux amd64:
 4. Repeat from a clean checkout with fresh labs and pass `compare_runs.py`.
 
 No live FRR route-cost/next-hop agreement, Linux execution, frozen digest, or
-clean Linux rerun is claimed. The plan and release checklists retain those gates.
+clean Linux rerun is claimed. The plan and acceptance checklists retain those gates.

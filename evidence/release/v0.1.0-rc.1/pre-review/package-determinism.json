@@ -1,8 +1,0 @@
-{
-  "status": "pass",
-  "archive_sha256": "a159e45f2785ded06c705fbe0b659d1a0142dfcb200c483f075a406455649dd4",
-  "source_files_sha256": "436395f66e4835f95bb2ff6f2b0d39ca594b1e3ee02bf13e2e5c3f9ad1152ead",
-  "file_count": 537,
-  "independent_archive_bytes_equal": true,
-  "worktree_matches_packaged_files": true
-}

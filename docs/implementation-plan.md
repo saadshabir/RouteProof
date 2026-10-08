@@ -1,14 +1,14 @@
 # RouteProof: focused MVP implementation plan
 
-**Status:** completed. All five v0.1 deliverables and every implementation exit gate are complete. Independent routing/replay/witness checks, native scaling and clean source reproduction, hosted compiler/sanitizer jobs, and two fresh Linux FRR matrices pass. Each Linux matrix covers all 27 snapshots and 687 comparison slots; authoritative Linux peak and boundary RSS are recorded. See [Linux acceptance](../evidence/release/linux/README.md) and [release evidence](../evidence/release/v0.1.0/README.md). Optional follow-up projects remain outside this completed scope.
+**Status:** completed. All five v0.1 deliverables and every implementation exit gate are complete. Independent routing/replay/witness checks, native scaling and clean source reproduction, hosted compiler/sanitizer jobs, and two fresh Linux FRR matrices pass. Each Linux matrix covers all 27 snapshots and 687 comparison slots; authoritative Linux peak and boundary RSS are recorded. See [Linux acceptance](../evidence/linux/README.md). Optional follow-up projects remain outside this completed scope.
 
 **Scope:** the five deliverables specified below.
 
-**Supersedes:** the broader first-release scope in the earlier plan.
+**Supersedes:** the broader first-implementation scope in the earlier plan.
 
 **Execution rule:** complete each exit gate with reproducible evidence before marking it done.
 
-## 1. The five release deliverables
+## 1. The five implementation deliverables
 
 1. A C++20 engine with a clearly defined, single-area OSPF-style model, prefixes, shortest paths, and ECMP.
 2. Link and router failure scenarios with deterministic replay.
@@ -16,7 +16,7 @@
 4. Comparisons of converged route costs and next hops against small FRRouting labs.
 5. Reproducible measurements of scenario-processing time, memory, and scaling.
 
-These five items are the complete v0.1 release scope.
+These five items are the complete v0.1 implementation scope.
 
 | Deliverable | Concrete output | Acceptance evidence |
 | --- | --- | --- |
@@ -26,9 +26,9 @@ These five items are the complete v0.1 release scope.
 | FRR comparison | Fresh small labs with normalized cost/next-hop comparisons | Exact agreement for every declared supported snapshot, including missing routes |
 | Measurements | Frozen scenarios, raw timings/memory, workload manifests, and scaling report | A documented clean-checkout run reproduces at least one published workload |
 
-The first release analyzes **converged forwarding after each event**. All routers' tables change as one snapshot transaction. It does not model transient forwarding, detection delays, flooding, or router-by-router installation.
+The current model analyzes **converged forwarding after each event**. All routers' tables change as one snapshot transaction. It does not model transient forwarding, detection delays, flooding, or router-by-router installation.
 
-Lean verification, transient convergence, Prometheus, topology visualization, BGP, and configuration import are optional follow-up projects. None is a v0.1 release gate.
+Lean verification, transient convergence, Prometheus, topology visualization, BGP, and configuration import are optional follow-up projects. None is a v0.1 acceptance gate.
 
 ## 2. Precise routing model
 
@@ -192,7 +192,7 @@ Forbidden reachability, policy isolation, route leaks, and unexpected-transit as
 
 Initially keep topology, events, and assertions in one strict versioned YAML file. Split shared inputs through explicit references only when benchmark reuse warrants it.
 
-The example and `validate`, `simulate`, and `explain` commands are implemented. FRR generation/live-harness commands are implemented and the privileged Linux agreement/reproduction gate passes ([evidence](../evidence/release/linux/README.md)). `bench` is implemented with frozen JSON profiles, raw sample manifests, and explicit resource budgets; see [benchmarks.md](benchmarks.md).
+The example and `validate`, `simulate`, and `explain` commands are implemented. FRR generation/live-harness commands are implemented and the privileged Linux agreement/reproduction gate passes ([evidence](../evidence/linux/README.md)). `bench` is implemented with frozen JSON profiles, raw sample manifests, and explicit resource budgets; see [benchmarks.md](benchmarks.md).
 
 ```yaml
 schema_version: 1
@@ -312,7 +312,7 @@ RouteProof/
   benchmarks/{profiles,traces}/
   docs/{implementation-plan,model,validation,benchmarks}.md
   results/                         # ignored generated runs
-  evidence/<release>/<run-id>/     # selected raw release evidence
+  evidence/<capability>/          # selected validation summaries and raw samples
   .github/workflows/
 ```
 
@@ -421,7 +421,7 @@ Do not run an unbounded Cartesian product. Estimate the working set, declare tim
 
 ### Procedure and sample policy
 
-1. Build in release mode with exact compiler/flags. Sanitizers run separately.
+1. Build in optimized mode with exact compiler/flags. Sanitizers run separately.
 2. Save source revision or source-archive hash, clean/dirty state, dependency versions, CPU, RAM, OS/kernel, and clock/power settings.
 3. Archive normalized scenario inputs, generator version/algorithm/seed, and hashes.
 4. Apply a fixed documented warmup and collect at least five fresh-process repetitions per published cell.
@@ -452,7 +452,7 @@ evidence/v0.1/<run-id>/
   report.md
 ```
 
-Keep small release evidence in the repository. Publish bulky raw artifacts with immutable checksums and retrieval instructions. No headline claim may depend on an inaccessible local file.
+Keep small validation evidence in the repository. Publish bulky raw artifacts with immutable checksums and retrieval instructions. No headline claim may depend on an inaccessible local file.
 
 Initially measurements are descriptive. Add regression thresholds only after repeated runs establish ordinary variation on a controlled host.
 
@@ -466,7 +466,7 @@ Estimates are focused development days of roughly six hours, including integrati
 
 Deliverables: `docs/model.md`, scenario/result schema, supported/unsupported table, CMake presets, dependency pins, CLI skeleton, and a chosen Linux lab environment.
 
-Exit gate: both declared compilers build a clean checkout; model/schema version is visible; the five release deliverables are represented in the acceptance checklist.
+Exit gate: both declared compilers build a clean checkout; model/schema version is visible; the five implementation deliverables are represented in the acceptance checklist.
 
 **Status:** complete. Clean-checkout compiler evidence is recorded in [build/clean-builds.md](../evidence/build/clean-builds.md); the current Phase 1 implementation also passes the minimum-toolchain build and acceptance checks recorded below.
 
@@ -508,7 +508,7 @@ Deliverables: lab/config generator, readiness/stability/cleanup harness, JSON no
 
 Exit gate: every declared supported baseline/post-event snapshot agrees exactly; missing/extra routes and unavailable routers are handled explicitly; a clean rerun reproduces the evidence. Timeouts remain failures.
 
-**Status:** complete. The five-profile/six-scenario live matrix matches all 27 snapshots and 687 declared slots in two fresh Linux runs. FRR 10.2.1 image startup, configuration and recorded JSON compatibility are verified; its tested amd64 digest is frozen. Raw captures, configurations, environment manifests, complete cleanup and clean-source reproduction are available in [Linux acceptance](../evidence/release/linux/README.md). [Offline coverage](../evidence/frr/frr-validation.md) and [interruption checks](../evidence/frr/matrix-interruption/validation.md) remain recorded.
+**Status:** complete. The five-profile/six-scenario live matrix matches all 27 snapshots and 687 declared slots in two fresh Linux runs. FRR 10.2.1 image startup, configuration and recorded JSON compatibility are verified; its tested amd64 digest is frozen. Raw captures, configurations, environment manifests, complete cleanup and clean-source reproduction are available in [Linux acceptance](../evidence/linux/README.md). [Offline coverage](../evidence/frr/frr-validation.md) and [interruption checks](../evidence/frr/matrix-interruption/validation.md) remain recorded.
 
 ### Phase 5 — Scenario, memory, and scaling evidence (3–5 days)
 
@@ -520,17 +520,17 @@ Exit gate: the measurement boundary and workload dimensions are explicit; at lea
 
 Optimize only a measured bottleneck, retaining the reference implementation and checking semantic equivalence.
 
-**Status:** complete. Frozen workloads, core/per-snapshot and complete CLI measurements, bounded scaling, strict sample policy, cleanup, and source reproduction are implemented. [Native evidence](../evidence/bench/benchmark-validation.md) records scaling and timing; [Linux acceptance](../evidence/release/linux/README.md) adds five ordinary and five instrumented fresh-process samples in each of two clean builds, including peak, loaded and per-snapshot boundary RSS for the 16-router small workload. Canonical bytes and counters reproduce exactly. Native macOS RSS remains provisional; Linux coverage is explicitly limited to the published small workload. No routing optimization was added.
+**Status:** complete. Frozen workloads, core/per-snapshot and complete CLI measurements, bounded scaling, strict sample policy, cleanup, and source reproduction are implemented. [Native evidence](../evidence/bench/benchmark-validation.md) records scaling and timing; [Linux acceptance](../evidence/linux/README.md) adds five ordinary and five instrumented fresh-process samples in each of two clean builds, including peak, loaded and per-snapshot boundary RSS for the 16-router small workload. Canonical bytes and counters reproduce exactly. Native macOS RSS remains provisional; Linux coverage is explicitly limited to the published small workload. No routing optimization was added.
 
-### Phase 6 — Release credibility pass (2–3 days)
+### Phase 6 — Repository usability and acceptance (2–3 days)
 
 **Depends on:** phases 0–5.
 
-Deliverables: final README/model/validation/benchmark docs, a runnable diamond demo, versioned artifacts, and clean-checkout build/test/lab/benchmark reproduction.
+Deliverables: final README/model/validation/benchmark docs, a launcher for cloned or downloaded source, a checked diamond demo, and clean-checkout build/test/lab/benchmark reproduction.
 
-Exit gate: every release checkbox has an evidence pointer; optional follow-up features have not become hidden dependencies.
+Exit gate: every acceptance checkbox has an evidence pointer; optional follow-up features have not become hidden dependencies.
 
-**Status:** complete. Hosted Linux GCC/Clang, native macOS Clang, sanitizers/generated corpus, Release demo and benchmark smoke checks pass. The final `0.1.0` source artifact revalidates raw Linux matrix/benchmark reproduction and binds acceptance to the tested implementation hashes. [Release documentation](release.md), [release evidence](../evidence/release/v0.1.0/README.md), and the complete [acceptance checklist](acceptance.md) give commands and receipts. Earlier candidate artifacts remain historical.
+**Status:** complete. Hosted Linux GCC/Clang, native macOS Clang, sanitizers/generated corpus, the checked demo and benchmark smoke checks pass. The [repository launcher](../tools/run.py) builds and runs directly from source. The [checkout checker](../tools/verify_checkout.py), [Linux acceptance](../evidence/linux/README.md), and complete [acceptance checklist](acceptance.md) provide commands and recorded results.
 
 **Total planning range:** 22–33 focused days, approximately 130–200 hours. At 15 hours/week, allow roughly 9–14 weeks before interruptions. FRR environment and normalization issues are the largest uncertainty.
 
@@ -542,14 +542,14 @@ CI should run:
 
 - Native/Linux builds, strict input fixtures, independent tiny-graph checks, witness validation, and deterministic replay.
 - Separate sanitizer/generated-corpus jobs.
-- Privileged Linux FRR jobs for core/harness changes and the entire declared matrix before release.
+- Privileged Linux FRR jobs for core/harness changes and the entire declared matrix for acceptance.
 - A small benchmark harness smoke run; published performance comes from a documented measurement host.
 
 The nonprivileged jobs are implemented in [ci.yml](../.github/workflows/ci.yml).
 They use the existing independent oracles and generated corpus, run offline FRR
-failure-injection checks, and retain test/demo/benchmark artifacts. The [privileged Linux workflow](../.github/workflows/linux-acceptance.yml) also passes both fresh live matrices and authoritative memory checks ([receipts](../evidence/release/linux/README.md)).
+failure-injection checks, and retain test/demo/benchmark artifacts. The [privileged Linux workflow](../.github/workflows/linux-acceptance.yml) also passes both fresh live matrices and authoritative memory checks ([receipts](../evidence/linux/README.md)).
 
-A local lack of privileged networking is an explicit skipped lab status. It does not satisfy release acceptance.
+A local lack of privileged networking is an explicit skipped lab status. It does not satisfy live acceptance.
 
 | Risk | Mitigation |
 | --- | --- |
@@ -561,7 +561,7 @@ A local lack of privileged networking is an explicit skipped lab status. It does
 | FRR output/version drift | Pin image and test normalization against recorded JSON |
 | Large size claim hides minimal route/check coverage | Publish all workload dimensions and budgets |
 | Scenario runtime is called convergence time | Publish measurement boundaries; no transient timing model |
-| Optional proof/UI/BGP delays the MVP | Keep them outside phases and release gates |
+| Optional proof/UI/BGP delays the MVP | Keep them outside phases and acceptance gates |
 
 If FRR infrastructure blocks progress, continue independent core/measurement work while retaining the open comparison gate. If samples are insufficient, narrow the measurement claim.
 
@@ -569,8 +569,8 @@ If FRR infrastructure blocks progress, continue independent core/measurement wor
 
 Every item requires a command, result, or evidence pointer.
 
-- [x] Both declared compilers build a clean checkout ([build contract evidence](../evidence/build/clean-builds.md); [candidate verification](../evidence/release/v0.1.0-rc.1/README.md)).
-- [x] Strict parsing and unsupported-feature errors match the model contract ([input evidence](../evidence/input/input-validation.md); [candidate verification](../evidence/release/v0.1.0-rc.1/README.md)).
+- [x] Both declared compilers build a clean checkout ([build contract evidence](../evidence/build/clean-builds.md)).
+- [x] Strict parsing and unsupported-feature errors match the model contract ([input evidence](../evidence/input/input-validation.md)).
 - [x] Single-area SPF, prefix costs, connected delivery, and complete ECMP interface sets match the independent oracle ([Phase 2 evidence](../evidence/routing/routing-validation.md)).
 - [x] Link/router down/up and administrative restoration semantics match the declared scenarios ([Phase 3 evidence](../evidence/replay/replay-validation.md)).
 - [x] Replay and witness selection produce identical canonical results ([Phase 3 evidence](../evidence/replay/replay-validation.md)).
@@ -579,10 +579,10 @@ Every item requires a command, result, or evidence pointer.
 - [x] Every path/cycle/frontier certificate validates against its referenced snapshot ([Phase 3 evidence](../evidence/replay/replay-validation.md)).
 - [x] The diamond trace reproduces its expected branch changes and failures ([Phase 3 evidence](../evidence/replay/replay-validation.md)).
 - [x] Independent tiny-graph checks and sanitizer fixtures pass ([Phase 3 evidence](../evidence/replay/replay-validation.md)).
-- [x] All five FRR lab profiles match converged costs and complete next-hop sets for their declared snapshots ([Linux acceptance](../evidence/release/linux/README.md)).
-- [x] Raw comparisons, denominators, errors, and generated configurations are available ([release attachments and checksums](../evidence/release/linux/README.md)).
+- [x] All five FRR lab profiles match converged costs and complete next-hop sets for their declared snapshots ([Linux acceptance](../evidence/linux/README.md)).
+- [x] Raw comparisons, denominators, errors, and generated configurations are available ([Linux workflow captures and summaries](../evidence/linux/README.md)).
 - [x] Native scenario time, provisional RSS, and scaling measurements include raw samples and workload dimensions ([Phase 5 evidence](../evidence/bench/benchmark-validation.md)).
-- [x] Authoritative Linux peak/steady RSS evidence is published for the small workload ([Linux memory receipts](../evidence/release/linux/README.md)).
+- [x] Authoritative Linux peak/steady RSS evidence is published for the small workload ([Linux memory receipts](../evidence/linux/README.md)).
 - [x] At least one representative native measurement reproduces from a clean source checkout ([Phase 5 evidence](../evidence/bench/benchmark-validation.md)).
 - [x] Budget-skipped probes and harness timeout/memory/interruption checks remain visible ([Phase 5 evidence](../evidence/bench/benchmark-validation.md)).
 - [x] README states measured coverage, model limits, and actual project status ([README](../README.md); [native benchmark evidence](../evidence/bench/benchmark-validation.md)).

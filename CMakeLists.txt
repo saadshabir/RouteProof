@@ -136,9 +136,9 @@ if(BUILD_TESTING)
     add_test(NAME bench.harness_contract COMMAND "${Python3_EXECUTABLE}"
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/bench/check_bench.py" "$<TARGET_FILE:routeproof>")
     set_tests_properties(bench.harness_contract PROPERTIES TIMEOUT 60)
-    add_test(NAME release.artifact_contract COMMAND "${Python3_EXECUTABLE}"
-        "${CMAKE_CURRENT_SOURCE_DIR}/tests/release/check_release.py" "$<TARGET_FILE:routeproof>")
-    set_tests_properties(release.artifact_contract PROPERTIES TIMEOUT 60)
+    add_test(NAME workflows.acceptance_contract COMMAND "${Python3_EXECUTABLE}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/workflows/check_workflows.py" "$<TARGET_FILE:routeproof>")
+    set_tests_properties(workflows.acceptance_contract PROPERTIES TIMEOUT 60)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")

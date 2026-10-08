@@ -1,4 +1,4 @@
-name: Linux release acceptance
+name: Linux acceptance
 
 on:
   workflow_dispatch:
@@ -85,7 +85,7 @@ jobs:
           build/host-release/routeproof bench --profile benchmarks/profiles/sparse-small.json --out ../linux-acceptance/second/bench-small
           sudo -E "$(command -v python3)" tools/frr/run_matrix.py --image "$ROUTEPROOF_FRR_IMAGE" --routeproof "$PWD/build/host-release/routeproof" --out ../linux-acceptance/second/frr
       - name: Validate raw reproduction and authoritative RSS
-        run: python3 tools/release/check_linux.py --first results/linux-acceptance/first --second results/linux-acceptance/second --out results/linux-acceptance/checked
+        run: python3 tools/linux/check_acceptance.py --first results/linux-acceptance/first --second results/linux-acceptance/second --out results/linux-acceptance/checked
       - name: Preserve complete Linux evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2

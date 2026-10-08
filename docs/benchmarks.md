@@ -2,7 +2,7 @@
 
 Repeatable measurement tooling and its acceptance gates are complete. Native results and
 clean source reproduction are recorded in [native evidence](../evidence/bench/benchmark-validation.md).
-[Linux acceptance](../evidence/release/linux/README.md) adds authoritative peak and boundary RSS
+[Linux acceptance](../evidence/linux/README.md) adds authoritative peak and boundary RSS
 and a clean reproduction for the 16-router small workload. Scenario processing measures converged snapshots; these times
 are not network convergence, detection delays, or outage durations.
 
@@ -35,7 +35,7 @@ bytes were observed. Exit 3 means the sweep is partial (including budget skips,
 timeouts, resource limits, or interruption). Expected reachability failures
 (`simulate` exit 1) are completed benchmark work. Invalid profiles/build selection
 exit 2. Partial cells are excluded from performance summaries; their samples and
-reasons remain available. Release acceptance never converts a skipped workload
+reasons remain available. Benchmark acceptance never converts a skipped workload
 into a successful measurement.
 Checkpoint summaries include declared, attempted and completed cell counts. A
 sweep is complete only after every declared cell completes, including when an

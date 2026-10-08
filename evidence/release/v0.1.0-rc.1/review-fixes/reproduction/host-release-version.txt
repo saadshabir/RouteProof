@@ -1,4 +1,0 @@
-RouteProof 0.1.0
-model: ospf_spf_v1
-scenario schema: 1
-result schema: 1

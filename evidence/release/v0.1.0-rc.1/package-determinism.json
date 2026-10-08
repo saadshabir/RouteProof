@@ -1,8 +1,0 @@
-{
-  "archive_sha256": "6e6390d96443d038f1d88778315106a97c2c07f5c6233cc4dc46f4449836e0f5",
-  "file_count": 537,
-  "independent_archive_bytes_equal": true,
-  "source_files_sha256": "9ade3021040b653b02cc202cc5ff9e4fef797fcc0a985ccf3631b30defc86d9b",
-  "status": "pass",
-  "worktree_matches_packaged_files": true
-}

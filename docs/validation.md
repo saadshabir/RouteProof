@@ -5,7 +5,7 @@ positive directional costs, passive single-origin destinations, and complete
 ECMP interface sets. [Routing](../evidence/routing/routing-validation.md) and
 [replay](../evidence/replay/replay-validation.md) evidence record the independent
 core checks. Live FRR agreement and the clean Linux rerun pass for all 27 snapshots and
-687 comparison slots each ([Linux acceptance](../evidence/release/linux/README.md)).
+687 comparison slots each ([Linux acceptance](../evidence/linux/README.md)).
 
 ## Commands
 
@@ -13,11 +13,11 @@ The [Linux acceptance workflow](../.github/workflows/linux-acceptance.yml) runs
 the live matrix on a hosted Ubuntu amd64 runner, so no local Linux installation
 is required. It checksums the Containerlab package, uses the tested immutable FRR
 image digest, builds and tests two separate clean checkouts, and
-runs two fresh lab matrices. `tools/release/check_linux.py` requires the existing
+runs two fresh lab matrices. `tools/linux/check_acceptance.py` requires the existing
 strict FRR/benchmark reproduction checks and positive authoritative Linux peak,
 loaded and per-snapshot boundary RSS before it reports acceptance. The complete
 raw bundle is uploaded even when a step fails. A failed or skipped job leaves
-the release gates open; the workflow declaration alone is not live evidence.
+the acceptance gates open; the workflow declaration alone is not live evidence.
 
 Python 3.9+ is sufficient for generation, normalization, and harness tests. There
 are no additional Python packages. Build RouteProof first; pass `--routeproof`
@@ -45,7 +45,7 @@ docker image inspect quay.io/frrouting/frr:10.2.1 --format '{{json .RepoDigests}
 ```
 
 Set `ROUTEPROOF_FRR_IMAGE` to the returned `repository@sha256:...` reference.
-Commit the implementation being tested before collecting release evidence;
+Commit the implementation being tested before collecting validation evidence;
 the reproduction below clones committed files and builds a new binary. Run the
 first matrix from the original checkout:
 
@@ -75,7 +75,7 @@ python3 tools/frr/compare_runs.py ../frr-matrix/matrix-report.json \
 Every output directory must be fresh. The image architecture and FRR version
 are checked at runtime; the JSON adapter targets **FRR 10.2.1**. The image's startup, configuration behavior and actual JSON output are verified in
 two fresh live runs; the tested digest is frozen in the workflow and
-[lab environment](lab-environment.md). The full raw matrices are release attachments.
+[lab environment](lab-environment.md). The full raw matrices are GitHub Actions artifacts retained for 90 days; the hosted workflow regenerates them from a committed checkout.
 A tag, offline test or skipped run cannot satisfy that gate.
 
 ## Frozen coverage
@@ -185,7 +185,7 @@ were checked against the official [OSPF source](https://github.com/FRRouting/frr
 [Zebra source](https://github.com/FRRouting/frr/blob/frr-10.2.1/zebra/zebra_vty.c),
 and [next-hop JSON source](https://github.com/FRRouting/frr/blob/frr-10.2.1/lib/nexthop.c).
 Synthetic fixtures and the recorded parallel-link withdrawal protect that contract;
-full live captures are preserved in [release attachments](../evidence/release/linux/README.md).
+full live captures are retained for 90 days in [GitHub Actions artifacts](../evidence/linux/README.md) and can be regenerated with the hosted Linux workflow.
 
 OSPF costs are compared with `protocol_cost`, including the origin's stub cost.
 Zebra costs are compared with `metric`; local connected delivery has metric 0

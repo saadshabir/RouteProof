@@ -4,7 +4,7 @@ RouteProof is a C++20 tool for analyzing how routing changes affect forwarding.
 
 Its central question is: **If a link, router, or routing rule changes, which traffic becomes unreachable, exposed, looped, or unexpectedly rerouted?**
 
-The first release has five deliverables:
+RouteProof has five deliverables:
 
 1. A C++20 engine with a defined single-area OSPF-style model, prefixes, shortest paths, and ECMP.
 2. Link/router failures and restoration with deterministic replay.
@@ -14,11 +14,11 @@ The first release has five deliverables:
 
 Each event produces a converged forwarding snapshot. Lean, transient convergence, BGP, Prometheus, and visualization are optional follow-up work.
 
-**Current status:** v0.1 implementation and acceptance are complete. RouteProof validates strict scenarios, computes directional SPF and complete ECMP sets, replays link/router failures, and checks every forwarding branch with validated explanations. Two fresh Linux FRR runs agree for all 27 snapshots and 687 slots each. Native timing/scaling, clean source reproduction, and authoritative Linux small-workload RSS are published in [release evidence](evidence/release/v0.1.0/README.md).
+**Current status:** v0.1 implementation and acceptance are complete. RouteProof validates strict scenarios, computes directional SPF and complete ECMP sets, replays link/router failures, and checks every forwarding branch with validated explanations. Two fresh Linux FRR runs agree for all 27 snapshots and 687 slots each. [Native benchmark evidence](evidence/bench/benchmark-validation.md) records timing, scaling and clean source reproduction; [Linux acceptance](evidence/linux/README.md) records authoritative small-workload RSS.
 
 ## Clone and run
 
-Clone this repository or download its ZIP. A release download is optional.
+Clone this repository or download its ZIP, then run the launcher:
 
 ```sh
 git clone https://github.com/saadshabir/RouteProof.git
@@ -85,7 +85,7 @@ The validator rejects unsupported fields and semantic errors with source locatio
 
 CTest runs the CLI fixtures, constructed physical-topology integration check, parser-limit boundaries, and regressions for JSON interoperability, safe output, aliases, prefix ownership, and larger input. It also compares routing against an independent Python Floyd–Warshall oracle on named and generated tiny graphs, with input-order and repeat invariance checks. [Routing evidence](evidence/routing/routing-validation.md) records the routing coverage and toolchain checks. The [input security fixes](evidence/input/security-fixes.md) record their validation.
 
-Read the [model contract](docs/model.md), [v0.1 acceptance checklist](docs/acceptance.md), and [detailed implementation plan](docs/implementation-plan.md) for semantics, acceptance gates, validation strategy, and release scope. [Replay evidence](evidence/replay/replay-validation.md) records replay, witness, compiler, and sanitizer checks. The [FRR workflow](docs/validation.md) implements `tools/frr/run_lab.py` and
+Read the [model contract](docs/model.md), [v0.1 acceptance checklist](docs/acceptance.md), and [detailed implementation plan](docs/implementation-plan.md) for semantics, acceptance gates, validation strategy, and implementation scope. [Replay evidence](evidence/replay/replay-validation.md) records replay, witness, compiler, and sanitizer checks. The [FRR workflow](docs/validation.md) implements `tools/frr/run_lab.py` and
 `run_matrix.py`. Review all five generated profiles without Linux access:
 
 ```sh
@@ -95,7 +95,7 @@ python3 tools/frr/run_matrix.py --generate-only --out results/frr-generated
 This saves configs, mappings, and expected snapshots, reports `skipped`, and exits
 3; it does not claim FRR agreement. Live runs require a Linux amd64
 Docker/Containerlab host and an explicitly supplied FRR 10.2.1 image digest. The
-[Linux acceptance evidence](evidence/release/linux/README.md) records the passing live matrix, tested image digest and clean reproduction. The [benchmark workflow](docs/benchmarks.md) provides frozen profiles and raw measurements:
+[Linux acceptance evidence](evidence/linux/README.md) records the passing live matrix, tested image digest and clean reproduction. The [benchmark workflow](docs/benchmarks.md) provides frozen profiles and raw measurements:
 
 ```sh
 cmake --preset host-release
@@ -113,14 +113,14 @@ raw samples and clean source reproduction.
 
 [Core CI](.github/workflows/ci.yml) builds with GCC and upstream Clang on Linux and
 Clang on macOS, runs all CTest acceptance groups, and checks sanitizers and the
-generated graph corpus separately. A Release job checks the diamond demo, runs
-the small benchmark as a harness smoke check, and saves a source candidate with
-checksums. CI smoke timings are not published performance measurements.
+generated graph corpus separately. A clean-checkout job checks the diamond demo,
+the launcher and the small benchmark as a harness smoke check. CI smoke timings
+are not published performance measurements.
 
 Run the checked demo on a fresh output path:
 
 ```sh
-python3 tools/release/demo.py --binary build/host-release/routeproof --out results/diamond-demo
+python3 tools/demo.py --binary build/host-release/routeproof --out results/diamond-demo
 ```
 
 The runner exits 0 only when all six snapshots match, the partition and origin
@@ -128,9 +128,9 @@ failure occur as expected, restoration preserves `cd`'s administrative failure,
 and repeated canonical bytes agree. Its underlying `simulate` and `explain`
 commands deliberately exit 1 for the two broken reachability requirements.
 
-[Release documentation](docs/release.md) covers optional frozen source artifacts,
-integrity checks and clean-source verification. [Final v0.1.0 evidence](evidence/release/v0.1.0/README.md)
-records completed acceptance and source hashes. [Earlier candidate evidence](evidence/release/v0.1.0-rc.1/README.md)
-remains historical. Raw Linux captures are release attachments; summaries and
-checksums are kept in Git. CI downloads include companion receipts; the release
-documentation explains how to place them in an extracted source tree.
+[Validation evidence](evidence/README.md) is grouped by capability. Linux summaries
+remain in Git; full live captures are available as GitHub Actions artifacts for
+90 days and can be regenerated with the [Linux workflow](.github/workflows/linux-acceptance.yml).
+To check a fresh committed checkout, run `python3 tools/verify_checkout.py --out results/checkout-check`.
+It requires a clean source tree and fresh build directories and checks builds,
+CTest, the demo, the small benchmark and offline FRR generation.

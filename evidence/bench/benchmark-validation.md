@@ -2,7 +2,7 @@
 
 Historical native validation date: 2026-10-07 (America/Toronto). Native
 measurement/reproduction evidence is delivered. The Linux gates were open then;
-[Linux acceptance](../release/linux/README.md) now records completed live FRR
+[Linux acceptance](../linux/README.md) now records completed live FRR
 reproduction and authoritative small-workload RSS. No optimization or network
 convergence claim is made.
 
@@ -102,7 +102,7 @@ exact measured code. Documentation added afterward does not change that code has
 
 This historical bundle contains native measurements. `bench` implements both
 Linux and macOS RSS; authoritative Linux samples and their clean reproduction
-are now available in [the completed release receipts](../release/linux/README.md).
+are now available in [the completed Linux receipts](../linux/README.md).
 
 ## Review fixes
 

@@ -6,7 +6,7 @@
 
 **Result schema:** `schemas/result-v1.schema.json` (version 1)
 
-**Status:** frozen, implemented and accepted v0.1 contract. Input validation, physical topology, SPF, converged replay, universal reachability and validated witnesses pass independent checks. Two fresh Linux FRR matrices reproduce all 27 snapshots and 687 slots; native timing/scaling and authoritative Linux small-workload RSS are published ([acceptance](../evidence/release/linux/README.md)).
+**Status:** frozen, implemented and accepted v0.1 contract. Input validation, physical topology, SPF, converged replay, universal reachability and validated witnesses pass independent checks. Two fresh Linux FRR matrices reproduce all 27 snapshots and 687 slots; native timing/scaling and authoritative Linux small-workload RSS are published ([acceptance](../evidence/linux/README.md)).
 
 This document defines the behavior the engine must implement. The JSON Schemas define the structural data contract for YAML or JSON inputs and canonical JSON results. Semantic checks below remain mandatory even when a document passes schema validation.
 
@@ -105,6 +105,6 @@ Canonical result JSON uses UTF-8, ASCII field names and IDs, lexically sorted ob
 
 `result.json` contains routing semantics only. Host details, timestamps of the run, wall-clock samples, filesystem paths, and resource usage belong in separate `run.json` provenance. Every failed/incomplete finding includes a reproduction argument vector using a stable `<scenario>` placeholder rather than a machine-specific path.
 
-## Versioning and release boundary
+## Model and schema versioning
 
-The CLI reports project version `0.1.0`, model ID `ospf_spf_v1`, scenario schema version `1`, and result schema version `1`. A semantic or structural change that would make a v1 document mean something different requires a new model/schema version. The five release deliverables and their evidence gates are tracked in [acceptance.md](acceptance.md).
+The CLI reports project version `0.1.0`, model ID `ospf_spf_v1`, scenario schema version `1`, and result schema version `1`. A semantic or structural change that would make a v1 document mean something different requires a new model/schema version. The five implementation deliverables and their evidence gates are tracked in [acceptance.md](acceptance.md).

@@ -52,7 +52,7 @@ def main(argv):
             command = ['ctest', '--test-dir', str(BUILD), '--output-on-failure', *argv[1:]]
             os.execvp(command[0], command)
         if argv[0] in ('demo', 'frr'):
-            script, option = ('release/demo.py', '--binary') if argv[0] == 'demo' else ('frr/run_matrix.py', '--routeproof')
+            script, option = ('demo.py', '--binary') if argv[0] == 'demo' else ('frr/run_matrix.py', '--routeproof')
             command = [sys.executable, str(ROOT / 'tools' / script), option, binary, *argv[1:]]
             os.execv(command[0], command)
         os.execv(binary, [binary, *argv])
