@@ -16,9 +16,38 @@ Each event produces a converged forwarding snapshot. Lean, transient convergence
 
 **Current status:** v0.1 implementation and acceptance are complete. RouteProof validates strict scenarios, computes directional SPF and complete ECMP sets, replays link/router failures, and checks every forwarding branch with validated explanations. Two fresh Linux FRR runs agree for all 27 snapshots and 687 slots each. Native timing/scaling, clean source reproduction, and authoritative Linux small-workload RSS are published in [release evidence](evidence/release/v0.1.0/README.md).
 
-## Build
+## Clone and run
 
-Requirements: CMake 3.25.2+, Ninja 1.11.1+, GCC 12.5.0+, or upstream Clang 18.1.8+. Apple Clang 21.0.0+ is supported for native builds. The default acceptance checks require Python 3.9+. Configure fetches the pinned yaml-cpp, nlohmann/json, and PicoSHA2 dependencies when they are not already available.
+Clone this repository or download its ZIP. A release download is optional.
+
+```sh
+git clone https://github.com/saadshabir/RouteProof.git
+cd RouteProof
+python3 tools/run.py demo --out results/diamond-demo
+```
+
+The launcher builds a Release executable, fetching pinned dependencies on the
+first run. Later builds are incremental. The checked demo exits 0 when all six
+snapshots and the two expected reachability failures match.
+
+Use the same command for your own scenarios, benchmarks and acceptance checks:
+
+```sh
+python3 tools/run.py simulate examples/diamond-failures.yaml --out results/diamond
+python3 tools/run.py explain results/diamond/result.json --assertion a-to-d
+python3 tools/run.py bench --profile benchmarks/profiles/sparse-small.json --out results/bench
+python3 tools/run.py test
+```
+
+`simulate` and `explain` preserve the CLI exit codes; this diamond intentionally
+exits 1 for its two broken requirements. Output directories must be fresh.
+`python3 tools/run.py --help` lists launcher commands. The `frr` command wraps
+the lab matrix; live labs still require Linux, Docker, Containerlab and a pinned
+FRR image, as described in [validation.md](docs/validation.md).
+
+## Build requirements and manual commands
+
+Requirements: Git, Python 3.9+, CMake 3.25.2+, Ninja 1.11.1+, GCC 12.5.0+, or upstream Clang 18.1.8+. Apple Clang 21.0.0+ is supported for native builds. Configure fetches the pinned yaml-cpp, nlohmann/json, and PicoSHA2 dependencies when they are not already available.
 
 ```sh
 cmake --preset host-debug
@@ -80,7 +109,7 @@ are converged-scenario measurements. macOS RSS is provisional. See the
 [Phase 5 evidence](evidence/bench/benchmark-validation.md) for measured coverage,
 raw samples and clean source reproduction.
 
-## CI and release candidates
+## CI and validation evidence
 
 [Core CI](.github/workflows/ci.yml) builds with GCC and upstream Clang on Linux and
 Clang on macOS, runs all CTest acceptance groups, and checks sanitizers and the
@@ -99,7 +128,7 @@ failure occur as expected, restoration preserves `cd`'s administrative failure,
 and repeated canonical bytes agree. Its underlying `simulate` and `explain`
 commands deliberately exit 1 for the two broken reachability requirements.
 
-[Release documentation](docs/release.md) covers deterministic source artifacts,
+[Release documentation](docs/release.md) covers optional frozen source artifacts,
 integrity checks and clean-source verification. [Final v0.1.0 evidence](evidence/release/v0.1.0/README.md)
 records completed acceptance and source hashes. [Earlier candidate evidence](evidence/release/v0.1.0-rc.1/README.md)
 remains historical. Raw Linux captures are release attachments; summaries and

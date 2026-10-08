@@ -125,6 +125,8 @@ jobs:
           sudo apt-get install -y ninja-build g++-14
       - name: Verify fresh Release build and offline workflows
         run: python3 tools/release/verify.py --out results/ci-release
+      - name: Check the repository launcher
+        run: python3 tools/run.py demo --out results/ci-launcher-demo
       - name: Build a source candidate
         run: |
           python3 tools/release/package.py --out results/ci-package
@@ -136,6 +138,7 @@ jobs:
           name: release-smoke
           path: |
             results/ci-release/
+            results/ci-launcher-demo/
             results/ci-package/
             evidence/release/
           if-no-files-found: warn
