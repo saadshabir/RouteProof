@@ -2,3 +2,7 @@
 * text=auto
 # Raw measurement CSV checksums must survive checkout without EOL conversion.
 evidence/bench/**/*.csv -text whitespace=cr-at-eol
+# Keep language statistics focused on the engine and user-facing launchers.
+tests/** linguist-detectable=false
+tools/bench/** linguist-detectable=false
+tools/frr/** linguist-detectable=false
