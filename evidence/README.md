@@ -1,6 +1,6 @@
 # Validation evidence
 
-Evidence is grouped by capability: `build`, `input`, `routing`, `replay`, `frr`, `bench`, `linux`, and `performance`.
+Evidence is grouped by capability: `build`, `input`, `routing`, `replay`, `frr`, `bench`, and `linux`.
 Documentation in each group states the tested scope and points to its commands,
 logs, fixtures, and source manifests.
 
@@ -19,7 +19,3 @@ regenerated with the hosted workflow.
 
 Scenario timing, provisional native RSS, scaling and clean source reproduction
 are recorded in [benchmark-validation.md](bench/benchmark-validation.md).
-
-[First optimization evidence](performance/README.md) records same-workload
-before/after measurements, canonical byte equality, source snapshots and compiler
-and sanitizer checks separately from historical acceptance.
