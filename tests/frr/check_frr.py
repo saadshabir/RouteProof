@@ -209,6 +209,40 @@ class HarnessTests(unittest.TestCase):
                                  'kernel': normalize_kernel(router, raw['kernel'], self.mapping)}
         return result
 
+    def test_recorded_parallel_withdrawal_retains_inactive_zebra_hop(self):
+        raw = json.loads((ROOT / 'tests/frr/fixtures/parallel-withdrawal.json').read_text())
+        mapping, snapshot = raw['mapping'], raw['snapshot']
+        prefix = '10.10.2.0/24'
+        observed = normalize_zebra('a', raw['zebra'], mapping)
+        remote = next(row for row in observed if row['prefix'] == prefix)
+        self.assertEqual(remote['next_hops'], [{'neighbor': 'b', 'link': 'ab2', 'interface': 'ab2@a'}])
+        expected = next(row for row in snapshot['routes'] if row['router'] == 'a' and row['prefix'] == prefix)
+        self.assertEqual(remote, {key: expected[key] for key in remote})
+        kernel = next(row for row in normalize_kernel('a', raw['kernel'], mapping) if row['prefix'] == prefix)
+        self.assertEqual(remote['next_hops'], kernel['next_hops'])
+        for mutation in ('no-active', 'no-fib', 'invalid-active', 'bad-inactive-gateway', 'duplicate'):
+            changed = copy.deepcopy(raw['zebra'])
+            hops = changed[prefix][0]['nexthops']
+            if mutation == 'no-active':
+                hops[1].pop('active')
+            elif mutation == 'no-fib':
+                hops[1].pop('fib')
+            elif mutation == 'invalid-active':
+                hops[0]['active'] = 'false'
+            elif mutation == 'bad-inactive-gateway':
+                hops[0]['ip'] = '192.0.2.1'
+            else:
+                hops.append(copy.deepcopy(hops[0]))
+            with self.subTest(mutation=mutation), self.assertRaises(ObservationError):
+                normalize_zebra('a', changed, mapping)
+        # An incorrectly inactive branch still fails complete ECMP agreement.
+        snapshot = self.result['snapshots'][0]
+        observations = self.observations(snapshot)
+        diamond = json.loads((ROOT / 'tests/frr/fixtures/diamond-a.json').read_text())['zebra']
+        diamond['10.10.4.0/24'][0]['nexthops'][0].pop('active')
+        observations['a']['zebra'] = normalize_zebra('a', diamond, self.mapping)
+        self.assertEqual(compare(snapshot, observations, self.mapping)['status'], 'fail')
+
     def test_route_envelopes_cannot_become_successful_absence(self):
         raw = json.loads((ROOT / 'tests/frr/fixtures/diamond-a.json').read_text())
         # At origin-down every available router expects route absence. These

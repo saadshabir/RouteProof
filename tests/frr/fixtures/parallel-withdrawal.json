@@ -1,0 +1,684 @@
+{
+  "kernel": [
+    {
+      "dev": "eth0",
+      "dst": "default",
+      "flags": [],
+      "gateway": "198.19.255.1"
+    },
+    {
+      "dev": "stub0",
+      "dst": "10.10.1.0/24",
+      "flags": [],
+      "prefsrc": "10.10.1.1",
+      "protocol": "kernel",
+      "scope": "link"
+    },
+    {
+      "dev": "eth2",
+      "dst": "10.10.2.0/24",
+      "flags": [],
+      "gateway": "198.18.0.6",
+      "metric": 20,
+      "protocol": "ospf"
+    },
+    {
+      "dev": "eth2",
+      "dst": "198.18.0.4/30",
+      "flags": [],
+      "prefsrc": "198.18.0.5",
+      "protocol": "kernel",
+      "scope": "link"
+    },
+    {
+      "dev": "eth0",
+      "dst": "198.19.255.0/24",
+      "flags": [],
+      "prefsrc": "198.19.255.3",
+      "protocol": "kernel",
+      "scope": "link"
+    },
+    {
+      "dev": "stub0",
+      "dst": "10.10.1.1",
+      "flags": [],
+      "prefsrc": "10.10.1.1",
+      "protocol": "kernel",
+      "scope": "host",
+      "table": "local",
+      "type": "local"
+    },
+    {
+      "dev": "stub0",
+      "dst": "10.10.1.255",
+      "flags": [],
+      "prefsrc": "10.10.1.1",
+      "protocol": "kernel",
+      "scope": "link",
+      "table": "local",
+      "type": "broadcast"
+    },
+    {
+      "dev": "lo",
+      "dst": "127.0.0.0/8",
+      "flags": [],
+      "prefsrc": "127.0.0.1",
+      "protocol": "kernel",
+      "scope": "host",
+      "table": "local",
+      "type": "local"
+    },
+    {
+      "dev": "lo",
+      "dst": "127.0.0.1",
+      "flags": [],
+      "prefsrc": "127.0.0.1",
+      "protocol": "kernel",
+      "scope": "host",
+      "table": "local",
+      "type": "local"
+    },
+    {
+      "dev": "lo",
+      "dst": "127.255.255.255",
+      "flags": [],
+      "prefsrc": "127.0.0.1",
+      "protocol": "kernel",
+      "scope": "link",
+      "table": "local",
+      "type": "broadcast"
+    },
+    {
+      "dev": "eth1",
+      "dst": "198.18.0.1",
+      "flags": [],
+      "prefsrc": "198.18.0.1",
+      "protocol": "kernel",
+      "scope": "host",
+      "table": "local",
+      "type": "local"
+    },
+    {
+      "dev": "eth2",
+      "dst": "198.18.0.5",
+      "flags": [],
+      "prefsrc": "198.18.0.5",
+      "protocol": "kernel",
+      "scope": "host",
+      "table": "local",
+      "type": "local"
+    },
+    {
+      "dev": "eth2",
+      "dst": "198.18.0.7",
+      "flags": [],
+      "prefsrc": "198.18.0.5",
+      "protocol": "kernel",
+      "scope": "link",
+      "table": "local",
+      "type": "broadcast"
+    },
+    {
+      "dev": "eth0",
+      "dst": "198.19.255.3",
+      "flags": [],
+      "prefsrc": "198.19.255.3",
+      "protocol": "kernel",
+      "scope": "host",
+      "table": "local",
+      "type": "local"
+    },
+    {
+      "dev": "eth0",
+      "dst": "198.19.255.255",
+      "flags": [],
+      "prefsrc": "198.19.255.3",
+      "protocol": "kernel",
+      "scope": "link",
+      "table": "local",
+      "type": "broadcast"
+    }
+  ],
+  "mapping": {
+    "ecmp_limit": 64,
+    "frr_version": "10.2.1",
+    "image": "quay.io/frrouting/frr@sha256:e47e67bd612030cb1bedee2bde85b73913f2ea021573b749deb21d94940f03c1",
+    "lab_name": "rp-bf379d61ce8a",
+    "links": {
+      "ab1": {
+        "a": {
+          "address": "198.18.0.1",
+          "cost": 3,
+          "interface": "eth1",
+          "model_interface": "ab1@a",
+          "router": "a"
+        },
+        "b": {
+          "address": "198.18.0.2",
+          "cost": 3,
+          "interface": "eth1",
+          "model_interface": "ab1@b",
+          "router": "b"
+        },
+        "subnet": "198.18.0.0/30"
+      },
+      "ab2": {
+        "a": {
+          "address": "198.18.0.5",
+          "cost": 3,
+          "interface": "eth2",
+          "model_interface": "ab2@a",
+          "router": "a"
+        },
+        "b": {
+          "address": "198.18.0.6",
+          "cost": 3,
+          "interface": "eth2",
+          "model_interface": "ab2@b",
+          "router": "b"
+        },
+        "subnet": "198.18.0.4/30"
+      }
+    },
+    "management_subnet": "198.19.255.0/24",
+    "platform": "linux/amd64",
+    "prefixes": {
+      "10.10.1.0/24": {
+        "address": "10.10.1.1/24",
+        "interface": "stub0",
+        "origin": "a",
+        "stub_cost": 2
+      },
+      "10.10.2.0/24": {
+        "address": "10.10.2.1/24",
+        "interface": "stub1",
+        "origin": "b",
+        "stub_cost": 3
+      }
+    },
+    "routers": {
+      "a": {
+        "container": "clab-rp-bf379d61ce8a-r0",
+        "interfaces": {
+          "eth1": {
+            "interface": "ab1@a",
+            "link": "ab1",
+            "neighbor": "b",
+            "peer_address": "198.18.0.2"
+          },
+          "eth2": {
+            "interface": "ab2@a",
+            "link": "ab2",
+            "neighbor": "b",
+            "peer_address": "198.18.0.6"
+          }
+        },
+        "node": "r0",
+        "router_id": "0.0.0.1"
+      },
+      "b": {
+        "container": "clab-rp-bf379d61ce8a-r1",
+        "interfaces": {
+          "eth1": {
+            "interface": "ab1@b",
+            "link": "ab1",
+            "neighbor": "a",
+            "peer_address": "198.18.0.1"
+          },
+          "eth2": {
+            "interface": "ab2@b",
+            "link": "ab2",
+            "neighbor": "a",
+            "peer_address": "198.18.0.5"
+          }
+        },
+        "node": "r1",
+        "router_id": "0.0.0.2"
+      }
+    },
+    "schema_version": 1
+  },
+  "ospf": {
+    "10.10.1.0/24": {
+      "area": "0.0.0.0",
+      "cost": 2,
+      "nexthops": [
+        {
+          "directlyAttachedTo": "stub0",
+          "ip": " "
+        }
+      ],
+      "routeType": "N",
+      "transit": false
+    },
+    "10.10.2.0/24": {
+      "area": "0.0.0.0",
+      "cost": 6,
+      "nexthops": [
+        {
+          "advertisedRouter": "0.0.0.2",
+          "ip": "198.18.0.6",
+          "via": "eth2"
+        }
+      ],
+      "routeType": "N",
+      "transit": false
+    },
+    "198.18.0.4/30": {
+      "area": "0.0.0.0",
+      "cost": 3,
+      "nexthops": [
+        {
+          "directlyAttachedTo": "eth2",
+          "ip": " "
+        }
+      ],
+      "routeType": "N",
+      "transit": false
+    }
+  },
+  "provenance": {
+    "capture": "parallel/captures/event-1/poll-0073/r0",
+    "image": "quay.io/frrouting/frr@sha256:e47e67bd612030cb1bedee2bde85b73913f2ea021573b749deb21d94940f03c1",
+    "run_url": "https://github.com/saadshabir/RouteProof/actions/runs/37724355584",
+    "source_revision": "27edb94add3a11615d850d8ed1311eb875d0f4c8"
+  },
+  "snapshot": {
+    "administratively_up_links": [
+      "ab2"
+    ],
+    "available_routers": [
+      "a",
+      "b"
+    ],
+    "event_id": "link_down-ab1-1",
+    "id": "event-1",
+    "routes": [
+      {
+        "distance_to_origin": 0,
+        "kind": "connected",
+        "metric": 0,
+        "next_hops": [],
+        "origin": "a",
+        "prefix": "10.10.1.0/24",
+        "protocol_cost": 2,
+        "router": "a"
+      },
+      {
+        "distance_to_origin": 3,
+        "kind": "ospf",
+        "metric": 6,
+        "next_hops": [
+          {
+            "interface": "ab2@a",
+            "link": "ab2",
+            "neighbor": "b"
+          }
+        ],
+        "origin": "b",
+        "prefix": "10.10.2.0/24",
+        "protocol_cost": 6,
+        "router": "a"
+      },
+      {
+        "distance_to_origin": 3,
+        "kind": "ospf",
+        "metric": 5,
+        "next_hops": [
+          {
+            "interface": "ab2@b",
+            "link": "ab2",
+            "neighbor": "a"
+          }
+        ],
+        "origin": "a",
+        "prefix": "10.10.1.0/24",
+        "protocol_cost": 5,
+        "router": "b"
+      },
+      {
+        "distance_to_origin": 0,
+        "kind": "connected",
+        "metric": 0,
+        "next_hops": [],
+        "origin": "b",
+        "prefix": "10.10.2.0/24",
+        "protocol_cost": 3,
+        "router": "b"
+      }
+    ],
+    "sequence": 1,
+    "sha256": "34a4e8cb34a0f0cd1e926c735ed326ae1995ee695253162ef745ba629e7a369c"
+  },
+  "zebra": {
+    "0.0.0.0/0": [
+      {
+        "destSelected": true,
+        "distance": 0,
+        "installed": true,
+        "installedNexthopGroupId": 4,
+        "internalFlags": 8,
+        "internalNextHopActiveNum": 1,
+        "internalNextHopNum": 1,
+        "internalStatus": 16,
+        "metric": 0,
+        "nexthopGroupId": 4,
+        "nexthops": [
+          {
+            "active": true,
+            "afi": "ipv4",
+            "fib": true,
+            "flags": 3,
+            "interfaceIndex": 2,
+            "interfaceName": "eth0",
+            "ip": "198.19.255.1",
+            "weight": 1
+          }
+        ],
+        "prefix": "0.0.0.0/0",
+        "prefixLen": 0,
+        "protocol": "kernel",
+        "selected": true,
+        "table": 254,
+        "uptime": "00:01:44",
+        "vrfId": 0,
+        "vrfName": "default"
+      }
+    ],
+    "10.10.1.0/24": [
+      {
+        "distance": 110,
+        "internalFlags": 0,
+        "internalNextHopActiveNum": 1,
+        "internalNextHopNum": 1,
+        "internalStatus": 0,
+        "metric": 2,
+        "nexthopGroupId": 12,
+        "nexthops": [
+          {
+            "active": true,
+            "directlyConnected": true,
+            "fib": true,
+            "flags": 3,
+            "interfaceIndex": 3,
+            "interfaceName": "stub0",
+            "weight": 1
+          }
+        ],
+        "prefix": "10.10.1.0/24",
+        "prefixLen": 24,
+        "protocol": "ospf",
+        "table": 254,
+        "uptime": "00:01:44",
+        "vrfId": 0,
+        "vrfName": "default"
+      },
+      {
+        "destSelected": true,
+        "distance": 0,
+        "installed": true,
+        "installedNexthopGroupId": 12,
+        "internalFlags": 8,
+        "internalNextHopActiveNum": 1,
+        "internalNextHopNum": 1,
+        "internalStatus": 16,
+        "metric": 0,
+        "nexthopGroupId": 12,
+        "nexthops": [
+          {
+            "active": true,
+            "directlyConnected": true,
+            "fib": true,
+            "flags": 3,
+            "interfaceIndex": 3,
+            "interfaceName": "stub0",
+            "weight": 1
+          }
+        ],
+        "prefix": "10.10.1.0/24",
+        "prefixLen": 24,
+        "protocol": "connected",
+        "selected": true,
+        "table": 254,
+        "uptime": "00:01:44",
+        "vrfId": 0,
+        "vrfName": "default"
+      }
+    ],
+    "10.10.1.1/32": [
+      {
+        "destSelected": true,
+        "distance": 0,
+        "installed": true,
+        "installedNexthopGroupId": 12,
+        "internalFlags": 8,
+        "internalNextHopActiveNum": 1,
+        "internalNextHopNum": 1,
+        "internalStatus": 16,
+        "metric": 0,
+        "nexthopGroupId": 12,
+        "nexthops": [
+          {
+            "active": true,
+            "directlyConnected": true,
+            "fib": true,
+            "flags": 3,
+            "interfaceIndex": 3,
+            "interfaceName": "stub0",
+            "weight": 1
+          }
+        ],
+        "prefix": "10.10.1.1/32",
+        "prefixLen": 32,
+        "protocol": "local",
+        "selected": true,
+        "table": 254,
+        "uptime": "00:01:44",
+        "vrfId": 0,
+        "vrfName": "default"
+      }
+    ],
+    "10.10.2.0/24": [
+      {
+        "destSelected": true,
+        "distance": 110,
+        "installed": true,
+        "installedNexthopGroupId": 23,
+        "internalFlags": 8,
+        "internalNextHopActiveNum": 1,
+        "internalNextHopNum": 2,
+        "internalStatus": 16,
+        "metric": 6,
+        "nexthopGroupId": 23,
+        "nexthops": [
+          {
+            "afi": "ipv4",
+            "fib": true,
+            "flags": 2,
+            "interfaceIndex": 50,
+            "interfaceName": "eth1",
+            "ip": "198.18.0.2",
+            "weight": 1
+          },
+          {
+            "active": true,
+            "afi": "ipv4",
+            "fib": true,
+            "flags": 3,
+            "interfaceIndex": 52,
+            "interfaceName": "eth2",
+            "ip": "198.18.0.6",
+            "weight": 1
+          }
+        ],
+        "prefix": "10.10.2.0/24",
+        "prefixLen": 24,
+        "protocol": "ospf",
+        "selected": true,
+        "table": 254,
+        "uptime": "00:01:30",
+        "vrfId": 0,
+        "vrfName": "default"
+      }
+    ],
+    "198.18.0.4/30": [
+      {
+        "distance": 110,
+        "internalFlags": 0,
+        "internalNextHopActiveNum": 1,
+        "internalNextHopNum": 1,
+        "internalStatus": 0,
+        "metric": 3,
+        "nexthopGroupId": 11,
+        "nexthops": [
+          {
+            "active": true,
+            "directlyConnected": true,
+            "fib": true,
+            "flags": 3,
+            "interfaceIndex": 52,
+            "interfaceName": "eth2",
+            "weight": 1
+          }
+        ],
+        "prefix": "198.18.0.4/30",
+        "prefixLen": 30,
+        "protocol": "ospf",
+        "table": 254,
+        "uptime": "00:01:44",
+        "vrfId": 0,
+        "vrfName": "default"
+      },
+      {
+        "destSelected": true,
+        "distance": 0,
+        "installed": true,
+        "installedNexthopGroupId": 11,
+        "internalFlags": 8,
+        "internalNextHopActiveNum": 1,
+        "internalNextHopNum": 1,
+        "internalStatus": 16,
+        "metric": 0,
+        "nexthopGroupId": 11,
+        "nexthops": [
+          {
+            "active": true,
+            "directlyConnected": true,
+            "fib": true,
+            "flags": 3,
+            "interfaceIndex": 52,
+            "interfaceName": "eth2",
+            "weight": 1
+          }
+        ],
+        "prefix": "198.18.0.4/30",
+        "prefixLen": 30,
+        "protocol": "connected",
+        "selected": true,
+        "table": 254,
+        "uptime": "00:01:44",
+        "vrfId": 0,
+        "vrfName": "default"
+      }
+    ],
+    "198.18.0.5/32": [
+      {
+        "destSelected": true,
+        "distance": 0,
+        "installed": true,
+        "installedNexthopGroupId": 11,
+        "internalFlags": 8,
+        "internalNextHopActiveNum": 1,
+        "internalNextHopNum": 1,
+        "internalStatus": 16,
+        "metric": 0,
+        "nexthopGroupId": 11,
+        "nexthops": [
+          {
+            "active": true,
+            "directlyConnected": true,
+            "fib": true,
+            "flags": 3,
+            "interfaceIndex": 52,
+            "interfaceName": "eth2",
+            "weight": 1
+          }
+        ],
+        "prefix": "198.18.0.5/32",
+        "prefixLen": 32,
+        "protocol": "local",
+        "selected": true,
+        "table": 254,
+        "uptime": "00:01:44",
+        "vrfId": 0,
+        "vrfName": "default"
+      }
+    ],
+    "198.19.255.0/24": [
+      {
+        "destSelected": true,
+        "distance": 0,
+        "installed": true,
+        "installedNexthopGroupId": 3,
+        "internalFlags": 8,
+        "internalNextHopActiveNum": 1,
+        "internalNextHopNum": 1,
+        "internalStatus": 16,
+        "metric": 0,
+        "nexthopGroupId": 3,
+        "nexthops": [
+          {
+            "active": true,
+            "directlyConnected": true,
+            "fib": true,
+            "flags": 3,
+            "interfaceIndex": 2,
+            "interfaceName": "eth0",
+            "weight": 1
+          }
+        ],
+        "prefix": "198.19.255.0/24",
+        "prefixLen": 24,
+        "protocol": "connected",
+        "selected": true,
+        "table": 254,
+        "uptime": "00:01:44",
+        "vrfId": 0,
+        "vrfName": "default"
+      }
+    ],
+    "198.19.255.3/32": [
+      {
+        "destSelected": true,
+        "distance": 0,
+        "installed": true,
+        "installedNexthopGroupId": 3,
+        "internalFlags": 8,
+        "internalNextHopActiveNum": 1,
+        "internalNextHopNum": 1,
+        "internalStatus": 16,
+        "metric": 0,
+        "nexthopGroupId": 3,
+        "nexthops": [
+          {
+            "active": true,
+            "directlyConnected": true,
+            "fib": true,
+            "flags": 3,
+            "interfaceIndex": 2,
+            "interfaceName": "eth0",
+            "weight": 1
+          }
+        ],
+        "prefix": "198.19.255.3/32",
+        "prefixLen": 32,
+        "protocol": "local",
+        "selected": true,
+        "table": 254,
+        "uptime": "00:01:44",
+        "vrfId": 0,
+        "vrfName": "default"
+      }
+    ]
+  }
+}

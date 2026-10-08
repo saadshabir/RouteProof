@@ -1,8 +1,9 @@
 """Strict adapters for FRR 10.2.1 default-VRF JSON and Linux iproute2 JSON.
 
 Schema fields verified against FRRouting/frr tag frr-10.2.1, ospfd/ospf_vty.c
-and zebra/zebra_vty.c. Unsupported shapes are infrastructure errors, never an
-empty successful observation. Fixtures in tests/frr are synthetic contracts.
+and zebra/zebra_vty.c plus lib/nexthop.c. Unsupported shapes are infrastructure
+errors, never an empty successful observation. Tests include a recorded Linux
+parallel-link withdrawal as well as synthetic contracts.
 """
 import ipaddress
 
@@ -123,9 +124,11 @@ def normalize_zebra(router, raw, mapping):
                 f"{prefix}: selected route is not installed")
         raw_hops = value.get("nexthops")
         require(isinstance(raw_hops, list) and raw_hops and all(isinstance(h, dict) for h in raw_hops), f"{prefix}: no Zebra next hops")
-        require(all(h.get("active") is True and h.get("fib") is True for h in raw_hops),
-                f"{prefix}: inactive/uninstalled Zebra ECMP branch")
+        require(all(type(h[key]) is bool for h in raw_hops for key in ("active", "fib") if key in h),
+                f"{prefix}: invalid Zebra next-hop state")
         if kind in ("connected", "local"):
+            require(all(h.get("active") is True and h.get("fib") is True for h in raw_hops),
+                    f"{prefix}: inactive/uninstalled Zebra attachment")
             attachment = mapping["prefixes"][prefix]
             require(attachment["origin"] == router and len(raw_hops) == 1
                     and raw_hops[0].get("interfaceName") == attachment["interface"]
@@ -136,7 +139,17 @@ def normalize_zebra(router, raw, mapping):
             kind = "connected"
             hops = []
         else:
-            hops = [hop(router, h.get("interfaceName"), h.get("ip"), mapping) for h in raw_hops]
+            # FRR 10.2.1 emits active/fib only when their independent flags are
+            # set. Its selected RIB can retain an inactive hop with fib=true
+            # after a parallel link fails. Validate every identity, but compare
+            # only active forwarding branches; the kernel plane is independent.
+            identities = [hop(router, h.get("interfaceName"), h.get("ip"), mapping) for h in raw_hops]
+            hops_sorted(identities)  # Inactive records must not hide duplicates.
+            active = [(h, identity) for h, identity in zip(raw_hops, identities) if h.get("active") is True]
+            require(active, f"{prefix}: no active Zebra next hops")
+            require(all(h.get("fib") is True for h, _ in active),
+                    f"{prefix}: active/uninstalled Zebra ECMP branch")
+            hops = [identity for _, identity in active]
         rows.append(row(router, prefix, kind, value.get("metric"), hops))
     return sorted(rows, key=lambda r: r["prefix"])
 
