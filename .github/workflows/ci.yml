@@ -137,5 +137,5 @@ jobs:
           path: |
             results/ci-release/
             results/ci-package/
-            evidence/release/v0.1.0-rc.1/
+            evidence/release/
           if-no-files-found: warn

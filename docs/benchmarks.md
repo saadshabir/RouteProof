@@ -1,9 +1,9 @@
 # Scenario, memory, and scaling measurements
 
-Phase 5 implements repeatable measurement tooling. Published native results and
-clean source reproduction are recorded in [Phase 5 evidence](../evidence/bench/benchmark-validation.md).
-The release remains incomplete: authoritative Linux RSS and the Phase 4 live FRR
-gate remain open. Scenario processing measures converged snapshots; these times
+Repeatable measurement tooling and its acceptance gates are complete. Native results and
+clean source reproduction are recorded in [native evidence](../evidence/bench/benchmark-validation.md).
+[Linux acceptance](../evidence/release/linux/README.md) adds authoritative peak and boundary RSS
+and a clean reproduction for the 16-router small workload. Scenario processing measures converged snapshots; these times
 are not network convergence, detection delays, or outage durations.
 
 ## Run the frozen workloads

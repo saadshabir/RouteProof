@@ -34,6 +34,7 @@ jobs:
     timeout-minutes: 60
     env:
       CXX: g++-14
+      ROUTEPROOF_FRR_IMAGE: quay.io/frrouting/frr@sha256:e47e67bd612030cb1bedee2bde85b73913f2ea021573b749deb21d94940f03c1
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
@@ -52,17 +53,15 @@ jobs:
           mkdir -p results/linux-acceptance
           containerlab version > results/linux-acceptance/containerlab-version.txt
           docker version > results/linux-acceptance/docker-version.txt
-      - name: Resolve immutable FRR image
+      - name: Inspect tested immutable FRR image
         run: |
-          docker pull --platform linux/amd64 quay.io/frrouting/frr:10.2.1
-          docker image inspect quay.io/frrouting/frr:10.2.1 > results/linux-acceptance/image.json
+          docker pull --platform linux/amd64 "$ROUTEPROOF_FRR_IMAGE"
+          docker image inspect "$ROUTEPROOF_FRR_IMAGE" > results/linux-acceptance/image.json
           python3 - <<'PY'
           import json, os
           image = json.load(open('results/linux-acceptance/image.json'))[0]
           assert image['Architecture'] == 'amd64' and image['Os'] == 'linux'
-          pin = image['RepoDigests'][0]
-          with open(os.environ['GITHUB_ENV'], 'a') as output:
-              output.write('ROUTEPROOF_FRR_IMAGE=' + pin + '\n')
+          assert os.environ['ROUTEPROOF_FRR_IMAGE'] in image['RepoDigests']
           PY
       - name: Build and test two clean source checkouts
         run: |

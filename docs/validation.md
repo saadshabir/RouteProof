@@ -4,15 +4,15 @@ The C++ model is `ospf_spf_v1`: one IPv4 area, numbered point-to-point links,
 positive directional costs, passive single-origin destinations, and complete
 ECMP interface sets. [Routing](../evidence/routing/routing-validation.md) and
 [replay](../evidence/replay/replay-validation.md) evidence record the independent
-core checks. Phase 4's lab tooling is implemented and tested offline. **Live FRR
-agreement and the clean Linux rerun remain unverified.**
+core checks. Live FRR agreement and the clean Linux rerun pass for all 27 snapshots and
+687 comparison slots each ([Linux acceptance](../evidence/release/linux/README.md)).
 
 ## Commands
 
 The [Linux acceptance workflow](../.github/workflows/linux-acceptance.yml) runs
 the live matrix on a hosted Ubuntu amd64 runner, so no local Linux installation
-is required. It checksums the Containerlab package, resolves the candidate FRR
-image to an immutable digest, builds and tests two separate clean checkouts, and
+is required. It checksums the Containerlab package, uses the tested immutable FRR
+image digest, builds and tests two separate clean checkouts, and
 runs two fresh lab matrices. `tools/release/check_linux.py` requires the existing
 strict FRR/benchmark reproduction checks and positive authoritative Linux peak,
 loaded and per-snapshot boundary RSS before it reports acceptance. The complete
@@ -73,11 +73,10 @@ python3 tools/frr/compare_runs.py ../frr-matrix/matrix-report.json \
 ```
 
 Every output directory must be fresh. The image architecture and FRR version
-are checked at runtime; the JSON adapter targets **FRR 10.2.1**. The candidate's
-actual image startup, configuration behavior, and JSON output still need a live
-compatibility run. Freeze that tested digest and archive both full matrix runs
-before closing the Phase 4 exit gate. A tag, offline test, or skipped run cannot
-satisfy that gate.
+are checked at runtime; the JSON adapter targets **FRR 10.2.1**. The image's startup, configuration behavior and actual JSON output are verified in
+two fresh live runs; the tested digest is frozen in the workflow and
+[lab environment](lab-environment.md). The full raw matrices are release attachments.
+A tag, offline test or skipped run cannot satisfy that gate.
 
 ## Frozen coverage
 
@@ -183,8 +182,10 @@ FRR's [OSPF inspection commands](https://docs.frrouting.org/en/stable-10.2/ospfd
 and [Zebra inspection commands](https://docs.frrouting.org/en/stable-10.2/zebra.html#show-ip-route)
 provide separate calculation and installed-route observations. Adapter fields
 were checked against the official [OSPF source](https://github.com/FRRouting/frr/blob/frr-10.2.1/ospfd/ospf_vty.c)
-and [Zebra source](https://github.com/FRRouting/frr/blob/frr-10.2.1/zebra/zebra_vty.c).
-Synthetic JSON fixtures protect that contract; recorded live captures remain open.
+[Zebra source](https://github.com/FRRouting/frr/blob/frr-10.2.1/zebra/zebra_vty.c),
+and [next-hop JSON source](https://github.com/FRRouting/frr/blob/frr-10.2.1/lib/nexthop.c).
+Synthetic fixtures and the recorded parallel-link withdrawal protect that contract;
+full live captures are preserved in [release attachments](../evidence/release/linux/README.md).
 
 OSPF costs are compared with `protocol_cost`, including the origin's stub cost.
 Zebra costs are compared with `metric`; local connected delivery has metric 0
@@ -193,8 +194,12 @@ is normalized to that same delivery action after checking its owner, attachment,
 metric, and lack of a gateway. Kernel `/32` local/main-table delivery rows are
 validated separately and collapsed into one action; duplicate rows within a
 table are rejected. Remote forwarding must use the main table.
-All active installed ECMP interfaces must be
-present, with mapped peer addresses. Linux route metrics are not OSPF costs;
+All active installed ECMP interfaces must be present, with mapped peer addresses.
+FRR can retain an inactive RIB next hop with `fib: true` after a parallel-link
+failure. Every retained identity is validated, but only `active: true` branches
+enter the Zebra forwarding comparison; every active branch must also have
+`fib: true`. Missing expected alternatives still fail complete ECMP agreement,
+and the independently captured kernel plane must agree too. Linux route metrics are not OSPF costs;
 kernel comparison checks delivery kind and the complete gateway/interface set.
 Next-hop order is canonicalized, duplicates are rejected, and each parallel
 interface remains distinct. Only supported default-VRF metadata and OSPF router

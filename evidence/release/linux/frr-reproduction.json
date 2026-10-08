@@ -1,0 +1,7 @@
+{
+  "comparison_slots": 687,
+  "reason": "exact semantic reproduction from fresh labs and a clean checkout",
+  "schema_version": 1,
+  "snapshots": 27,
+  "status": "pass"
+}

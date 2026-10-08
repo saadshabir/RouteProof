@@ -1,9 +1,10 @@
 # Release preparation
 
-The current package is **0.1.0-rc.1**, a source candidate. The routing core reports
-`0.1.0`; the artifact filename and manifest carry the candidate suffix. This does
-not close live Linux FRR or authoritative Linux RSS acceptance, create a Git tag,
-or publish a release. Those gates remain explicit in [acceptance.md](acceptance.md).
+The final source artifact is **0.1.0**. Every v0.1 implementation and acceptance
+gate passes, including two fresh live Linux FRR matrices and authoritative Linux
+small-workload RSS. [Final evidence](../evidence/release/v0.1.0/README.md) records
+source hashes, receipts and checksums; [acceptance.md](acceptance.md) is complete.
+The archived `0.1.0-rc.1` native candidate retains its historical incomplete status.
 
 ## Continuous checks
 
@@ -24,8 +25,7 @@ Actions are pinned to reviewed commits; job permissions are read-only and checko
 credentials are not retained. Test logs and Release artifacts are uploaded even
 after failure. Smoke timing is harness verification, not a performance claim.
 The runner compiler versions are above the documented floors; local evidence
-separately covers GCC 12.5.0 and Clang 18.1.8. Live privileged FRR CI is still Linux
-acceptance work until its live workflow passes. The workflow implementation follows GitHub's
+separately covers GCC 12.5.0 and Clang 18.1.8. The live Linux workflow also passes ([recorded run](https://github.com/saadshabir/RouteProof/actions/runs/37725496964)). The workflow implementation follows GitHub's
 [workflow syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax).
 
 ## Source artifact
@@ -51,9 +51,8 @@ receipts are delivered beside the package to avoid recursive source/evidence
 hashes. Dependencies are fetched from the CMake pins, rather than vendored.
 
 The `release-smoke` CI download preserves repository-relative paths under
-`results/ci-package`, `results/ci-release`, and `evidence/release/v0.1.0-rc.1`.
-The last directory contains the native candidate receipts referenced by the
-packaged docs; the CI smoke logs are separate evidence. Keep those companion
+`results/ci-package`, `results/ci-release`, and `evidence/release`.
+The last directory contains the companion receipts referenced by the packaged docs; the CI smoke logs are separate evidence. Keep those companion
 receipts when sharing the source candidate. After extracting the source, copy
 the companion `evidence/release` directory into the extracted tree's `evidence`
 directory so the documentation links resolve. The commands below include that
@@ -61,10 +60,35 @@ copy before creating the clean Git snapshot. With a CI download, use
 `results/ci-package` in place of `results/package-rc1`.
 
 The manifest records the originating revision and dirty state; hashes identify
-the actual packaged bytes even if the work is not committed yet. Candidate-only
-version validation prevents this tool from labelling the unfinished gates as a
-final `0.1.0` release. The archive is source-only; `bench` needs the source checkout,
+the actual packaged bytes even if the work is not committed yet. Candidates retain
+their open gates. A final `0.1.0` artifact requires the two complete raw Linux runs
+described below. The archive is source-only; `bench` needs the source checkout,
 Python harness and adjacent CMake cache, so a copied executable alone is insufficient.
+
+## Final source artifact
+
+After live acceptance succeeds, download the `linux-acceptance` artifact from its
+hosted run, keeping its `first` and `second` directories together:
+
+```sh
+python3 tools/release/package.py --version 0.1.0 \
+  --linux-evidence results/linux-acceptance --out results/package-final
+python3 tools/release/package.py --check --out results/package-final
+```
+
+The packager reruns the strict live matrix and benchmark reproduction checks,
+validates authoritative Linux RSS, and requires the lab and memory samples to
+test the same source and binary. It checks the packaged routing, lab and
+measurement implementation against the recorded source hashes, including the
+input inventory. Documentation and release packaging may change after those
+runs; the receipt records the exact tested revision. A declared pass without
+the raw runs, or a changed implementation, cannot authorize the final artifact.
+
+The final package adds `linux-acceptance.json`, bound to its manifest and
+`SHA256SUMS`, with `release_complete: true` and no open gates. Keep the complete
+raw Linux evidence and the historical native companion receipts beside the
+package. Archive integrity checks establish byte identity; the live captures
+and recorded commands establish the acceptance evidence.
 
 ## Fresh verification and reproduction
 
@@ -106,6 +130,6 @@ checkout and distinct binary. Timing equality is not required. Selected current
 source, commands, logs, demo and benchmark receipts are indexed in
 [candidate evidence](../evidence/release/v0.1.0-rc.1/README.md).
 
-After the Linux gates pass, refresh the final-source evidence and checklist,
-prepare final versioned artifacts, and tag/publish v0.1. No optional proof, UI,
-protocol expansion or optimization is required for that release.
+The final-source evidence and checklist are complete. Source artifacts and raw
+Linux captures are distributed with checksums through the [v0.1.0 release](https://github.com/saadshabir/RouteProof/releases/tag/v0.1.0).
+Optional proof, UI, protocol expansion and optimization remain follow-up work.

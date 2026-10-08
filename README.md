@@ -14,7 +14,7 @@ The first release has five deliverables:
 
 Each event produces a converged forwarding snapshot. Lean, transient convergence, BGP, Prometheus, and visualization are optional follow-up work.
 
-**Current status:** The tool validates and canonicalizes v1 scenarios and computes baseline prefix routes with directional costs, connected delivery, and complete ECMP interface sets. It replays ordered link/router failures and restorations, checks every ECMP branch, and emits validated partition/drop/cycle witnesses. Independent tiny-graph and replay oracles validate routing and findings. The FRR lab generator, five-profile matrix, capture/cleanup harness, and route adapters are implemented with offline tests. Frozen workload generation, fresh-process core/CLI timing, RSS collection, and bounded scaling sweeps are implemented. Native measurements and a clean source reproduction are published; live Linux FRR agreement and authoritative Linux memory evidence remain open.
+**Current status:** v0.1 implementation and acceptance are complete. RouteProof validates strict scenarios, computes directional SPF and complete ECMP sets, replays link/router failures, and checks every forwarding branch with validated explanations. Two fresh Linux FRR runs agree for all 27 snapshots and 687 slots each. Native timing/scaling, clean source reproduction, and authoritative Linux small-workload RSS are published in [release evidence](evidence/release/v0.1.0/README.md).
 
 ## Build
 
@@ -66,8 +66,7 @@ python3 tools/frr/run_matrix.py --generate-only --out results/frr-generated
 This saves configs, mappings, and expected snapshots, reports `skipped`, and exits
 3; it does not claim FRR agreement. Live runs require a Linux amd64
 Docker/Containerlab host and an explicitly supplied FRR 10.2.1 image digest. The
-[Phase 4 evidence](evidence/frr/frr-validation.md) records offline coverage and the
-open live acceptance gate. The [benchmark workflow](docs/benchmarks.md) provides frozen profiles and raw measurements:
+[Linux acceptance evidence](evidence/release/linux/README.md) records the passing live matrix, tested image digest and clean reproduction. The [benchmark workflow](docs/benchmarks.md) provides frozen profiles and raw measurements:
 
 ```sh
 cmake --preset host-release
@@ -100,11 +99,9 @@ failure occur as expected, restoration preserves `cd`'s administrative failure,
 and repeated canonical bytes agree. Its underlying `simulate` and `explain`
 commands deliberately exit 1 for the two broken reachability requirements.
 
-[Release preparation](docs/release.md) documents deterministic `0.1.0-rc.N`
-source packages, integrity checks and fresh clean-source verification.
-[Candidate evidence](evidence/release/v0.1.0-rc.1/README.md) records the native
-release pass. The compiled core version remains `0.1.0`; candidate filenames and
-manifests explicitly mark release readiness as incomplete until Linux FRR and
-authoritative Linux RSS acceptance pass.
-CI downloads include companion candidate receipts; [release preparation](docs/release.md)
-shows how to place them in an extracted source tree so its evidence links resolve.
+[Release documentation](docs/release.md) covers deterministic source artifacts,
+integrity checks and clean-source verification. [Final v0.1.0 evidence](evidence/release/v0.1.0/README.md)
+records completed acceptance and source hashes. [Earlier candidate evidence](evidence/release/v0.1.0-rc.1/README.md)
+remains historical. Raw Linux captures are release attachments; summaries and
+checksums are kept in Git. CI downloads include companion receipts; the release
+documentation explains how to place them in an extracted source tree.

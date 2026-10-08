@@ -5,9 +5,11 @@ Validation date: **2026-10-07 (America/Toronto)**.
 The archived native release preparation is verified against its packaged source.
 That frozen snapshot predates the subsequently added hosted Linux acceptance
 workflow; its file hashes identify the exact native source tested here.
-**The full v0.1 release remains incomplete:** live Linux FRR image compatibility,
-route agreement and clean rerun, plus authoritative Linux peak/boundary RSS,
-still require Linux evidence. No final release tag or publication was created.
+**Historical candidate:** the full release was incomplete when these native
+receipts were collected. [Linux acceptance](../linux/README.md) now closes live
+FRR image compatibility, matrix agreement, clean reproduction and authoritative
+small-workload RSS. The final source artifact is indexed in [v0.1.0 evidence](../v0.1.0/README.md).
+The frozen candidate manifest retains the gates that were open at its collection time.
 
 ## Source artifact and integrity
 

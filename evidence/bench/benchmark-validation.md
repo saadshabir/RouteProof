@@ -1,8 +1,9 @@
 # Phase 5 benchmark evidence
 
-Validation date: 2026-10-07 (America/Toronto). Phase 5's implementation and native
-measurement/reproduction evidence are delivered. Authoritative Linux memory and
-the existing live FRR release gates remain open. No optimization or network
+Historical native validation date: 2026-10-07 (America/Toronto). Native
+measurement/reproduction evidence is delivered. The Linux gates were open then;
+[Linux acceptance](../release/linux/README.md) now records completed live FRR
+reproduction and authoritative small-workload RSS. No optimization or network
 convergence claim is made.
 
 ## Workloads and measured results
@@ -99,9 +100,9 @@ Repeated canonical copies were deleted after hashing; one result per completed
 cell is retained. The source archive predates this evidence index and contains the
 exact measured code. Documentation added afterward does not change that code hash.
 
-The repository remains in building status until the open Linux memory and live
-FRR gates have reproducible evidence. `bench` implements both Linux and macOS RSS
-collection; the absence of a Linux host is represented honestly in this bundle.
+This historical bundle contains native measurements. `bench` implements both
+Linux and macOS RSS; authoritative Linux samples and their clean reproduction
+are now available in [the completed release receipts](../release/linux/README.md).
 
 ## Review fixes
 

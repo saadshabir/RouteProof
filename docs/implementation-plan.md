@@ -1,6 +1,6 @@
 # RouteProof: focused MVP implementation plan
 
-**Status:** execution in progress; Phases 0–3 are complete. SPF/prefix/ECMP routing, deterministic failure replay, and all-branch reachability with validated witnesses are implemented and independently checked. Phase 4 lab tooling and offline harness checks are implemented; live Linux FRR comparisons, image compatibility/digest freezing, and authoritative Linux memory remain open. Phase 5 tooling and native measurement/reproduction evidence are implemented.
+**Status:** completed. All five v0.1 deliverables and every implementation exit gate are complete. Independent routing/replay/witness checks, native scaling and clean source reproduction, hosted compiler/sanitizer jobs, and two fresh Linux FRR matrices pass. Each Linux matrix covers all 27 snapshots and 687 comparison slots; authoritative Linux peak and boundary RSS are recorded. See [Linux acceptance](../evidence/release/linux/README.md) and [release evidence](../evidence/release/v0.1.0/README.md). Optional follow-up projects remain outside this completed scope.
 
 **Scope:** the five deliverables specified below.
 
@@ -192,7 +192,7 @@ Forbidden reachability, policy isolation, route leaks, and unexpected-transit as
 
 Initially keep topology, events, and assertions in one strict versioned YAML file. Split shared inputs through explicit references only when benchmark reuse warrants it.
 
-The example and `validate`, `simulate`, and `explain` commands are implemented. FRR generation/live-harness commands are implemented; the privileged Linux agreement gate remains open. `bench` is implemented with frozen JSON profiles, raw sample manifests, and explicit resource budgets; see [benchmarks.md](benchmarks.md).
+The example and `validate`, `simulate`, and `explain` commands are implemented. FRR generation/live-harness commands are implemented and the privileged Linux agreement/reproduction gate passes ([evidence](../evidence/release/linux/README.md)). `bench` is implemented with frozen JSON profiles, raw sample manifests, and explicit resource budgets; see [benchmarks.md](benchmarks.md).
 
 ```yaml
 schema_version: 1
@@ -508,7 +508,7 @@ Deliverables: lab/config generator, readiness/stability/cleanup harness, JSON no
 
 Exit gate: every declared supported baseline/post-event snapshot agrees exactly; missing/extra routes and unavailable routers are handled explicitly; a clean rerun reproduces the evidence. Timeouts remain failures.
 
-**Status:** tooling implemented and offline checks pass. Generator, complete five-profile/six-scenario matrix, bounded readiness/stability, physical event replay, raw JSON capture, strict FRR 10.2.1 adapters (including `/32` local delivery), comparison denominators, and owned-resource cleanup are documented in [validation.md](validation.md). Generated configs disable kernel next-hop objects for explicit route captures; rerun acceptance checks live provenance, distinct lab identities, source/image consistency, and a clean reproduction checkout. [Phase 4 evidence](../evidence/frr/frr-validation.md) records offline coverage. Matrix interruption handling isolates child sessions, defers further signals during cleanup/evidence collection, and preserves partial comparisons with checkpoint coverage totals; [follow-up checks](../evidence/frr/matrix-interruption/validation.md) cover those paths. The 27-snapshot/687-slot live matrix, tested image digest, recorded JSON compatibility, and fresh Linux rerun remain open; this phase's exit gate is not complete.
+**Status:** complete. The five-profile/six-scenario live matrix matches all 27 snapshots and 687 declared slots in two fresh Linux runs. FRR 10.2.1 image startup, configuration and recorded JSON compatibility are verified; its tested amd64 digest is frozen. Raw captures, configurations, environment manifests, complete cleanup and clean-source reproduction are available in [Linux acceptance](../evidence/release/linux/README.md). [Offline coverage](../evidence/frr/frr-validation.md) and [interruption checks](../evidence/frr/matrix-interruption/validation.md) remain recorded.
 
 ### Phase 5 — Scenario, memory, and scaling evidence (3–5 days)
 
@@ -520,15 +520,7 @@ Exit gate: the measurement boundary and workload dimensions are explicit; at lea
 
 Optimize only a measured bottleneck, retaining the reference implementation and checking semantic equivalence.
 
-**Implementation status:** frozen v1 profiles, core/per-snapshot instrumentation,
-fresh-process CLI/RSS collection, strict sample policy, bounded scaling, interrupted
-worker cleanup, and clean source comparison are implemented. [Benchmark documentation](benchmarks.md)
-defines boundaries, counters, PRNG and budgets; [Phase 5 evidence](../evidence/bench/benchmark-validation.md)
-contains native raw samples and reproduction. Canonical simulation bytes remain
-identical with instrumentation. The authoritative Linux RSS gate remains open;
-native macOS memory is explicitly provisional. No routing optimization was added.
-[Review-fix evidence](../evidence/bench/review-fixes/README.md) covers sweep completion,
-binary/harness provenance, counter/timing validation and final timeout enforcement.
+**Status:** complete. Frozen workloads, core/per-snapshot and complete CLI measurements, bounded scaling, strict sample policy, cleanup, and source reproduction are implemented. [Native evidence](../evidence/bench/benchmark-validation.md) records scaling and timing; [Linux acceptance](../evidence/release/linux/README.md) adds five ordinary and five instrumented fresh-process samples in each of two clean builds, including peak, loaded and per-snapshot boundary RSS for the 16-router small workload. Canonical bytes and counters reproduce exactly. Native macOS RSS remains provisional; Linux coverage is explicitly limited to the published small workload. No routing optimization was added.
 
 ### Phase 6 — Release credibility pass (2–3 days)
 
@@ -538,7 +530,7 @@ Deliverables: final README/model/validation/benchmark docs, a runnable diamond d
 
 Exit gate: every release checkbox has an evidence pointer; optional follow-up features have not become hidden dependencies.
 
-**Non-Linux implementation:** CI workflows run native/Linux compiler builds, all acceptance groups, a separate sanitizer/generated-corpus job, and a Release demo/benchmark smoke job. The checked diamond runner verifies both expected failures, branch changes, restoration and repeat bytes. Deterministic `0.1.0-rc.N` source packages include per-file hashes and archive checksums. [Release preparation](release.md) documents clean candidate verification and the [candidate evidence](../evidence/release/v0.1.0-rc.1/README.md). Phase 6's full release gate stays open until the live Linux lab/image/rerun and authoritative Linux RSS gates pass; candidate artifacts do not claim a completed v0.1 release.
+**Status:** complete. Hosted Linux GCC/Clang, native macOS Clang, sanitizers/generated corpus, Release demo and benchmark smoke checks pass. The final `0.1.0` source artifact revalidates raw Linux matrix/benchmark reproduction and binds acceptance to the tested implementation hashes. [Release documentation](release.md), [release evidence](../evidence/release/v0.1.0/README.md), and the complete [acceptance checklist](acceptance.md) give commands and receipts. Earlier candidate artifacts remain historical.
 
 **Total planning range:** 22–33 focused days, approximately 130–200 hours. At 15 hours/week, allow roughly 9–14 weeks before interruptions. FRR environment and normalization issues are the largest uncertainty.
 
@@ -555,8 +547,7 @@ CI should run:
 
 The nonprivileged jobs are implemented in [ci.yml](../.github/workflows/ci.yml).
 They use the existing independent oracles and generated corpus, run offline FRR
-failure-injection checks, and retain test/demo/benchmark artifacts. Privileged live
-FRR execution remains part of the Linux work; offline CI never closes that gate.
+failure-injection checks, and retain test/demo/benchmark artifacts. The [privileged Linux workflow](../.github/workflows/linux-acceptance.yml) also passes both fresh live matrices and authoritative memory checks ([receipts](../evidence/release/linux/README.md)).
 
 A local lack of privileged networking is an explicit skipped lab status. It does not satisfy release acceptance.
 
@@ -588,15 +579,15 @@ Every item requires a command, result, or evidence pointer.
 - [x] Every path/cycle/frontier certificate validates against its referenced snapshot ([Phase 3 evidence](../evidence/replay/replay-validation.md)).
 - [x] The diamond trace reproduces its expected branch changes and failures ([Phase 3 evidence](../evidence/replay/replay-validation.md)).
 - [x] Independent tiny-graph checks and sanitizer fixtures pass ([Phase 3 evidence](../evidence/replay/replay-validation.md)).
-- [ ] All five FRR lab profiles match converged costs and complete next-hop sets for their declared snapshots.
-- [ ] Raw comparisons, denominators, errors, and generated configurations are available.
+- [x] All five FRR lab profiles match converged costs and complete next-hop sets for their declared snapshots ([Linux acceptance](../evidence/release/linux/README.md)).
+- [x] Raw comparisons, denominators, errors, and generated configurations are available ([release attachments and checksums](../evidence/release/linux/README.md)).
 - [x] Native scenario time, provisional RSS, and scaling measurements include raw samples and workload dimensions ([Phase 5 evidence](../evidence/bench/benchmark-validation.md)).
-- [ ] Authoritative Linux peak/steady RSS evidence is published.
+- [x] Authoritative Linux peak/steady RSS evidence is published for the small workload ([Linux memory receipts](../evidence/release/linux/README.md)).
 - [x] At least one representative native measurement reproduces from a clean source checkout ([Phase 5 evidence](../evidence/bench/benchmark-validation.md)).
 - [x] Budget-skipped probes and harness timeout/memory/interruption checks remain visible ([Phase 5 evidence](../evidence/bench/benchmark-validation.md)).
 - [x] README states measured coverage, model limits, and actual project status ([README](../README.md); [native benchmark evidence](../evidence/bench/benchmark-validation.md)).
 
-Keep the project marked as planning/building until these gates pass. Portfolio claims should describe shipped behavior and measured workloads.
+All v0.1 gates above pass. Portfolio claims should stay within the shipped model, observed lab matrix, and published workloads.
 
 ## 13. Optional follow-up work
 

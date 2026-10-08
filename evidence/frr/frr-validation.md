@@ -1,7 +1,9 @@
 # Phase 4: FRR tooling and offline validation
 
-Validation date: **2026-10-06**. Host: macOS 27.0.1 arm64. Phase 4's code is
-implemented; its privileged Linux FRR exit gate remains **open**.
+Historical offline validation date: **2026-10-06**. Host: macOS 27.0.1 arm64.
+The Linux gate was open at that time. It is now complete in [Linux acceptance](../release/linux/README.md):
+two fresh live matrices pass all 27 snapshots and 687 slots each. Earlier raw
+records and open-gate notes below describe this historical offline run.
 
 ## Implemented
 

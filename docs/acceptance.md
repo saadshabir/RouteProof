@@ -1,14 +1,14 @@
 # v0.1 acceptance checklist
 
-The release stays incomplete until every deliverable has reproducible evidence. A checked box must point to a command, result, or evidence artifact; implementation status alone is not evidence.
+**Status: completed.** Every v0.1 deliverable has reproducible evidence. Checked boxes point to commands, results or artifacts; Linux acceptance is recorded in [the release receipts](../evidence/release/linux/README.md).
 
 | Release deliverable | Required acceptance evidence | Status |
 | --- | --- | --- |
 | C++20 routing engine: validated single-area model, prefixes, shortest paths, complete ECMP | Independent tiny-graph oracle agrees on costs and all first-hop interfaces, including asymmetry and parallel links | Complete for baseline routing; [Routing evidence](../evidence/routing/routing-validation.md) |
 | Link/router failure scenarios with deterministic replay | Baseline plus each ordered event yields canonical snapshots; repeat runs/toolchains agree; router restoration preserves link administrative state | Complete; [Replay evidence](../evidence/replay/replay-validation.md) |
 | All-branch reachability and useful explanations | Every ECMP branch is checked; each emitted witness/frontier certificate validates against its snapshot; resource exhaustion is `incomplete` | Complete; [Replay evidence](../evidence/replay/replay-validation.md) |
-| FRRouting comparison | Fresh supported labs agree on converged route costs and full next-hop sets for every declared snapshot, including missing routes | Tooling implemented; offline checks pass; live Linux agreement/rerun open ([FRR evidence](../evidence/frr/frr-validation.md)) |
-| Reproducible time, memory, and scaling measurements | Frozen workload, commands, toolchain/host manifest, raw samples, hashes, and one clean-checkout reproduction | Native timing/scaling and provisional RSS published; clean source reproduction passes; authoritative Linux RSS open ([Benchmark evidence](../evidence/bench/benchmark-validation.md)) |
+| FRRouting comparison | Fresh supported labs agree on converged route costs and full next-hop sets for every declared snapshot, including missing routes | Complete; two fresh live Linux matrices agree exactly ([Linux evidence](../evidence/release/linux/README.md)) |
+| Reproducible time, memory, and scaling measurements | Frozen workload, commands, toolchain/host manifest, raw samples, hashes, and one clean-checkout reproduction | Complete; native timing/scaling and Linux small-workload RSS reproduce ([native evidence](../evidence/bench/benchmark-validation.md), [Linux evidence](../evidence/release/linux/README.md)) |
 
 ## Build contract
 
@@ -48,7 +48,7 @@ Commands, compiler details, coverage, and logs are recorded in [routing-validati
 - [x] Routing/analysis/history/output budgets produce incomplete results; incomplete snapshots are never published as passing.
 - [x] CLI simulation/explanation, digest rejection, invalid input, preserved existing artifacts, and host ASan/UBSan checks pass.
 
-Commands and raw output are recorded in [replay-validation.md](../evidence/replay/replay-validation.md). FRR comparison and measurement release gates remain open.
+Commands and raw output are recorded in [replay-validation.md](../evidence/replay/replay-validation.md). FRR comparison and measurement release gates also pass ([Linux evidence](../evidence/release/linux/README.md)).
 
 ## FRRouting labs
 
@@ -57,13 +57,13 @@ Commands and raw output are recorded in [replay-validation.md](../evidence/repla
 - [x] Readiness/stability deadlines, explicit missing/unavailable states, raw captures, mismatch reports, and run-owned cleanup pass offline failure-injection tests.
 - [x] Adapter regressions cover malformed envelopes and `/32` local delivery; generated configs disable kernel next-hop objects for explicit forwarding captures.
 - [x] Rerun checks reject reused lab identities, missing/nonlive provenance, inconsistent coverage, and dirty reproduction checkouts.
-- [ ] Candidate FRR 10.2.1 Linux amd64 image startup/configuration and actual JSON compatibility are verified, and the tested digest is frozen.
-- [ ] Every supported live baseline/post-event snapshot agrees exactly across OSPF, Zebra, and kernel forwarding.
-- [ ] Raw live captures, environment/configuration manifests, denominators, and a second clean Linux run reproduce the agreement.
+- [x] FRR 10.2.1 Linux amd64 image startup/configuration and actual JSON compatibility are verified, and the tested digest is frozen.
+- [x] Every supported live baseline/post-event snapshot agrees exactly across OSPF, Zebra, and kernel forwarding.
+- [x] Raw live captures, environment/configuration manifests, denominators, and a second clean Linux run reproduce the agreement.
 
 Commands, limitations, and evidence are documented in [validation.md](validation.md)
 and [frr-validation.md](../evidence/frr/frr-validation.md). Offline transport tests
-and generation-only `skipped` reports do not close the live release gate.
+and generation-only `skipped` reports do not close the live release gate; the two [recorded live runs](../evidence/release/linux/README.md) do.
 
 ## Scenario benchmarks
 
@@ -77,8 +77,7 @@ and generation-only `skipped` reports do not close the live release gate.
   workload's canonical bytes and counters.
 - [x] Budget-skipped cells, timeouts, memory guard failures and interrupted workers
   retain explicit evidence; owned worker processes are terminated and reaped.
-- [ ] Authoritative Linux peak and boundary RSS samples are published. Native
-  macOS RSS is provisional and does not close this memory gate.
+- [x] Authoritative Linux peak and boundary RSS samples are published for the 16-router small workload ([receipts](../evidence/release/linux/README.md)). Native macOS RSS remains provisional.
 
 Commands, measured coverage, raw evidence and limitations are recorded in
 [benchmarks.md](benchmarks.md) and [benchmark-validation.md](../evidence/bench/benchmark-validation.md).
@@ -90,15 +89,13 @@ and final timeout enforcement.
 
 - [x] Core CI declares Linux GCC/Clang and native macOS builds, all CTest checks,
   a separate sanitizer/generated-corpus job, and a Release benchmark smoke job
-  ([workflow](../.github/workflows/ci.yml)). Hosted job outcomes require a GitHub run;
-  local verification does not claim those jobs have executed.
+  ([workflow](../.github/workflows/ci.yml), [passing hosted run](https://github.com/saadshabir/RouteProof/actions/runs/37726063505)).
 - [x] Current README and model status distinguish shipped behavior, published native
-  measurements and the open Linux gates ([README](../README.md), [model](model.md)).
+  measurements and completed Linux acceptance ([README](../README.md), [model](model.md)).
 - [x] A checked diamond demo verifies expected failures, restoration and deterministic
   canonical bytes ([runner](../tools/release/demo.py), [candidate evidence](../evidence/release/v0.1.0-rc.1/README.md)).
 - [x] Versioned source candidate artifacts have deterministic archives, per-file
   hashes and integrity checks ([packager](../tools/release/package.py), [candidate evidence](../evidence/release/v0.1.0-rc.1/README.md)).
 - [x] Fresh native candidate builds/tests and a separate clean-source benchmark
   reproduction are recorded ([candidate evidence](../evidence/release/v0.1.0-rc.1/README.md)).
-- [ ] Live Linux lab/image/rerun and authoritative Linux RSS gates above pass before
-  tagging/publishing the final v0.1 release. Phase 6's complete release gate remains open.
+- [x] Live Linux lab/image/rerun and authoritative Linux RSS gates pass ([receipts](../evidence/release/linux/README.md)); final versioned artifacts and checksums are recorded in [release evidence](../evidence/release/v0.1.0/README.md).
