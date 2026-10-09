@@ -17,6 +17,9 @@ namespace routeproof::output {
 namespace {
 using Json = nlohmann::json;
 std::string digest(const Json& value) { return picosha2::hash256_hex_string(value.dump()); }
+// Result files are untrusted even when their unkeyed digests match. JSON's
+// default UTF-8 output leaves C1 terminal controls and bidi overrides intact.
+std::string display_json(const Json& value) { return value.dump(-1, ' ', true); }
 void charge(std::size_t& used, std::size_t count, std::size_t limit, const char* message) {
     if (used > limit || count > limit - used) { throw spf::ResourceLimit(message); }
     used += count;
@@ -322,31 +325,31 @@ SimulationOutput explain(const std::filesystem::path& file, const std::string& a
             assertion_status = std::max(assertion_status, record_status);
             if (record.at("assertion_id") != assertion) { continue; }
             found = true;
-            output << record.at("snapshot_id").dump() << ": " << record.at("status").get<std::string>() << '\n';
+            output << display_json(record.at("snapshot_id")) << ": " << record.at("status").get<std::string>() << '\n';
             for (const auto& finding : record.at("findings")) {
-                output << "  " << finding.at("kind").dump() << ": " << finding.at("source").dump()
-                       << " -> " << finding.at("destination").dump() << " (all ECMP branches required)\n";
+                output << "  " << display_json(finding.at("kind")) << ": " << display_json(finding.at("source"))
+                       << " -> " << display_json(finding.at("destination")) << " (all ECMP branches required)\n";
                 output << "  path: ";
                 for (const auto& step : finding.at("path")) {
-                    output << step.at("router").dump();
+                    output << display_json(step.at("router"));
                     const auto& hop = step.at("next_hop");
-                    if (hop.contains("link")) { output << " --" << hop.at("interface").dump() << "--> "; }
-                    else { output << " [" << hop.at("action").dump() << "]"; }
+                    if (hop.contains("link")) { output << " --" << display_json(hop.at("interface")) << "--> "; }
+                    else { output << " [" << display_json(hop.at("action")) << "]"; }
                 }
                 output << '\n';
                 if (finding.contains("reachable_component")) {
-                    output << "  component: " << finding.at("reachable_component").dump()
-                           << "; origin: " << finding.at("destination_origin").dump()
-                           << "; frontier: " << finding.at("frontier").dump() << '\n';
+                    output << "  component: " << display_json(finding.at("reachable_component"))
+                           << "; origin: " << display_json(finding.at("destination_origin"))
+                           << "; frontier: " << display_json(finding.at("frontier")) << '\n';
                 }
-                if (finding.contains("cycle_entry")) { output << "  cycle enters at step " << finding.at("cycle_entry") << '\n'; }
+                if (finding.contains("cycle_entry")) { output << "  cycle enters at step " << display_json(finding.at("cycle_entry")) << '\n'; }
             }
         }
         if (exit_code != 3 && exit_code != assertion_status) {
             throw input::InputError("result status/assertion outcomes mismatch");
         }
         if (!found && result.at("status") != "incomplete") { throw input::InputError("unknown assertion in result"); }
-        if (result.contains("incomplete_reason")) { output << "incomplete: " << result.at("incomplete_reason").dump() << '\n'; }
+        if (result.contains("incomplete_reason")) { output << "incomplete: " << display_json(result.at("incomplete_reason")) << '\n'; }
         return {output.str(), exit_code};
     } catch (const Json::exception& error) {
         throw input::InputError(std::string("invalid result JSON: ") + error.what());

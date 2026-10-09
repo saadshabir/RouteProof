@@ -6,17 +6,42 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'tools'))
 sys.path.insert(0, str(ROOT / 'tools/linux'))
 from demo import check_result, run
 from check_acceptance import memory_evidence, same_implementation
+import verify_checkout
 
 BINARY = Path(sys.argv.pop(1)).resolve()
 
 
 class WorkflowTests(unittest.TestCase):
+    def test_dependency_cache_rejects_a_checkout_matching_a_moved_tag(self):
+        with tempfile.TemporaryDirectory() as name:
+            tmp = Path(name)
+            source = tmp / 'source'
+            source.mkdir()
+            args = SimpleNamespace(source=source, out=tmp / 'verification', dependency_cache=tmp / 'cache',
+                                   gcc_cxx=None, clang_cxx=None, sanitizers=False, jobs=1)
+
+            def git_output(argv, **_kwargs):
+                # Both HEAD and a moved local release tag resolve to the same
+                # unreviewed commit. A clean tree alone must not authorize it.
+                return '' if 'status' in argv else 'f' * 40 + '\n'
+
+            with mock.patch.object(verify_checkout.subprocess, 'check_output', side_effect=git_output), \
+                    mock.patch.object(verify_checkout.subprocess, 'run') as command, \
+                    mock.patch.object(verify_checkout.platform, 'platform', return_value='test-host'):
+                self.assertEqual(verify_checkout.verify(args), 3)
+                command.assert_not_called()
+            report = json.loads((args.out / 'verification.json').read_text())
+            self.assertIn('match pinned commit', report['reason'])
+            self.assertNotIn('reused_dependencies', report)
+
     def test_linux_gate_rejects_unrelated_lab_and_memory_builds(self):
         files = {name: 'a' * 64 for name in ('CMakeLists.txt', 'CMakePresets.json', 'app/main.cpp')}
         manifest = {'host': {'source_revision': '1' * 40, 'binary_sha256': 'b' * 64,

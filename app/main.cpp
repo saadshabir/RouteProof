@@ -5,13 +5,50 @@
 #include "routeproof/output/simulation.hpp"
 #include "routeproof/bench/measurement.hpp"
 #include <filesystem>
-#include <fstream>
+#include <cerrno>
+#include <fcntl.h>
+#include <unistd.h>
 
 #include <iostream>
 #include <string>
 #include <string_view>
+#include <system_error>
 
 namespace {
+
+void write_artifact(const std::filesystem::path& path, const std::string& content) {
+    // O_EXCL rejects every existing directory entry, including dangling
+    // symlinks, and closes the race between an existence check and creation.
+    const int descriptor = ::open(path.c_str(), O_WRONLY | O_CREAT | O_EXCL | O_CLOEXEC, 0666);
+    if (descriptor < 0) {
+        if (errno == EEXIST) {
+            throw std::runtime_error("output artifact already exists; use a fresh output directory");
+        }
+        throw std::system_error(errno, std::generic_category(), "output artifact create failed");
+    }
+    try {
+        const auto write_all = [&](const std::string_view bytes) {
+            std::size_t offset = 0;
+            while (offset < bytes.size()) {
+                const auto count = ::write(descriptor, bytes.data() + offset, bytes.size() - offset);
+                if (count < 0 && errno == EINTR) { continue; }
+                if (count <= 0) {
+                    throw std::system_error(count < 0 ? errno : EIO, std::generic_category(),
+                                            "output artifact write failed");
+                }
+                offset += static_cast<std::size_t>(count);
+            }
+        };
+        write_all(content);
+        write_all("\n");
+    } catch (...) {
+        ::close(descriptor);
+        throw;
+    }
+    if (::close(descriptor) != 0) {
+        throw std::system_error(errno, std::generic_category(), "output artifact close failed");
+    }
+}
 
 std::string escape_output(const std::string_view text) {
     constexpr char hex[] = "0123456789abcdef";
@@ -132,16 +169,12 @@ int main(int argc, char* argv[]) {
             const std::filesystem::path directory(argv[4]);
             std::filesystem::create_directories(directory);
             auto write = [&](const char* name, const std::string& content) {
-                // Refuse existing artifacts; a failed run must not leave an old
-                // success at the requested result path.
-                const auto path = directory / name;
-                if (std::filesystem::exists(path)) { throw std::runtime_error("output artifact already exists; use a fresh output directory"); }
-                std::ofstream file(path, std::ios::binary);
-                file << content << '\n'; file.close();
-                if (!file) { throw std::runtime_error("output artifact write failed"); }
+                write_artifact(directory / name, content);
             };
-            if (std::filesystem::exists(directory / "result.json") || std::filesystem::exists(directory / "run.json") ||
-                (instrument && std::filesystem::exists(directory / "sample.json"))) {
+            const auto occupied = [&](const char* name) {
+                return std::filesystem::symlink_status(directory / name).type() != std::filesystem::file_type::not_found;
+            };
+            if (occupied("result.json") || occupied("run.json") || (instrument && occupied("sample.json"))) {
                 throw std::runtime_error("output artifacts already exist; use a fresh output directory");
             }
             write("run.json", routeproof::output::run_manifest(loaded, result, argv[2], elapsed));

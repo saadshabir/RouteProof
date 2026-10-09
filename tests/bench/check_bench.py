@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Benchmark contracts: semantics, frozen dimensions, raw evidence and limits."""
 import copy
+import io
 import json
 import os
 import signal
@@ -16,7 +17,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'tools/bench'))
-from generate import Random, generate, read_json
+from generate import MAX_JSON_NESTING, MAX_PROFILE_BYTES, Random, generate, read_json
 from run import execute, provenance, run_child, source_manifest, validate_profile
 from compare_runs import compare, validate_run
 
@@ -25,6 +26,110 @@ PROFILE = read_json(ROOT / 'benchmarks/profiles/sparse-small.json')
 
 
 class BenchTests(unittest.TestCase):
+    def test_output_artifacts_reject_existing_entries_and_symlinks(self):
+        source = ROOT / 'examples/diamond-failures.yaml'
+        sentinel = b'preserve this file\n'
+        with tempfile.TemporaryDirectory() as name:
+            tmp = Path(name)
+            for mode in ('simulate', 'bench-sample'):
+                artifacts = ('run.json', 'result.json', 'sample.json') if mode == 'bench-sample' else ('run.json', 'result.json')
+                for artifact in artifacts:
+                    for kind in ('file', 'symlink', 'dangling', 'fifo'):
+                        with self.subTest(mode=mode, artifact=artifact, kind=kind):
+                            out = tmp / f'{mode}-{artifact}-{kind}'
+                            out.mkdir()
+                            entry = out / artifact
+                            target = tmp / f'{out.name}-target'
+                            if kind == 'file':
+                                entry.write_bytes(sentinel)
+                            elif kind == 'fifo':
+                                os.mkfifo(entry)
+                            else:
+                                if kind == 'symlink':
+                                    target.write_bytes(sentinel)
+                                entry.symlink_to(target)
+                            process = subprocess.run([BINARY, mode, str(source), '--out', str(out)],
+                                                     capture_output=True, timeout=10)
+                            self.assertEqual(process.returncode, 3, process.stderr)
+                            self.assertIn(b'already exist', process.stderr)
+                            self.assertEqual(list(out.iterdir()), [entry])
+                            if kind == 'file':
+                                self.assertEqual(entry.read_bytes(), sentinel)
+                            elif kind in ('symlink', 'dangling'):
+                                self.assertTrue(entry.is_symlink())
+                                if kind == 'symlink':
+                                    self.assertEqual(target.read_bytes(), sentinel)
+                                else:
+                                    self.assertFalse(target.exists())
+
+    def test_concurrent_simulations_preserve_the_winning_artifacts(self):
+        with tempfile.TemporaryDirectory() as name:
+            out = Path(name) / 'shared'
+            command = [BINARY, 'simulate', str(ROOT / 'examples/diamond-failures.yaml'), '--out', str(out)]
+            first = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            second = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            first.communicate(timeout=10)
+            second.communicate(timeout=10)
+            self.assertEqual(sorted((first.returncode, second.returncode)), [1, 3])
+            result = json.loads((out / 'result.json').read_bytes())
+            manifest = json.loads((out / 'run.json').read_bytes())
+            self.assertEqual(manifest['result_sha256'], result['canonical_sha256'])
+            preserved = {path.name: path.read_bytes() for path in out.iterdir()}
+            rejected = subprocess.run(command, capture_output=True, timeout=10)
+            self.assertEqual(rejected.returncode, 3)
+            self.assertEqual({path.name: path.read_bytes() for path in out.iterdir()}, preserved)
+
+    def test_profile_read_enforces_byte_budget_before_allocation(self):
+        reads = []
+
+        class TrackingStream(io.BytesIO):
+            def read(self, size=-1):
+                reads.append(size)
+                return super().read(size)
+
+        with mock.patch.object(Path, 'open', return_value=TrackingStream(b' ' * (MAX_PROFILE_BYTES + 100))):
+            with self.assertRaisesRegex(ValueError, 'byte budget'):
+                read_json('unused.json')
+        self.assertEqual(reads, [MAX_PROFILE_BYTES + 1])
+        with tempfile.TemporaryDirectory() as name:
+            path = Path(name) / 'profile.json'
+            path.write_bytes(b'{}' + b' ' * (MAX_PROFILE_BYTES - 2))
+            self.assertEqual(read_json(path), {})
+            path.write_bytes(path.read_bytes() + b' ')
+            with self.assertRaisesRegex(ValueError, 'byte budget'):
+                read_json(path)
+            path.write_bytes(json.dumps('\u00e9' * (MAX_PROFILE_BYTES // 2), ensure_ascii=False).encode())
+            with self.assertRaisesRegex(ValueError, 'byte budget'):
+                read_json(path)
+
+    def test_profile_depth_limits_strings_and_safe_duplicate_diagnostics(self):
+        with tempfile.TemporaryDirectory() as name:
+            path = Path(name) / 'profile.json'
+            path.write_text('[' * MAX_JSON_NESTING + '0' + ']' * MAX_JSON_NESTING)
+            value = read_json(path)
+            for _ in range(MAX_JSON_NESTING):
+                value = value[0]
+            self.assertEqual(value, 0)
+            path.write_text('[' * 2000 + '0' + ']' * 2000)
+            with self.assertRaisesRegex(ValueError, 'nesting budget'):
+                read_json(path)
+            process = subprocess.run([BINARY, 'bench', '--profile', str(path), '--out', str(Path(name) / 'out')],
+                                     capture_output=True, timeout=10)
+            self.assertEqual(process.returncode, 2, process.stderr)
+            self.assertNotIn(b'Traceback', process.stderr)
+            self.assertFalse((Path(name) / 'out').exists())
+            text = '[{"\\' * 1000
+            path.write_text(json.dumps({'text': text}))
+            self.assertEqual(read_json(path), {'text': text})
+            key = '\x1b[2J\u009b2J\u202eforged'
+            path.write_text('{' + json.dumps(key) + ':1,' + json.dumps(key) + ':2}')
+            process = subprocess.run([BINARY, 'bench', '--profile', str(path), '--out', str(Path(name) / 'out')],
+                                     capture_output=True, timeout=10)
+            self.assertEqual(process.returncode, 2, process.stderr)
+            self.assertIn(b'duplicate JSON key', process.stderr)
+            for control in ('\x1b', '\u009b', '\u202e'):
+                self.assertNotIn(control.encode(), process.stderr)
+
     def test_instrumentation_preserves_canonical_bytes_and_actual_counters(self):
         with tempfile.TemporaryDirectory(prefix='bench spaces ') as name:
             tmp = Path(name)
