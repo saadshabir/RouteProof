@@ -1,5 +1,10 @@
 # Completed Linux acceptance
 
+[Local OrbStack validation on 2026-10-09](local-orbstack.md) also passed all core
+and sanitizer groups, two fresh live matrices and combined acceptance on
+optimized source `f3d5881674f4eecb460f637ecc9a60d897f3ace2`. The historical hosted
+validation below retains its original source and host provenance.
+
 Validation date: **2026-10-08 UTC**. Both clean Release builds passed all 11
 CTest groups; both fresh live matrices passed all **27 snapshots and 687 slots**,
 with complete cleanup. [Hosted run 37725496964](https://github.com/saadshabir/RouteProof/actions/runs/37725496964)

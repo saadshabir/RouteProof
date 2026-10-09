@@ -14,7 +14,7 @@
 
 - [x] The model and strict scenario/result schema versions are visible in documentation and `routeproof --version`.
 - [x] CMake presets configure and build a clean checkout with the declared GCC and Clang toolchains.
-- [x] The Linux FRR lab host and tooling path are documented in [lab-environment.md](lab-environment.md).
+- [x] The Linux FRR lab host and tooling path are documented in [local-linux-testing.md](local-linux-testing.md).
 - [x] The five implementation deliverables above remain the complete v0.1 scope.
 
 The clean-checkout build evidence and exact tested toolchain versions are recorded in [clean-builds.md](../evidence/build/clean-builds.md). Each deliverable requires its own evidence link.

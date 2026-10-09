@@ -1,0 +1,709 @@
+{
+  "acceptance_complete": true,
+  "benchmark_reproduction": {
+    "cell": "sparse-small-16",
+    "original_cli_ns": {
+      "max": 38692952,
+      "median": 37228492,
+      "median_absolute_deviation": 105416,
+      "min": 37120658
+    },
+    "original_core_ns": {
+      "max": 4869261,
+      "median": 3718049,
+      "median_absolute_deviation": 30624,
+      "min": 3680344
+    },
+    "reproduced_cli_ns": {
+      "max": 38179847,
+      "median": 37354679,
+      "median_absolute_deviation": 327376,
+      "min": 37024553
+    },
+    "reproduced_core_ns": {
+      "max": 3763256,
+      "median": 3721921,
+      "median_absolute_deviation": 32501,
+      "min": 3687339
+    },
+    "result_file_sha256": "ff773b89a3298cc37f4d036a990abe6ae924c42b90eee78f66f81d9e09f35f2a",
+    "scenario_sha256": "98fc81622990d0d41a757d554645dcc9d8b827ca26ee22d01543dc05c997b6ac",
+    "source_sha256": "d7a086fd71e239f33006adb9253ceb3e0040c2a5839ad2c1e3d2bfe8a5898118",
+    "status": "pass",
+    "timing_policy": "descriptive comparison; no equality or regression threshold claimed"
+  },
+  "frr_reproduction": {
+    "comparison_slots": 687,
+    "reason": "exact semantic reproduction from fresh labs and a clean checkout",
+    "schema_version": 1,
+    "snapshots": 27,
+    "status": "pass"
+  },
+  "memory": [
+    {
+      "cell": "sparse-small-16",
+      "cli_peak_rss_bytes": [
+        20660224,
+        20652032,
+        20684800,
+        20750336,
+        20729856
+      ],
+      "dimensions": {
+        "analyzed_destinations": 1,
+        "assertions": 1,
+        "directed_arcs": 60,
+        "events": 8,
+        "next_hop_reference_upper_bound": 1440,
+        "output_bytes_estimate": 350208,
+        "physical_links": 30,
+        "prefixes": 2,
+        "retained_route_upper_bound": 288,
+        "routers": 16,
+        "rss_bytes_estimate": 34963456,
+        "spf_work_units": 10944
+      },
+      "instrumented_boundaries": [
+        {
+          "instrumented_peak_rss_bytes": 20606976,
+          "loaded_rss_bytes": 7139328,
+          "repetition": 0,
+          "snapshots": [
+            {
+              "id": "baseline",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7704576
+            },
+            {
+              "id": "event-1",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 7884800
+            },
+            {
+              "id": "event-2",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7987200
+            },
+            {
+              "id": "event-3",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 8003584
+            },
+            {
+              "id": "event-4",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8081408
+            },
+            {
+              "id": "event-5",
+              "next_hop_references": 18,
+              "route_entries": 15,
+              "steady_rss_bytes": 8081408
+            },
+            {
+              "id": "event-6",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8196096
+            },
+            {
+              "id": "event-7",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8261632
+            },
+            {
+              "id": "event-8",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8318976
+            }
+          ]
+        },
+        {
+          "instrumented_peak_rss_bytes": 20762624,
+          "loaded_rss_bytes": 7135232,
+          "repetition": 1,
+          "snapshots": [
+            {
+              "id": "baseline",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7700480
+            },
+            {
+              "id": "event-1",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 7880704
+            },
+            {
+              "id": "event-2",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7983104
+            },
+            {
+              "id": "event-3",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 7999488
+            },
+            {
+              "id": "event-4",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8077312
+            },
+            {
+              "id": "event-5",
+              "next_hop_references": 18,
+              "route_entries": 15,
+              "steady_rss_bytes": 8077312
+            },
+            {
+              "id": "event-6",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8192000
+            },
+            {
+              "id": "event-7",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8257536
+            },
+            {
+              "id": "event-8",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8314880
+            }
+          ]
+        },
+        {
+          "instrumented_peak_rss_bytes": 20664320,
+          "loaded_rss_bytes": 7131136,
+          "repetition": 2,
+          "snapshots": [
+            {
+              "id": "baseline",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7696384
+            },
+            {
+              "id": "event-1",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 7876608
+            },
+            {
+              "id": "event-2",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7979008
+            },
+            {
+              "id": "event-3",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 7995392
+            },
+            {
+              "id": "event-4",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8073216
+            },
+            {
+              "id": "event-5",
+              "next_hop_references": 18,
+              "route_entries": 15,
+              "steady_rss_bytes": 8073216
+            },
+            {
+              "id": "event-6",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8187904
+            },
+            {
+              "id": "event-7",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8253440
+            },
+            {
+              "id": "event-8",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8310784
+            }
+          ]
+        },
+        {
+          "instrumented_peak_rss_bytes": 20713472,
+          "loaded_rss_bytes": 7139328,
+          "repetition": 3,
+          "snapshots": [
+            {
+              "id": "baseline",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7704576
+            },
+            {
+              "id": "event-1",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 7884800
+            },
+            {
+              "id": "event-2",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7987200
+            },
+            {
+              "id": "event-3",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 8003584
+            },
+            {
+              "id": "event-4",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8081408
+            },
+            {
+              "id": "event-5",
+              "next_hop_references": 18,
+              "route_entries": 15,
+              "steady_rss_bytes": 8081408
+            },
+            {
+              "id": "event-6",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8196096
+            },
+            {
+              "id": "event-7",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8261632
+            },
+            {
+              "id": "event-8",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8318976
+            }
+          ]
+        },
+        {
+          "instrumented_peak_rss_bytes": 20717568,
+          "loaded_rss_bytes": 7131136,
+          "repetition": 4,
+          "snapshots": [
+            {
+              "id": "baseline",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7696384
+            },
+            {
+              "id": "event-1",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 7876608
+            },
+            {
+              "id": "event-2",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7979008
+            },
+            {
+              "id": "event-3",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 7995392
+            },
+            {
+              "id": "event-4",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8073216
+            },
+            {
+              "id": "event-5",
+              "next_hop_references": 18,
+              "route_entries": 15,
+              "steady_rss_bytes": 8073216
+            },
+            {
+              "id": "event-6",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8187904
+            },
+            {
+              "id": "event-7",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8253440
+            },
+            {
+              "id": "event-8",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8310784
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "cell": "sparse-small-16",
+      "cli_peak_rss_bytes": [
+        20660224,
+        20578304,
+        20668416,
+        20750336,
+        20783104
+      ],
+      "dimensions": {
+        "analyzed_destinations": 1,
+        "assertions": 1,
+        "directed_arcs": 60,
+        "events": 8,
+        "next_hop_reference_upper_bound": 1440,
+        "output_bytes_estimate": 350208,
+        "physical_links": 30,
+        "prefixes": 2,
+        "retained_route_upper_bound": 288,
+        "routers": 16,
+        "rss_bytes_estimate": 34963456,
+        "spf_work_units": 10944
+      },
+      "instrumented_boundaries": [
+        {
+          "instrumented_peak_rss_bytes": 20606976,
+          "loaded_rss_bytes": 7127040,
+          "repetition": 0,
+          "snapshots": [
+            {
+              "id": "baseline",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7692288
+            },
+            {
+              "id": "event-1",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 7872512
+            },
+            {
+              "id": "event-2",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7974912
+            },
+            {
+              "id": "event-3",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 7991296
+            },
+            {
+              "id": "event-4",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8069120
+            },
+            {
+              "id": "event-5",
+              "next_hop_references": 18,
+              "route_entries": 15,
+              "steady_rss_bytes": 8069120
+            },
+            {
+              "id": "event-6",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8183808
+            },
+            {
+              "id": "event-7",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8249344
+            },
+            {
+              "id": "event-8",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8306688
+            }
+          ]
+        },
+        {
+          "instrumented_peak_rss_bytes": 20688896,
+          "loaded_rss_bytes": 7131136,
+          "repetition": 1,
+          "snapshots": [
+            {
+              "id": "baseline",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7696384
+            },
+            {
+              "id": "event-1",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 7876608
+            },
+            {
+              "id": "event-2",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7979008
+            },
+            {
+              "id": "event-3",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 7995392
+            },
+            {
+              "id": "event-4",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8073216
+            },
+            {
+              "id": "event-5",
+              "next_hop_references": 18,
+              "route_entries": 15,
+              "steady_rss_bytes": 8073216
+            },
+            {
+              "id": "event-6",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8187904
+            },
+            {
+              "id": "event-7",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8253440
+            },
+            {
+              "id": "event-8",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8310784
+            }
+          ]
+        },
+        {
+          "instrumented_peak_rss_bytes": 20647936,
+          "loaded_rss_bytes": 7135232,
+          "repetition": 2,
+          "snapshots": [
+            {
+              "id": "baseline",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7700480
+            },
+            {
+              "id": "event-1",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 7880704
+            },
+            {
+              "id": "event-2",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7983104
+            },
+            {
+              "id": "event-3",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 7999488
+            },
+            {
+              "id": "event-4",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8077312
+            },
+            {
+              "id": "event-5",
+              "next_hop_references": 18,
+              "route_entries": 15,
+              "steady_rss_bytes": 8077312
+            },
+            {
+              "id": "event-6",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8192000
+            },
+            {
+              "id": "event-7",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8257536
+            },
+            {
+              "id": "event-8",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8314880
+            }
+          ]
+        },
+        {
+          "instrumented_peak_rss_bytes": 20697088,
+          "loaded_rss_bytes": 7135232,
+          "repetition": 3,
+          "snapshots": [
+            {
+              "id": "baseline",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7700480
+            },
+            {
+              "id": "event-1",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 7880704
+            },
+            {
+              "id": "event-2",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7983104
+            },
+            {
+              "id": "event-3",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 7999488
+            },
+            {
+              "id": "event-4",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8077312
+            },
+            {
+              "id": "event-5",
+              "next_hop_references": 18,
+              "route_entries": 15,
+              "steady_rss_bytes": 8077312
+            },
+            {
+              "id": "event-6",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8192000
+            },
+            {
+              "id": "event-7",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8257536
+            },
+            {
+              "id": "event-8",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8314880
+            }
+          ]
+        },
+        {
+          "instrumented_peak_rss_bytes": 20762624,
+          "loaded_rss_bytes": 7122944,
+          "repetition": 4,
+          "snapshots": [
+            {
+              "id": "baseline",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7688192
+            },
+            {
+              "id": "event-1",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 7868416
+            },
+            {
+              "id": "event-2",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 7970816
+            },
+            {
+              "id": "event-3",
+              "next_hop_references": 18,
+              "route_entries": 16,
+              "steady_rss_bytes": 7987200
+            },
+            {
+              "id": "event-4",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8065024
+            },
+            {
+              "id": "event-5",
+              "next_hop_references": 18,
+              "route_entries": 15,
+              "steady_rss_bytes": 8065024
+            },
+            {
+              "id": "event-6",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8179712
+            },
+            {
+              "id": "event-7",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8245248
+            },
+            {
+              "id": "event-8",
+              "next_hop_references": 38,
+              "route_entries": 32,
+              "steady_rss_bytes": 8302592
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "open_gates": [],
+  "schema_version": 1,
+  "status": "pass"
+}

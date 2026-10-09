@@ -18,7 +18,7 @@ The repository working tree was copied to a temporary source tree, committed in 
 | Upstream Clang | 18.1.8 |
 | Apple Clang | 21.0.0 |
 
-The generic compiler presets configured and built the CLI with both declared compiler families. The host preset also built successfully with Apple Clang. The exact minimums are enforced by `CMakeLists.txt` and documented in [lab-environment.md](../../docs/lab-environment.md).
+The generic compiler presets configured and built the CLI with both declared compiler families. The host preset also built successfully with Apple Clang. The exact minimums are enforced by `CMakeLists.txt` and documented in the [README build requirements](../../README.md#build-requirements-and-manual-commands).
 
 ## Reproduction commands
 

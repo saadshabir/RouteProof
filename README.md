@@ -77,6 +77,10 @@ build/host-debug/routeproof simulate examples/diamond-failures.yaml --out result
 build/host-debug/routeproof explain results/diamond/result.json --assertion a-to-d
 ```
 
+On macOS, [local Linux testing with OrbStack](docs/local-linux-testing.md) runs
+the core, sanitizer and live FRR checks in a dedicated Ubuntu 24.04 amd64
+machine, with Linux builds kept separate from native macOS builds.
+
 The validator rejects unsupported fields and semantic errors with source locations. It supports strict `.json` files, including escaped Unicode, and YAML with nonrecursive aliases. Input budgets cap source bytes, nodes, collection entries, scalar bytes, and nesting; defaults and library overrides are documented in the [model contract](docs/model.md#input-validation-and-unsupported-constructs). Text summaries and diagnostics escape terminal controls. `--normalized` prints canonical JSON; the summary form includes its SHA-256.
 
 `routes` prints canonical baseline JSON described in [baseline-v1.schema.json](schemas/baseline-v1.schema.json). Events and assertions are validated but not executed by this command; exit 0 means baseline route calculation completed, not that reachability requirements passed. Unreachable prefixes have no route row, and unavailable routers have empty tables. Connected routes have metric 0 and empty next hops; `protocol_cost` preserves the stub advertisement calculation separately. Optional `--timing` writes `baseline_compute_ns` to stderr, covering only route computation and invariant validation after parsing/state initialization, before serialization. This diagnostic hook is not a scenario benchmark or network convergence measurement.

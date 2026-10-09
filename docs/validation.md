@@ -19,6 +19,9 @@ loaded and per-snapshot boundary RSS before it reports acceptance. The complete
 raw bundle is uploaded even when a step fails. A failed or skipped job leaves
 the acceptance gates open; the workflow declaration alone is not live evidence.
 
+For local runs on macOS, [the OrbStack guide](local-linux-testing.md) documents
+the Ubuntu 24.04 amd64 machine, toolchain and Docker/Containerlab setup.
+
 Python 3.9+ is sufficient for generation, normalization, and harness tests. There
 are no additional Python packages. Build RouteProof first; pass `--routeproof`
 when using a binary outside `build/host-debug`.
@@ -75,7 +78,7 @@ python3 tools/frr/compare_runs.py ../frr-matrix/matrix-report.json \
 Every output directory must be fresh. The image architecture and FRR version
 are checked at runtime; the JSON adapter targets **FRR 10.2.1**. The image's startup, configuration behavior and actual JSON output are verified in
 two fresh live runs; the tested digest is frozen in the workflow and
-[lab environment](lab-environment.md). The full raw matrices are GitHub Actions artifacts retained for 90 days; the hosted workflow regenerates them from a committed checkout.
+[Linux acceptance evidence](../evidence/linux/README.md). The full raw matrices are GitHub Actions artifacts retained for 90 days; the hosted workflow regenerates them from a committed checkout.
 A tag, offline test or skipped run cannot satisfy that gate.
 
 ## Frozen coverage
