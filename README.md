@@ -47,7 +47,7 @@ FRR image, as described in [validation.md](docs/validation.md).
 
 ## Build requirements and manual commands
 
-Requirements: Git, Python 3.9+, CMake 3.25.2+, Ninja 1.11.1+, GCC 12.5.0+, or upstream Clang 18.1.8+. Apple Clang 21.0.0+ is supported for native builds. Configure fetches the pinned yaml-cpp, nlohmann/json, and PicoSHA2 dependencies when they are not already available.
+Requirements: Git, Python 3.9+, CMake 3.25.2+, Ninja 1.11.1+, GCC 12.5.0+, or upstream Clang 18.1.8+. Apple Clang 21.0.0+ is supported for native builds. Configure fetches yaml-cpp, nlohmann/json, and PicoSHA2 at the reviewed release commits pinned in [Dependencies.cmake](cmake/Dependencies.cmake) when they are not already available.
 
 ```sh
 cmake --preset host-debug

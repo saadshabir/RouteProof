@@ -5,6 +5,8 @@ from pathlib import Path
 
 VERSION = 'routeproof_workload_v1'
 ALGORITHM = 'xorshift32 (13,17,5); nonzero uint32 state; modulo selection'
+MAX_PROFILE_BYTES = 1024 * 1024
+MAX_JSON_NESTING = 128
 
 
 def read_json(path):
@@ -12,13 +14,34 @@ def read_json(path):
         result = {}
         for key, value in pairs:
             if key in result:
-                raise ValueError('duplicate JSON key: ' + key)
+                raise ValueError('duplicate JSON key: ' + repr(key))
             result[key] = value
         return result
-    text = Path(path).read_text()
-    if len(text.encode()) > 1024 * 1024:
+    with Path(path).open('rb') as stream:
+        data = stream.read(MAX_PROFILE_BYTES + 1)
+    if len(data) > MAX_PROFILE_BYTES:
         raise ValueError('profile byte budget exceeded')
-    return json.loads(text, object_pairs_hook=unique)
+    # Check container depth before Python's recursive JSON decoder allocates
+    # the tree. Delimiters and escaped quotes inside strings are ordinary data.
+    depth = 0
+    quoted = escaped = False
+    for byte in data:
+        if quoted:
+            if escaped:
+                escaped = False
+            elif byte == ord('\\'):
+                escaped = True
+            elif byte == ord('"'):
+                quoted = False
+        elif byte == ord('"'):
+            quoted = True
+        elif byte in (ord('{'), ord('[')):
+            depth += 1
+            if depth > MAX_JSON_NESTING:
+                raise ValueError('profile nesting budget exceeded')
+        elif byte in (ord('}'), ord(']')):
+            depth -= 1
+    return json.loads(data.decode('utf-8'), object_pairs_hook=unique)
 
 
 def integer(value, low, high, name):

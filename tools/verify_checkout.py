@@ -41,14 +41,15 @@ def verify(args):
         cache_args = []
         if args.dependency_cache:
             dependencies = {}
-            for name, tag in (('yaml-cpp', 'yaml-cpp-0.9.0'), ('nlohmann_json', 'v3.12.0'),
-                              ('picosha2', 'v1.0.1')):
+            for name, tag, pinned in (
+                    ('yaml-cpp', 'yaml-cpp-0.9.0', '56e3bb550c91fd7005566f19c079cb7a503223cf'),
+                    ('nlohmann_json', 'v3.12.0', '55f93686c01528224f448c19128836e7df245f72'),
+                    ('picosha2', 'v1.0.1', '161cb3fc4170fa7a3eca9e582cebd27cc4d1fe29')):
                 path = args.dependency_cache.resolve() / (name + '-src')
                 revision = subprocess.check_output(['git', '-C', str(path), 'rev-parse', 'HEAD'], text=True).strip()
-                pinned = subprocess.check_output(['git', '-C', str(path), 'rev-parse', tag + '^{commit}'], text=True).strip()
                 status = subprocess.check_output(['git', '-C', str(path), 'status', '--porcelain'], text=True).strip()
                 if status or revision != pinned:
-                    raise ValueError('dependency cache must be clean and match ' + tag + ': ' + str(path))
+                    raise ValueError('dependency cache must be clean and match pinned commit ' + pinned + ': ' + str(path))
                 dependencies[name] = {'path': str(path), 'revision': revision, 'tag': tag}
                 cache_args.append('-DFETCHCONTENT_SOURCE_DIR_' + name.upper() + '=' + str(path))
             report['reused_dependencies'] = dependencies

@@ -261,6 +261,31 @@ def check_explain_regressions(binary, original, directory):
         process = explain(result)
         assert process.returncode == 2 and not process.stdout, (process.returncode, process.stdout, process.stderr)
 
+    # Unkeyed hashes do not make a supplied result trusted terminal text.
+    controlled = 'a\u009b2J\u202eforged\x1b[2J'
+    result = copy.deepcopy(original)
+    for record in result['assertions']:
+        for finding in record['findings']:
+            finding['source'] = finding['destination'] = controlled
+            for step in finding['path']:
+                step['router'] = controlled
+                hop = step['next_hop']
+                hop['interface' if 'link' in hop else 'action'] = controlled
+            if 'reachable_component' in finding:
+                finding['reachable_component'] = [controlled]
+                finding['destination_origin'] = controlled
+                finding['frontier'] = [{'link': controlled}]
+            finding['cycle_entry'] = controlled
+    process = explain(result)
+    assert process.returncode == 1, process.stderr
+    assert '\\u009b' in process.stdout and '\\u202e' in process.stdout and '\\u001b' in process.stdout
+    assert all(control not in process.stdout for control in ('\u009b', '\u202e', '\x1b'))
+    incomplete = copy.deepcopy(incomplete)
+    incomplete['incomplete_reason'] = controlled
+    process = explain(incomplete)
+    assert process.returncode == 3 and '\\u009b' in process.stdout, process.stderr
+    assert all(control not in process.stdout for control in ('\u009b', '\u202e', '\x1b'))
+
 
 def run(binaries):
     corpus = hashlib.sha256()
