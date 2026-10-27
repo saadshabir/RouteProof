@@ -114,7 +114,13 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
             physical["available_routers"] = std::move(baseline.at("available_routers"));
             physical["administratively_up_links"] = std::move(baseline.at("administratively_up_links"));
             physical["routes"] = std::move(baseline.at("routes"));
-            const auto hash = digest(physical);
+            std::string hash;
+            std::size_t physical_bytes;
+            {
+                const auto serialized = physical.dump();
+                physical_bytes = serialized.size();
+                hash = picosha2::hash256_hex_string(serialized);
+            }
             const auto id = snapshot.event ? "event-" + std::to_string(snapshot.event->sequence) : "baseline";
             if (metrics) {
                 sample.id = id; sample.applied = snapshot.applied;
@@ -125,10 +131,15 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
                 }
                 sample.available_routers = std::count(snapshot.state.available_routers.begin(), snapshot.state.available_routers.end(), true);
             }
-            physical["id"] = id; physical["sha256"] = hash;
-            physical["sequence"] = snapshot.event ? Json(snapshot.event->sequence) : Json(nullptr);
-            physical["event_id"] = snapshot.event ? Json(snapshot.event->id) : Json(nullptr);
-            charge(bytes, physical.dump().size() + 256, limits.max_output_bytes, "canonical output byte budget exceeded");
+            Json identity{{"id", id}, {"sha256", hash},
+                {"sequence", snapshot.event ? Json(snapshot.event->sequence) : Json(nullptr)},
+                {"event_id", snapshot.event ? Json(snapshot.event->id) : Json(nullptr)}};
+            // The two objects have disjoint keys. Joining them replaces the
+            // adjacent braces with a comma: exactly the previous byte charge,
+            // without serializing every route a second time for its size.
+            charge(bytes, physical_bytes + identity.dump().size() - 1 + 256,
+                   limits.max_output_bytes, "canonical output byte budget exceeded");
+            physical.update(identity);
             Json assertions = Json::array();
             std::map<model::PrefixIndex, std::unique_ptr<analysis::DestinationAnalysis>> cache;
             std::string status = "pass";

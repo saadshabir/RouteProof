@@ -208,6 +208,15 @@ int main(int argc, char** argv) {
         require(incomplete.exit_code == 3 && incomplete.json.find("snapshot budget exceeded") != std::string::npos,
                 "budget exhaustion did not return incomplete JSON");
         check_summary(loaded, incomplete, 0, 0, 0, "incomplete");
+        // Frozen diamond boundaries measured with the preceding implementation.
+        // Keep its conservative byte charging and atomic publication contract.
+        for (const auto& [budget, completed] : {std::pair<std::size_t, std::size_t>{2405, 0},
+                {2406, 1}, {4066, 1}, {4067, 2}, {11219, 5}, {11220, 6}}) {
+            limits = {};
+            limits.max_output_bytes = budget;
+            check_summary(loaded, output::simulate(loaded, limits), completed,
+                          completed ? completed - 1 : 0, 0, completed == 6 ? "fail" : "incomplete");
+        }
         // Publish baseline and a no-op; reject the next candidate before its
         // assertions can be published. Metadata must describe only those two.
         auto partial = loaded;
