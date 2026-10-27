@@ -1,5 +1,8 @@
 # Scenario, memory, and scaling measurements
 
+The [2026-10-10 debloat and output optimization](../evidence/bench/debloat-optimization.md)
+records fresh comparisons, launcher measurements and final-source reproduction.
+
 Repeatable measurement tooling and its acceptance gates are complete. Native results and
 clean source reproduction are recorded in [native evidence](../evidence/bench/benchmark-validation.md).
 [Linux acceptance](../evidence/linux/README.md) adds authoritative peak and boundary RSS
