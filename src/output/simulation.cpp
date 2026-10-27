@@ -85,6 +85,7 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
                           SimulationMetrics* metrics) {
     using Clock = std::chrono::steady_clock;
     Clock::time_point start;
+    SimulationSummary summary;
     if (metrics) { *metrics = {}; }
     const auto normalized = Json::parse(loaded.normalized_json);
     Json result{{"schema_version", 1}, {"model", model_id}, {"scenario_name", loaded.topology.scenario.name},
@@ -113,7 +114,13 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
             physical["available_routers"] = std::move(baseline.at("available_routers"));
             physical["administratively_up_links"] = std::move(baseline.at("administratively_up_links"));
             physical["routes"] = std::move(baseline.at("routes"));
-            const auto hash = digest(physical);
+            std::string hash;
+            std::size_t physical_bytes;
+            {
+                const auto serialized = physical.dump();
+                physical_bytes = serialized.size();
+                hash = picosha2::hash256_hex_string(serialized);
+            }
             const auto id = snapshot.event ? "event-" + std::to_string(snapshot.event->sequence) : "baseline";
             if (metrics) {
                 sample.id = id; sample.applied = snapshot.applied;
@@ -124,10 +131,15 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
                 }
                 sample.available_routers = std::count(snapshot.state.available_routers.begin(), snapshot.state.available_routers.end(), true);
             }
-            physical["id"] = id; physical["sha256"] = hash;
-            physical["sequence"] = snapshot.event ? Json(snapshot.event->sequence) : Json(nullptr);
-            physical["event_id"] = snapshot.event ? Json(snapshot.event->id) : Json(nullptr);
-            charge(bytes, physical.dump().size() + 256, limits.max_output_bytes, "canonical output byte budget exceeded");
+            Json identity{{"id", id}, {"sha256", hash},
+                {"sequence", snapshot.event ? Json(snapshot.event->sequence) : Json(nullptr)},
+                {"event_id", snapshot.event ? Json(snapshot.event->id) : Json(nullptr)}};
+            // The two objects have disjoint keys. Joining them replaces the
+            // adjacent braces with a comma: exactly the previous byte charge,
+            // without serializing every route a second time for its size.
+            charge(bytes, physical_bytes + identity.dump().size() - 1 + 256,
+                   limits.max_output_bytes, "canonical output byte budget exceeded");
+            physical.update(identity);
             Json assertions = Json::array();
             std::map<model::PrefixIndex, std::unique_ptr<analysis::DestinationAnalysis>> cache;
             std::string status = "pass";
@@ -185,7 +197,11 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
             // Publish a snapshot and all of its assertions together. A failed
             // candidate contributes neither an event nor partial assertions.
             result["snapshots"].push_back(std::move(physical));
-            if (snapshot.event) { result["events"].push_back(std::move(event)); }
+            if (snapshot.event) {
+                result["events"].push_back(std::move(event));
+                if (snapshot.applied) { ++summary.applied_events; }
+                else { ++summary.noop_events; }
+            }
             for (auto& record : assertions) { result["assertions"].push_back(std::move(record)); }
             if (status != "pass" && result["status"] != "incomplete") { result["status"] = status; }
             if (metrics) {
@@ -207,20 +223,20 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
     for (auto& assertion : result["assertions"]) {
         for (auto& finding : assertion["findings"]) { finding["result_sha256"] = hash; }
     }
-    return {result.dump(), status_code(result.at("status").get<std::string>())};
+    summary.status = result.at("status").get<std::string>();
+    summary.canonical_sha256 = hash;
+    summary.completed_snapshots = result.at("snapshots").size();
+    const auto code = status_code(summary.status);
+    return {result.dump(), code, std::move(summary)};
 }
 std::string run_manifest(const input::LoadedScenario& loaded, const SimulationOutput& output,
                          const std::filesystem::path& source, const std::int64_t simulation_ns) {
-    const auto result = Json::parse(output.json);
-    std::size_t applied = 0, noop = 0;
-    for (const auto& event : result.at("events")) {
-        if (event.at("disposition") == "applied") { ++applied; } else { ++noop; }
-    }
+    const auto& summary = output.summary;
     return Json{{"schema_version",1}, {"model",model_id}, {"version",version}, {"compiler",__VERSION__},
-        {"scenario_sha256",loaded.scenario_sha256}, {"result_sha256",result.at("canonical_sha256")},
+        {"scenario_sha256",loaded.scenario_sha256}, {"result_sha256",summary.canonical_sha256},
         {"source_path",source.string()}, {"simulation_ns",simulation_ns},
-        {"status",result.at("status")}, {"completed_snapshots",result.at("snapshots").size()},
-        {"applied_events",applied}, {"noop_events",noop},
+        {"status",summary.status}, {"completed_snapshots",summary.completed_snapshots},
+        {"applied_events",summary.applied_events}, {"noop_events",summary.noop_events},
         {"measurement_boundary","replay, routing, analysis, witness validation, canonical serialization; excludes parsing and file writes"}}.dump();
 }
 SimulationOutput explain(const std::filesystem::path& file, const std::string& assertion) {
@@ -350,7 +366,7 @@ SimulationOutput explain(const std::filesystem::path& file, const std::string& a
         }
         if (!found && result.at("status") != "incomplete") { throw input::InputError("unknown assertion in result"); }
         if (result.contains("incomplete_reason")) { output << "incomplete: " << display_json(result.at("incomplete_reason")) << '\n'; }
-        return {output.str(), exit_code};
+        return {output.str(), exit_code, {}};
     } catch (const Json::exception& error) {
         throw input::InputError(std::string("invalid result JSON: ") + error.what());
     }

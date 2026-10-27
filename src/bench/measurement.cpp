@@ -53,7 +53,6 @@ std::string sample_manifest(const input::LoadedScenario& loaded,
     const output::SimulationOutput& result, const output::SimulationMetrics& metrics,
     const std::uint64_t loaded_rss, const std::int64_t simulation_ns) {
     using Json = nlohmann::json;
-    const auto canonical = Json::parse(result.json);
     Json samples = Json::array();
     for (const auto& sample : metrics.snapshots) {
         samples.push_back(Json{{"id", sample.id}, {"applied", sample.applied},
@@ -71,7 +70,7 @@ std::string sample_manifest(const input::LoadedScenario& loaded,
     const auto peak = peak_rss_bytes();
     return Json{{"schema_version",1}, {"model",model_id}, {"version",version}, {"compiler",__VERSION__},
         {"build_type",ROUTEPROOF_BUILD_TYPE}, {"scenario_sha256",loaded.scenario_sha256},
-        {"result_sha256",canonical.at("canonical_sha256")}, {"status",canonical.at("status")},
+        {"result_sha256",result.summary.canonical_sha256}, {"status",result.summary.status},
         {"core_processing_ns",metrics.core_processing_ns}, {"simulation_ns",simulation_ns},
         {"normalized_input_bytes",loaded.normalized_json.size()}, {"result_bytes",result.json.size() + 1},
         {"routers",loaded.topology.scenario.routers.size()}, {"physical_links",loaded.topology.scenario.links.size()},

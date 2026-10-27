@@ -2,7 +2,7 @@
   "cli_boundary": "fresh process launch through blocking wait4 return; parse, validation, simulation, JSON and file writes; thread scheduling overhead included",
   "generator_version": "routeproof_workload_v1",
   "host": {
-    "binary_path": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+    "binary_path": "/workspace/RouteProof/build/host-release/routeproof",
     "binary_sha256": "aba883033068574bf0a12ae50e9029c7c7660eed3ba36da6bbd8d0ba93873d6c",
     "build_cache": {
       "CMAKE_BUILD_TYPE": "Release",
@@ -88,7 +88,7 @@
         "sha256": "9ccd95071b19708530f0e195d490d90be744764a2eda4809491a67a46eaa2aed"
       },
       "source_revision": "2c6ebc25ba822f32e206d2848f6bf5aa5ad3250d",
-      "source_root": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof"
+      "source_root": "/workspace/RouteProof"
     },
     "machine": "arm64",
     "ninja": "1.13.2",
@@ -152,7 +152,7 @@
       "sha256": "9ccd95071b19708530f0e195d490d90be744764a2eda4809491a67a46eaa2aed"
     },
     "source_revision": "2c6ebc25ba822f32e206d2848f6bf5aa5ad3250d",
-    "source_root": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof"
+    "source_root": "/workspace/RouteProof"
   },
   "instrumentation": "clock reads per assertion and snapshot; RSS after load/checks; serial instrumented/uninstrumented processes; cache warmed, no fsync",
   "prng_algorithm": "xorshift32 (13,17,5); nonzero uint32 state; modulo selection",

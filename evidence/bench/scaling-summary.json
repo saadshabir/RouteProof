@@ -75,9 +75,9 @@
       },
       "normalization": {
         "argv": [
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+          "/workspace/RouteProof/build/host-release/routeproof",
           "validate",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
+          "/workspace/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
           "--normalized"
         ],
         "elapsed_ns": 3286542,
@@ -265,11 +265,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/instrumented-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/instrumented-000/output"
             ],
             "elapsed_ns": 6045583,
             "exit_code": 1,
@@ -287,11 +287,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/cli-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/cli-000/output"
             ],
             "elapsed_ns": 5609458,
             "exit_code": 1,
@@ -474,11 +474,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/instrumented-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/instrumented-001/output"
             ],
             "elapsed_ns": 6032542,
             "exit_code": 1,
@@ -496,11 +496,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/cli-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/cli-001/output"
             ],
             "elapsed_ns": 5641083,
             "exit_code": 1,
@@ -683,11 +683,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/instrumented-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/instrumented-002/output"
             ],
             "elapsed_ns": 5923542,
             "exit_code": 1,
@@ -705,11 +705,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/cli-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/cli-002/output"
             ],
             "elapsed_ns": 5512250,
             "exit_code": 1,
@@ -892,11 +892,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/instrumented-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/instrumented-003/output"
             ],
             "elapsed_ns": 5913833,
             "exit_code": 1,
@@ -914,11 +914,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/cli-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/cli-003/output"
             ],
             "elapsed_ns": 5584791,
             "exit_code": 1,
@@ -1101,11 +1101,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/instrumented-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/instrumented-004/output"
             ],
             "elapsed_ns": 5714375,
             "exit_code": 1,
@@ -1123,11 +1123,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/cli-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/cli-004/output"
             ],
             "elapsed_ns": 5602375,
             "exit_code": 1,
@@ -1314,11 +1314,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/instrumented-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/instrumented-warmup1/output"
             ],
             "elapsed_ns": 5712334,
             "exit_code": 1,
@@ -1336,11 +1336,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-16/cli-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-16/cli-warmup1/output"
             ],
             "elapsed_ns": 5768292,
             "exit_code": 1,
@@ -1429,9 +1429,9 @@
       },
       "normalization": {
         "argv": [
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+          "/workspace/RouteProof/build/host-release/routeproof",
           "validate",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
+          "/workspace/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
           "--normalized"
         ],
         "elapsed_ns": 3211000,
@@ -1619,11 +1619,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/instrumented-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/instrumented-000/output"
             ],
             "elapsed_ns": 14610042,
             "exit_code": 1,
@@ -1641,11 +1641,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/cli-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/cli-000/output"
             ],
             "elapsed_ns": 13463250,
             "exit_code": 1,
@@ -1828,11 +1828,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/instrumented-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/instrumented-001/output"
             ],
             "elapsed_ns": 14791542,
             "exit_code": 1,
@@ -1850,11 +1850,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/cli-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/cli-001/output"
             ],
             "elapsed_ns": 12979834,
             "exit_code": 1,
@@ -2037,11 +2037,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/instrumented-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/instrumented-002/output"
             ],
             "elapsed_ns": 15297208,
             "exit_code": 1,
@@ -2059,11 +2059,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/cli-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/cli-002/output"
             ],
             "elapsed_ns": 13695375,
             "exit_code": 1,
@@ -2246,11 +2246,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/instrumented-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/instrumented-003/output"
             ],
             "elapsed_ns": 14438125,
             "exit_code": 1,
@@ -2268,11 +2268,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/cli-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/cli-003/output"
             ],
             "elapsed_ns": 13355834,
             "exit_code": 1,
@@ -2455,11 +2455,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/instrumented-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/instrumented-004/output"
             ],
             "elapsed_ns": 14500666,
             "exit_code": 1,
@@ -2477,11 +2477,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/cli-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/cli-004/output"
             ],
             "elapsed_ns": 13476250,
             "exit_code": 1,
@@ -2668,11 +2668,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/instrumented-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/instrumented-warmup1/output"
             ],
             "elapsed_ns": 14393917,
             "exit_code": 1,
@@ -2690,11 +2690,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-64/cli-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-64/cli-warmup1/output"
             ],
             "elapsed_ns": 13166750,
             "exit_code": 1,
@@ -2783,9 +2783,9 @@
       },
       "normalization": {
         "argv": [
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+          "/workspace/RouteProof/build/host-release/routeproof",
           "validate",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
+          "/workspace/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
           "--normalized"
         ],
         "elapsed_ns": 4024583,
@@ -2973,11 +2973,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/instrumented-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/instrumented-000/output"
             ],
             "elapsed_ns": 59424333,
             "exit_code": 1,
@@ -2995,11 +2995,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/cli-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/cli-000/output"
             ],
             "elapsed_ns": 60219375,
             "exit_code": 1,
@@ -3182,11 +3182,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/instrumented-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/instrumented-001/output"
             ],
             "elapsed_ns": 64210041,
             "exit_code": 1,
@@ -3204,11 +3204,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/cli-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/cli-001/output"
             ],
             "elapsed_ns": 57622625,
             "exit_code": 1,
@@ -3391,11 +3391,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/instrumented-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/instrumented-002/output"
             ],
             "elapsed_ns": 61672208,
             "exit_code": 1,
@@ -3413,11 +3413,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/cli-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/cli-002/output"
             ],
             "elapsed_ns": 56969833,
             "exit_code": 1,
@@ -3600,11 +3600,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/instrumented-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/instrumented-003/output"
             ],
             "elapsed_ns": 60746750,
             "exit_code": 1,
@@ -3622,11 +3622,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/cli-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/cli-003/output"
             ],
             "elapsed_ns": 54968208,
             "exit_code": 1,
@@ -3809,11 +3809,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/instrumented-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/instrumented-004/output"
             ],
             "elapsed_ns": 60340542,
             "exit_code": 1,
@@ -3831,11 +3831,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/cli-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/cli-004/output"
             ],
             "elapsed_ns": 56497166,
             "exit_code": 1,
@@ -4022,11 +4022,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/instrumented-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/instrumented-warmup1/output"
             ],
             "elapsed_ns": 60499084,
             "exit_code": 1,
@@ -4044,11 +4044,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-256/cli-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/chain-256/cli-warmup1/output"
             ],
             "elapsed_ns": 58041625,
             "exit_code": 1,
@@ -4095,9 +4095,9 @@
       "input_file_sha256": "a7ce0520c5ecebf7278a81b0bc2fcf67a2c055bcfe27e60c746ead88c0001740",
       "normalization": {
         "argv": [
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+          "/workspace/RouteProof/build/host-release/routeproof",
           "validate",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/chain-1024/scenario.json",
+          "/workspace/RouteProof/results/phase5-scaling-final/chain-1024/scenario.json",
           "--normalized"
         ],
         "elapsed_ns": 7838916,
@@ -4186,9 +4186,9 @@
       },
       "normalization": {
         "argv": [
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+          "/workspace/RouteProof/build/host-release/routeproof",
           "validate",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
+          "/workspace/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
           "--normalized"
         ],
         "elapsed_ns": 2983334,
@@ -4376,11 +4376,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/instrumented-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/instrumented-000/output"
             ],
             "elapsed_ns": 6223584,
             "exit_code": 1,
@@ -4398,11 +4398,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/cli-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/cli-000/output"
             ],
             "elapsed_ns": 5756875,
             "exit_code": 1,
@@ -4585,11 +4585,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/instrumented-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/instrumented-001/output"
             ],
             "elapsed_ns": 6464917,
             "exit_code": 1,
@@ -4607,11 +4607,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/cli-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/cli-001/output"
             ],
             "elapsed_ns": 5890542,
             "exit_code": 1,
@@ -4794,11 +4794,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/instrumented-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/instrumented-002/output"
             ],
             "elapsed_ns": 6095500,
             "exit_code": 1,
@@ -4816,11 +4816,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/cli-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/cli-002/output"
             ],
             "elapsed_ns": 5615042,
             "exit_code": 1,
@@ -5003,11 +5003,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/instrumented-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/instrumented-003/output"
             ],
             "elapsed_ns": 6028167,
             "exit_code": 1,
@@ -5025,11 +5025,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/cli-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/cli-003/output"
             ],
             "elapsed_ns": 5568291,
             "exit_code": 1,
@@ -5212,11 +5212,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/instrumented-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/instrumented-004/output"
             ],
             "elapsed_ns": 6087208,
             "exit_code": 1,
@@ -5234,11 +5234,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/cli-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/cli-004/output"
             ],
             "elapsed_ns": 5946542,
             "exit_code": 1,
@@ -5425,11 +5425,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/instrumented-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/instrumented-warmup1/output"
             ],
             "elapsed_ns": 6056417,
             "exit_code": 1,
@@ -5447,11 +5447,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-16/cli-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-16/cli-warmup1/output"
             ],
             "elapsed_ns": 5765500,
             "exit_code": 1,
@@ -5540,9 +5540,9 @@
       },
       "normalization": {
         "argv": [
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+          "/workspace/RouteProof/build/host-release/routeproof",
           "validate",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
+          "/workspace/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
           "--normalized"
         ],
         "elapsed_ns": 3025583,
@@ -5730,11 +5730,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/instrumented-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/instrumented-000/output"
             ],
             "elapsed_ns": 6869958,
             "exit_code": 1,
@@ -5752,11 +5752,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/cli-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/cli-000/output"
             ],
             "elapsed_ns": 6293542,
             "exit_code": 1,
@@ -5939,11 +5939,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/instrumented-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/instrumented-001/output"
             ],
             "elapsed_ns": 6615667,
             "exit_code": 1,
@@ -5961,11 +5961,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/cli-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/cli-001/output"
             ],
             "elapsed_ns": 6323042,
             "exit_code": 1,
@@ -6148,11 +6148,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/instrumented-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/instrumented-002/output"
             ],
             "elapsed_ns": 6899208,
             "exit_code": 1,
@@ -6170,11 +6170,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/cli-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/cli-002/output"
             ],
             "elapsed_ns": 6287500,
             "exit_code": 1,
@@ -6357,11 +6357,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/instrumented-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/instrumented-003/output"
             ],
             "elapsed_ns": 6740959,
             "exit_code": 1,
@@ -6379,11 +6379,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/cli-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/cli-003/output"
             ],
             "elapsed_ns": 6235084,
             "exit_code": 1,
@@ -6566,11 +6566,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/instrumented-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/instrumented-004/output"
             ],
             "elapsed_ns": 6450250,
             "exit_code": 1,
@@ -6588,11 +6588,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/cli-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/cli-004/output"
             ],
             "elapsed_ns": 6164958,
             "exit_code": 1,
@@ -6779,11 +6779,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/instrumented-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/instrumented-warmup1/output"
             ],
             "elapsed_ns": 6359666,
             "exit_code": 1,
@@ -6801,11 +6801,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/grid-16/cli-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/grid-16/cli-warmup1/output"
             ],
             "elapsed_ns": 6173459,
             "exit_code": 1,
@@ -6894,9 +6894,9 @@
       },
       "normalization": {
         "argv": [
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+          "/workspace/RouteProof/build/host-release/routeproof",
           "validate",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
+          "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
           "--normalized"
         ],
         "elapsed_ns": 2937541,
@@ -7084,11 +7084,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/instrumented-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/instrumented-000/output"
             ],
             "elapsed_ns": 6290875,
             "exit_code": 1,
@@ -7106,11 +7106,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/cli-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/cli-000/output"
             ],
             "elapsed_ns": 5736708,
             "exit_code": 1,
@@ -7293,11 +7293,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/instrumented-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/instrumented-001/output"
             ],
             "elapsed_ns": 6205000,
             "exit_code": 1,
@@ -7315,11 +7315,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/cli-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/cli-001/output"
             ],
             "elapsed_ns": 6392208,
             "exit_code": 1,
@@ -7502,11 +7502,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/instrumented-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/instrumented-002/output"
             ],
             "elapsed_ns": 6352750,
             "exit_code": 1,
@@ -7524,11 +7524,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/cli-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/cli-002/output"
             ],
             "elapsed_ns": 5979500,
             "exit_code": 1,
@@ -7711,11 +7711,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/instrumented-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/instrumented-003/output"
             ],
             "elapsed_ns": 6307084,
             "exit_code": 1,
@@ -7733,11 +7733,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/cli-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/cli-003/output"
             ],
             "elapsed_ns": 5874542,
             "exit_code": 1,
@@ -7920,11 +7920,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/instrumented-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/instrumented-004/output"
             ],
             "elapsed_ns": 6476416,
             "exit_code": 1,
@@ -7942,11 +7942,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/cli-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/cli-004/output"
             ],
             "elapsed_ns": 5899917,
             "exit_code": 1,
@@ -8133,11 +8133,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/instrumented-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/instrumented-warmup1/output"
             ],
             "elapsed_ns": 6435792,
             "exit_code": 1,
@@ -8155,11 +8155,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-2/cli-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-2/cli-warmup1/output"
             ],
             "elapsed_ns": 5843042,
             "exit_code": 1,
@@ -8248,9 +8248,9 @@
       },
       "normalization": {
         "argv": [
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+          "/workspace/RouteProof/build/host-release/routeproof",
           "validate",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
+          "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
           "--normalized"
         ],
         "elapsed_ns": 3348334,
@@ -8438,11 +8438,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/instrumented-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/instrumented-000/output"
             ],
             "elapsed_ns": 6495416,
             "exit_code": 1,
@@ -8460,11 +8460,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/cli-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/cli-000/output"
             ],
             "elapsed_ns": 6197083,
             "exit_code": 1,
@@ -8647,11 +8647,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/instrumented-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/instrumented-001/output"
             ],
             "elapsed_ns": 6670166,
             "exit_code": 1,
@@ -8669,11 +8669,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/cli-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/cli-001/output"
             ],
             "elapsed_ns": 6099541,
             "exit_code": 1,
@@ -8856,11 +8856,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/instrumented-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/instrumented-002/output"
             ],
             "elapsed_ns": 6552166,
             "exit_code": 1,
@@ -8878,11 +8878,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/cli-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/cli-002/output"
             ],
             "elapsed_ns": 5970334,
             "exit_code": 1,
@@ -9065,11 +9065,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/instrumented-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/instrumented-003/output"
             ],
             "elapsed_ns": 6642542,
             "exit_code": 1,
@@ -9087,11 +9087,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/cli-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/cli-003/output"
             ],
             "elapsed_ns": 5989958,
             "exit_code": 1,
@@ -9274,11 +9274,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/instrumented-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/instrumented-004/output"
             ],
             "elapsed_ns": 6518416,
             "exit_code": 1,
@@ -9296,11 +9296,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/cli-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/cli-004/output"
             ],
             "elapsed_ns": 5883417,
             "exit_code": 1,
@@ -9487,11 +9487,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/instrumented-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/instrumented-warmup1/output"
             ],
             "elapsed_ns": 6727750,
             "exit_code": 1,
@@ -9509,11 +9509,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/diamond-width-4/cli-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/diamond-width-4/cli-warmup1/output"
             ],
             "elapsed_ns": 6332334,
             "exit_code": 1,
@@ -9602,9 +9602,9 @@
       },
       "normalization": {
         "argv": [
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+          "/workspace/RouteProof/build/host-release/routeproof",
           "validate",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
+          "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
           "--normalized"
         ],
         "elapsed_ns": 3014292,
@@ -9792,11 +9792,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/instrumented-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/instrumented-000/output"
             ],
             "elapsed_ns": 6202416,
             "exit_code": 1,
@@ -9814,11 +9814,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/cli-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/cli-000/output"
             ],
             "elapsed_ns": 5814834,
             "exit_code": 1,
@@ -10001,11 +10001,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/instrumented-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/instrumented-001/output"
             ],
             "elapsed_ns": 6681208,
             "exit_code": 1,
@@ -10023,11 +10023,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/cli-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/cli-001/output"
             ],
             "elapsed_ns": 6087500,
             "exit_code": 1,
@@ -10210,11 +10210,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/instrumented-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/instrumented-002/output"
             ],
             "elapsed_ns": 6356625,
             "exit_code": 1,
@@ -10232,11 +10232,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/cli-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/cli-002/output"
             ],
             "elapsed_ns": 5922208,
             "exit_code": 1,
@@ -10419,11 +10419,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/instrumented-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/instrumented-003/output"
             ],
             "elapsed_ns": 6662458,
             "exit_code": 1,
@@ -10441,11 +10441,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/cli-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/cli-003/output"
             ],
             "elapsed_ns": 6093833,
             "exit_code": 1,
@@ -10628,11 +10628,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/instrumented-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/instrumented-004/output"
             ],
             "elapsed_ns": 6142709,
             "exit_code": 1,
@@ -10650,11 +10650,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/cli-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/cli-004/output"
             ],
             "elapsed_ns": 5827542,
             "exit_code": 1,
@@ -10841,11 +10841,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/instrumented-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/instrumented-warmup1/output"
             ],
             "elapsed_ns": 6289959,
             "exit_code": 1,
@@ -10863,11 +10863,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-16/cli-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-16/cli-warmup1/output"
             ],
             "elapsed_ns": 6076500,
             "exit_code": 1,
@@ -10956,9 +10956,9 @@
       },
       "normalization": {
         "argv": [
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+          "/workspace/RouteProof/build/host-release/routeproof",
           "validate",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
+          "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
           "--normalized"
         ],
         "elapsed_ns": 3030750,
@@ -11146,11 +11146,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/instrumented-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/instrumented-000/output"
             ],
             "elapsed_ns": 7759583,
             "exit_code": 1,
@@ -11168,11 +11168,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/cli-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/cli-000/output"
             ],
             "elapsed_ns": 7039666,
             "exit_code": 1,
@@ -11355,11 +11355,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/instrumented-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/instrumented-001/output"
             ],
             "elapsed_ns": 7637041,
             "exit_code": 1,
@@ -11377,11 +11377,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/cli-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/cli-001/output"
             ],
             "elapsed_ns": 20729708,
             "exit_code": 1,
@@ -11564,11 +11564,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/instrumented-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/instrumented-002/output"
             ],
             "elapsed_ns": 12438000,
             "exit_code": 1,
@@ -11586,11 +11586,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/cli-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/cli-002/output"
             ],
             "elapsed_ns": 7174750,
             "exit_code": 1,
@@ -11773,11 +11773,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/instrumented-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/instrumented-003/output"
             ],
             "elapsed_ns": 7362125,
             "exit_code": 1,
@@ -11795,11 +11795,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/cli-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/cli-003/output"
             ],
             "elapsed_ns": 7070625,
             "exit_code": 1,
@@ -11982,11 +11982,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/instrumented-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/instrumented-004/output"
             ],
             "elapsed_ns": 7441417,
             "exit_code": 1,
@@ -12004,11 +12004,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/cli-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/cli-004/output"
             ],
             "elapsed_ns": 6869834,
             "exit_code": 1,
@@ -12195,11 +12195,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/instrumented-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/instrumented-warmup1/output"
             ],
             "elapsed_ns": 6880542,
             "exit_code": 1,
@@ -12217,11 +12217,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/sparse-denser-16/cli-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/sparse-denser-16/cli-warmup1/output"
             ],
             "elapsed_ns": 6624708,
             "exit_code": 1,
@@ -12310,9 +12310,9 @@
       },
       "normalization": {
         "argv": [
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+          "/workspace/RouteProof/build/host-release/routeproof",
           "validate",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
+          "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
           "--normalized"
         ],
         "elapsed_ns": 3186167,
@@ -12500,11 +12500,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/instrumented-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/instrumented-000/output"
             ],
             "elapsed_ns": 25359667,
             "exit_code": 1,
@@ -12522,11 +12522,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/cli-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/cli-000/output"
             ],
             "elapsed_ns": 23242583,
             "exit_code": 1,
@@ -12709,11 +12709,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/instrumented-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/instrumented-001/output"
             ],
             "elapsed_ns": 26987125,
             "exit_code": 1,
@@ -12731,11 +12731,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/cli-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/cli-001/output"
             ],
             "elapsed_ns": 22736791,
             "exit_code": 1,
@@ -12918,11 +12918,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/instrumented-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/instrumented-002/output"
             ],
             "elapsed_ns": 25585917,
             "exit_code": 1,
@@ -12940,11 +12940,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/cli-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/cli-002/output"
             ],
             "elapsed_ns": 23479208,
             "exit_code": 1,
@@ -13127,11 +13127,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/instrumented-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/instrumented-003/output"
             ],
             "elapsed_ns": 25817042,
             "exit_code": 1,
@@ -13149,11 +13149,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/cli-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/cli-003/output"
             ],
             "elapsed_ns": 23420125,
             "exit_code": 1,
@@ -13336,11 +13336,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/instrumented-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/instrumented-004/output"
             ],
             "elapsed_ns": 25301750,
             "exit_code": 1,
@@ -13358,11 +13358,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/cli-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/cli-004/output"
             ],
             "elapsed_ns": 22617542,
             "exit_code": 1,
@@ -13549,11 +13549,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/instrumented-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/instrumented-warmup1/output"
             ],
             "elapsed_ns": 26026583,
             "exit_code": 1,
@@ -13571,11 +13571,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/cli-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-1/cli-warmup1/output"
             ],
             "elapsed_ns": 22827125,
             "exit_code": 1,
@@ -13664,9 +13664,9 @@
       },
       "normalization": {
         "argv": [
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+          "/workspace/RouteProof/build/host-release/routeproof",
           "validate",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
+          "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
           "--normalized"
         ],
         "elapsed_ns": 3313125,
@@ -13854,11 +13854,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/instrumented-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/instrumented-000/output"
             ],
             "elapsed_ns": 49045667,
             "exit_code": 1,
@@ -13876,11 +13876,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/cli-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/cli-000/output"
             ],
             "elapsed_ns": 43315916,
             "exit_code": 1,
@@ -14063,11 +14063,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/instrumented-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/instrumented-001/output"
             ],
             "elapsed_ns": 47788875,
             "exit_code": 1,
@@ -14085,11 +14085,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/cli-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/cli-001/output"
             ],
             "elapsed_ns": 42770292,
             "exit_code": 1,
@@ -14272,11 +14272,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/instrumented-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/instrumented-002/output"
             ],
             "elapsed_ns": 47436041,
             "exit_code": 1,
@@ -14294,11 +14294,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/cli-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/cli-002/output"
             ],
             "elapsed_ns": 43368291,
             "exit_code": 1,
@@ -14481,11 +14481,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/instrumented-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/instrumented-003/output"
             ],
             "elapsed_ns": 47780583,
             "exit_code": 1,
@@ -14503,11 +14503,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/cli-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/cli-003/output"
             ],
             "elapsed_ns": 45399583,
             "exit_code": 1,
@@ -14690,11 +14690,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/instrumented-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/instrumented-004/output"
             ],
             "elapsed_ns": 48499375,
             "exit_code": 1,
@@ -14712,11 +14712,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/cli-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/cli-004/output"
             ],
             "elapsed_ns": 43168667,
             "exit_code": 1,
@@ -14903,11 +14903,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/instrumented-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/instrumented-warmup1/output"
             ],
             "elapsed_ns": 47511167,
             "exit_code": 1,
@@ -14925,11 +14925,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/cli-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-prefix-density-2/cli-warmup1/output"
             ],
             "elapsed_ns": 42890417,
             "exit_code": 1,
@@ -15018,9 +15018,9 @@
       },
       "normalization": {
         "argv": [
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+          "/workspace/RouteProof/build/host-release/routeproof",
           "validate",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
+          "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
           "--normalized"
         ],
         "elapsed_ns": 4481083,
@@ -15208,11 +15208,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/instrumented-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/instrumented-000/output"
             ],
             "elapsed_ns": 37610542,
             "exit_code": 1,
@@ -15230,11 +15230,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/cli-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/cli-000/output"
             ],
             "elapsed_ns": 33506958,
             "exit_code": 1,
@@ -15417,11 +15417,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/instrumented-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/instrumented-001/output"
             ],
             "elapsed_ns": 37312666,
             "exit_code": 1,
@@ -15439,11 +15439,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/cli-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/cli-001/output"
             ],
             "elapsed_ns": 33485917,
             "exit_code": 1,
@@ -15626,11 +15626,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/instrumented-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/instrumented-002/output"
             ],
             "elapsed_ns": 37791416,
             "exit_code": 1,
@@ -15648,11 +15648,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/cli-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/cli-002/output"
             ],
             "elapsed_ns": 33360708,
             "exit_code": 1,
@@ -15835,11 +15835,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/instrumented-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/instrumented-003/output"
             ],
             "elapsed_ns": 38292583,
             "exit_code": 1,
@@ -15857,11 +15857,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/cli-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/cli-003/output"
             ],
             "elapsed_ns": 33064250,
             "exit_code": 1,
@@ -16044,11 +16044,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/instrumented-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/instrumented-004/output"
             ],
             "elapsed_ns": 37452833,
             "exit_code": 1,
@@ -16066,11 +16066,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/cli-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/cli-004/output"
             ],
             "elapsed_ns": 33781459,
             "exit_code": 1,
@@ -16257,11 +16257,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/instrumented-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/instrumented-warmup1/output"
             ],
             "elapsed_ns": 37210084,
             "exit_code": 1,
@@ -16279,11 +16279,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-all-assertions/cli-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-all-assertions/cli-warmup1/output"
             ],
             "elapsed_ns": 33680708,
             "exit_code": 1,
@@ -16372,9 +16372,9 @@
       },
       "normalization": {
         "argv": [
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+          "/workspace/RouteProof/build/host-release/routeproof",
           "validate",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
+          "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
           "--normalized"
         ],
         "elapsed_ns": 3573625,
@@ -16922,11 +16922,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/instrumented-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/instrumented-000/output"
             ],
             "elapsed_ns": 14151833,
             "exit_code": 1,
@@ -16944,11 +16944,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/cli-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/cli-000/output"
             ],
             "elapsed_ns": 13044708,
             "exit_code": 1,
@@ -17491,11 +17491,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/instrumented-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/instrumented-001/output"
             ],
             "elapsed_ns": 14280916,
             "exit_code": 1,
@@ -17513,11 +17513,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/cli-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/cli-001/output"
             ],
             "elapsed_ns": 13080375,
             "exit_code": 1,
@@ -18060,11 +18060,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/instrumented-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/instrumented-002/output"
             ],
             "elapsed_ns": 14176250,
             "exit_code": 1,
@@ -18082,11 +18082,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/cli-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/cli-002/output"
             ],
             "elapsed_ns": 12579792,
             "exit_code": 1,
@@ -18629,11 +18629,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/instrumented-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/instrumented-003/output"
             ],
             "elapsed_ns": 14063708,
             "exit_code": 1,
@@ -18651,11 +18651,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/cli-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/cli-003/output"
             ],
             "elapsed_ns": 12864667,
             "exit_code": 1,
@@ -19198,11 +19198,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/instrumented-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/instrumented-004/output"
             ],
             "elapsed_ns": 14238042,
             "exit_code": 1,
@@ -19220,11 +19220,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/cli-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/cli-004/output"
             ],
             "elapsed_ns": 12753250,
             "exit_code": 1,
@@ -19771,11 +19771,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/instrumented-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/instrumented-warmup1/output"
             ],
             "elapsed_ns": 14051250,
             "exit_code": 1,
@@ -19793,11 +19793,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-long-trace/cli-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-long-trace/cli-warmup1/output"
             ],
             "elapsed_ns": 12924833,
             "exit_code": 1,
@@ -19886,9 +19886,9 @@
       },
       "normalization": {
         "argv": [
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+          "/workspace/RouteProof/build/host-release/routeproof",
           "validate",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
+          "/workspace/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
           "--normalized"
         ],
         "elapsed_ns": 3546583,
@@ -20076,11 +20076,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/instrumented-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/instrumented-000/output"
             ],
             "elapsed_ns": 381121167,
             "exit_code": 1,
@@ -20098,11 +20098,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/cli-000/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/cli-000/output"
             ],
             "elapsed_ns": 340707000,
             "exit_code": 1,
@@ -20285,11 +20285,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/instrumented-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/instrumented-001/output"
             ],
             "elapsed_ns": 381088834,
             "exit_code": 1,
@@ -20307,11 +20307,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/cli-001/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/cli-001/output"
             ],
             "elapsed_ns": 341622500,
             "exit_code": 1,
@@ -20494,11 +20494,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/instrumented-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/instrumented-002/output"
             ],
             "elapsed_ns": 388697667,
             "exit_code": 1,
@@ -20516,11 +20516,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/cli-002/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/cli-002/output"
             ],
             "elapsed_ns": 339457208,
             "exit_code": 1,
@@ -20703,11 +20703,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/instrumented-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/instrumented-003/output"
             ],
             "elapsed_ns": 379958041,
             "exit_code": 1,
@@ -20725,11 +20725,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/cli-003/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/cli-003/output"
             ],
             "elapsed_ns": 336708417,
             "exit_code": 1,
@@ -20912,11 +20912,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/instrumented-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/instrumented-004/output"
             ],
             "elapsed_ns": 377892125,
             "exit_code": 1,
@@ -20934,11 +20934,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/cli-004/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/cli-004/output"
             ],
             "elapsed_ns": 336018625,
             "exit_code": 1,
@@ -21125,11 +21125,11 @@
           "mode": "instrumented",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "bench-sample",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/instrumented-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/instrumented-warmup1/output"
             ],
             "elapsed_ns": 381799792,
             "exit_code": 1,
@@ -21147,11 +21147,11 @@
           "mode": "cli",
           "process": {
             "argv": [
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+              "/workspace/RouteProof/build/host-release/routeproof",
               "simulate",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/scenario.json",
               "--out",
-              "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-64/cli-warmup1/output"
+              "/workspace/RouteProof/results/phase5-scaling-final/ring-64/cli-warmup1/output"
             ],
             "elapsed_ns": 337699083,
             "exit_code": 1,
@@ -21198,9 +21198,9 @@
       "input_file_sha256": "65fcb27b02f0d087553c9acb16b659ec97ac897d061fedf151c24d97e7856844",
       "normalization": {
         "argv": [
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+          "/workspace/RouteProof/build/host-release/routeproof",
           "validate",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-scaling-final/ring-256-dense-probe/scenario.json",
+          "/workspace/RouteProof/results/phase5-scaling-final/ring-256-dense-probe/scenario.json",
           "--normalized"
         ],
         "elapsed_ns": 5610917,

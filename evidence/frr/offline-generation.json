@@ -3,13 +3,13 @@
     {
       "argv": [
         "/Library/Developer/CommandLineTools/usr/bin/python3",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+        "/workspace/RouteProof/tools/frr/run_lab.py",
         "--scenario",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/pair.json",
+        "/workspace/RouteProof/labs/profiles/pair.json",
         "--out",
         "results/frr-phase4-evidence/pair",
         "--routeproof",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "/workspace/RouteProof/build/host-debug/routeproof",
         "--generate-only"
       ],
       "exit_code": 3,
@@ -31,13 +31,13 @@
     {
       "argv": [
         "/Library/Developer/CommandLineTools/usr/bin/python3",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+        "/workspace/RouteProof/tools/frr/run_lab.py",
         "--scenario",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/pair-asymmetric.json",
+        "/workspace/RouteProof/labs/profiles/pair-asymmetric.json",
         "--out",
         "results/frr-phase4-evidence/pair-asymmetric",
         "--routeproof",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "/workspace/RouteProof/build/host-debug/routeproof",
         "--generate-only"
       ],
       "exit_code": 3,
@@ -59,13 +59,13 @@
     {
       "argv": [
         "/Library/Developer/CommandLineTools/usr/bin/python3",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+        "/workspace/RouteProof/tools/frr/run_lab.py",
         "--scenario",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/chain.json",
+        "/workspace/RouteProof/labs/profiles/chain.json",
         "--out",
         "results/frr-phase4-evidence/chain",
         "--routeproof",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "/workspace/RouteProof/build/host-debug/routeproof",
         "--generate-only"
       ],
       "exit_code": 3,
@@ -87,13 +87,13 @@
     {
       "argv": [
         "/Library/Developer/CommandLineTools/usr/bin/python3",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+        "/workspace/RouteProof/tools/frr/run_lab.py",
         "--scenario",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/examples/diamond-failures.yaml",
+        "/workspace/RouteProof/examples/diamond-failures.yaml",
         "--out",
         "results/frr-phase4-evidence/diamond-failures",
         "--routeproof",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "/workspace/RouteProof/build/host-debug/routeproof",
         "--generate-only"
       ],
       "exit_code": 3,
@@ -115,13 +115,13 @@
     {
       "argv": [
         "/Library/Developer/CommandLineTools/usr/bin/python3",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+        "/workspace/RouteProof/tools/frr/run_lab.py",
         "--scenario",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/parallel.json",
+        "/workspace/RouteProof/labs/profiles/parallel.json",
         "--out",
         "results/frr-phase4-evidence/parallel",
         "--routeproof",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "/workspace/RouteProof/build/host-debug/routeproof",
         "--generate-only"
       ],
       "exit_code": 3,
@@ -143,13 +143,13 @@
     {
       "argv": [
         "/Library/Developer/CommandLineTools/usr/bin/python3",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+        "/workspace/RouteProof/tools/frr/run_lab.py",
         "--scenario",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/ring.json",
+        "/workspace/RouteProof/labs/profiles/ring.json",
         "--out",
         "results/frr-phase4-evidence/ring",
         "--routeproof",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "/workspace/RouteProof/build/host-debug/routeproof",
         "--generate-only"
       ],
       "exit_code": 3,

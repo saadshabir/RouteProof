@@ -1,4 +1,4 @@
-Test project /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/gcc-debug
+Test project /workspace/RouteProof/build/gcc-debug
     Start 1: input.physical_topology
 1/9 Test #1: input.physical_topology ..........   Passed    0.04 sec
     Start 2: input.input_fixtures

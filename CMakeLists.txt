@@ -92,7 +92,6 @@ target_compile_definitions(routeproof PRIVATE
 
 include(CTest)
 if(BUILD_TESTING)
-    find_package(Python3 3.9 REQUIRED COMPONENTS Interpreter)
     add_executable(routeproof_topology_check tests/integration/physical_topology.cpp)
     set_target_properties(routeproof_topology_check PROPERTIES CXX_EXTENSIONS OFF)
     target_link_libraries(routeproof_topology_check PRIVATE routeproof_core)
@@ -139,6 +138,9 @@ if(BUILD_TESTING)
     add_test(NAME workflows.acceptance_contract COMMAND "${Python3_EXECUTABLE}"
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/workflows/check_workflows.py" "$<TARGET_FILE:routeproof>")
     set_tests_properties(workflows.acceptance_contract PROPERTIES TIMEOUT 60)
+    add_test(NAME workflows.launcher_contract COMMAND "${Python3_EXECUTABLE}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/workflows/check_launcher.py")
+    set_tests_properties(workflows.launcher_contract PROPERTIES TIMEOUT 60)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")

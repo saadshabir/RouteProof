@@ -1,4 +1,4 @@
-# Phase 5 benchmark evidence
+# Benchmark evidence
 
 Historical native validation date: 2026-10-07 (America/Toronto). Native
 measurement/reproduction evidence is delivered. The Linux gates were open then;
@@ -73,7 +73,7 @@ or a performance threshold is not required.
 
 ## Verification and artifacts
 
-The archived measurement source passes all **10 CTest groups**, including the independent
+The historical measurement source passed all **10 CTest groups**, including the independent
 routing/replay oracles, offline FRR harness, and seven benchmark contract checks.
 [Clean Release log](clean-release-tests.txt) records the complete measured-source run.
 GCC 12.5.0 and upstream Clang 18.1.8 builds and benchmark checks pass; full suites
@@ -88,17 +88,14 @@ No live FRR result is inferred from the offline checks.
 
 [Commands](commands.txt) record acquisition/reproduction/build/validation steps.
 [Artifact checksums](artifact-sha256.txt) cover the selected bundle.
-The [frozen source archive](source-snapshot.tar.gz) permits rebuilding these
-uncommitted sources. The [complete compressed scaling bundle](scaling-raw.tar.gz)
-contains all generated/normalized inputs, commands, raw process/run/sample
-manifests, logs and retained canonical results; extract it with
-`tar -xzf evidence/bench/scaling-raw.tar.gz -C results`.
-The same scaling aggregates/CSVs are directly available as
+The frozen source archive and compressed scaling bundle were removed during
+privacy cleanup. Generate fresh runs with the committed profiles and the
+[benchmark workflow](../../docs/benchmarks.md). Historical scaling aggregates/CSVs
+remain directly available as
 [summary JSON](scaling-summary.json), [scenario CSV](scaling-scenario-timings.csv),
 [event CSV](scaling-event-timings.csv), and [memory CSV](scaling-memory.csv).
-Repeated canonical copies were deleted after hashing; one result per completed
-cell is retained. The source archive predates this evidence index and contains the
-exact measured code. Documentation added afterward does not change that code hash.
+The small-run bundles retain raw samples and canonical results. Historical
+source manifests preserve the measured code hashes.
 
 This historical bundle contains native measurements. `bench` implements both
 Linux and macOS RSS; authoritative Linux samples and their clean reproduction
@@ -108,10 +105,10 @@ are now available in [the completed Linux receipts](../linux/README.md).
 
 [Review-fix evidence](review-fixes/README.md) records the subsequent corrections
 to sweep completion, external-binary source provenance, counter/timing validation
-and final timeout enforcement. The original source archive, measurements and
+and final timeout enforcement. The original measurement summaries and small-run
 reproduction above are preserved as historical evidence. The stricter validator
-rechecks all 14 completed scaling cells and the original small reproduction;
-fresh source and clean reproduction artifacts cover the corrected harness.
+previously rechecked all 14 completed scaling cells and the original small reproduction;
+clean reproduction artifacts cover the corrected harness.
 
 [Follow-up verification](review-fixes/validation.md) records the shipping harness
 fixes, expanded checks and current source hash separately from the original

@@ -1,4 +1,4 @@
-# Phase 4: FRR tooling and offline validation
+# FRR tooling and offline validation
 
 Historical offline validation date: **2026-10-06**. Host: macOS 27.0.1 arm64.
 The Linux gate was open at that time. It is now complete in [Linux acceptance](../linux/README.md):

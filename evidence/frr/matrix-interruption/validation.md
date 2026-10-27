@@ -1,9 +1,9 @@
-# Phase 4 matrix interruption checks
+# FRR matrix interruption checks
 
 Validation date: **2026-10-07**. Host: macOS arm64. These checks do not establish
 live FRRouting agreement.
 
-The existing Phase 4 implementation had two matrix orchestration gaps: SIGTERM
+The existing FRR implementation had two matrix orchestration gaps: SIGTERM
 could stop the parent without coordinating child cleanup, and timeout/interruption
 handling replaced the child's partial report with a generic failure. The matrix
 now gives the active child a bounded cleanup period and retains its comparisons,

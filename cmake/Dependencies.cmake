@@ -15,12 +15,6 @@ FetchContent_Declare(
 )
 
 FetchContent_Declare(
-    Catch2
-    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-    GIT_TAG 191fa38c9b1596cd2576ab531d4ab4d5e8e05190 # v3.15.2
-)
-
-FetchContent_Declare(
     PicoSHA2
     GIT_REPOSITORY https://github.com/okdshin/PicoSHA2.git
     GIT_TAG 161cb3fc4170fa7a3eca9e582cebd27cc4d1fe29 # v1.0.1

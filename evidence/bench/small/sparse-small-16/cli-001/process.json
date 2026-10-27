@@ -1,10 +1,10 @@
 {
   "argv": [
-    "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+    "/workspace/RouteProof/build/host-release/routeproof",
     "simulate",
-    "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-small-final/sparse-small-16/scenario.json",
+    "/workspace/RouteProof/results/phase5-small-final/sparse-small-16/scenario.json",
     "--out",
-    "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/results/phase5-small-final/sparse-small-16/cli-001/output"
+    "/workspace/RouteProof/results/phase5-small-final/sparse-small-16/cli-001/output"
   ],
   "elapsed_ns": 5989708,
   "exit_code": 1,

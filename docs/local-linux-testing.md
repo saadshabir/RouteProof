@@ -60,7 +60,7 @@ ip link delete rp-veth-test
 Use a fresh committed checkout on the machine's Linux filesystem. Keep Linux
 build directories separate from native macOS builds. The recorded run cloned
 the shared macOS repository into
-`/home/saad/routeproof-testing/20261009/first-source`.
+`/home/user/routeproof-testing/20261009/first-source`.
 
 From the clean Linux checkout:
 
@@ -76,7 +76,7 @@ UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1 \
   ctest --test-dir build/host-sanitizers --output-on-failure
 ```
 
-The checkout verifier runs all 11 CTest groups in GCC Release, GCC Debug and
+The checkout verifier runs all 12 CTest groups in GCC Release, GCC Debug and
 Clang Debug, checks identical canonical diamond output, runs the small
 benchmark and checks offline FRR generation. Offline generation reports
 `skipped` with exit 3; live agreement is checked separately.

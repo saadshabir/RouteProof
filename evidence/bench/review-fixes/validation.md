@@ -9,7 +9,7 @@ budgets and instrumentation aggregates against retained raw/canonical artifacts.
 
 The routing engine and C++ instrumentation are unchanged. The previously recorded
 14 complete scaling cells, both small runs and all original artifact checksums
-pass the strengthened verifier. The original source archive and manifests retain
+passed the strengthened verifier. The original manifests retain
 their measured source hash; the current shipping source hash is recorded separately
 in [source-inputs.json](source-inputs.json). No old timing sample was relabeled with
 a new source hash.

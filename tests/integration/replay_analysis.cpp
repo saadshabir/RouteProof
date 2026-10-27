@@ -2,6 +2,7 @@
 #include "routeproof/engine/replay.hpp"
 #include "routeproof/input/scenario_loader.hpp"
 #include "routeproof/output/simulation.hpp"
+#include "routeproof/bench/measurement.hpp"
 #include <algorithm>
 #include <iostream>
 #include <limits>
@@ -180,11 +181,50 @@ int main(int argc, char** argv) {
             }
         });
         require(snapshots == 6, "wrong snapshot count");
+        auto check_summary = [&](const input::LoadedScenario& scenario, const output::SimulationOutput& result, std::size_t completed,
+                                 std::size_t applied, std::size_t noop, const char* status) {
+            require(result.summary.completed_snapshots == completed && result.summary.applied_events == applied &&
+                    result.summary.noop_events == noop && result.summary.status == status,
+                    "summary includes unpublished coverage or wrong status");
+            require(result.json.find("\"canonical_sha256\":\"" + result.summary.canonical_sha256 + "\"") != std::string::npos &&
+                    result.summary.canonical_sha256.size() == 64, "summary digest disagrees with canonical result");
+            const auto manifest = output::run_manifest(scenario, result, argv[1], 1);
+            require(manifest.find("\"completed_snapshots\":" + std::to_string(completed)) != std::string::npos &&
+                    manifest.find("\"applied_events\":" + std::to_string(applied)) != std::string::npos &&
+                    manifest.find("\"noop_events\":" + std::to_string(noop)) != std::string::npos &&
+                    manifest.find("\"status\":\"" + std::string(status) + "\"") != std::string::npos,
+                    "run manifest disagrees with summary");
+            const auto sample = bench::sample_manifest(scenario, result, {}, 0, 1);
+            require(sample.find(result.summary.canonical_sha256) != std::string::npos &&
+                    sample.find("\"status\":\"" + std::string(status) + "\"") != std::string::npos,
+                    "sample manifest disagrees with summary");
+        };
+        check_summary(loaded, output::simulate(loaded), 6, 5, 0, "fail");
+        const auto passing = input::load_scenario(std::filesystem::path(argv[1]).parent_path() / "routing/single-router.json");
+        check_summary(passing, output::simulate(passing), 1, 0, 0, "pass");
         auto limits = output::SimulationLimits{};
         limits.max_snapshots = 0;
         const auto incomplete = output::simulate(loaded, limits);
         require(incomplete.exit_code == 3 && incomplete.json.find("snapshot budget exceeded") != std::string::npos,
                 "budget exhaustion did not return incomplete JSON");
+        check_summary(loaded, incomplete, 0, 0, 0, "incomplete");
+        // Frozen diamond boundaries measured with the preceding implementation.
+        // Keep its conservative byte charging and atomic publication contract.
+        for (const auto& [budget, completed] : {std::pair<std::size_t, std::size_t>{2405, 0},
+                {2406, 1}, {4066, 1}, {4067, 2}, {11219, 5}, {11220, 6}}) {
+            limits = {};
+            limits.max_output_bytes = budget;
+            check_summary(loaded, output::simulate(loaded, limits), completed,
+                          completed ? completed - 1 : 0, 0, completed == 6 ? "fail" : "incomplete");
+        }
+        // Publish baseline and a no-op; reject the next candidate before its
+        // assertions can be published. Metadata must describe only those two.
+        auto partial = loaded;
+        auto& events = partial.topology.scenario.events;
+        events[0].type = model::EventType::link_up;
+        limits = {};
+        limits.max_destination_analyses = loaded.topology.scenario.assertions.size() * 2;
+        check_summary(partial, output::simulate(partial, limits), 2, 0, 1, "incomplete");
         for (int budget = 0; budget < 8; ++budget) {
             limits = {};
             switch (budget) {
