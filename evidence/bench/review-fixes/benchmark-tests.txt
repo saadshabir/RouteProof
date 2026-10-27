@@ -2,8 +2,8 @@ Start testing: Oct 07 22:46 EDT
 ----------------------------------------------------------
 10/10 Testing: bench.harness_contract
 10/10 Test: bench.harness_contract
-Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tests/bench/check_bench.py" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof"
-Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release
+Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/workspace/RouteProof/tests/bench/check_bench.py" "/workspace/RouteProof/build/host-release/routeproof"
+Directory: /workspace/RouteProof/build/host-release
 "bench.harness_contract" start time: Oct 07 22:46 EDT
 Output:
 ----------------------------------------------------------

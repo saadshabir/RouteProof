@@ -89,7 +89,7 @@ The validator rejects unsupported fields and semantic errors with source locatio
 
 CTest runs the CLI fixtures, constructed physical-topology integration check, parser-limit boundaries, and regressions for JSON interoperability, safe output, aliases, prefix ownership, and larger input. It also compares routing against an independent Python Floyd–Warshall oracle on named and generated tiny graphs, with input-order and repeat invariance checks. [Routing evidence](evidence/routing/routing-validation.md) records the routing coverage and toolchain checks. The [input security fixes](evidence/input/security-fixes.md) record their validation.
 
-Read the [model contract](docs/model.md), [v0.1 acceptance checklist](docs/acceptance.md), and [detailed implementation plan](docs/implementation-plan.md) for semantics, acceptance gates, validation strategy, and implementation scope. [Replay evidence](evidence/replay/replay-validation.md) records replay, witness, compiler, and sanitizer checks. The [FRR workflow](docs/validation.md) implements `tools/frr/run_lab.py` and
+Read the [model contract](docs/model.md) and [v0.1 acceptance checklist](docs/acceptance.md) for semantics and implementation scope. [Replay evidence](evidence/replay/replay-validation.md) records replay, witness, compiler, and sanitizer checks. The [FRR workflow](docs/validation.md) implements `tools/frr/run_lab.py` and
 `run_matrix.py`. Review all five generated profiles without Linux access:
 
 ```sh
@@ -110,7 +110,7 @@ build/host-release/routeproof bench --profile benchmarks/profiles/sparse-small.j
 The scaling profile preserves budget-skipped/failed probes and exits 3 for a partial
 sweep. Core processing, complete CLI time, and RSS have separate boundaries; these
 are converged-scenario measurements. macOS RSS is provisional. See the
-[Phase 5 evidence](evidence/bench/benchmark-validation.md) for measured coverage,
+[Benchmark evidence](evidence/bench/benchmark-validation.md) for measured coverage,
 raw samples and clean source reproduction.
 
 ## CI and validation evidence

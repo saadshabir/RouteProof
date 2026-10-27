@@ -165,12 +165,13 @@ Completed processes must respect the recorded time/memory budgets. Timing equali
 is not required and no regression threshold is imposed. Both binary and harness
 source-input manifests cover code, tests, profiles, schemas and build
 configuration; raw scenario hashes cover actual measurement inputs. Dependency
-commits are recorded separately. The selected evidence includes a source archive
-for the uncommitted implementation and the exact clean-build/reproduction commands.
+commits are recorded separately. The selected evidence retains historical source
+manifests and clean-build/reproduction command records.
 Historical bundles predating separate harness provenance remain comparable to
 each other; they cannot be mixed with the new provenance format.
 
 Full generated runs live under ignored `results/`. The published bundle retains
-small raw evidence and a source archive with checksums; larger canonical results
-can be regenerated from the archived normalized scenarios. The original Phase 5
+small raw evidence, source manifests and checksums. Historical compressed source
+and scaling bundles were removed during privacy cleanup; generate fresh runs with
+the committed profiles and commands above. The original native
 measurements used the reference implementation before optimization.

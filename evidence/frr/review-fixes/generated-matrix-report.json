@@ -3,18 +3,18 @@
     {
       "argv": [
         "/Library/Developer/CommandLineTools/usr/bin/python3",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+        "/workspace/RouteProof/tools/frr/run_lab.py",
         "--scenario",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/pair.json",
+        "/workspace/RouteProof/labs/profiles/pair.json",
         "--out",
         "results/frr-review-fixes/pair",
         "--routeproof",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "/workspace/RouteProof/build/host-debug/routeproof",
         "--generate-only"
       ],
       "exit_code": 3,
       "manifest": {
-        "binary_path": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "binary_path": "/workspace/RouteProof/build/host-debug/routeproof",
         "binary_sha256": "0a5250ced0dd3a26b1e507d8fce01a3bd70ba071529096c565f132f3014e3418",
         "frr_version": "10.2.1",
         "generated_hashes": {
@@ -41,13 +41,13 @@
         },
         "reproduction_argv": [
           "/Library/Developer/CommandLineTools/usr/bin/python3",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+          "/workspace/RouteProof/tools/frr/run_lab.py",
           "--scenario",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/pair.json",
+          "/workspace/RouteProof/labs/profiles/pair.json",
           "--out",
           "results/frr-review-fixes/pair",
           "--routeproof",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+          "/workspace/RouteProof/build/host-debug/routeproof",
           "--generate-only"
         ],
         "result_sha256": "541c2e24c3eb21943256b326fab00537f93119a4e3102d73055b9f6f744949de",
@@ -142,7 +142,7 @@
           "tools/input/validate_fixtures.py": "ee2748ab875e8e4d53149165f31c278a18489e83bf00df39fc427b665c736544",
           "tools/input/validate_regressions.py": "0dcacbf5e94fb4b88caa2008ccecba8d037173f5d5211a072370779d373f4a7d"
         },
-        "source_root": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof"
+        "source_root": "/workspace/RouteProof"
       },
       "profile": "pair",
       "report": {
@@ -162,18 +162,18 @@
     {
       "argv": [
         "/Library/Developer/CommandLineTools/usr/bin/python3",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+        "/workspace/RouteProof/tools/frr/run_lab.py",
         "--scenario",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/pair-asymmetric.json",
+        "/workspace/RouteProof/labs/profiles/pair-asymmetric.json",
         "--out",
         "results/frr-review-fixes/pair-asymmetric",
         "--routeproof",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "/workspace/RouteProof/build/host-debug/routeproof",
         "--generate-only"
       ],
       "exit_code": 3,
       "manifest": {
-        "binary_path": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "binary_path": "/workspace/RouteProof/build/host-debug/routeproof",
         "binary_sha256": "0a5250ced0dd3a26b1e507d8fce01a3bd70ba071529096c565f132f3014e3418",
         "frr_version": "10.2.1",
         "generated_hashes": {
@@ -200,13 +200,13 @@
         },
         "reproduction_argv": [
           "/Library/Developer/CommandLineTools/usr/bin/python3",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+          "/workspace/RouteProof/tools/frr/run_lab.py",
           "--scenario",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/pair-asymmetric.json",
+          "/workspace/RouteProof/labs/profiles/pair-asymmetric.json",
           "--out",
           "results/frr-review-fixes/pair-asymmetric",
           "--routeproof",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+          "/workspace/RouteProof/build/host-debug/routeproof",
           "--generate-only"
         ],
         "result_sha256": "29358ab87e013dd1a4780d4588498ba22a0c02d1a60370ff53ef76e7a14aaeb3",
@@ -301,7 +301,7 @@
           "tools/input/validate_fixtures.py": "ee2748ab875e8e4d53149165f31c278a18489e83bf00df39fc427b665c736544",
           "tools/input/validate_regressions.py": "0dcacbf5e94fb4b88caa2008ccecba8d037173f5d5211a072370779d373f4a7d"
         },
-        "source_root": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof"
+        "source_root": "/workspace/RouteProof"
       },
       "profile": "pair",
       "report": {
@@ -321,18 +321,18 @@
     {
       "argv": [
         "/Library/Developer/CommandLineTools/usr/bin/python3",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+        "/workspace/RouteProof/tools/frr/run_lab.py",
         "--scenario",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/chain.json",
+        "/workspace/RouteProof/labs/profiles/chain.json",
         "--out",
         "results/frr-review-fixes/chain",
         "--routeproof",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "/workspace/RouteProof/build/host-debug/routeproof",
         "--generate-only"
       ],
       "exit_code": 3,
       "manifest": {
-        "binary_path": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "binary_path": "/workspace/RouteProof/build/host-debug/routeproof",
         "binary_sha256": "0a5250ced0dd3a26b1e507d8fce01a3bd70ba071529096c565f132f3014e3418",
         "frr_version": "10.2.1",
         "generated_hashes": {
@@ -361,13 +361,13 @@
         },
         "reproduction_argv": [
           "/Library/Developer/CommandLineTools/usr/bin/python3",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+          "/workspace/RouteProof/tools/frr/run_lab.py",
           "--scenario",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/chain.json",
+          "/workspace/RouteProof/labs/profiles/chain.json",
           "--out",
           "results/frr-review-fixes/chain",
           "--routeproof",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+          "/workspace/RouteProof/build/host-debug/routeproof",
           "--generate-only"
         ],
         "result_sha256": "8b378b38b20cd0e0ed64024dce065e6e5446daa504afec4235aec7019f558fdb",
@@ -462,7 +462,7 @@
           "tools/input/validate_fixtures.py": "ee2748ab875e8e4d53149165f31c278a18489e83bf00df39fc427b665c736544",
           "tools/input/validate_regressions.py": "0dcacbf5e94fb4b88caa2008ccecba8d037173f5d5211a072370779d373f4a7d"
         },
-        "source_root": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof"
+        "source_root": "/workspace/RouteProof"
       },
       "profile": "chain",
       "report": {
@@ -482,18 +482,18 @@
     {
       "argv": [
         "/Library/Developer/CommandLineTools/usr/bin/python3",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+        "/workspace/RouteProof/tools/frr/run_lab.py",
         "--scenario",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/examples/diamond-failures.yaml",
+        "/workspace/RouteProof/examples/diamond-failures.yaml",
         "--out",
         "results/frr-review-fixes/diamond-failures",
         "--routeproof",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "/workspace/RouteProof/build/host-debug/routeproof",
         "--generate-only"
       ],
       "exit_code": 3,
       "manifest": {
-        "binary_path": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "binary_path": "/workspace/RouteProof/build/host-debug/routeproof",
         "binary_sha256": "0a5250ced0dd3a26b1e507d8fce01a3bd70ba071529096c565f132f3014e3418",
         "frr_version": "10.2.1",
         "generated_hashes": {
@@ -524,13 +524,13 @@
         },
         "reproduction_argv": [
           "/Library/Developer/CommandLineTools/usr/bin/python3",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+          "/workspace/RouteProof/tools/frr/run_lab.py",
           "--scenario",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/examples/diamond-failures.yaml",
+          "/workspace/RouteProof/examples/diamond-failures.yaml",
           "--out",
           "results/frr-review-fixes/diamond-failures",
           "--routeproof",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+          "/workspace/RouteProof/build/host-debug/routeproof",
           "--generate-only"
         ],
         "result_sha256": "886aa322a251123a85fdfb3668b33312a96bb541e33b673fa5806114963f0e3d",
@@ -625,7 +625,7 @@
           "tools/input/validate_fixtures.py": "ee2748ab875e8e4d53149165f31c278a18489e83bf00df39fc427b665c736544",
           "tools/input/validate_regressions.py": "0dcacbf5e94fb4b88caa2008ccecba8d037173f5d5211a072370779d373f4a7d"
         },
-        "source_root": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof"
+        "source_root": "/workspace/RouteProof"
       },
       "profile": "diamond",
       "report": {
@@ -645,18 +645,18 @@
     {
       "argv": [
         "/Library/Developer/CommandLineTools/usr/bin/python3",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+        "/workspace/RouteProof/tools/frr/run_lab.py",
         "--scenario",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/parallel.json",
+        "/workspace/RouteProof/labs/profiles/parallel.json",
         "--out",
         "results/frr-review-fixes/parallel",
         "--routeproof",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "/workspace/RouteProof/build/host-debug/routeproof",
         "--generate-only"
       ],
       "exit_code": 3,
       "manifest": {
-        "binary_path": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "binary_path": "/workspace/RouteProof/build/host-debug/routeproof",
         "binary_sha256": "0a5250ced0dd3a26b1e507d8fce01a3bd70ba071529096c565f132f3014e3418",
         "frr_version": "10.2.1",
         "generated_hashes": {
@@ -683,13 +683,13 @@
         },
         "reproduction_argv": [
           "/Library/Developer/CommandLineTools/usr/bin/python3",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+          "/workspace/RouteProof/tools/frr/run_lab.py",
           "--scenario",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/parallel.json",
+          "/workspace/RouteProof/labs/profiles/parallel.json",
           "--out",
           "results/frr-review-fixes/parallel",
           "--routeproof",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+          "/workspace/RouteProof/build/host-debug/routeproof",
           "--generate-only"
         ],
         "result_sha256": "064a3cc08cab1ffd0f8ea060062b4d86695b3a11ce74487255ec15439e28ce8d",
@@ -784,7 +784,7 @@
           "tools/input/validate_fixtures.py": "ee2748ab875e8e4d53149165f31c278a18489e83bf00df39fc427b665c736544",
           "tools/input/validate_regressions.py": "0dcacbf5e94fb4b88caa2008ccecba8d037173f5d5211a072370779d373f4a7d"
         },
-        "source_root": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof"
+        "source_root": "/workspace/RouteProof"
       },
       "profile": "parallel",
       "report": {
@@ -804,18 +804,18 @@
     {
       "argv": [
         "/Library/Developer/CommandLineTools/usr/bin/python3",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+        "/workspace/RouteProof/tools/frr/run_lab.py",
         "--scenario",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/ring.json",
+        "/workspace/RouteProof/labs/profiles/ring.json",
         "--out",
         "results/frr-review-fixes/ring",
         "--routeproof",
-        "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "/workspace/RouteProof/build/host-debug/routeproof",
         "--generate-only"
       ],
       "exit_code": 3,
       "manifest": {
-        "binary_path": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+        "binary_path": "/workspace/RouteProof/build/host-debug/routeproof",
         "binary_sha256": "0a5250ced0dd3a26b1e507d8fce01a3bd70ba071529096c565f132f3014e3418",
         "frr_version": "10.2.1",
         "generated_hashes": {
@@ -848,13 +848,13 @@
         },
         "reproduction_argv": [
           "/Library/Developer/CommandLineTools/usr/bin/python3",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/frr/run_lab.py",
+          "/workspace/RouteProof/tools/frr/run_lab.py",
           "--scenario",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/labs/profiles/ring.json",
+          "/workspace/RouteProof/labs/profiles/ring.json",
           "--out",
           "results/frr-review-fixes/ring",
           "--routeproof",
-          "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-debug/routeproof",
+          "/workspace/RouteProof/build/host-debug/routeproof",
           "--generate-only"
         ],
         "result_sha256": "3096ed7870f83ca6035f43a559e1c3a77303d2094ee87a800d31297e9268ce63",
@@ -949,7 +949,7 @@
           "tools/input/validate_fixtures.py": "ee2748ab875e8e4d53149165f31c278a18489e83bf00df39fc427b665c736544",
           "tools/input/validate_regressions.py": "0dcacbf5e94fb4b88caa2008ccecba8d037173f5d5211a072370779d373f4a7d"
         },
-        "source_root": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof"
+        "source_root": "/workspace/RouteProof"
       },
       "profile": "ring",
       "report": {

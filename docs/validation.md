@@ -232,7 +232,7 @@ Exit codes: 0 complete exact agreement; 1 complete with route mismatches; 2 inva
 CLI/output reuse; 3 incomplete infrastructure or generation-only/skipped. Passing
 27 snapshots and all 687 slots on a fresh lab matrix, then reproducing those
 normalized results in a second fresh run from a clean checkout, is the declared
-Phase 4 gate. The rerun checker requires supported live manifests, recorded
+live FRR validation gate. The rerun checker requires supported live manifests, recorded
 Linux/Docker/Containerlab and image inspection, distinct lab identities across
 both matrices, a clean reproduction checkout, matching source hashes/image pin,
 and consistent per-cell/snapshot coverage. It then compares canonical

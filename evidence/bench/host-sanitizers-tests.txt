@@ -2,8 +2,8 @@ Start testing: Oct 07 21:02 EDT
 ----------------------------------------------------------
 1/10 Testing: input.physical_topology
 1/10 Test: input.physical_topology
-Command: "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers/routeproof_topology_check" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/examples/input/valid/physical-state.yaml"
-Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers
+Command: "/workspace/RouteProof/build/host-sanitizers/routeproof_topology_check" "/workspace/RouteProof/examples/input/valid/physical-state.yaml"
+Directory: /workspace/RouteProof/build/host-sanitizers
 "input.physical_topology" start time: Oct 07 21:02 EDT
 Output:
 ----------------------------------------------------------
@@ -18,8 +18,8 @@ Test Passed.
 
 2/10 Testing: input.input_fixtures
 2/10 Test: input.input_fixtures
-Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/input/validate_fixtures.py" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers/routeproof"
-Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers
+Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/workspace/RouteProof/tools/input/validate_fixtures.py" "/workspace/RouteProof/build/host-sanitizers/routeproof"
+Directory: /workspace/RouteProof/build/host-sanitizers
 "input.input_fixtures" start time: Oct 07 21:02 EDT
 Output:
 ----------------------------------------------------------
@@ -57,8 +57,8 @@ Test Passed.
 
 3/10 Testing: input.input_limits
 3/10 Test: input.input_limits
-Command: "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers/routeproof_input_limits_check" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/examples/input/valid/diamond.yaml"
-Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers
+Command: "/workspace/RouteProof/build/host-sanitizers/routeproof_input_limits_check" "/workspace/RouteProof/examples/input/valid/diamond.yaml"
+Directory: /workspace/RouteProof/build/host-sanitizers
 "input.input_limits" start time: Oct 07 21:02 EDT
 Output:
 ----------------------------------------------------------
@@ -73,8 +73,8 @@ Test Passed.
 
 4/10 Testing: input.input_regressions
 4/10 Test: input.input_regressions
-Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tools/input/validate_regressions.py" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers/routeproof"
-Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers
+Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/workspace/RouteProof/tools/input/validate_regressions.py" "/workspace/RouteProof/build/host-sanitizers/routeproof"
+Directory: /workspace/RouteProof/build/host-sanitizers
 "input.input_regressions" start time: Oct 07 21:02 EDT
 Output:
 ----------------------------------------------------------
@@ -94,8 +94,8 @@ Test Passed.
 
 5/10 Testing: routing.routing_contract
 5/10 Test: routing.routing_contract
-Command: "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers/routeproof_routing_check" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/examples/routing/merged-ecmp.json"
-Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers
+Command: "/workspace/RouteProof/build/host-sanitizers/routeproof_routing_check" "/workspace/RouteProof/examples/routing/merged-ecmp.json"
+Directory: /workspace/RouteProof/build/host-sanitizers
 "routing.routing_contract" start time: Oct 07 21:02 EDT
 Output:
 ----------------------------------------------------------
@@ -110,8 +110,8 @@ Test Passed.
 
 6/10 Testing: routing.independent_oracle
 6/10 Test: routing.independent_oracle
-Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tests/reference/check_routing.py" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers/routeproof"
-Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers
+Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/workspace/RouteProof/tests/reference/check_routing.py" "/workspace/RouteProof/build/host-sanitizers/routeproof"
+Directory: /workspace/RouteProof/build/host-sanitizers
 "routing.independent_oracle" start time: Oct 07 21:02 EDT
 Output:
 ----------------------------------------------------------
@@ -127,8 +127,8 @@ Test Passed.
 
 7/10 Testing: replay.replay_checker
 7/10 Test: replay.replay_checker
-Command: "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers/routeproof_replay_check" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/examples/diamond-failures.yaml"
-Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers
+Command: "/workspace/RouteProof/build/host-sanitizers/routeproof_replay_check" "/workspace/RouteProof/examples/diamond-failures.yaml"
+Directory: /workspace/RouteProof/build/host-sanitizers
 "replay.replay_checker" start time: Oct 07 21:02 EDT
 Output:
 ----------------------------------------------------------
@@ -143,8 +143,8 @@ Test Passed.
 
 8/10 Testing: replay.independent_replay
 8/10 Test: replay.independent_replay
-Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tests/reference/check_replay.py" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers/routeproof"
-Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers
+Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/workspace/RouteProof/tests/reference/check_replay.py" "/workspace/RouteProof/build/host-sanitizers/routeproof"
+Directory: /workspace/RouteProof/build/host-sanitizers
 "replay.independent_replay" start time: Oct 07 21:02 EDT
 Output:
 ----------------------------------------------------------
@@ -160,8 +160,8 @@ Test Passed.
 
 9/10 Testing: frr.offline_harness
 9/10 Test: frr.offline_harness
-Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tests/frr/check_frr.py" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers/routeproof"
-Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers
+Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/workspace/RouteProof/tests/frr/check_frr.py" "/workspace/RouteProof/build/host-sanitizers/routeproof"
+Directory: /workspace/RouteProof/build/host-sanitizers
 "frr.offline_harness" start time: Oct 07 21:02 EDT
 Output:
 ----------------------------------------------------------
@@ -180,8 +180,8 @@ Test Passed.
 
 10/10 Testing: bench.harness_contract
 10/10 Test: bench.harness_contract
-Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/tests/bench/check_bench.py" "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers/routeproof"
-Directory: /Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-sanitizers
+Command: "/opt/homebrew/Frameworks/Python.framework/Versions/3.13/bin/python3.13" "/workspace/RouteProof/tests/bench/check_bench.py" "/workspace/RouteProof/build/host-sanitizers/routeproof"
+Directory: /workspace/RouteProof/build/host-sanitizers
 "bench.harness_contract" start time: Oct 07 21:02 EDT
 Output:
 ----------------------------------------------------------

@@ -8,7 +8,12 @@ Archived logs and manifest paths use the current descriptive directory and test
 names. These labels were normalized without changing recorded outcomes, timing
 values, or scenario/result hashes. Historical source manifests retain the
 checksums of the snapshots originally tested; they are not checksums of today's
-edited source tree.
+edited source tree. Personal filesystem prefixes have been replaced with generic
+paths. Planning documents and compressed source/scaling bundles were removed;
+retained historical manifests may still name the documents originally tested.
+Recorded outcomes, measurements and canonical result hashes are unchanged.
+Generated artifact hashes cover the retained files; `historical_generated_hashes`
+preserves original hashes for artifacts changed by path redaction.
 
 [FRR tooling evidence](frr/frr-validation.md) records offline harness coverage
 and generated lab artifacts. [Linux acceptance](linux/README.md) records two

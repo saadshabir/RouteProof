@@ -1,4 +1,4 @@
-# Phase 5 review fixes
+# Benchmark review fixes
 
 Validation date: 2026-10-07 (America/Toronto).
 
@@ -31,8 +31,8 @@ These descriptive runs do not establish a performance regression threshold.
 
 The [source-input manifest](source-inputs.json) has SHA-256
 `9ccd95071b19708530f0e195d490d90be744764a2eda4809491a67a46eaa2aed`.
-The [source archive](source-snapshot.tar.gz) freezes the corrected sources and tests;
-[commands](commands.txt) document reconstruction and verification. The
+The historical source archive was removed during privacy cleanup;
+[commands](commands.txt) retain the verification record. The
 [external-binary check](external-binary-provenance.json) also verifies a real clean
 binary passed to the original dirty harness checkout, with both origins recorded
 accurately.
@@ -40,6 +40,6 @@ accurately.
 The [historical validation](historical-validation.json) applies the stricter
 validator to all 14 previously completed scaling cells and the original small
 reproduction. The two declared budget skips remain skips. Original measurements
-and archives are preserved; this follow-up supersedes their harness implementation.
+and source manifests are preserved; this follow-up supersedes their harness implementation.
 The parent [artifact checksums](../artifact-sha256.txt) cover both bundles.
 Authoritative Linux RSS and live FRR acceptance remain open.

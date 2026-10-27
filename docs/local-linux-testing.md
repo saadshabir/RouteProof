@@ -60,7 +60,7 @@ ip link delete rp-veth-test
 Use a fresh committed checkout on the machine's Linux filesystem. Keep Linux
 build directories separate from native macOS builds. The recorded run cloned
 the shared macOS repository into
-`/home/saad/routeproof-testing/20261009/first-source`.
+`/home/user/routeproof-testing/20261009/first-source`.
 
 From the clean Linux checkout:
 

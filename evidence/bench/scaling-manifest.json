@@ -2,7 +2,7 @@
   "cli_boundary": "fresh process launch through blocking wait4 return; parse, validation, simulation, JSON and file writes; thread scheduling overhead included",
   "generator_version": "routeproof_workload_v1",
   "host": {
-    "binary_path": "/Users/saad/Desktop/Main/Personal/Projects/RouteProof/build/host-release/routeproof",
+    "binary_path": "/workspace/RouteProof/build/host-release/routeproof",
     "binary_sha256": "aba883033068574bf0a12ae50e9029c7c7660eed3ba36da6bbd8d0ba93873d6c",
     "build_cache": {
       "CMAKE_BUILD_TYPE": "Release",
