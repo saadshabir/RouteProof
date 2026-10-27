@@ -138,6 +138,9 @@ if(BUILD_TESTING)
     add_test(NAME workflows.acceptance_contract COMMAND "${Python3_EXECUTABLE}"
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/workflows/check_workflows.py" "$<TARGET_FILE:routeproof>")
     set_tests_properties(workflows.acceptance_contract PROPERTIES TIMEOUT 60)
+    add_test(NAME workflows.launcher_contract COMMAND "${Python3_EXECUTABLE}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/workflows/check_launcher.py")
+    set_tests_properties(workflows.launcher_contract PROPERTIES TIMEOUT 60)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")
