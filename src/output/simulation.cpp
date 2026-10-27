@@ -85,6 +85,7 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
                           SimulationMetrics* metrics) {
     using Clock = std::chrono::steady_clock;
     Clock::time_point start;
+    SimulationSummary summary;
     if (metrics) { *metrics = {}; }
     const auto normalized = Json::parse(loaded.normalized_json);
     Json result{{"schema_version", 1}, {"model", model_id}, {"scenario_name", loaded.topology.scenario.name},
@@ -185,7 +186,11 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
             // Publish a snapshot and all of its assertions together. A failed
             // candidate contributes neither an event nor partial assertions.
             result["snapshots"].push_back(std::move(physical));
-            if (snapshot.event) { result["events"].push_back(std::move(event)); }
+            if (snapshot.event) {
+                result["events"].push_back(std::move(event));
+                if (snapshot.applied) { ++summary.applied_events; }
+                else { ++summary.noop_events; }
+            }
             for (auto& record : assertions) { result["assertions"].push_back(std::move(record)); }
             if (status != "pass" && result["status"] != "incomplete") { result["status"] = status; }
             if (metrics) {
@@ -207,20 +212,20 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
     for (auto& assertion : result["assertions"]) {
         for (auto& finding : assertion["findings"]) { finding["result_sha256"] = hash; }
     }
-    return {result.dump(), status_code(result.at("status").get<std::string>())};
+    summary.status = result.at("status").get<std::string>();
+    summary.canonical_sha256 = hash;
+    summary.completed_snapshots = result.at("snapshots").size();
+    const auto code = status_code(summary.status);
+    return {result.dump(), code, std::move(summary)};
 }
 std::string run_manifest(const input::LoadedScenario& loaded, const SimulationOutput& output,
                          const std::filesystem::path& source, const std::int64_t simulation_ns) {
-    const auto result = Json::parse(output.json);
-    std::size_t applied = 0, noop = 0;
-    for (const auto& event : result.at("events")) {
-        if (event.at("disposition") == "applied") { ++applied; } else { ++noop; }
-    }
+    const auto& summary = output.summary;
     return Json{{"schema_version",1}, {"model",model_id}, {"version",version}, {"compiler",__VERSION__},
-        {"scenario_sha256",loaded.scenario_sha256}, {"result_sha256",result.at("canonical_sha256")},
+        {"scenario_sha256",loaded.scenario_sha256}, {"result_sha256",summary.canonical_sha256},
         {"source_path",source.string()}, {"simulation_ns",simulation_ns},
-        {"status",result.at("status")}, {"completed_snapshots",result.at("snapshots").size()},
-        {"applied_events",applied}, {"noop_events",noop},
+        {"status",summary.status}, {"completed_snapshots",summary.completed_snapshots},
+        {"applied_events",summary.applied_events}, {"noop_events",summary.noop_events},
         {"measurement_boundary","replay, routing, analysis, witness validation, canonical serialization; excludes parsing and file writes"}}.dump();
 }
 SimulationOutput explain(const std::filesystem::path& file, const std::string& assertion) {
@@ -350,7 +355,7 @@ SimulationOutput explain(const std::filesystem::path& file, const std::string& a
         }
         if (!found && result.at("status") != "incomplete") { throw input::InputError("unknown assertion in result"); }
         if (result.contains("incomplete_reason")) { output << "incomplete: " << display_json(result.at("incomplete_reason")) << '\n'; }
-        return {output.str(), exit_code};
+        return {output.str(), exit_code, {}};
     } catch (const Json::exception& error) {
         throw input::InputError(std::string("invalid result JSON: ") + error.what());
     }

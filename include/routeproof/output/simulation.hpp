@@ -15,7 +15,16 @@ struct SimulationLimits {
     std::size_t max_retained_next_hops{8'000'000U};
     std::size_t max_output_bytes{64U * 1024U * 1024U};
 };
-struct SimulationOutput { std::string json; int exit_code{}; };
+struct SimulationSummary {
+    std::string status;
+    std::string canonical_sha256;
+    std::size_t completed_snapshots{}, applied_events{}, noop_events{};
+};
+struct SimulationOutput {
+    std::string json;
+    int exit_code{};
+    SimulationSummary summary; // populated by simulate; explain returns text only
+};
 struct SnapshotSample {
     std::string id;
     bool applied{};
