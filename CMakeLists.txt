@@ -92,7 +92,6 @@ target_compile_definitions(routeproof PRIVATE
 
 include(CTest)
 if(BUILD_TESTING)
-    find_package(Python3 3.9 REQUIRED COMPONENTS Interpreter)
     add_executable(routeproof_topology_check tests/integration/physical_topology.cpp)
     set_target_properties(routeproof_topology_check PROPERTIES CXX_EXTENSIONS OFF)
     target_link_libraries(routeproof_topology_check PRIVATE routeproof_core)
