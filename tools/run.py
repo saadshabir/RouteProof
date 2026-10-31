@@ -7,7 +7,7 @@ Usage: python3 tools/run.py COMMAND [ARGS...]
   test                 Build and run all acceptance checks
   build                Build the Release executable
   frr [ARGS...]        Run the FRR matrix (live labs require Linux)
-  validate/routes/simulate/explain/bench/--version
+  validate/routes/simulate/n-1/explain/bench/--version
                        Forward arguments to the RouteProof CLI
 
 Requires Python 3.9+, Git, CMake, Ninja and a supported C++20 compiler.

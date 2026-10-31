@@ -53,7 +53,7 @@ def component(case, start):
     return sorted(seen), frontier
 
 
-def validate_finding(finding, assertion, state, snapshot, rows, result):
+def validate_finding(finding, assertion, state, snapshot, rows, result, command='simulate'):
     prefixes = [p for p in state['prefixes'] if ipaddress.ip_address(assertion['destination']) in ipaddress.ip_network(p['prefix'])]
     prefix = prefixes[0]
     assert finding['assertion_id'] == assertion['id']
@@ -63,7 +63,7 @@ def validate_finding(finding, assertion, state, snapshot, rows, result):
     assert finding['event_id'] == snapshot['event_id'] and finding['sequence'] == snapshot['sequence']
     assert finding['snapshot_sha256'] == snapshot['sha256']
     assert finding['scenario_sha256'] == result['scenario_sha256'] and finding['result_sha256'] == result['canonical_sha256']
-    assert finding['reproduction_argv'] == ['routeproof', 'simulate', '<scenario>', '--out', '<output>']
+    assert finding['reproduction_argv'] == ['routeproof', command, '<scenario>', '--out', '<output>']
     current = assertion['source']
     up = set(snapshot['available_routers'])
     links = {l['id']: l for l in state['links']}

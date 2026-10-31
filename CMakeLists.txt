@@ -129,6 +129,14 @@ if(BUILD_TESTING)
     add_test(NAME replay.independent_replay COMMAND "${Python3_EXECUTABLE}"
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/reference/check_replay.py" "$<TARGET_FILE:routeproof>")
     set_tests_properties(replay.replay_checker replay.independent_replay PROPERTIES TIMEOUT 60)
+    add_executable(routeproof_single_failures_check tests/integration/single_failures.cpp)
+    set_target_properties(routeproof_single_failures_check PROPERTIES CXX_EXTENSIONS OFF)
+    target_link_libraries(routeproof_single_failures_check PRIVATE routeproof_core nlohmann_json::nlohmann_json)
+    add_test(NAME resilience.single_failures COMMAND routeproof_single_failures_check
+        "${CMAKE_CURRENT_SOURCE_DIR}/examples/diamond-failures.yaml")
+    add_test(NAME resilience.independent_oracle COMMAND "${Python3_EXECUTABLE}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/reference/check_single_failures.py" "$<TARGET_FILE:routeproof>")
+    set_tests_properties(resilience.single_failures resilience.independent_oracle PROPERTIES TIMEOUT 60)
     add_test(NAME frr.offline_harness COMMAND "${Python3_EXECUTABLE}"
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/frr/check_frr.py" "$<TARGET_FILE:routeproof>")
     set_tests_properties(frr.offline_harness PROPERTIES TIMEOUT 60)
@@ -152,6 +160,7 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")
         target_compile_options(routeproof_replay_check PRIVATE -Wall -Wextra -Wpedantic)
         target_compile_options(routeproof_routing_check PRIVATE -Wall -Wextra -Wpedantic)
         target_compile_options(routeproof_input_limits_check PRIVATE -Wall -Wextra -Wpedantic)
+        target_compile_options(routeproof_single_failures_check PRIVATE -Wall -Wextra -Wpedantic)
     endif()
 endif()
 

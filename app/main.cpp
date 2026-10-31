@@ -104,12 +104,13 @@ std::string escape_output(const std::string_view text) {
 
 void print_help(std::ostream& output) {
     output << "RouteProof " << routeproof::version << "\n"
-           << "Usage: routeproof --help | --version | validate <scenario.yaml> [--normalized] | routes <scenario.yaml> [--timing] | simulate FILE --out DIR | explain RESULT --assertion ID\n\n"
+           << "Usage: routeproof --help | --version | validate <scenario.yaml> [--normalized] | routes <scenario.yaml> [--timing] | simulate FILE --out DIR | n-1 FILE --out DIR | explain RESULT --assertion ID\n\n"
            << "Commands:\n"
            << "  validate FILE              Validate and summarize a scenario\n"
            << "  validate FILE --normalized Print canonical normalized scenario JSON\n"
            << "  routes FILE [--timing]      Print baseline routes; optional timing JSON on stderr\n"
            << "  simulate FILE --out DIR    Replay events and check all ECMP branches\n"
+           << "  n-1 FILE --out DIR         Test independent link/router failures from baseline\n"
            << "  explain RESULT --assertion ID  Explain recorded failures\n";
     output << "  bench --profile FILE --out DIR  Collect frozen workload time/RSS evidence\n"
            << "  bench-sample FILE --out DIR     Instrument one scenario (harness worker)\n";
@@ -146,9 +147,10 @@ int main(int argc, char* argv[]) {
             std::cerr << "routeproof: benchmark incomplete: " << escape_output(error.what()) << '\n'; return 3;
         }
     }
-    if (std::string_view{argv[1]} == "simulate" || std::string_view{argv[1]} == "explain" ||
+    if (std::string_view{argv[1]} == "simulate" || std::string_view{argv[1]} == "n-1" || std::string_view{argv[1]} == "explain" ||
         std::string_view{argv[1]} == "bench-sample") {
         const bool instrument = std::string_view{argv[1]} == "bench-sample";
+        const bool single_failures = std::string_view{argv[1]} == "n-1";
         const bool simulate = std::string_view{argv[1]} != "explain";
         if (argc != 5 || std::string_view{argv[3]} != (simulate ? "--out" : "--assertion")) {
             print_help(std::cerr); return 2;
@@ -163,7 +165,8 @@ int main(int argc, char* argv[]) {
             const auto loaded_rss = instrument ? routeproof::bench::steady_rss_bytes() : 0;
             routeproof::output::SimulationMetrics metrics;
             const auto start = std::chrono::steady_clock::now();
-            const auto result = routeproof::output::simulate(loaded, {}, instrument ? &metrics : nullptr);
+            const auto result = single_failures ? routeproof::output::n_minus_one(loaded)
+                : routeproof::output::simulate(loaded, {}, instrument ? &metrics : nullptr);
             const auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(
                 std::chrono::steady_clock::now() - start).count();
             const std::filesystem::path directory(argv[4]);
@@ -180,6 +183,16 @@ int main(int argc, char* argv[]) {
             write("run.json", routeproof::output::run_manifest(loaded, result, argv[2], elapsed));
             write("result.json", result.json);
             if (instrument) { write("sample.json", routeproof::bench::sample_manifest(loaded, result, metrics, loaded_rss, elapsed)); }
+            if (single_failures) {
+                const auto& summary = result.summary;
+                std::cout << "N-1: " << summary.status << "; "
+                          << (summary.completed_snapshots ? summary.completed_snapshots - 1 : 0)
+                          << '/' << summary.requested_cases << " failures tested\n"
+                          << "baseline requirement failures: " << summary.baseline_requirement_failures
+                          << "; network requirement failures: " << summary.network_requirement_failures
+                          << "; endpoint outages: " << summary.endpoint_outages
+                          << "; ECMP redundancy reductions: " << summary.redundancy_reductions << '\n';
+            }
             std::cout << "result: " << escape_output((directory / "result.json").string()) << '\n';
             return result.exit_code;
         } catch (const routeproof::input::InputError& error) {
