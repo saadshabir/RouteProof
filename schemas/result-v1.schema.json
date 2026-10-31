@@ -26,6 +26,8 @@
     "events_sha256": { "$ref": "#/$defs/sha256" },
     "assertions_sha256": { "$ref": "#/$defs/sha256" },
     "canonical_sha256": { "$ref": "#/$defs/sha256" },
+    "analysis_mode": { "const": "n-1" },
+    "resilience": { "$ref": "#/$defs/resilience" },
     "status": { "enum": ["pass", "fail", "incomplete"] },
     "incomplete_reason": { "type": "string", "minLength": 1 },
     "completed_snapshots": { "type": "integer", "minimum": 0 },
@@ -47,8 +49,88 @@
     "if": { "properties": { "status": { "const": "incomplete" } } },
     "then": { "required": ["incomplete_reason", "completed_snapshots", "requested_snapshots"] },
     "else": { "properties": { "snapshots": { "minItems": 1 } } }
+  }, {
+    "if": { "required": ["analysis_mode"] },
+    "then": {
+      "required": ["resilience"],
+      "properties": { "assertions": { "items": { "required": ["failure_scope"] } } }
+    },
+    "else": {
+      "not": { "required": ["resilience"] },
+      "properties": { "assertions": { "items": { "not": { "required": ["failure_scope"] } } } }
+    }
   }],
   "$defs": {
+    "route_identity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source", "prefix", "origin"],
+      "properties": {
+        "source": { "$ref": "#/$defs/id" },
+        "prefix": { "$ref": "#/$defs/ipv4_prefix" },
+        "origin": { "$ref": "#/$defs/id" }
+      }
+    },
+    "redundancy_reduction": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source", "prefix", "origin", "baseline_next_hops", "remaining_next_hops", "redundancy_lost", "reachable"],
+      "properties": {
+        "source": { "$ref": "#/$defs/id" },
+        "prefix": { "$ref": "#/$defs/ipv4_prefix" },
+        "origin": { "$ref": "#/$defs/id" },
+        "baseline_next_hops": { "type": "integer", "minimum": 2 },
+        "remaining_next_hops": { "type": "integer", "minimum": 0 },
+        "redundancy_lost": { "type": "boolean" },
+        "reachable": { "type": "boolean" }
+      }
+    },
+    "failure_target": {
+      "type": "object", "additionalProperties": false, "required": ["kind", "target"],
+      "properties": {
+        "kind": { "enum": ["link", "router"] }, "target": { "$ref": "#/$defs/id" }
+      }
+    },
+    "failure_case": {
+      "type": "object", "additionalProperties": false,
+      "required": ["snapshot_id", "failure", "failed_requirements", "preexisting_failures", "endpoint_outages", "unreachable_routes", "redundancy_reductions"],
+      "properties": {
+        "snapshot_id": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "failure": { "$ref": "#/$defs/failure_target" },
+        "failed_requirements": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "preexisting_failures": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "endpoint_outages": {
+          "type": "array", "items": {
+            "type": "object", "additionalProperties": false, "required": ["assertion_id", "kind"],
+            "properties": {
+              "assertion_id": { "$ref": "#/$defs/id" },
+              "kind": { "enum": ["source_outage", "destination_outage"] }
+            }
+          }
+        },
+        "unreachable_routes": { "type": "array", "items": { "$ref": "#/$defs/route_identity" } },
+        "redundancy_reductions": { "type": "array", "items": { "$ref": "#/$defs/redundancy_reduction" } }
+      }
+    },
+    "resilience": {
+      "type": "object", "additionalProperties": false,
+      "required": ["redundancy_definition", "requested_cases", "completed_cases", "authored_events_ignored", "excluded_components", "baseline_failed_requirements", "cases"],
+      "properties": {
+        "redundancy_definition": { "const": "ecmp_first_hops" },
+        "requested_cases": { "type": "integer", "minimum": 0 },
+        "completed_cases": { "type": "integer", "minimum": 0 },
+        "authored_events_ignored": { "type": "integer", "minimum": 0 },
+        "baseline_failed_requirements": { "type": "array", "items": { "$ref": "#/$defs/id" }, "uniqueItems": true },
+        "cases": { "type": "array", "items": { "$ref": "#/$defs/failure_case" } },
+        "excluded_components": {
+          "type": "array", "items": {
+            "type": "object", "additionalProperties": false, "required": ["kind", "target", "reason"],
+            "properties": {
+              "kind": { "enum": ["link", "router"] }, "target": { "$ref": "#/$defs/id" },
+              "reason": { "enum": ["already_down", "endpoint_unavailable"] }
+            }
+          }
+        }
+      }
+    },
     "id": {
       "type": "string",
       "minLength": 1,
@@ -285,6 +367,7 @@
         "snapshot_id": { "type": "string", "minLength": 1, "maxLength": 64 },
         "snapshot_sha256": { "$ref": "#/$defs/sha256" },
         "status": { "enum": ["pass", "fail", "incomplete"] },
+        "failure_scope": { "enum": ["none", "baseline", "network", "source_outage", "destination_outage"] },
         "findings": {
           "type": "array",
           "items": { "$ref": "#/$defs/finding" }

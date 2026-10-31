@@ -80,9 +80,67 @@ int status_code(const std::string& status) {
     if (status == "incomplete") { return 3; }
     throw input::InputError("invalid result status");
 }
+Json resilience_plan(const model::Topology& topology) {
+    const auto& scenario = topology.scenario;
+    Json excluded = Json::array();
+    for (const auto& link : scenario.links) {
+        if (!link.initially_admin_up || !scenario.routers[link.a].initially_available ||
+            !scenario.routers[link.b].initially_available) {
+            excluded.push_back(Json{{"kind", "link"}, {"target", link.id},
+                {"reason", !link.initially_admin_up ? "already_down" : "endpoint_unavailable"}});
+        }
+    }
+    for (const auto& router : scenario.routers) {
+        if (!router.initially_available) {
+            excluded.push_back(Json{{"kind", "router"}, {"target", router.id}, {"reason", "already_down"}});
+        }
+    }
+    return Json{{"redundancy_definition", "ecmp_first_hops"},
+        {"requested_cases", engine::single_failure_count(topology)}, {"completed_cases", 0},
+        {"authored_events_ignored", scenario.events.size()}, {"excluded_components", std::move(excluded)},
+        {"baseline_failed_requirements", Json::array()}, {"cases", Json::array()}};
 }
-SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationLimits& limits,
-                          SimulationMetrics* metrics) {
+Json resilience_case(const model::Topology& topology, const forwarding::Tables& baseline,
+                     const engine::Snapshot& snapshot, const Json& assertions, const std::string& id) {
+    const auto& scenario = topology.scenario;
+    const auto& event = *snapshot.event;
+    const bool link = event.type == model::EventType::link_down;
+    Json result{{"snapshot_id", id},
+        {"failure", Json{{"kind", link ? "link" : "router"},
+            {"target", link ? scenario.links[event.target_index].id : scenario.routers[event.target_index].id}}},
+        {"failed_requirements", Json::array()}, {"preexisting_failures", Json::array()},
+        {"endpoint_outages", Json::array()}, {"unreachable_routes", Json::array()},
+        {"redundancy_reductions", Json::array()}};
+    for (const auto& record : assertions) {
+        const auto& scope = record.at("failure_scope");
+        if (scope == "network") { result["failed_requirements"].push_back(record.at("assertion_id")); }
+        else if (scope == "baseline") { result["preexisting_failures"].push_back(record.at("assertion_id")); }
+        else if (scope == "source_outage" || scope == "destination_outage") {
+            result["endpoint_outages"].push_back(Json{{"assertion_id", record.at("assertion_id")}, {"kind", scope}});
+        }
+    }
+    for (model::RouterIndex source = 0; source < baseline.routers.size(); ++source) {
+        if (!snapshot.state.available_routers[source]) { continue; }
+        for (const auto& route : baseline.routers[source]) {
+            const auto& prefix = scenario.prefixes[route.prefix];
+            if (!snapshot.state.available_routers[prefix.origin]) { continue; }
+            const auto* remaining = forwarding::lookup(snapshot.tables, source, route.prefix);
+            const auto before = route.next_hops->size();
+            const auto after = remaining ? remaining->next_hops->size() : 0;
+            Json identity{{"source", scenario.routers[source].id}, {"prefix", prefix.network.to_string()},
+                          {"origin", scenario.routers[prefix.origin].id}};
+            if (!remaining) { result["unreachable_routes"].push_back(identity); }
+            if (before > 1 && after < before) {
+                identity.update(Json{{"baseline_next_hops", before}, {"remaining_next_hops", after},
+                    {"redundancy_lost", after < 2}, {"reachable", remaining != nullptr}});
+                result["redundancy_reductions"].push_back(std::move(identity));
+            }
+        }
+    }
+    return result;
+}
+SimulationOutput simulate_impl(const input::LoadedScenario& loaded, const SimulationLimits& limits,
+                              SimulationMetrics* metrics, bool single_failures) {
     using Clock = std::chrono::steady_clock;
     Clock::time_point start;
     SimulationSummary summary;
@@ -92,17 +150,27 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
         {"scenario_sha256", loaded.scenario_sha256}, {"events_sha256", digest(normalized.at("events"))},
         {"assertions_sha256", digest(normalized.at("assertions"))}, {"status", "pass"},
         {"events", Json::array()}, {"snapshots", Json::array()}, {"assertions", Json::array()}};
+    const auto count = single_failures ? engine::single_failure_count(loaded.topology) : loaded.topology.scenario.events.size();
+    if (single_failures) {
+        result["analysis_mode"] = "n-1";
+        result["resilience"] = resilience_plan(loaded.topology);
+        summary.analysis_mode = "n-1";
+        summary.requested_cases = count;
+    }
+    // single_failures retains its baseline for the duration of all callbacks.
+    const forwarding::Tables* baseline_tables = nullptr;
+    std::set<std::string> baseline_failures;
     std::size_t evaluations = 0, analyses = 0, vertices = 0, edges = 0, routes = 0, hops = 0, bytes = result.dump().size() + 512;
     try {
         // Preflight the requested coverage rather than run an arbitrarily long
         // trace until its budget is exhausted. Missing coverage stays explicit.
-        const auto count = loaded.topology.scenario.events.size();
         if (count >= limits.max_snapshots) { throw spf::ResourceLimit("snapshot budget exceeded"); }
         if (!loaded.topology.scenario.assertions.empty() &&
             count + 1 > limits.max_assertion_evaluations / loaded.topology.scenario.assertions.size()) {
             throw spf::ResourceLimit("assertion evaluation budget exceeded");
         }
-        engine::replay(loaded.topology, [&](const engine::Snapshot& snapshot) {
+        const auto run = single_failures ? engine::single_failures : engine::replay;
+        run(loaded.topology, [&](const engine::Snapshot& snapshot) {
             SnapshotSample sample;
             if (metrics) {
                 sample.processing_ns = std::chrono::duration_cast<std::chrono::nanoseconds>(Clock::now() - start).count();
@@ -141,6 +209,7 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
                    limits.max_output_bytes, "canonical output byte budget exceeded");
             physical.update(identity);
             Json assertions = Json::array();
+            Json baseline_failed_requirements = Json::array();
             std::map<model::PrefixIndex, std::unique_ptr<analysis::DestinationAnalysis>> cache;
             std::string status = "pass";
             for (const auto& assertion : loaded.topology.scenario.assertions) {
@@ -176,9 +245,47 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
                     record["findings"].push_back(finding_json(loaded, snapshot, hash, assertion, *finding));
                     if (status != "incomplete") { status = record.at("status").get<std::string>(); }
                 }
+                if (single_failures) {
+                    std::string scope = "none";
+                    if (finding) {
+                        if (!snapshot.event) {
+                            scope = "baseline";
+                            baseline_failed_requirements.push_back(assertion.id);
+                        } else if (snapshot.event->type == model::EventType::router_down &&
+                                   snapshot.event->target_index == assertion.source) {
+                            scope = "source_outage";
+                        } else if (finding->kind == "destination_down" && snapshot.event->type == model::EventType::router_down && snapshot.event->target_index ==
+                                   loaded.topology.scenario.prefixes[assertion.destination_prefix].origin) {
+                            scope = "destination_outage";
+                        } else { scope = baseline_failures.contains(assertion.id) ? "baseline" : "network"; }
+                        record["findings"][0]["reproduction_argv"][1] = "n-1";
+                    }
+                    record["failure_scope"] = scope;
+                }
                 charge(bytes, record.dump().size() + 128 + record.at("findings").size() * 128,
                        limits.max_output_bytes, "canonical output byte budget exceeded");
                 assertions.push_back(std::move(record));
+            }
+            Json failure_case;
+            if (single_failures) {
+                // Endpoint shutdown is expected in a router sweep. Only the
+                // baseline and failures with surviving endpoints affect status.
+                status = "pass";
+                for (const auto& record : assertions) {
+                    const bool endpoint = record.at("failure_scope") == "source_outage" ||
+                                          record.at("failure_scope") == "destination_outage";
+                    if (!endpoint && status_code(record.at("status").get<std::string>()) > status_code(status)) {
+                        status = record.at("status").get<std::string>();
+                    }
+                }
+                if (snapshot.event) {
+                    failure_case = resilience_case(loaded.topology, *baseline_tables, snapshot, assertions, id);
+                    charge(bytes, failure_case.dump().size() + 128, limits.max_output_bytes,
+                           "canonical output byte budget exceeded");
+                } else {
+                    charge(bytes, baseline_failed_requirements.dump().size(), limits.max_output_bytes,
+                           "canonical output byte budget exceeded");
+                }
             }
             Json event;
             if (snapshot.event) {
@@ -197,6 +304,22 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
             // Publish a snapshot and all of its assertions together. A failed
             // candidate contributes neither an event nor partial assertions.
             result["snapshots"].push_back(std::move(physical));
+            if (single_failures) {
+                if (snapshot.event) {
+                    summary.network_requirement_failures += failure_case.at("failed_requirements").size();
+                    summary.endpoint_outages += failure_case.at("endpoint_outages").size();
+                    summary.redundancy_reductions += failure_case.at("redundancy_reductions").size();
+                    result["resilience"]["cases"].push_back(std::move(failure_case));
+                    result["resilience"]["completed_cases"] = result["resilience"]["cases"].size();
+                } else {
+                    baseline_tables = &snapshot.tables;
+                    for (const auto& assertion : baseline_failed_requirements) {
+                        baseline_failures.insert(assertion.get<std::string>());
+                    }
+                    summary.baseline_requirement_failures = baseline_failed_requirements.size();
+                    result["resilience"]["baseline_failed_requirements"] = std::move(baseline_failed_requirements);
+                }
+            }
             if (snapshot.event) {
                 result["events"].push_back(std::move(event));
                 if (snapshot.applied) { ++summary.applied_events; }
@@ -216,7 +339,7 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
     if (result["status"] == "incomplete") {
         if (!result.contains("incomplete_reason")) { result["incomplete_reason"] = "incomplete reachability analysis"; }
         result["completed_snapshots"] = result["snapshots"].size();
-        result["requested_snapshots"] = loaded.topology.scenario.events.size() + 1;
+        result["requested_snapshots"] = count + 1;
     }
     const auto hash = digest(result);
     result["canonical_sha256"] = hash;
@@ -229,15 +352,25 @@ SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationL
     const auto code = status_code(summary.status);
     return {result.dump(), code, std::move(summary)};
 }
+}
+SimulationOutput simulate(const input::LoadedScenario& loaded, const SimulationLimits& limits,
+                          SimulationMetrics* metrics) {
+    return simulate_impl(loaded, limits, metrics, false);
+}
+SimulationOutput n_minus_one(const input::LoadedScenario& loaded, const SimulationLimits& limits) {
+    return simulate_impl(loaded, limits, nullptr, true);
+}
 std::string run_manifest(const input::LoadedScenario& loaded, const SimulationOutput& output,
                          const std::filesystem::path& source, const std::int64_t simulation_ns) {
     const auto& summary = output.summary;
-    return Json{{"schema_version",1}, {"model",model_id}, {"version",version}, {"compiler",__VERSION__},
+    Json result{{"schema_version",1}, {"model",model_id}, {"version",version}, {"compiler",__VERSION__},
         {"scenario_sha256",loaded.scenario_sha256}, {"result_sha256",summary.canonical_sha256},
         {"source_path",source.string()}, {"simulation_ns",simulation_ns},
         {"status",summary.status}, {"completed_snapshots",summary.completed_snapshots},
         {"applied_events",summary.applied_events}, {"noop_events",summary.noop_events},
-        {"measurement_boundary","replay, routing, analysis, witness validation, canonical serialization; excludes parsing and file writes"}}.dump();
+        {"measurement_boundary","replay, routing, analysis, witness validation, canonical serialization; excludes parsing and file writes"}};
+    if (!summary.analysis_mode.empty()) { result["analysis_mode"] = summary.analysis_mode; }
+    return result.dump();
 }
 SimulationOutput explain(const std::filesystem::path& file, const std::string& assertion) {
     std::ifstream stream(file, std::ios::binary);
@@ -264,6 +397,11 @@ SimulationOutput explain(const std::filesystem::path& file, const std::string& a
         });
         if (result.at("schema_version") != 1 || result.at("model") != model_id) {
             throw input::InputError("unsupported result schema/model");
+        }
+        const bool single_failures = result.contains("analysis_mode");
+        if ((single_failures && result.at("analysis_mode") != "n-1") ||
+            single_failures != result.contains("resilience")) {
+            throw input::InputError("unsupported result analysis mode");
         }
         const auto exit_code = status_code(result.at("status").get<std::string>());
         const auto hash = result.at("canonical_sha256").get<std::string>();
@@ -307,6 +445,54 @@ SimulationOutput explain(const std::filesystem::path& file, const std::string& a
                 throw input::InputError("snapshot digest/identity mismatch");
             }
         }
+        std::map<std::string, const Json*> failure_cases;
+        std::set<std::string> baseline_failures;
+        if (single_failures) {
+            const auto& resilience = result.at("resilience");
+            const auto& cases = resilience.at("cases");
+            const auto& completed = resilience.at("completed_cases");
+            const auto& requested = resilience.at("requested_cases");
+            if (!cases.is_array() || !completed.is_number_unsigned() || !requested.is_number_unsigned() ||
+                completed != cases.size() || completed.get<std::uint64_t>() > requested.get<std::uint64_t>() ||
+                (exit_code != 3 && completed != requested) ||
+                cases.size() != result.at("events").size() ||
+                snapshots.size() != (snapshots.empty() ? 0 : cases.size() + 1) ||
+                resilience.at("redundancy_definition") != "ecmp_first_hops" ||
+                (exit_code == 3 && result.at("requested_snapshots") != requested.get<std::uint64_t>() + 1)) {
+                throw input::InputError("N-1 coverage mismatch");
+            }
+            for (const auto& id : resilience.at("baseline_failed_requirements")) {
+                if (!baseline_failures.insert(id.get<std::string>()).second) {
+                    throw input::InputError("duplicate N-1 baseline failure");
+                }
+            }
+            std::set<std::string> observed_baseline_failures;
+            for (const auto& record : result.at("assertions")) {
+                if (record.at("snapshot_id") == "baseline" && status_code(record.at("status").get<std::string>()) != 0) {
+                    observed_baseline_failures.insert(record.at("assertion_id").get<std::string>());
+                }
+            }
+            if (baseline_failures != observed_baseline_failures) {
+                throw input::InputError("N-1 baseline failure summary mismatch");
+            }
+            std::set<std::pair<std::string, std::string>> targets;
+            for (std::size_t index = 0; index < cases.size(); ++index) {
+                const auto& value = cases[index];
+                const auto id = value.at("snapshot_id").get<std::string>();
+                const auto snapshot = snapshots.find(id);
+                const auto kind = value.at("failure").at("kind").get<std::string>();
+                const auto target = value.at("failure").at("target").get<std::string>();
+                const auto& event = result.at("events")[index];
+                if (snapshot == snapshots.end() || !failure_cases.emplace(id, &value).second ||
+                    (kind != "link" && kind != "router") || !targets.emplace(kind, target).second ||
+                    event.at("type") != kind + "_down" || event.at("disposition") != "applied" ||
+                    event.at("sequence") != index + 1 || event.at("id") != snapshot->second->at("event_id") ||
+                    event.at("sequence") != snapshot->second->at("sequence") ||
+                    event.at("snapshot_sha256") != snapshot->second->at("sha256")) {
+                    throw input::InputError("N-1 failure/snapshot reference mismatch");
+                }
+            }
+        }
         std::ostringstream output;
         bool found = false;
         int assertion_status = 0;
@@ -338,10 +524,40 @@ SimulationOutput explain(const std::filesystem::path& file, const std::string& a
                 if (finding.at("terminal_reason") != kind) { throw input::InputError("finding terminal reason mismatch"); }
             }
             if (record_status != finding_status) { throw input::InputError("assertion status/finding kind mismatch"); }
-            assertion_status = std::max(assertion_status, record_status);
+            bool endpoint = false;
+            if (single_failures) {
+                const auto scope = record.at("failure_scope").get<std::string>();
+                const bool baseline = baseline_failures.contains(record.at("assertion_id").get<std::string>());
+                const bool initial = record.at("snapshot_id") == "baseline";
+                const auto failure_case = failure_cases.find(record.at("snapshot_id").get<std::string>());
+                if (!initial && failure_case == failure_cases.end()) {
+                    throw input::InputError("N-1 assertion scope mismatch");
+                }
+                std::string expected_scope = "none";
+                if (record_status != 0) {
+                    expected_scope = initial || baseline ? "baseline" : "network";
+                    const auto& finding = findings.at(0);
+                    if (!initial) {
+                        const auto& failure = failure_case->second->at("failure");
+                        if (failure.at("kind") == "router") {
+                            if (finding.at("kind") == "source_down" && failure.at("target") == finding.at("source")) {
+                                expected_scope = "source_outage";
+                            } else if (finding.at("kind") == "destination_down" && failure.at("target") == finding.at("destination_origin")) {
+                                expected_scope = "destination_outage";
+                            }
+                        }
+                    }
+                }
+                if (scope != expected_scope) { throw input::InputError("N-1 assertion scope mismatch"); }
+                endpoint = expected_scope == "source_outage" || expected_scope == "destination_outage";
+                if (endpoint && findings.size() != 1) { throw input::InputError("N-1 endpoint outage mismatch"); }
+            } else if (record.contains("failure_scope")) { throw input::InputError("unexpected assertion failure scope"); }
+            if (!endpoint) { assertion_status = std::max(assertion_status, record_status); }
             if (record.at("assertion_id") != assertion) { continue; }
             found = true;
-            output << display_json(record.at("snapshot_id")) << ": " << record.at("status").get<std::string>() << '\n';
+            output << display_json(record.at("snapshot_id")) << ": " << record.at("status").get<std::string>();
+            if (single_failures) { output << " (" << display_json(record.at("failure_scope")) << ')'; }
+            output << '\n';
             for (const auto& finding : record.at("findings")) {
                 output << "  " << display_json(finding.at("kind")) << ": " << display_json(finding.at("source"))
                        << " -> " << display_json(finding.at("destination")) << " (all ECMP branches required)\n";

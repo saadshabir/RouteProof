@@ -1,8 +1,9 @@
 # RouteProof
 
 RouteProof is a C++20 tool that computes single-area OSPF-style routes and complete
-ECMP sets, replays link/router failures and restoration, and checks whether every
-forwarding branch delivers traffic. Each event produces a converged snapshot.
+ECMP sets, tests independent single failures or replays authored failures and
+restoration, and checks whether every forwarding branch delivers traffic. Each
+failure or event produces a converged snapshot.
 
 The v0.1 implementation and acceptance are complete. See the
 [acceptance checklist](docs/acceptance.md) for scope and evidence, and the
@@ -33,6 +34,7 @@ paths for each run.
 python3 tools/run.py validate examples/input/valid/diamond.yaml --normalized
 python3 tools/run.py routes examples/routing/merged-ecmp.json
 python3 tools/run.py simulate examples/diamond-failures.yaml --out results/diamond
+python3 tools/run.py n-1 examples/diamond-failures.yaml --out results/diamond-n-1
 python3 tools/run.py explain results/diamond/result.json --assertion a-to-d
 python3 tools/run.py bench --profile benchmarks/profiles/sparse-small.json --out results/bench
 python3 tools/run.py test
@@ -42,6 +44,15 @@ python3 tools/run.py test
 requirements. `python3 tools/run.py --help` lists launcher commands. The `frr`
 command runs the lab matrix; live labs require Linux, Docker, Containerlab and a
 pinned FRR image.
+
+`n-1` automatically tests each operational link and available router from the
+same initial state, ignoring the scenario's authored events (`events: []` works).
+Its `result.json` lists failed requirements, source/destination outages, lost
+routes, and reduced ECMP next-hop counts for each failure. Endpoint outages are
+reported separately from the network's resilience status; baseline requirement
+failures still fail the check. The diamond passes N−1 while losing ECMP
+redundancy under six failures. See the [N−1 contract](docs/model.md#automatic-single-failure-testing-n1)
+for status, coverage, and redundancy definitions.
 
 For manual builds or repeated direct executable use:
 

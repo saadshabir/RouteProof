@@ -79,6 +79,59 @@ For `must_reach` with quantifier `all`, every eligible ECMP choice at each hop m
 
 Findings distinguish `source_down`, `destination_down`, `no_route`, `link_down`, `next_hop_down`, `loop`, and `incomplete`. A missing route after a partition is a failed assertion with available-component/frontier evidence, not automatically an SPF defect. An incomplete analysis never counts as a pass. Witness paths and partition evidence must be checked against their referenced snapshot.
 
+### Automatic single-failure testing (N−1)
+
+`routeproof n-1 FILE --out DIR` computes the initial baseline, then independently
+fails each operational physical link and each available router. Every candidate
+copies the same baseline state, preserving all initial unavailability. Link
+failures disable both directional arcs; router failures leave link administration
+unchanged. Authored events are validated as usual but never applied in this mode;
+an empty `events` array is sufficient. Cases run in normalized link order followed
+by normalized router order, with generated IDs `n-1-1`, `n-1-2`, etc. and zero
+annotation timestamps. Initially down links/routers and links with unavailable
+endpoints are listed in `resilience.excluded_components`, with their reasons.
+
+The canonical result has `analysis_mode: "n-1"` and a `resilience` section. Every
+requirement is evaluated on the baseline and every failure using the existing
+universal ECMP checker and validated witnesses. Its `failure_scope` is `none`,
+`baseline`, `network`, `source_outage`, or `destination_outage`. A generated router
+failure at the requirement's source or destination origin is an endpoint outage;
+source-down retains precedence if both endpoints are unavailable. Failures
+already present at baseline are identified separately. Each case lists
+`failed_requirements`, `preexisting_failures`, and `endpoint_outages`, and references
+its full routing snapshot.
+
+The run exits 0 when the baseline and every requirement with surviving endpoints
+pass, 1 for baseline or network requirement failures, 2 for invalid input/arguments,
+and 3 for incomplete coverage or output failure. Endpoint outages retain failed
+assertion records and witnesses but do not fail the run's network resilience
+status. Redundancy reductions alone do not fail reachability requirements. With
+no assertions, status describes a vacuously passing requirement set; route impacts
+are still reported. `explain` supports these results and displays each scope.
+
+`resilience.cases[].redundancy_reductions` compares every baseline route's ECMP
+first-hop count with its recomputed count under that failure, including routes
+without assertions. Each entry gives source, prefix, origin, before/after counts,
+reachability, and `redundancy_lost` when the count drops below two. A change from
+three to two choices is a reduction that retains redundancy; two to one loses
+redundancy while retaining reachability; two to zero also loses the route.
+`unreachable_routes` lists all baseline routes lost between surviving endpoints,
+including routes with only one baseline next hop. Endpoint outages are excluded
+from both route-impact lists. This is explicitly `ecmp_first_hops` redundancy:
+parallel interfaces count separately, unequal-cost backup paths are not counted,
+and multiple first hops do not certify link- or router-disjoint end-to-end paths.
+
+`engine::single_failures` retains only the baseline and one candidate; the output
+consumer atomically publishes each case with its snapshot and complete assertion
+set. The normal simulation limits cover the baseline plus the generated cases,
+not the ignored event count. Resource-limit or caught computation failures return
+`incomplete`, retain only completed cases, and record requested/completed coverage
+in `resilience` and the normal snapshot coverage fields. Artifacts are written
+after the sweep returns; Ctrl-C or process termination does not save partial
+results. Canonical hashes include mode and resilience data; `events_sha256`
+still hashes the original normalized authored events, whose
+ignored count is explicit. `run.json` records the mode alongside normal provenance.
+
 ### Implemented replay and analysis interfaces
 
 `engine::replay` retains a current snapshot and computes a candidate's complete tables before publishing through its observer. A routing failure never publishes partially computed tables. The output consumer publishes each snapshot and its full assertion set together. Router events mutate only router availability, and link events mutate only link administrative state. Identical states have identical snapshot hashes, including no-ops; snapshot/event identities remain separate.
@@ -95,7 +148,7 @@ Limit exhaustion or computation failure returns canonical `status: incomplete`, 
 
 `run.json` records compiler/program/model versions, source path, semantic digests, completed snapshots, applied/no-op event counts, and a separate monotonic `simulation_ns`. Its boundary includes replay, route computation, analysis, witness validation, and canonical serialization; it excludes parsing and file writes. No-op events are separately counted and never included in `applied_events`. This diagnostic sample is not published performance or convergence evidence.
 
-`explain` bounds result input at 64 MiB and nesting at 128, rejects duplicate JSON keys and unsupported versions, and verifies result/finding/snapshot hashes and every finding's assertion/scenario/snapshot/event references before displaying the selected assertion. Assertion statuses must agree with their findings, and a complete result's status must agree with all assertion outcomes. Incomplete results require a nonempty reason and integer completed/requested snapshot counts consistent with the retained snapshots. Displayed JSON strings escape terminal controls. It does not reconstruct the original topology or independently certify an arbitrary externally supplied result; witness validation belongs to simulation and the reference checks.
+`explain` bounds result input at 64 MiB and nesting at 128, rejects duplicate JSON keys and unsupported versions, and verifies result/finding/snapshot hashes and every finding's assertion/scenario/snapshot/event references before displaying the selected assertion. Assertion statuses must agree with their findings, and a complete result's status must agree with assertion outcomes (excluding generated endpoint outages in N−1 mode). Incomplete results require a nonempty reason and integer completed/requested snapshot counts consistent with the retained snapshots. Displayed JSON strings escape terminal controls. It does not reconstruct the original topology or independently certify an arbitrary externally supplied result; witness validation belongs to simulation and the reference checks.
 
 ## Deterministic data and hashes
 
@@ -107,4 +160,4 @@ Canonical result JSON uses UTF-8, ASCII field names and IDs, lexically sorted ob
 
 ## Model and schema versioning
 
-The CLI reports project version `0.1.0`, model ID `ospf_spf_v1`, scenario schema version `1`, and result schema version `1`. A semantic or structural change that would make a v1 document mean something different requires a new model/schema version. The five implementation deliverables and their evidence gates are tracked in [acceptance.md](acceptance.md).
+The CLI reports project version `0.1.0`, model ID `ospf_spf_v1`, scenario schema version `1`, and result schema version `1`. The optional `analysis_mode: "n-1"` discriminator extends result v1 with resilience data and endpoint-aware aggregation; authored replay documents retain their original fields, hashes, and meaning. A semantic or structural change that would make an existing v1 document mean something different requires a new model/schema version. The five implementation deliverables and their evidence gates are tracked in [acceptance.md](acceptance.md).
