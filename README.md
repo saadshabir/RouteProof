@@ -35,6 +35,9 @@ python3 tools/run.py validate examples/input/valid/diamond.yaml --normalized
 python3 tools/run.py routes examples/routing/merged-ecmp.json
 python3 tools/run.py simulate examples/diamond-failures.yaml --out results/diamond
 python3 tools/run.py n-1 examples/diamond-failures.yaml --out results/diamond-n-1
+python3 tools/run.py summary results/diamond/result.json
+python3 tools/run.py compare results/diamond/result.json results/diamond/result.json --from event-1 --to event-2
+python3 tools/run.py compare before.yaml after.yaml --scenarios
 python3 tools/run.py explain results/diamond/result.json --assertion a-to-d
 python3 tools/run.py bench --profile benchmarks/profiles/sparse-small.json --out results/bench
 python3 tools/run.py test
@@ -44,6 +47,13 @@ python3 tools/run.py test
 requirements. `python3 tools/run.py --help` lists launcher commands. The `frr`
 command runs the lab matrix; live labs require Linux, Docker, Containerlab and a
 pinned FRR image.
+
+`compare` reports added and withdrawn routes, metric and ECMP next-hop changes,
+and newly failing or recovered assertions. `summary` shows which routers,
+prefixes, and assertions were affected across a replay or an N−1 sweep, with
+counts per event or failure case. Both commands emit JSON. See the
+[report contract](docs/model.md#semantic-comparisons-and-run-summaries) for
+snapshot selection and status handling.
 
 `n-1` automatically tests each operational link and available router from the
 same initial state, ignoring the scenario's authored events (`events: []` works).

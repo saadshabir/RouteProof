@@ -1,5 +1,6 @@
 #include "routeproof/output/simulation.hpp"
 #include "baseline_document.hpp"
+#include "result_document.hpp"
 #include "routeproof/engine/replay.hpp"
 #include "routeproof/version.hpp"
 #include "routeproof/bench/measurement.hpp"
@@ -372,7 +373,7 @@ std::string run_manifest(const input::LoadedScenario& loaded, const SimulationOu
     if (!summary.analysis_mode.empty()) { result["analysis_mode"] = summary.analysis_mode; }
     return result.dump();
 }
-SimulationOutput explain(const std::filesystem::path& file, const std::string& assertion) {
+Json detail::read_result(const std::filesystem::path& file) {
     std::ifstream stream(file, std::ios::binary);
     if (!stream) { throw input::InputError("cannot read result file"); }
     std::string content;
@@ -405,14 +406,20 @@ SimulationOutput explain(const std::filesystem::path& file, const std::string& a
         }
         const auto exit_code = status_code(result.at("status").get<std::string>());
         const auto hash = result.at("canonical_sha256").get<std::string>();
-        auto projection = result; projection.erase("canonical_sha256");
-        for (auto& record : projection.at("assertions")) {
+        // Strip and restore the digest fields in place to avoid copying a
+        // potentially large retained history just to verify its projection.
+        result.erase("canonical_sha256");
+        for (auto& record : result.at("assertions")) {
             for (auto& finding : record.at("findings")) {
                 if (finding.at("result_sha256") != hash) { throw input::InputError("finding result digest mismatch"); }
                 finding.erase("result_sha256");
             }
         }
-        if (digest(projection) != hash) { throw input::InputError("canonical result digest mismatch"); }
+        if (digest(result) != hash) { throw input::InputError("canonical result digest mismatch"); }
+        result["canonical_sha256"] = hash;
+        for (auto& record : result.at("assertions")) {
+            for (auto& finding : record.at("findings")) { finding["result_sha256"] = hash; }
+        }
         if (!result.at("snapshots").is_array() || !result.at("assertions").is_array()) {
             throw input::InputError("result snapshots/assertions must be arrays");
         }
@@ -493,8 +500,6 @@ SimulationOutput explain(const std::filesystem::path& file, const std::string& a
                 }
             }
         }
-        std::ostringstream output;
-        bool found = false;
         int assertion_status = 0;
         for (const auto& record : result.at("assertions")) {
             const auto snapshot = snapshots.find(record.at("snapshot_id").get<std::string>());
@@ -553,10 +558,26 @@ SimulationOutput explain(const std::filesystem::path& file, const std::string& a
                 if (endpoint && findings.size() != 1) { throw input::InputError("N-1 endpoint outage mismatch"); }
             } else if (record.contains("failure_scope")) { throw input::InputError("unexpected assertion failure scope"); }
             if (!endpoint) { assertion_status = std::max(assertion_status, record_status); }
+        }
+        if (exit_code != 3 && exit_code != assertion_status) {
+            throw input::InputError("result status/assertion outcomes mismatch");
+        }
+        return result;
+    } catch (const Json::exception& error) {
+        throw input::InputError(std::string("invalid result JSON: ") + error.what());
+    }
+}
+SimulationOutput explain(const std::filesystem::path& file, const std::string& assertion) {
+    const auto result = detail::read_result(file);
+    const auto exit_code = status_code(result.at("status").get<std::string>());
+    try {
+        std::ostringstream output;
+        bool found = false;
+        for (const auto& record : result.at("assertions")) {
             if (record.at("assertion_id") != assertion) { continue; }
             found = true;
             output << display_json(record.at("snapshot_id")) << ": " << record.at("status").get<std::string>();
-            if (single_failures) { output << " (" << display_json(record.at("failure_scope")) << ')'; }
+            if (record.contains("failure_scope")) { output << " (" << display_json(record.at("failure_scope")) << ')'; }
             output << '\n';
             for (const auto& finding : record.at("findings")) {
                 output << "  " << display_json(finding.at("kind")) << ": " << display_json(finding.at("source"))
@@ -576,9 +597,6 @@ SimulationOutput explain(const std::filesystem::path& file, const std::string& a
                 }
                 if (finding.contains("cycle_entry")) { output << "  cycle enters at step " << display_json(finding.at("cycle_entry")) << '\n'; }
             }
-        }
-        if (exit_code != 3 && exit_code != assertion_status) {
-            throw input::InputError("result status/assertion outcomes mismatch");
         }
         if (!found && result.at("status") != "incomplete") { throw input::InputError("unknown assertion in result"); }
         if (result.contains("incomplete_reason")) { output << "incomplete: " << display_json(result.at("incomplete_reason")) << '\n'; }
