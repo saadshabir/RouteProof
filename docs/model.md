@@ -150,6 +150,51 @@ Limit exhaustion or computation failure returns canonical `status: incomplete`, 
 
 `explain` bounds result input at 64 MiB and nesting at 128, rejects duplicate JSON keys and unsupported versions, and verifies result/finding/snapshot hashes and every finding's assertion/scenario/snapshot/event references before displaying the selected assertion. Assertion statuses must agree with their findings, and a complete result's status must agree with assertion outcomes (excluding generated endpoint outages in N−1 mode). Incomplete results require a nonempty reason and integer completed/requested snapshot counts consistent with the retained snapshots. Displayed JSON strings escape terminal controls. It does not reconstruct the original topology or independently certify an arbitrary externally supplied result; witness validation belongs to simulation and the reference checks.
 
+## Semantic comparisons and run summaries
+
+`routeproof compare BEFORE AFTER [--from ID] [--to ID]` reads two saved results.
+Use the same path twice to compare snapshots within one run. Each selector
+defaults to `baseline`. Use snapshot IDs such as `event-2`, where the suffix is
+the event sequence number. Add `--scenarios` to replay both inputs as YAML or
+JSON scenarios and compare their selected snapshots directly.
+
+The comparison matches routes by `(router, prefix)` and reports added and
+withdrawn routes separately. For routes present in both snapshots, it reports
+before/after metrics and origin or route-kind changes. ECMP changes include
+added and removed `(neighbor, link, interface)` tuples and both set sizes. A
+replacement at the same width is a change, including a switch between parallel
+links or between two single next hops. A surviving route can appear in more
+than one category. Route additions and withdrawals have their own categories.
+
+Assertions match by stable ID across inputs. Keep the same ID for the same
+requirement across scenarios. The two sides include assertion-set hashes to
+identify changes to that set. Newly failing assertions passed in the before
+snapshot and failed in the after snapshot. Recoveries move from fail to pass.
+Assertion additions, removals, and transitions involving incomplete evaluations
+appear separately as status changes.
+Failure entries identify the assertion, source, destination, and finding kind.
+Use `explain` for the full witness and partition evidence.
+
+`routeproof summary RESULT` reports requested and completed coverage, route
+change counts, affected route sources and prefixes, and affected assertions
+with their first and last failing snapshot and number of failed or incomplete
+evaluations. The timeline compares each authored event with the preceding
+snapshot, including no-ops. Each N−1 case compares with the baseline instead,
+with its failed component in the timeline and recorded assertion scopes
+counted separately. Counts sum the transitions, so a route or assertion can
+contribute more than once. Assertion evaluation totals include the baseline.
+
+Both commands print deterministic JSON with their own `kind` and
+`schema_version: 1` and read existing `result.json` files with the same bounded
+digest and reference checks as `explain`. They exit 0 for complete source runs,
+including runs with failed assertions. They exit 3 for incomplete runs and
+report the retained coverage when the requested snapshots are available. If a
+snapshot is missing from an incomplete run, `compare` reports that the
+comparison could not be completed. Invalid inputs or selectors for complete
+runs exit 2. Report write failures exit 3. Report construction is bounded to 64
+million route and next-hop references inspected across comparisons. Reports are
+generated on demand and require no changes to the canonical result format.
+
 ## Deterministic data and hashes
 
 Normalize accepted inputs before hashing: canonical IPv4 and prefix text; routers, links, prefixes, and assertions in their documented stable order; events by sequence; complete next-hop sets sorted by `(neighbor, link, interface)`. Reordering declarations must not alter the normalized scenario or results. Generated workloads must identify the PRNG algorithm as well as the seed.

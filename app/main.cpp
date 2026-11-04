@@ -1,6 +1,7 @@
 #include "routeproof/input/scenario_loader.hpp"
 #include "routeproof/version.hpp"
 #include "routeproof/output/baseline.hpp"
+#include "routeproof/output/comparison.hpp"
 #include <chrono>
 #include "routeproof/output/simulation.hpp"
 #include "routeproof/bench/measurement.hpp"
@@ -104,14 +105,17 @@ std::string escape_output(const std::string_view text) {
 
 void print_help(std::ostream& output) {
     output << "RouteProof " << routeproof::version << "\n"
-           << "Usage: routeproof --help | --version | validate <scenario.yaml> [--normalized] | routes <scenario.yaml> [--timing] | simulate FILE --out DIR | n-1 FILE --out DIR | explain RESULT --assertion ID\n\n"
+           << "Usage: routeproof COMMAND [ARGS...] | --help | --version\n\n"
            << "Commands:\n"
            << "  validate FILE              Validate and summarize a scenario\n"
            << "  validate FILE --normalized Print canonical normalized scenario JSON\n"
            << "  routes FILE [--timing]      Print baseline routes; optional timing JSON on stderr\n"
            << "  simulate FILE --out DIR    Replay events and check all ECMP branches\n"
            << "  n-1 FILE --out DIR         Test independent link/router failures from baseline\n"
-           << "  explain RESULT --assertion ID  Explain recorded failures\n";
+           << "  explain RESULT --assertion ID  Explain recorded failures\n"
+           << "  compare BEFORE AFTER [--from ID] [--to ID] [--scenarios]\n"
+           << "                              Compare snapshots (baseline by default)\n"
+           << "  summary RESULT             Summarize all completed snapshots\n";
     output << "  bench --profile FILE --out DIR  Collect frozen workload time/RSS evidence\n"
            << "  bench-sample FILE --out DIR     Instrument one scenario (harness worker)\n";
 }
@@ -145,6 +149,34 @@ int main(int argc, char* argv[]) {
         try { return routeproof::bench::run_harness(argc, argv); }
         catch (const std::exception& error) {
             std::cerr << "routeproof: benchmark incomplete: " << escape_output(error.what()) << '\n'; return 3;
+        }
+    }
+    if (std::string_view{argv[1]} == "compare" || std::string_view{argv[1]} == "summary") {
+        const bool compare = std::string_view{argv[1]} == "compare";
+        if (compare ? argc < 4 : argc != 3) { print_help(std::cerr); return 2; }
+        std::string_view from, to;
+        bool scenarios = false;
+        for (int i = 4; i < argc; ++i) {
+            const std::string_view option = argv[i];
+            if (option == "--scenarios" && !scenarios) { scenarios = true; continue; }
+            auto& selector = option == "--from" ? from : to;
+            if ((option != "--from" && option != "--to") || !selector.empty() ||
+                i + 1 == argc || std::string_view{argv[i + 1]}.empty() || std::string_view{argv[i + 1]}.starts_with("--")) {
+                print_help(std::cerr); return 2;
+            }
+            selector = argv[++i];
+        }
+        try {
+            const auto report = compare ? routeproof::output::compare(argv[2], argv[3],
+                from.empty() ? "baseline" : from, to.empty() ? "baseline" : to, scenarios)
+                : routeproof::output::summarize(argv[2]);
+            std::cout << report.json << std::flush;
+            if (!std::cout) { throw std::runtime_error("could not write report to stdout"); }
+            return report.exit_code;
+        } catch (const routeproof::input::InputError& error) {
+            std::cerr << "routeproof: " << escape_output(error.what()) << '\n'; return 2;
+        } catch (const std::exception& error) {
+            std::cerr << "routeproof: report incomplete: " << escape_output(error.what()) << '\n'; return 3;
         }
     }
     if (std::string_view{argv[1]} == "simulate" || std::string_view{argv[1]} == "n-1" || std::string_view{argv[1]} == "explain" ||

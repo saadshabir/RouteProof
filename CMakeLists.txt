@@ -63,6 +63,7 @@ add_library(routeproof_core STATIC
     src/engine/replay.cpp
     src/analysis/reachability.cpp
     src/output/simulation.cpp
+    src/output/comparison.cpp
     src/bench/measurement.cpp
 )
 
@@ -129,6 +130,10 @@ if(BUILD_TESTING)
     add_test(NAME replay.independent_replay COMMAND "${Python3_EXECUTABLE}"
         "${CMAKE_CURRENT_SOURCE_DIR}/tests/reference/check_replay.py" "$<TARGET_FILE:routeproof>")
     set_tests_properties(replay.replay_checker replay.independent_replay PROPERTIES TIMEOUT 60)
+    add_test(NAME reports.semantic_comparisons COMMAND "${Python3_EXECUTABLE}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/tests/integration/check_comparisons.py" "$<TARGET_FILE:routeproof>"
+        "${CMAKE_CURRENT_SOURCE_DIR}/examples/diamond-failures.yaml")
+    set_tests_properties(reports.semantic_comparisons PROPERTIES TIMEOUT 60)
     add_executable(routeproof_single_failures_check tests/integration/single_failures.cpp)
     set_target_properties(routeproof_single_failures_check PROPERTIES CXX_EXTENSIONS OFF)
     target_link_libraries(routeproof_single_failures_check PRIVATE routeproof_core nlohmann_json::nlohmann_json)
