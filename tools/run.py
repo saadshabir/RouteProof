@@ -7,7 +7,8 @@ Usage: python3 tools/run.py COMMAND [ARGS...]
   test                 Build and run all acceptance checks
   build                Build the Release executable
   frr [ARGS...]        Run the FRR matrix (live labs require Linux)
-  validate/routes/simulate/n-1/explain/compare/summary/bench/--version
+  bench [ARGS...]      Run the source benchmark harness
+  validate/routes/simulate/n-1/explain/compare/summary/--version
                        Forward arguments to the RouteProof CLI
 
 Requires Python 3.9+, Git, CMake, Ninja and a supported C++20 compiler.
@@ -141,8 +142,10 @@ def main(argv):
         if argv[0] == 'test':
             command = ['ctest', '--test-dir', str(BUILD), '--output-on-failure', *argv[1:]]
             os.execvp(command[0], command)
-        if argv[0] in ('demo', 'frr'):
-            script, option = ('demo.py', '--binary') if argv[0] == 'demo' else ('frr/run_matrix.py', '--routeproof')
+        if argv[0] in ('demo', 'frr', 'bench'):
+            script, option = {'demo': ('demo.py', '--binary'),
+                              'frr': ('frr/run_matrix.py', '--routeproof'),
+                              'bench': ('bench/run.py', '--binary')}[argv[0]]
             command = [sys.executable, str(ROOT / 'tools' / script), option, binary, *argv[1:]]
             os.execv(command[0], command)
         os.execv(binary, [binary, *argv])

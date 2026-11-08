@@ -8,6 +8,4 @@ namespace routeproof::bench {
 [[nodiscard]] std::string sample_manifest(const input::LoadedScenario&,
     const output::SimulationOutput&, const output::SimulationMetrics&,
     std::uint64_t loaded_rss, std::int64_t simulation_ns);
-// Launch the Python orchestrator with argv (no shell interpretation).
-int run_harness(int argc, char* argv[]);
 }

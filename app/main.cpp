@@ -116,8 +116,8 @@ void print_help(std::ostream& output) {
            << "  compare BEFORE AFTER [--from ID] [--to ID] [--scenarios]\n"
            << "                              Compare snapshots (baseline by default)\n"
            << "  summary RESULT             Summarize all completed snapshots\n";
-    output << "  bench --profile FILE --out DIR  Collect frozen workload time/RSS evidence\n"
-           << "  bench-sample FILE --out DIR     Instrument one scenario (harness worker)\n";
+    output << "  bench-sample FILE --out DIR     Instrument one scenario (harness worker)\n"
+           << "\nSource benchmark tooling: python3 tools/run.py bench --help\n";
 }
 
 void print_version(std::ostream& output) {
@@ -146,10 +146,9 @@ int main(int argc, char* argv[]) {
     }
 
     if (std::string_view{argv[1]} == "bench") {
-        try { return routeproof::bench::run_harness(argc, argv); }
-        catch (const std::exception& error) {
-            std::cerr << "routeproof: benchmark incomplete: " << escape_output(error.what()) << '\n'; return 3;
-        }
+        std::cerr << "routeproof: bench is source tooling; use python3 tools/run.py bench, or "
+                     "python3 tools/bench/run.py --binary /path/to/routeproof\n";
+        return 2;
     }
     if (std::string_view{argv[1]} == "compare" || std::string_view{argv[1]} == "summary") {
         const bool compare = std::string_view{argv[1]} == "compare";

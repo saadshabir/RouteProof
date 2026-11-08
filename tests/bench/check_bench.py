@@ -22,6 +22,7 @@ from run import execute, provenance, run_child, source_manifest, validate_profil
 from compare_runs import compare, validate_run
 
 BINARY = str(Path(sys.argv.pop(1)).resolve())
+HARNESS = [sys.executable, str(ROOT / 'tools/bench/run.py'), '--binary', BINARY]
 PROFILE = read_json(ROOT / 'benchmarks/profiles/sparse-small.json')
 
 
@@ -113,7 +114,7 @@ class BenchTests(unittest.TestCase):
             path.write_text('[' * 2000 + '0' + ']' * 2000)
             with self.assertRaisesRegex(ValueError, 'nesting budget'):
                 read_json(path)
-            process = subprocess.run([BINARY, 'bench', '--profile', str(path), '--out', str(Path(name) / 'out')],
+            process = subprocess.run([*HARNESS, '--profile', str(path), '--out', str(Path(name) / 'out')],
                                      capture_output=True, timeout=10)
             self.assertEqual(process.returncode, 2, process.stderr)
             self.assertNotIn(b'Traceback', process.stderr)
@@ -123,7 +124,7 @@ class BenchTests(unittest.TestCase):
             self.assertEqual(read_json(path), {'text': text})
             key = '\x1b[2J\u009b2J\u202eforged'
             path.write_text('{' + json.dumps(key) + ':1,' + json.dumps(key) + ':2}')
-            process = subprocess.run([BINARY, 'bench', '--profile', str(path), '--out', str(Path(name) / 'out')],
+            process = subprocess.run([*HARNESS, '--profile', str(path), '--out', str(Path(name) / 'out')],
                                      capture_output=True, timeout=10)
             self.assertEqual(process.returncode, 2, process.stderr)
             self.assertIn(b'duplicate JSON key', process.stderr)
@@ -428,7 +429,7 @@ class BenchTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix='bench spaces ') as name:
             profile = Path(name) / 'profile.json'
             profile.write_text(json.dumps(PROFILE))
-            result = subprocess.run([BINARY, 'bench', '--profile', str(profile), '--out', str(Path(name) / 'out'), '--allow-debug'], capture_output=True)
+            result = subprocess.run([*HARNESS, '--profile', str(profile), '--out', str(Path(name) / 'out'), '--allow-debug'], capture_output=True)
             self.assertEqual(result.returncode, 0, result.stderr)
 
 

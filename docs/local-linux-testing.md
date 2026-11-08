@@ -89,7 +89,7 @@ commands begin:
 ```sh
 export ROUTEPROOF_FRR_IMAGE=quay.io/frrouting/frr@sha256:e47e67bd612030cb1bedee2bde85b73913f2ea021573b749deb21d94940f03c1
 docker pull --platform linux/amd64 "$ROUTEPROOF_FRR_IMAGE"
-build/host-release/routeproof bench --profile benchmarks/profiles/sparse-small.json \
+python3 tools/run.py bench --profile benchmarks/profiles/sparse-small.json \
   --out results/local-first/bench-small
 python3 tools/frr/run_matrix.py --image "$ROUTEPROOF_FRR_IMAGE" \
   --routeproof "$PWD/build/host-release/routeproof" --out results/local-first/frr

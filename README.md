@@ -10,7 +10,22 @@ The v0.1 implementation and acceptance are complete. See the
 [model contract](docs/model.md) for routing semantics, resource limits, schemas
 and exit codes.
 
-## Quick start
+## Install
+
+Version tags publish Linux and macOS archives, with SHA-256 checksums, on
+[GitHub Releases](https://github.com/saadshabir/RouteProof/releases). Each archive
+contains `bin/routeproof`, examples, schemas, documentation and dependency
+licenses. Extract it anywhere and add its `bin` directory to `PATH`; running the
+CLI requires neither Python nor a development checkout. See
+[installation](docs/installation.md) for platforms, checksum verification,
+source installation and local packaging.
+
+```sh
+routeproof --version
+routeproof simulate /path/to/scenario.yaml --out results/my-scenario
+```
+
+## Develop from source
 
 Requires Git, Python 3.9+, CMake 3.25.2+, Ninja 1.11.1+, and GCC 12.5.0+,
 upstream Clang 18.1.8+, or Apple Clang 21.0.0+.
@@ -80,6 +95,7 @@ Compiler gates use `gcc-debug` with `ROUTEPROOF_GCC_CXX=/path/to/g++` and
 ## Documentation and validation
 
 - [Model contract](docs/model.md): input validation, forwarding, replay, explanations and budgets.
+- [Installation](docs/installation.md): standalone binaries, CMake install rules and release packaging.
 - [Acceptance checklist](docs/acceptance.md): v0.1 scope and completion evidence.
 - [FRRouting validation](docs/validation.md): offline generation and live lab procedures.
 - [Benchmarks](docs/benchmarks.md): frozen workloads, measurement boundaries and reproduction.

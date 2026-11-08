@@ -83,7 +83,8 @@ def verify(args):
             report['diamond_result_file_sha256'] = demo['result_file_sha256']
             report['builds'].append({'preset': preset, 'status': 'pass'})
         binary = source / 'build/host-release/routeproof'
-        command([str(binary), 'bench', '--profile', str(source / 'benchmarks/profiles/sparse-small.json'),
+        command([sys.executable, str(source / 'tools/bench/run.py'), '--binary', str(binary),
+                 '--profile', str(source / 'benchmarks/profiles/sparse-small.json'),
                  '--out', str(out / 'bench-small')], 'benchmark-small')
         command([sys.executable, str(source / 'tools/frr/run_matrix.py'), '--generate-only',
                  '--routeproof', str(binary), '--out', str(out / 'frr-generated')], 'frr-generation', expected=3)
