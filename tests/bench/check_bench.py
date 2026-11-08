@@ -292,9 +292,13 @@ class BenchTests(unittest.TestCase):
             tmp = Path(name)
             marker = tmp / 'worker.pid'
             fake = tmp / 'fake.py'
+            # Publish readiness only after the PID is flushed; otherwise the
+            # interrupt can kill the worker between file creation and writing.
             fake.write_text('#!/usr/bin/env python3\nimport sys,os,time\n'
                 'if sys.argv[1] == "validate":\n print("{}")\nelse:\n'
-                f' open({str(marker)!r}, "w").write(str(os.getpid()))\n time.sleep(30)\n')
+                f' with open({str(marker.with_suffix(".tmp"))!r}, "w") as pid_file:\n'
+                '  pid_file.write(str(os.getpid()))\n'
+                f' os.replace({str(marker.with_suffix(".tmp"))!r}, {str(marker)!r})\n time.sleep(30)\n')
             fake.chmod(0o755)
             profile = tmp / 'profile.json'
             profile.write_text(json.dumps(PROFILE))
