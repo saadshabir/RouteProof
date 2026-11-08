@@ -77,12 +77,12 @@ jobs:
           ctest --test-dir build/host-release --output-on-failure | tee ../linux-acceptance/second-tests.txt
       - name: Capture first live matrix and Linux memory samples
         run: |
-          build/host-release/routeproof bench --profile benchmarks/profiles/sparse-small.json --out results/linux-acceptance/first/bench-small
+          python3 tools/bench/run.py --binary build/host-release/routeproof --profile benchmarks/profiles/sparse-small.json --out results/linux-acceptance/first/bench-small
           sudo -E "$(command -v python3)" tools/frr/run_matrix.py --image "$ROUTEPROOF_FRR_IMAGE" --routeproof "$PWD/build/host-release/routeproof" --out results/linux-acceptance/first/frr
       - name: Reproduce in fresh labs from the separate build
         working-directory: results/linux-clean-checkout
         run: |
-          build/host-release/routeproof bench --profile benchmarks/profiles/sparse-small.json --out ../linux-acceptance/second/bench-small
+          python3 tools/bench/run.py --binary build/host-release/routeproof --profile benchmarks/profiles/sparse-small.json --out ../linux-acceptance/second/bench-small
           sudo -E "$(command -v python3)" tools/frr/run_matrix.py --image "$ROUTEPROOF_FRR_IMAGE" --routeproof "$PWD/build/host-release/routeproof" --out ../linux-acceptance/second/frr
       - name: Validate raw reproduction and authoritative RSS
         run: python3 tools/linux/check_acceptance.py --first results/linux-acceptance/first --second results/linux-acceptance/second --out results/linux-acceptance/checked

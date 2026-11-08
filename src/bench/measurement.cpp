@@ -4,24 +4,11 @@
 #include <fstream>
 #include <set>
 #include <sys/resource.h>
-#include <sys/wait.h>
-#include <spawn.h>
-#include <cerrno>
-#include <cstring>
-#include <csignal>
-#include <stdexcept>
 #if defined(__APPLE__)
 #include <mach/mach.h>
 #endif
 
-extern char** environ;
 namespace routeproof::bench {
-namespace {
-volatile std::sig_atomic_t harness_child = 0;
-void forward_signal(int value) {
-    if (harness_child > 0) { kill(static_cast<pid_t>(harness_child), value); }
-}
-}
 std::uint64_t steady_rss_bytes() {
 #if defined(__linux__)
     std::ifstream file("/proc/self/status");
@@ -87,32 +74,5 @@ std::string sample_manifest(const input::LoadedScenario& loaded,
         {"core_boundary","baseline/event physical mutation, routing and invariants, cached destination analysis, checks and witness validation; excludes parsing, canonical JSON, hashing, retention and file writes"},
         {"steady_rss_boundary","after routing/checks, before current snapshot JSON publication; previous JSON snapshots and destination cache retained"},
         {"snapshots",std::move(samples)}}.dump();
-}
-int run_harness(int argc, char* argv[]) {
-    std::vector<std::string> args{ROUTEPROOF_PYTHON, ROUTEPROOF_BENCH_SCRIPT, "--binary", argv[0]};
-    for (int index = 2; index < argc; ++index) { args.emplace_back(argv[index]); }
-    std::vector<char*> pointers;
-    for (auto& arg : args) { pointers.push_back(arg.data()); }
-    pointers.push_back(nullptr);
-    struct sigaction handler{}, old_interrupt{}, old_terminate{};
-    handler.sa_handler = forward_signal;
-    sigemptyset(&handler.sa_mask);
-    sigaction(SIGINT, &handler, &old_interrupt);
-    sigaction(SIGTERM, &handler, &old_terminate);
-    auto restore = [&] {
-        harness_child = 0;
-        sigaction(SIGINT, &old_interrupt, nullptr);
-        sigaction(SIGTERM, &old_terminate, nullptr);
-    };
-    pid_t child{};
-    const auto error = posix_spawn(&child, ROUTEPROOF_PYTHON, nullptr, nullptr, pointers.data(), environ);
-    if (error != 0) { restore(); throw std::runtime_error(std::string("benchmark harness launch failed: ") + std::strerror(error)); }
-    harness_child = child;
-    int status{};
-    while (waitpid(child, &status, 0) < 0) {
-        if (errno != EINTR) { restore(); throw std::runtime_error("benchmark harness wait failed"); }
-    }
-    restore();
-    return WIFEXITED(status) ? WEXITSTATUS(status) : 3;
 }
 }

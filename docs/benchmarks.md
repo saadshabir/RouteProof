@@ -27,12 +27,13 @@ Use an unsanitized Release build with Python 3.9+, CMake and Ninja:
 cmake --preset host-release
 cmake --build --preset host-release
 ctest --test-dir build/host-release --output-on-failure
-build/host-release/routeproof bench --profile benchmarks/profiles/sparse-small.json --out results/bench-small
-build/host-release/routeproof bench --profile benchmarks/profiles/scaling.json --out results/bench-scaling
+python3 tools/run.py bench --profile benchmarks/profiles/sparse-small.json --out results/bench-small
+python3 tools/run.py bench --profile benchmarks/profiles/scaling.json --out results/bench-scaling
 ```
 
-`bench` launches the checked-in Python harness using argument vectors. The source
-checkout and configured Python interpreter must remain available. The same harness
+The source launcher dispatches `bench` to the checked-in Python harness using its
+own Python interpreter and argument vectors. The native executable contains no
+Python interpreter or harness paths and runs independently of this tooling. The same harness
 can be called directly with `python3 tools/bench/run.py --binary PATH --profile
 FILE --out DIR`. Profiles are strict JSON; unknown fields, duplicate keys, bools in
 integer fields, unsupported shapes, and unsafe cell names are rejected. Existing

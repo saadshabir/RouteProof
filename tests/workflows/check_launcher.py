@@ -133,6 +133,16 @@ class LauncherTests(unittest.TestCase):
         binary = str(self.build / 'routeproof')
         dispatch.assert_called_once_with(binary, [binary, 'simulate', 'scenario.json', '--out', 'fresh'])
 
+    def test_bench_dispatch_uses_the_launchers_python_and_source_harness(self):
+        arguments = ['--profile', 'profile with spaces.json', '--out', 'fresh output']
+        with mock.patch.object(launcher.os, 'execv', side_effect=SystemExit(3)) as dispatch:
+            with self.assertRaises(SystemExit) as result:
+                launcher.main(['bench', *arguments])
+            self.assertEqual(result.exception.code, 3)
+        dispatch.assert_called_once_with(sys.executable,
+            [sys.executable, str(self.root / 'tools/bench/run.py'), '--binary',
+             str(self.build / 'routeproof'), *arguments])
+
 
 class LauncherCMakeTests(unittest.TestCase):
     def test_flag_changes_preserve_manual_cache_options(self):

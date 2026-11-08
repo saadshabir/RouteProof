@@ -7,6 +7,8 @@ include(cmake/Dependencies.cmake)
 set(YAML_CPP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(YAML_CPP_BUILD_TOOLS OFF CACHE BOOL "" FORCE)
 set(YAML_BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+set(YAML_CPP_INSTALL OFF CACHE BOOL "" FORCE)
+set(JSON_Install OFF CACHE BOOL "" FORCE)
 set(PICOSHA2_TEST OFF CACHE BOOL "" FORCE)
 set(PICOSHA2_EXAMPLE OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(yaml-cpp nlohmann_json PicoSHA2)
@@ -77,11 +79,8 @@ target_link_libraries(routeproof_core PRIVATE
     nlohmann_json::nlohmann_json
     picosha2
 )
-find_package(Python3 3.9 REQUIRED COMPONENTS Interpreter)
 target_compile_definitions(routeproof_core PRIVATE
     ROUTEPROOF_BUILD_TYPE="${CMAKE_BUILD_TYPE}"
-    ROUTEPROOF_PYTHON="${Python3_EXECUTABLE}"
-    ROUTEPROOF_BENCH_SCRIPT="${CMAKE_CURRENT_SOURCE_DIR}/tools/bench/run.py"
 )
 
 add_executable(routeproof app/main.cpp)
@@ -93,6 +92,7 @@ target_compile_definitions(routeproof PRIVATE
 
 include(CTest)
 if(BUILD_TESTING)
+    find_package(Python3 3.9 REQUIRED COMPONENTS Interpreter)
     add_executable(routeproof_topology_check tests/integration/physical_topology.cpp)
     set_target_properties(routeproof_topology_check PROPERTIES CXX_EXTENSIONS OFF)
     target_link_libraries(routeproof_topology_check PRIVATE routeproof_core)
@@ -168,6 +168,8 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang|AppleClang")
         target_compile_options(routeproof_single_failures_check PRIVATE -Wall -Wextra -Wpedantic)
     endif()
 endif()
+
+include(cmake/Installation.cmake)
 
 message(STATUS "RouteProof model: ospf_spf_v1")
 message(STATUS "RouteProof scenario schema: 1")
