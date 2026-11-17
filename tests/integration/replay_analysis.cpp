@@ -222,6 +222,12 @@ int main(int argc, char** argv) {
         auto partial = loaded;
         auto& events = partial.topology.scenario.events;
         events[0].type = model::EventType::link_up;
+        // The full physical state still counts against the output budget on a no-op.
+        limits = {};
+        limits.max_output_bytes = 4114;
+        check_summary(partial, output::simulate(partial, limits), 1, 0, 0, "incomplete");
+        ++limits.max_output_bytes;
+        check_summary(partial, output::simulate(partial, limits), 2, 0, 1, "incomplete");
         limits = {};
         limits.max_destination_analyses = loaded.topology.scenario.assertions.size() * 2;
         check_summary(partial, output::simulate(partial, limits), 2, 0, 1, "incomplete");
