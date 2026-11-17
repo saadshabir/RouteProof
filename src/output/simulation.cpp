@@ -161,6 +161,8 @@ SimulationOutput simulate_impl(const input::LoadedScenario& loaded, const Simula
     // single_failures retains its baseline for the duration of all callbacks.
     const forwarding::Tables* baseline_tables = nullptr;
     std::set<std::string> baseline_failures;
+    std::string snapshot_hash;
+    std::size_t physical_bytes = 0;
     std::size_t evaluations = 0, analyses = 0, vertices = 0, edges = 0, routes = 0, hops = 0, bytes = result.dump().size() + 512;
     try {
         // Preflight the requested coverage rather than run an arbitrarily long
@@ -178,17 +180,18 @@ SimulationOutput simulate_impl(const input::LoadedScenario& loaded, const Simula
             }
             charge(routes, snapshot.tables.route_entries, limits.max_retained_routes, "retained route budget exceeded");
             charge(hops, snapshot.tables.next_hop_references, limits.max_retained_next_hops, "retained next-hop budget exceeded");
-            auto baseline = detail::baseline_document(loaded, snapshot.state, snapshot.tables);
-            Json physical = Json::object();
-            physical["available_routers"] = std::move(baseline.at("available_routers"));
-            physical["administratively_up_links"] = std::move(baseline.at("administratively_up_links"));
-            physical["routes"] = std::move(baseline.at("routes"));
-            std::string hash;
-            std::size_t physical_bytes;
-            {
-                const auto serialized = physical.dump();
+            // The baseline initializes these values. On a no-op, replay
+            // supplies the same physical state and tables as the last snapshot.
+            const bool noop = snapshot.event && !snapshot.applied;
+            Json snapshot_document;
+            if (!noop) {
+                auto baseline = detail::baseline_document(loaded, snapshot.state, snapshot.tables);
+                snapshot_document["available_routers"] = std::move(baseline.at("available_routers"));
+                snapshot_document["administratively_up_links"] = std::move(baseline.at("administratively_up_links"));
+                snapshot_document["routes"] = std::move(baseline.at("routes"));
+                const auto serialized = snapshot_document.dump();
                 physical_bytes = serialized.size();
-                hash = picosha2::hash256_hex_string(serialized);
+                snapshot_hash = picosha2::hash256_hex_string(serialized);
             }
             const auto id = snapshot.event ? "event-" + std::to_string(snapshot.event->sequence) : "baseline";
             if (metrics) {
@@ -200,15 +203,13 @@ SimulationOutput simulate_impl(const input::LoadedScenario& loaded, const Simula
                 }
                 sample.available_routers = std::count(snapshot.state.available_routers.begin(), snapshot.state.available_routers.end(), true);
             }
-            Json identity{{"id", id}, {"sha256", hash},
+            Json identity{{"id", id}, {"sha256", snapshot_hash},
                 {"sequence", snapshot.event ? Json(snapshot.event->sequence) : Json(nullptr)},
                 {"event_id", snapshot.event ? Json(snapshot.event->id) : Json(nullptr)}};
-            // The two objects have disjoint keys. Joining them replaces the
-            // adjacent braces with a comma: exactly the previous byte charge,
-            // without serializing every route a second time for its size.
+            // Joining the physical and identity fields replaces two braces
+            // with a comma. Charge the full snapshot even on a no-op.
             charge(bytes, physical_bytes + identity.dump().size() - 1 + 256,
                    limits.max_output_bytes, "canonical output byte budget exceeded");
-            physical.update(identity);
             Json assertions = Json::array();
             Json baseline_failed_requirements = Json::array();
             std::map<model::PrefixIndex, std::unique_ptr<analysis::DestinationAnalysis>> cache;
@@ -239,11 +240,11 @@ SimulationOutput simulate_impl(const input::LoadedScenario& loaded, const Simula
                         else { ++sample.failed_assertions; }
                     }
                 }
-                Json record{{"assertion_id", assertion.id}, {"snapshot_id", id}, {"snapshot_sha256", hash},
+                Json record{{"assertion_id", assertion.id}, {"snapshot_id", id}, {"snapshot_sha256", snapshot_hash},
                     {"status", "pass"}, {"findings", Json::array()}};
                 if (finding) {
                     record["status"] = finding->kind == "incomplete" ? "incomplete" : "fail";
-                    record["findings"].push_back(finding_json(loaded, snapshot, hash, assertion, *finding));
+                    record["findings"].push_back(finding_json(loaded, snapshot, snapshot_hash, assertion, *finding));
                     if (status != "incomplete") { status = record.at("status").get<std::string>(); }
                 }
                 if (single_failures) {
@@ -293,10 +294,12 @@ SimulationOutput simulate_impl(const input::LoadedScenario& loaded, const Simula
                 const auto& value = *snapshot.event;
                 event = Json{{"id", value.id}, {"sequence", value.sequence}, {"at_ns", value.at_ns},
                     {"type", model::event_type_name(value.type)}, {"disposition", snapshot.applied ? "applied" : "noop"},
-                    {"snapshot_sha256", hash}, {"route_entries", snapshot.tables.route_entries},
+                    {"snapshot_sha256", snapshot_hash}, {"route_entries", snapshot.tables.route_entries},
                     {"next_hop_references", snapshot.tables.next_hop_references}};
             }
             charge(bytes, event.dump().size(), limits.max_output_bytes, "canonical output byte budget exceeded");
+            if (noop) { snapshot_document = result["snapshots"].back(); }
+            snapshot_document.update(identity);
             if (metrics) {
                 sample.destination_analyses = cache.size();
                 sample.retained_snapshots = result["snapshots"].size();
@@ -304,7 +307,7 @@ SimulationOutput simulate_impl(const input::LoadedScenario& loaded, const Simula
             }
             // Publish a snapshot and all of its assertions together. A failed
             // candidate contributes neither an event nor partial assertions.
-            result["snapshots"].push_back(std::move(physical));
+            result["snapshots"].push_back(std::move(snapshot_document));
             if (single_failures) {
                 if (snapshot.event) {
                     summary.network_requirement_failures += failure_case.at("failed_requirements").size();
