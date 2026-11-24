@@ -145,14 +145,17 @@ class LauncherTests(unittest.TestCase):
 
 
 class LauncherCMakeTests(unittest.TestCase):
-    def test_flag_changes_preserve_manual_cache_options(self):
+    def test_reused_build_preserves_flags_and_enables_tests_on_request(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory).resolve()
             build = root / 'build/host-release'
             (root / 'CMakeLists.txt').write_text(
                 'cmake_minimum_required(VERSION 3.25.2)\n'
                 'project(launcher_flags LANGUAGES CXX)\n'
-                'include(CTest)\nadd_executable(routeproof main.cpp)\n')
+                'include(CTest)\nadd_executable(routeproof main.cpp)\n'
+                'if(BUILD_TESTING)\n'
+                '    add_test(NAME launcher.cache COMMAND ${CMAKE_COMMAND} -E true)\n'
+                'endif()\n')
             (root / 'main.cpp').write_text(
                 '#ifndef FLAG_SELECTION\n#define FLAG_SELECTION 0\n#endif\n'
                 'int main() { return CACHE_SELECTION + FLAG_SELECTION; }\n')
@@ -200,6 +203,18 @@ class LauncherCMakeTests(unittest.TestCase):
                 del os.environ['LDFLAGS']
                 launcher.build_release()
                 check_cache('', '', 7)
+
+                (root / 'tools').mkdir()
+                script = root / 'tools/run.py'
+                shutil.copyfile(ROOT / 'tools/run.py', script)
+                command = [sys.executable, str(script), 'test']
+                tested = subprocess.run(command, cwd=root, capture_output=True, text=True, check=True)
+                self.assertIn('launcher.cache', tested.stdout)
+                self.assertEqual(launcher.cache_entries()['BUILD_TESTING'], 'ON')
+                self.assertEqual(launcher.cache_entries()['CMAKE_CXX_FLAGS_RELEASE'], release_flags)
+                empty = subprocess.run([*command, '-R', '^missing$'], cwd=root, capture_output=True, text=True)
+                self.assertNotEqual(empty.returncode, 0, empty.stdout)
+                self.assertIn('No tests were found', empty.stdout + empty.stderr)
 
 
 if __name__ == '__main__':

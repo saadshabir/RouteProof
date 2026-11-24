@@ -89,8 +89,12 @@ def build_release(all_targets=False):
     current = configuration(cache)
     mismatch = bool(cache) and (cache.get('CMAKE_HOME_DIRECTORY') != str(ROOT)
                                or cache.get('CMAKE_GENERATOR') != 'Ninja')
-    if current is None or current != previous or mismatch or not (BUILD / 'build.ninja').is_file():
+    enable_tests = all_targets and cache.get('BUILD_TESTING') != 'ON'
+    if (enable_tests or current is None or current != previous or mismatch
+            or not (BUILD / 'build.ninja').is_file()):
         configure = ['cmake', '--preset', 'host-release']
+        if all_targets:
+            configure.append('-DBUILD_TESTING=ON')
         selectors = {key: hashlib.sha256(os.environ[key].encode()).hexdigest() if key in os.environ else None
                      for key in INITIAL_ENVIRONMENT}
         previous_selectors = previous.get('selectors', {}) if isinstance(previous, dict) else {}
@@ -140,7 +144,7 @@ def main(argv):
         if argv[0] == 'build':
             return 0
         if argv[0] == 'test':
-            command = ['ctest', '--test-dir', str(BUILD), '--output-on-failure', *argv[1:]]
+            command = ['ctest', '--test-dir', str(BUILD), '--output-on-failure', '--no-tests=error', *argv[1:]]
             os.execvp(command[0], command)
         if argv[0] in ('demo', 'frr', 'bench'):
             script, option = {'demo': ('demo.py', '--binary'),
