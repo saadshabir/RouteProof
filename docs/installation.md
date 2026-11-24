@@ -41,17 +41,24 @@ directory on `PATH`. Examples, schemas and licenses live under
 
 ## Install from source
 
-Building requires Git, CMake 3.25.2+, Ninja 1.11.1+, and a supported C++20 compiler:
+Building requires Git, CMake 3.25.2+, and a supported C++20 compiler:
 GCC 12.5.0+, upstream Clang 18.1.8+, or Apple Clang 21.0.0+. CMake fetches the
-pinned dependencies. Python 3.9+ is needed only when building the acceptance
-tests or using the source workflow tools.
+pinned dependencies. The example uses CMake's default generator. Select Ninja
+with `-G Ninja` to use Ninja 1.11.1 or newer.
 
 ```sh
-cmake -S . -B build/install -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=OFF
-cmake --build build/install --parallel 4
-cmake --install build/install --prefix "$HOME/.local"
+cmake -S . -B build/install -DCMAKE_BUILD_TYPE=Release
+cmake --build build/install --config Release --parallel 4
+cmake --install build/install --config Release --prefix "$HOME/.local"
 "$HOME/.local/bin/routeproof" --version
 ```
+
+With a multi-config generator, omit `-DCMAKE_BUILD_TYPE=Release` at configure time.
+The `--config Release` arguments select the configuration for build and install.
+
+Pass `-DBUILD_TESTING=ON` to enable the acceptance suite in a plain CMake build.
+The test presets enable it by default. The suite and source workflow tools
+require Python 3.9+.
 
 `--prefix` chooses the destination at installation time; `DESTDIR` staging and
 the standard `CMAKE_INSTALL_BINDIR`, `CMAKE_INSTALL_DATADIR` and
@@ -62,7 +69,7 @@ Both the installed prefix and the executable can be relocated.
 ## Package and verify locally
 
 ```sh
-cpack --config build/install/CPackConfig.cmake -B build/packages
+cpack --config build/install/CPackConfig.cmake -C Release -B build/packages
 python3 tests/installation/check_install.py --archive build/packages/routeproof-0.1.0-darwin-arm64.tar.gz
 ```
 
@@ -77,7 +84,10 @@ both a staged installation and the extracted archive.
 
 The development launcher remains `python3 tools/run.py`; it builds the Release
 executable incrementally before dispatching commands. `demo`, `test`, `frr` and
-`bench` are source workflow tools. Run benchmarks with:
+`bench` are source workflow tools. The `test` command enables the acceptance
+suite in the launcher's build directory. By default, an empty CTest selection
+returns an error.
+Run benchmarks with:
 
 ```sh
 python3 tools/run.py bench --profile benchmarks/profiles/sparse-small.json --out results/bench

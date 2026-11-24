@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.25.2)
 
 project(RouteProof VERSION 0.1.0 LANGUAGES CXX)
 
+# Set the default before dependencies load CTest. Presets can supply the
+# initial value while an existing cache choice takes precedence.
+option(BUILD_TESTING "Build the RouteProof acceptance tests" "${ROUTEPROOF_DEFAULT_BUILD_TESTING}")
+
 include(cmake/Dependencies.cmake)
 
 set(YAML_CPP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
@@ -13,20 +17,17 @@ set(PICOSHA2_TEST OFF CACHE BOOL "" FORCE)
 set(PICOSHA2_EXAMPLE OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(yaml-cpp nlohmann_json PicoSHA2)
 
-if(NOT CMAKE_GENERATOR STREQUAL "Ninja")
-    message(FATAL_ERROR "RouteProof's build contract uses the Ninja generator; configure with a checked-in CMake preset")
-endif()
-
-find_program(ROUTEPROOF_NINJA_EXECUTABLE NAMES ninja REQUIRED)
-execute_process(
-    COMMAND "${ROUTEPROOF_NINJA_EXECUTABLE}" --version
-    OUTPUT_VARIABLE ROUTEPROOF_NINJA_VERSION
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-    RESULT_VARIABLE ROUTEPROOF_NINJA_VERSION_RESULT
-)
-if(NOT ROUTEPROOF_NINJA_VERSION_RESULT EQUAL 0
-   OR ROUTEPROOF_NINJA_VERSION VERSION_LESS 1.11.1)
-    message(FATAL_ERROR "RouteProof requires Ninja 1.11.1 or newer")
+if(CMAKE_GENERATOR MATCHES "^Ninja")
+    execute_process(
+        COMMAND "${CMAKE_MAKE_PROGRAM}" --version
+        OUTPUT_VARIABLE ROUTEPROOF_NINJA_VERSION
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+        RESULT_VARIABLE ROUTEPROOF_NINJA_VERSION_RESULT
+    )
+    if(NOT ROUTEPROOF_NINJA_VERSION_RESULT EQUAL 0
+       OR ROUTEPROOF_NINJA_VERSION VERSION_LESS 1.11.1)
+        message(FATAL_ERROR "RouteProof requires Ninja 1.11.1 or newer when using a Ninja generator")
+    endif()
 endif()
 
 set(ROUTEPROOF_EXPECTED_COMPILER_ID "" CACHE STRING
@@ -80,7 +81,7 @@ target_link_libraries(routeproof_core PRIVATE
     picosha2
 )
 target_compile_definitions(routeproof_core PRIVATE
-    ROUTEPROOF_BUILD_TYPE="${CMAKE_BUILD_TYPE}"
+    ROUTEPROOF_BUILD_TYPE="$<CONFIG>"
 )
 
 add_executable(routeproof app/main.cpp)
@@ -90,8 +91,8 @@ target_compile_definitions(routeproof PRIVATE
     ROUTEPROOF_VERSION="${PROJECT_VERSION}"
 )
 
-include(CTest)
 if(BUILD_TESTING)
+    include(CTest)
     find_package(Python3 3.9 REQUIRED COMPONENTS Interpreter)
     add_executable(routeproof_topology_check tests/integration/physical_topology.cpp)
     set_target_properties(routeproof_topology_check PROPERTIES CXX_EXTENSIONS OFF)
